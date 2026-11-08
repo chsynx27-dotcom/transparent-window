@@ -683,17 +683,9 @@
   "en": "/* Step 3: the level marks become round cells, each holding a secret-word hint icon (magnet · rain · boom · earth · black hole) */",
   "hj": "/* 三段：段格化為圓格，每格置秘語提示圖示 (磁石 · 雨 · 爆 · 地球 · 黑洞) */"
  },
- "/* 블랙홀 3단계: 빛나는 테두리의 검은 구멍 */": {
-  "en": "/* Black hole step 3: a black hole with a glowing rim */",
-  "hj": "/* 黑洞三段：發光邊之黑洞 */"
- },
  "/* 자석 3단계: 끌려온 단어가 빛난다 */": {
   "en": "/* Magnet step 3: pulled words glow */",
   "hj": "/* 磁石三段：被吸之詞發光 */"
- },
- "// 0단계 뚝뚝 끊기며 / 1단계 부드럽게 / 2단계 단어가 돌며 / 3단계 + 빛나는 테두리의 검은 구멍": {
-  "en": "// step 0 choppy / step 1 smooth / step 2 words spin / step 3 + a black hole with a glowing rim",
-  "hj": "// 零段頓挫 / 一段流暢 / 二段詞旋 / 三段 + 發光邊黑洞"
  },
  "// 0단계 뚝뚝 끊기며 / 1단계 부드럽게 / 2단계 마우스 쪽으로 기울고 가까울수록 보라빛 / 3단계 + 빛": {
   "en": "// step 0 choppy / step 1 smooth / step 2 tilt toward the mouse, purpler when closer / step 3 + glow",
@@ -758,5 +750,65 @@
  "{ words: ['자석', 'magnet', '磁石'], run: () => magnet() },": {
   "en": "{ words: ['magnet', 'magnet', '磁石'], run: () => magnet() },",
   "hj": "{ words: ['磁石', 'magnet', '磁石'], run: () => magnet() },"
+ },
+ "/* 블랙홀 3단계: 검은 구멍 + 얇게 빛나는 고리 + 따뜻한 빛무리 (코드 단어들이 그 둘레 원반이 된다) */": {
+  "en": "/* Black hole step 3: a black hole + a thin glowing ring + a warm halo (the code words become the disk around it) */",
+  "hj": "/* 黑洞三段：黑洞 + 細亮環 + 暖光暈 (碼詞化為其周之盤) */"
+ },
+ "// 0단계 뚝뚝 끊기며 / 1단계 부드럽게 / 2단계 단어가 돌며 / 3단계는 gargantua() — 코드가 블랙홀 모양이 된다": {
+  "en": "// step 0 choppy / step 1 smooth / step 2 words spin / step 3 is gargantua() — the code becomes a black hole",
+  "hj": "// 零段頓挫 / 一段流暢 / 二段詞旋 / 三段為 gargantua() — 碼化為黑洞"
+ },
+ "// 금빛으로 물들어 납작한 원반(강착원반)과 구멍을 감싸는 빛 테두리가 되어 돈다 → 사그라들고 코드·창 순서로 서서히 돌아온다": {
+  "en": "// turning gold, forming a flat disk (accretion disk) and a glowing rim around the hole, orbiting → fades, then code and window return slowly in turn",
+  "hj": "// 染金化為扁盤 (吸積盤) 與環洞之光邊而旋 → 漸消，碼與窗依序徐歸"
+ },
+ "// 블랙홀 3단계: 검은 구멍이 서서히 열리고, 가까운 단어부터 줄줄이 천천히 소용돌이치며 끌려와": {
+  "en": "// Black hole step 3: the hole slowly opens, and words stream in one after another, nearest first, swirling slowly,",
+  "hj": "// 黑洞三段：洞徐開，近詞先、連綿徐旋而入，"
+ },
+ "const END = 6000;                   // 이때까지 원반이 돈다": {
+  "en": "const END = 6000;                   // the disk spins until this time",
+  "hj": "const END = 6000;                   // 盤旋至此時"
+ },
+ "const delay = r0 / far * 2000 + Math.random() * 250;   // 가까운 단어부터 줄줄이": {
+  "en": "const delay = r0 / far * 2000 + Math.random() * 250;   // nearest words first, in a stream",
+  "hj": "const delay = r0 / far * 2000 + Math.random() * 250;   // 近詞先，連綿而入"
+ },
+ "const flights = [...pieces()].map(el => {     // 앞 창 글자도 천천히 소용돌이치며 구멍 속으로": {
+  "en": "const flights = [...pieces()].map(el => {     // the front window's text also swirls slowly into the hole",
+  "hj": "const flights = [...pieces()].map(el => {     // 前窗之字亦徐旋入洞"
+ },
+ "const ring = Math.random() < 0.35;              // 35%는 구멍을 감싸는 빛 테두리, 나머지는 납작한 원반": {
+  "en": "const ring = Math.random() < 0.35;              // 35% form the glowing rim around the hole, the rest the flat disk",
+  "hj": "const ring = Math.random() < 0.35;              // 三成五為環洞光邊，餘為扁盤"
+ },
+ "const t = i / 32, s = 0.45;                // 앞 45%: 소용돌이치며 들어옴 / 뒤: 제자리 궤도를 돈다": {
+  "en": "const t = i / 32, s = 0.45;                // first 45%: swirl in / after: orbit in place",
+  "hj": "const t = i / 32, s = 0.45;                // 前四成五：旋入 / 後：循軌而旋"
+ },
+ "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: 'forwards' }), END);   // 사그라든다": {
+  "en": "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: 'forwards' }), END);   // fades away",
+  "hj": "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: 'forwards' }), END);   // 漸消"
+ },
+ "setTimeout(() => {                  // 코드가 먼저 서서히 → 그다음 창": {
+  "en": "setTimeout(() => {                  // the code first, slowly → then the window",
+  "hj": "setTimeout(() => {                  // 碼先徐歸 → 而後窗"
+ },
+ "const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));   // 마우스가 가장자리여도 원반이 화면 안에 다 보이게": {
+  "en": "const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));   // keep the whole disk on screen even if the mouse is at the edge",
+  "hj": "const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));   // 滑鼠雖在邊緣，盤仍全在屏內"
+ },
+ "layer.append(hole);                 // 원반 단어가 구멍 앞·뒤로 지나가도록 같은 층에": {
+  "en": "layer.append(hole);                 // in the same layer so disk words can pass in front of and behind the hole",
+  "hj": "layer.append(hole);                 // 置於同層，使盤詞可行於洞前後"
+ },
+ "const D = END - delay, spinIn = 2.5 + Math.random() * 6.3, w0 = 1.1 * R / ax;   // 안쪽일수록 빨리 돈다 (rad/s)": {
+  "en": "const D = END - delay, spinIn = 2.5 + Math.random() * 6.3, w0 = 1.1 * R / ax;   // inner ones orbit faster (rad/s)",
+  "hj": "const D = END - delay, spinIn = 2.5 + Math.random() * 6.3, w0 = 1.1 * R / ax;   // 愈內旋愈快 (rad/s)"
+ },
+ "zIndex: !ring && k === 1 && Math.sin(phi) > 0 ? 10 : 1 });   // 원반 앞쪽 절반은 구멍 앞을 지난다": {
+  "en": "zIndex: !ring && k === 1 && Math.sin(phi) > 0 ? 10 : 1 });   // the near half of the disk passes in front of the hole",
+  "hj": "zIndex: !ring && k === 1 && Math.sin(phi) > 0 ? 10 : 1 });   // 盤之前半行於洞前"
  }
 }

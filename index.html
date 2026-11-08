@@ -175,10 +175,11 @@
     60% { --br: 120vmax; --core: #111; --ring: #d4140f; } 100% { --br: 120vmax; --core: var(--code); --ring: var(--code); } }
   @keyframes burn-dark { 0% { --br: 0px; --core: #4a0606; --ring: #ff2a1a; }
     60% { --br: 120vmax; --core: #4a0606; --ring: #ff2a1a; } 100% { --br: 120vmax; --core: var(--code); --ring: var(--code); } }
-  /* 블랙홀 3단계: 빛나는 테두리의 검은 구멍 */
-  #hole { position: fixed; z-index: 1; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%;
-    pointer-events: none; background: radial-gradient(circle, #000 55%, transparent 72%);
-    box-shadow: 0 0 30px 6px color-mix(in srgb, var(--accent, #8b87ff) 70%, transparent), inset 0 0 18px #000; }
+  /* 블랙홀 3단계: 검은 구멍 + 얇게 빛나는 고리 + 따뜻한 빛무리 (코드 단어들이 그 둘레 원반이 된다) */
+  #hole { position: fixed; z-index: 5; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(circle, #000 0 60%, #fff6e4 63%, rgba(255,196,130,.55) 67%, transparent 74%);
+    box-shadow: 0 0 80px 30px rgba(255,170,90,.22); }
+  #flock.garg span { text-shadow: 0 0 6px rgba(255,170,90,.8); }
   /* 자석 3단계: 끌려온 단어가 빛난다 */
   :root.q3 #flock.magnet span { text-shadow: 0 0 calc(var(--pull, 0) * 10px) var(--accent); }
   /* 지구: 코드 글자로 그린 도는 지구. 단계가 오를수록 색·명암·매끄러움이 더해진다 */
@@ -865,11 +866,12 @@
     })(t0);
   }
   // 블랙홀: 렌즈(마우스) 자리로 코드와 앞 창이 소용돌이치며 빨려 들어갔다가, 뱉어져 제자리로.
-  // 0단계 뚝뚝 끊기며 / 1단계 부드럽게 / 2단계 단어가 돌며 / 3단계 + 빛나는 테두리의 검은 구멍
+  // 0단계 뚝뚝 끊기며 / 1단계 부드럽게 / 2단계 단어가 돌며 / 3단계는 gargantua() — 코드가 블랙홀 모양이 된다
   let holeOn = false;
   function blackhole() {
     if (holeOn) return;
     holeOn = true; finishTyping();
+    if (quality >= 3) return gargantua();
     const q = quality, cx = lastX, cy = lastY;
     const [words, done] = wordLayer();
     const pull = (el, x, y, spinSelf) => {          // 한 요소를 (cx, cy)로 소용돌이치며 빨아들이는 움직임
@@ -887,21 +889,74 @@
       anims.push(pull(el, r.left + r.width / 2, r.top + r.height / 2, q >= 2 ? 360 : 0));
     });
     document.documentElement.classList.add('flying');
-    let hole = null;
-    if (q >= 3) {
-      hole = document.createElement('div'); hole.id = 'hole';
-      hole.style.left = cx + 'px'; hole.style.top = cy + 'px';
-      document.body.append(hole);
-      hole.animate([{ transform: 'scale(0)' }, { transform: 'scale(1)', offset: 0.2 }, { transform: 'scale(1.15)', offset: 0.75 }, { transform: 'scale(0)' }],
-        { duration: 2900, easing: 'ease-in-out', fill: 'forwards' });
-    }
     setTimeout(() => anims.forEach(a => { a.updatePlaybackRate(1.8); a.reverse(); }), 2000);   // 잠깐 삼켰다가 뱉어낸다
     setTimeout(() => {
       anims.forEach(a => a.cancel());
-      done(); if (hole) hole.remove();
+      done();
       document.documentElement.classList.remove('flying');
       holeOn = false;
     }, 3100);
+  }
+  // 블랙홀 3단계: 검은 구멍이 서서히 열리고, 가까운 단어부터 줄줄이 천천히 소용돌이치며 끌려와
+  // 금빛으로 물들어 납작한 원반(강착원반)과 구멍을 감싸는 빛 테두리가 되어 돈다 → 사그라들고 코드·창 순서로 서서히 돌아온다
+  function gargantua() {
+    const R = Math.min(innerWidth, innerHeight) * 0.08, cool = getComputedStyle(codeEl).color;
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));   // 마우스가 가장자리여도 원반이 화면 안에 다 보이게
+    const cx = clamp(lastX, R * 4.5, innerWidth - R * 4.5), cy = clamp(lastY, R * 2, innerHeight - R * 2.5);
+    const [words, done] = wordLayer();
+    const layer = document.getElementById('flock'); layer.classList.add('garg');
+    const hole = document.createElement('div'); hole.id = 'hole';
+    Object.assign(hole.style, { left: cx + 'px', top: cy + 'px', width: R * 2.4 + 'px', height: R * 2.4 + 'px' });
+    layer.append(hole);                 // 원반 단어가 구멍 앞·뒤로 지나가도록 같은 층에
+    const END = 6000;                   // 이때까지 원반이 돈다
+    hole.animate([{ transform: 'translate(-50%, -50%) scale(0)' }, { transform: 'translate(-50%, -50%) scale(1)', offset: 0.3 },
+      { transform: 'translate(-50%, -50%) scale(1.08)', offset: 0.9 }, { transform: 'translate(-50%, -50%) scale(0)' }],
+      { duration: END + 700, easing: 'ease-in-out', fill: 'forwards' });
+    const far = Math.max(...words.map(w => Math.hypot(w.x - cx, w.y - cy)), 1);
+    const tilt = -8 * Math.PI / 180, cosT = Math.cos(tilt), sinT = Math.sin(tilt);
+    words.forEach(w => {
+      const r0 = Math.hypot(w.x - cx, w.y - cy), a0 = Math.atan2(w.y - cy, w.x - cx);
+      const ring = Math.random() < 0.35;              // 35%는 구멍을 감싸는 빛 테두리, 나머지는 납작한 원반
+      const ax = ring ? R * (1.25 + Math.random() * 0.3) : R * (1.7 + Math.random() * 2.4);
+      const ay = ring ? ax : ax * 0.17;
+      const delay = r0 / far * 2000 + Math.random() * 250;   // 가까운 단어부터 줄줄이
+      const D = END - delay, spinIn = 2.5 + Math.random() * 6.3, w0 = 1.1 * R / ax;   // 안쪽일수록 빨리 돈다 (rad/s)
+      const frames = [];
+      for (let i = 0; i <= 32; i++) {
+        const t = i / 32, s = 0.45;                // 앞 45%: 소용돌이치며 들어옴 / 뒤: 제자리 궤도를 돈다
+        let phi, rx, ry, k;
+        if (t <= s) { const u = t / s; k = u * u * (3 - 2 * u);
+          phi = a0 + spinIn * k; rx = r0 + (ax - r0) * k; ry = r0 + (ay - r0) * k; }
+        else { k = 1; phi = a0 + spinIn + w0 * (t - s) * D / 1000; rx = ax; ry = ay; }
+        const ex = Math.cos(phi) * rx, ey = Math.sin(phi) * ry;
+        const px = cx + ex * cosT - ey * sinT, py = cy + ex * sinT + ey * cosT;
+        frames.push({ transform: `translate(${px - w.x}px, ${py - w.y}px) scale(${1 - 0.35 * k})`,
+          color: k < 0.5 ? cool : ring ? '#fff3dc' : '#ffbf7a', offset: t,
+          zIndex: !ring && k === 1 && Math.sin(phi) > 0 ? 10 : 1 });   // 원반 앞쪽 절반은 구멍 앞을 지난다
+      }
+      w.span.animate(frames, { duration: D, delay, easing: 'linear', fill: 'both' });
+    });
+    const flights = [...pieces()].map(el => {     // 앞 창 글자도 천천히 소용돌이치며 구멍 속으로
+      const r = el.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+      const a0 = Math.atan2(y - cy, x - cx), r0 = Math.hypot(x - cx, y - cy), frames = [];
+      for (let i = 0; i <= 12; i++) {
+        const t = i / 12, a = a0 + 3 * t * t, rr = r0 * (1 - t) ** 1.4;
+        frames.push({ transform: `translate(${cx + Math.cos(a) * rr - x}px, ${cy + Math.sin(a) * rr - y}px) scale(${1 - 0.95 * t})`, opacity: 1 - t });
+      }
+      return el.animate(frames, { duration: 2600, delay: 900 + Math.random() * 900, easing: 'cubic-bezier(.4,0,.7,1)', fill: 'both' });
+    });
+    flights.push(screenEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 1500, delay: 1800, fill: 'both' }));
+    document.documentElement.classList.add('flying');
+    setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: 'forwards' }), END);   // 사그라든다
+    setTimeout(() => {                  // 코드가 먼저 서서히 → 그다음 창
+      hole.remove(); done();
+      setTimeout(() => {
+        screenEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1000, easing: 'ease-in-out' });
+        flights.forEach(a => a.cancel());
+        document.documentElement.classList.remove('flying');
+        holeOn = false;
+      }, 800);
+    }, END + 750);
   }
   // 앞 창 날아가기 (3단계 펑): 창이 덜덜 떨고 → 조각들이 터진 자리 반대쪽으로 돌며 날아가고, 창 유리도 사라졌다가 → 제자리에 서서히 나타난다
   function blowAway(bx, by, wait = 550, calm = 0, glitch = false) {   // wait: 떨리는 시간 (0이면 떨지 않고 바로 터짐) / calm: 0~1, 클수록 느리고 덜 격하게

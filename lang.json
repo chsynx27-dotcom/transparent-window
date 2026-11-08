@@ -635,12 +635,36 @@
   "en": "function breakLines() {               // break the back code lines (front screen untouched)",
   "hj": "function breakLines() {               // 碎後碼之行 (前屏不動)"
  },
- "breakLines();                       // 0·1단계: 뒤 코드는 깨지고, 앞 창은 2단계처럼 터져 퍼지되 단계가 낮을수록 느리게": {
-  "en": "breakLines();                       // steps 0·1: the back code breaks; the front window bursts and spreads like step 2, slower at lower steps",
-  "hj": "breakLines();                       // 零一段：後碼碎裂，前窗如二段炸散，段愈低愈慢"
+ "// 흩어지기 (펑 0·1단계): 화면에 보이는 코드가 0단계는 3~7줄 덩어리째, 1단계는 한 줄씩 가운데서 사방으로 흩어진다": {
+  "en": "// Scatter (boom steps 0·1): visible code flies out from the center — step 0 in chunks of 3–7 lines, step 1 line by line",
+  "hj": "// 散 (爆零一段)：可見之碼自中央四散 — 零段三至七行成塊，一段逐行"
  },
- "setTimeout(comeBack, 2300);         // 뒤 코드가 다 돌아온 뒤 창이 서서히 나타난다": {
-  "en": "setTimeout(comeBack, 2300);         // the window slowly reappears after the back code is fully back",
-  "hj": "setTimeout(comeBack, 2300);         // 後碼盡復後，窗徐徐重現"
+ "const codeBack = scatter(quality);  // 0·1단계: 뒤 코드는 덩어리째 흩어지고, 앞 창은 2단계처럼 터져 퍼지되 단계가 낮을수록 느리게": {
+  "en": "const codeBack = scatter(quality);  // steps 0·1: the back code scatters in chunks; the front window bursts like step 2, slower at lower steps",
+  "hj": "const codeBack = scatter(quality);  // 零一段：後碼成塊四散，前窗如二段炸散，段愈低愈慢"
+ },
+ "group.forEach(l => {              // 덩어리 안 줄들은 함께, 덩어리 가운데를 축으로 돈다": {
+  "en": "group.forEach(l => {              // lines in a chunk move together, turning around the chunk center",
+  "hj": "group.forEach(l => {              // 塊內諸行同動，繞塊心旋轉"
+ },
+ "return () => {                      // 보이지 않는 사이 제자리에 두고 서서히 나타난다": {
+  "en": "return () => {                      // put back in place while unseen, then fade in slowly",
+  "hj": "return () => {                      // 趁不見時歸位，再徐徐浮現"
+ },
+ "setTimeout(() => {                  // 코드가 먼저 서서히 돌아오고 → 그다음 창": {
+  "en": "setTimeout(() => {                  // the code slowly comes back first → then the window",
+  "hj": "setTimeout(() => {                  // 碼先徐徐歸來 → 而後窗"
+ },
+ "#code.scatter > .ln { display: block; width: fit-content; }   /* 펑 0·1단계: 줄을 따로 (글자 길이만큼) 움직이려고 */": {
+  "en": "#code.scatter > .ln { display: block; width: fit-content; }   /* boom steps 0·1: so each line moves on its own (only as wide as its text) */",
+  "hj": "#code.scatter > .ln { display: block; width: fit-content; }   /* 爆零一段：使各行 (僅文字長) 分動 */"
+ },
+ "const gx = a.left + a.width / 2, gy = (a.top + b.bottom) / 2;   // 덩어리 가운데": {
+  "en": "const gx = a.left + a.width / 2, gy = (a.top + b.bottom) / 2;   // chunk center",
+  "hj": "const gx = a.left + a.width / 2, gy = (a.top + b.bottom) / 2;   // 塊之中心"
+ },
+ "const ang = Math.random() * Math.PI * 2;        // 덩어리마다 제각각 여기저기로": {
+  "en": "const ang = Math.random() * Math.PI * 2;        // each chunk off in its own direction",
+  "hj": "const ang = Math.random() * Math.PI * 2;        // 各塊各奔一方"
  }
 }

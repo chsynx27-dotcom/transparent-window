@@ -116,6 +116,7 @@
   @keyframes pop { 40% { transform: scale(1.25); filter: blur(1px); opacity: 1; }
     100% { transform: scale(1.8); filter: blur(10px); opacity: 0; } }
   /* 코드 비 (0~2단계): 줄이 한 줄씩 떨어졌다가 되감기듯 올라온다. 1단계만 곧게, 0·2단계는 제멋대로 기울며 */
+  #code.scatter > .ln { display: block; width: fit-content; }   /* 펑 0·1단계: 줄을 따로 (글자 길이만큼) 움직이려고 */
   #code.rain > .ln { display: block; animation: drop 1.4s cubic-bezier(.5,0,.9,.5) var(--d) both; }
   #code.unrain > .ln { display: block; animation: drop 1s cubic-bezier(.1,.5,.5,1) var(--d) both reverse; }
   @keyframes drop { to { transform: translateY(110vh) rotate(var(--rot)); opacity: 0.15; } }
@@ -689,10 +690,40 @@
       setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(comeBack, 900); }, 2000);   // 코드가 다시 나타난 뒤 창이 돌아온다
       return;
     }
-    breakLines();                       // 0·1단계: 뒤 코드는 깨지고, 앞 창은 2단계처럼 터져 퍼지되 단계가 낮을수록 느리게
+    const codeBack = scatter(quality);  // 0·1단계: 뒤 코드는 덩어리째 흩어지고, 앞 창은 2단계처럼 터져 퍼지되 단계가 낮을수록 느리게
     const comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, quality === 1 ? 0.7 : 0.9);
-    restoreTimer = setTimeout(restore, 1200);
-    setTimeout(comeBack, 2300);         // 뒤 코드가 다 돌아온 뒤 창이 서서히 나타난다
+    setTimeout(() => {                  // 코드가 먼저 서서히 돌아오고 → 그다음 창
+      codeBack(); power = 0; shaking = false; apply();
+      setTimeout(comeBack, 1100);
+    }, 1500);
+  }
+  // 흩어지기 (펑 0·1단계): 화면에 보이는 코드가 0단계는 3~7줄 덩어리째, 1단계는 한 줄씩 가운데서 사방으로 흩어진다
+  function scatter(level) {
+    codeEl.classList.add('scatter');
+    const seen = lines.filter(l => { const r = l.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; });
+    const anims = [];
+    for (let i = 0; i < seen.length;) {
+      const group = seen.slice(i, i += level === 0 ? 3 + Math.floor(Math.random() * 5) : 1);
+      const a = group[0].getBoundingClientRect(), b = group[group.length - 1].getBoundingClientRect();
+      const gx = a.left + a.width / 2, gy = (a.top + b.bottom) / 2;   // 덩어리 가운데
+      const ang = Math.random() * Math.PI * 2;        // 덩어리마다 제각각 여기저기로
+      const far = 300 + Math.random() * 500, turn = (Math.random() - 0.5) * (level === 0 ? 70 : 30);
+      const tx = Math.cos(ang) * far, ty = Math.sin(ang) * far;
+      const delay = Math.random() * 120;
+      group.forEach(l => {              // 덩어리 안 줄들은 함께, 덩어리 가운데를 축으로 돈다
+        const r = l.getBoundingClientRect();
+        l.style.transformOrigin = `${gx - r.left}px ${gy - r.top}px`;
+        anims.push(l.animate([{ transform: 'none', opacity: 1 },
+          { transform: `translate(${tx}px, ${ty}px) rotate(${turn}deg)`, opacity: 0 }],
+          { duration: level === 0 ? 1100 : 950, delay, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' }));
+      });
+    }
+    return () => {                      // 보이지 않는 사이 제자리에 두고 서서히 나타난다
+      codeEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 800, easing: 'ease-in-out' });
+      anims.forEach(a => a.cancel());
+      seen.forEach(l => l.style.transformOrigin = '');
+      codeEl.classList.remove('scatter');
+    };
   }
 
   // 화면 글자 깨뜨리기: 절반을 넘기면 앞 화면 글자가 기호로 바뀌며 색이 갈라지다가, 최대치에서 펑 터진다

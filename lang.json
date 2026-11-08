@@ -1,0 +1,318 @@
+{
+ "/* 단계가 바뀔 때 코드 진하기가 점점 바뀌도록 */": {
+  "en": "/* When the step changes, fade the code darkness gradually */",
+  "hj": "/* 階變之時，碼之濃淡漸移 */"
+ },
+ "/* 블랙 모드: 색만 바꾼다 */": {
+  "en": "/* Dark mode: only the colors change */",
+  "hj": "/* 黑色模式：唯變其色 */"
+ },
+ "/* 블랙/화이트 전환을 부드럽게: 화면 전체가 0.6초에 걸쳐 스르륵 바뀐다 */": {
+  "en": "/* Smooth dark/light switch: the whole screen crossfades over 0.6s */",
+  "hj": "/* 黑白轉換務求柔順：全屏歷零點六秒而漸變 */"
+ },
+ "/* 이스터에그: 코드 속 작은 '버튼' 글자만 누를 수 있다 */": {
+  "en": "/* Easter egg: only the tiny 'button' word in the code is clickable */",
+  "hj": "/* 彩蛋：碼中唯小字「按鈕」可按 */"
+ },
+ "/* 첫 연출: 타자가 끝나면 꽉 찬 코드가 렌즈 크기로 줄어든다 */": {
+  "en": "/* Intro: when typing ends, the full-screen code shrinks into the lens */",
+  "hj": "/* 開場：打字既畢，滿屏之碼縮為透鏡 */"
+ },
+ "/* 투시 렌즈: 마우스 둘레는 코드가 또렷, 나머지는 단계 버튼 값만큼 */": {
+  "en": "/* X-ray lens: code is sharp around the mouse, elsewhere it follows the step buttons */",
+  "hj": "/* 透視鏡：鼠周碼明，餘從階鈕之值 */"
+ },
+ "// 꽉 찬 코드가 마우스 자리의 렌즈로 쪼그라들고, 앞 화면이 떠오른다": {
+  "en": "// the full code shrinks into the lens at the mouse, and the front screen rises",
+  "hj": "// 滿屏之碼縮為鼠處之鏡，前屏浮現"
+ },
+ "// 뒤 코드도 줄마다 그 언어로 (입력칸 줄은 적은 글자를 다시 붙인다)": {
+  "en": "// the code behind switches line by line too (the input line gets its typed text back)",
+  "hj": "// 後碼亦逐行易之（輸入框之行復附所書之字）"
+ },
+ "// 렌즈 크기": {
+  "en": "// Lens size",
+  "hj": "// 透鏡大小"
+ },
+ "// 불투명으로 시작: 앞 화면은 숨기고, 렌즈를 화면 전체 크기로 키운다": {
+  "en": "// Start opaque: hide the front screen and grow the lens to the whole screen",
+  "hj": "// 始於全顯：隱前屏，擴透鏡至滿屏"
+ },
+ "// 블랙 모드: 누를 때마다 켜고 끈다, 고른 것은 이 브라우저에 기억": {
+  "en": "// Dark mode: each press toggles it; the choice is remembered in this browser",
+  "hj": "// 黑色模式：每按則開闔，所擇記於此瀏覽器"
+ },
+ "// 앞에서 글자를 적으면 뒤의 코드(입력칸 줄)에 그대로 써진다": {
+  "en": "// text typed in front is written straight into the code behind (the input line)",
+  "hj": "// 前書之字，即書於後碼（輸入框之行）"
+ },
+ "// 영문 / 한자: 앞 화면 글자를 바꾸고, 뒤 코드의 그 줄도 같이 바꾼다. 같은 버튼을 다시 누르면 한글로": {
+  "en": "// English / Hanja: change the front text and the code behind; press the same button again for Korean",
+  "hj": "// 英文／漢字：易前屏之字，後碼亦隨之。再按同鈕則復韓文"
+ },
+ "// 이스터에그: 코드 속 '버튼'을 누르면 글상자에 살짝 적힌다": {
+  "en": "// Easter egg: clicking 'button' in the code quietly fills the text box",
+  "hj": "// 彩蛋：按碼中「按鈕」，則書於文字框"
+ },
+ "// 자기 자신의 원본 코드를 가져온다 (file://로 열면 실패 → 현재 DOM으로 대체)": {
+  "en": "// fetch our own source code (fails on file:// → use the current DOM instead)",
+  "hj": "// 取自身之原碼（以 file:// 開則敗 → 代以今之 DOM）"
+ },
+ "// 짝 찾기: 화면 요소를 누르면 그 요소를 만든 코드 줄이 반짝인다": {
+  "en": "// Match finder: clicking a screen element flashes the code line that made it",
+  "hj": "// 尋對：按屏上之物，則生之之碼行閃爍"
+ },
+ "// 치고 있는 줄이 화면 아래로 내려가면 따라 내려간다": {
+  "en": "// follow down when the line being typed goes below the screen",
+  "hj": "// 所擊之行出屏下，則隨之而下"
+ },
+ "// 코드 뒤섞기: 누를 때마다 코드가 더 많이 깨지고, 손을 떼면 한 줄씩 원래대로 돌아온다": {
+  "en": "// Scramble: each press breaks more code; let go and it returns line by line",
+  "hj": "// 攪亂：每按碼愈亂，釋手則逐行復原"
+ },
+ "// 코드 줄 번역표: lang.json { \"한글 줄\": { en, hj } } — 없는 줄은 한글 그대로": {
+  "en": "// code line table: lang.json { \"Korean line\": { en, hj } } — missing lines stay Korean",
+  "hj": "// 碼行譯表：lang.json { \"韓文行\": { en, hj } } —— 無者仍作韓文"
+ },
+ "// 코드 줄 하나를 반짝이고 렌즈를 그 줄로 옮긴다": {
+  "en": "// flash one code line and move the lens onto it",
+  "hj": "// 閃一碼行，移鏡於其上"
+ },
+ "// 코드 줄 하나를 원본대로 쓴다. 이스터에그 줄이면 '버튼' 글자만 누를 수 있게 꾸민다": {
+  "en": "// write one code line as is; on the easter-egg line, make only the word 'button' clickable",
+  "hj": "// 依原書碼一行；若為彩蛋之行，則唯「按鈕」二字可按"
+ },
+ "// 코드를 줄 단위로 넣는다 (짝 찾기에서 줄을 집어내려고)": {
+  "en": "// put the code in line by line (so matching can pick a line)",
+  "hj": "// 逐行納碼（以便尋對取行）"
+ },
+ "// 타자 중에 아무 데나 누르면 건너뛴다": {
+  "en": "// clicking anywhere while typing skips it",
+  "hj": "// 打字之中，按任處則略之"
+ },
+ "// 타자 효과: 코드가 누가 치는 것처럼 한 글자씩 쓰여 나간다": {
+  "en": "// Typing effect: the code appears one character at a time, as if someone types it",
+  "hj": "// 打字之效：碼如人擊鍵，逐字而出"
+ },
+ "// 투시 렌즈: 마우스(손가락)가 있는 곳만 뒤의 코드가 비쳐 보인다": {
+  "en": "// X-ray lens: the code behind shows through only where the mouse (finger) is",
+  "hj": "// 透視鏡：唯鼠（指）所在，後碼透見"
+ },
+ "// 화면 글자는 항상 진하게(앞). 좌우 버튼으로 뒤에 깔린 코드의 진하기를 5단계로 바꾼다.": {
+  "en": "// Screen text always stays dark (in front). Left/right buttons set the code behind in 5 steps.",
+  "hj": "// 屏上之字恆濃（居前）。左右二鈕分五階調其後之碼。"
+ },
+ "// 화면(main) 부분의 줄에서만 찾는다 — 스크립트 속 같은 글자는 제외": {
+  "en": "// search only in the screen (main) lines — skip the same text inside the script",
+  "hj": "// 唯於屏（main）之行中尋之——腳本中同字不計"
+ },
+ "<button type=\"button\" id=\"bigger\">렌즈 크게</button>": {
+  "en": "<button type=\"button\" id=\"bigger\">Bigger lens</button>",
+  "hj": "<button type=\"button\" id=\"bigger\">放大透鏡</button>"
+ },
+ "<button type=\"button\" id=\"dark\">블랙 모드</button>": {
+  "en": "<button type=\"button\" id=\"dark\">Dark mode</button>",
+  "hj": "<button type=\"button\" id=\"dark\">黑色模式</button>"
+ },
+ "<button type=\"button\" id=\"down\">◀ 불투명</button>": {
+  "en": "<button type=\"button\" id=\"down\">◀ Opaque</button>",
+  "hj": "<button type=\"button\" id=\"down\">◀ 不透明</button>"
+ },
+ "<button type=\"button\" id=\"retype\">타자 다시 보기</button>": {
+  "en": "<button type=\"button\" id=\"retype\">Replay typing</button>",
+  "hj": "<button type=\"button\" id=\"retype\">重看打字</button>"
+ },
+ "<button type=\"button\" id=\"shake\">코드 뒤섞기 (막 눌러 보세요)</button>": {
+  "en": "<button type=\"button\" id=\"shake\">Scramble code (mash it!)</button>",
+  "hj": "<button type=\"button\" id=\"shake\">攪亂代碼（請連擊）</button>"
+ },
+ "<button type=\"button\" id=\"smaller\">렌즈 작게</button>": {
+  "en": "<button type=\"button\" id=\"smaller\">Smaller lens</button>",
+  "hj": "<button type=\"button\" id=\"smaller\">縮小透鏡</button>"
+ },
+ "<button type=\"button\" id=\"up\">투명 ▶</button>": {
+  "en": "<button type=\"button\" id=\"up\">Clear ▶</button>",
+  "hj": "<button type=\"button\" id=\"up\">透明 ▶</button>"
+ },
+ "<h1>투명창</h1>": {
+  "en": "<h1>Glass Window</h1>",
+  "hj": "<h1>透明窓</h1>"
+ },
+ "<input id=\"memo\" type=\"text\" placeholder=\"여기에 글자를 적어 보세요\" size=\"30\">": {
+  "en": "<input id=\"memo\" type=\"text\" placeholder=\"Type something here\" size=\"30\">",
+  "hj": "<input id=\"memo\" type=\"text\" placeholder=\"請於此處書寫文字\" size=\"30\">"
+ },
+ "<li>목록 둘</li>": {
+  "en": "<li>Item two</li>",
+  "hj": "<li>目錄二</li>"
+ },
+ "<li>목록 하나</li>": {
+  "en": "<li>Item one</li>",
+  "hj": "<li>目錄一</li>"
+ },
+ "<p>이 페이지는 자기 자신의 코드를 겹쳐 보여줍니다. (더미 내용)</p>": {
+  "en": "<p>This page shows its own code layered behind it. (dummy text)</p>",
+  "hj": "<p>此頁示其自身之碼，重疊於後。（假內容）</p>"
+ },
+ "<span>창</span>": {
+  "en": "<span>Window</span>",
+  "hj": "<span>窓</span>"
+ },
+ "<title>투명창</title>": {
+  "en": "<title>Glass Window</title>",
+  "hj": "<title>透明窓</title>"
+ },
+ "const DARK_LABEL = { ko: ['블랙 모드', '화이트 모드'], en: ['Dark mode', 'Light mode'], hj: ['黑色模式', '白色模式'] };": {
+  "en": "const DARK_LABEL = { ko: ['Dark mode', 'Light mode'], en: ['Dark mode', 'Light mode'], hj: ['黑色模式', '白色模式'] };",
+  "hj": "const DARK_LABEL = { ko: ['黑色模式', '白色模式'], en: ['Dark mode', 'Light mode'], hj: ['黑色模式', '白色模式'] };"
+ },
+ "const EGG = { ko: '버튼', en: 'button', hj: '按鈕' };   // 코드 속 숨은 글자": {
+  "en": "const EGG = { ko: 'button', en: 'button', hj: '按鈕' };   // the hidden word in the code",
+  "hj": "const EGG = { ko: '按鈕', en: 'button', hj: '按鈕' };   // 碼中隱字"
+ },
+ "const EGG_TEXT = { ko: '이스터에그', en: 'Easter egg', hj: '彩蛋' };   // 누르면 글상자에 적히는 말": {
+  "en": "const EGG_TEXT = { ko: 'Easter egg', en: 'Easter egg', hj: '彩蛋' };   // the word written into the text box when clicked",
+  "hj": "const EGG_TEXT = { ko: '彩蛋', en: 'Easter egg', hj: '彩蛋' };   // 按則書於文字框之語"
+ },
+ "const SPEED = 30;                     // 한 프레임(약 1/60초)에 치는 글자 수": {
+  "en": "const SPEED = 30;                     // characters typed per frame (about 1/60 s)",
+  "hj": "const SPEED = 30;                     // 每幀（約六十分之一秒）所擊字數"
+ },
+ "const firstLine = new WeakMap();      // 처음(한글) 모양의 첫 줄을 기억": {
+  "en": "const firstLine = new WeakMap();      // remember each element's original (Korean) first line",
+  "hj": "const firstLine = new WeakMap();      // 記其初（韓文）之首行"
+ },
+ "const found = el.id === 'memo' ? memoIdx : idx;   // 입력칸 줄은 글자가 들어가 모양이 바뀌므로 따로 기억": {
+  "en": "const found = el.id === 'memo' ? memoIdx : idx;   // the input line changes as text goes in, so it is remembered separately",
+  "hj": "const found = el.id === 'memo' ? memoIdx : idx;   // 輸入框之行因字入而變形，故別記之"
+ },
+ "const n = power * 4;                // 막 누를수록 더 많은 줄이 깨진다": {
+  "en": "const n = power * 4;                // the more you mash, the more lines break",
+  "hj": "const n = power * 4;                // 愈連擊，壞行愈多"
+ },
+ "const shown = typing ? 4 : level;  // 타자 중에는 끝까지 투명(코드 다 보임)으로 표시": {
+  "en": "const shown = typing ? 4 : level;  // while typing, show fully clear (all code visible)",
+  "hj": "const shown = typing ? 4 : level;  // 打字之中示為全透（碼皆可見）"
+ },
+ "dots.setAttribute('aria-label', `창 투명도 ${shown + 1}/5단계`);": {
+  "en": "dots.setAttribute('aria-label', `Window clarity ${shown + 1}/5`);",
+  "hj": "dots.setAttribute('aria-label', `窓透明度 ${shown + 1}/5階`);"
+ },
+ "dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // 지금 단계 표시": {
+  "en": "dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // show the current step",
+  "hj": "dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // 示今之階"
+ },
+ "eggIdx = orig.findIndex(t => t.includes('/* 버튼 */'));": {
+  "en": "eggIdx = orig.findIndex(t => t.includes('/* button */'));",
+  "hj": "eggIdx = orig.findIndex(t => t.includes('/* 按鈕 */'));"
+ },
+ "else setDark(next);                 // 지원 안 하는 브라우저는 바로 바꾼다": {
+  "en": "else setDark(next);                 // browsers without support switch instantly",
+  "hj": "else setDark(next);                 // 不支援之瀏覽器即時轉換"
+ },
+ "for (let k = 0; k < 6 && todo.length; k++) {   // 한 번에 몇 줄씩 되돌린다": {
+  "en": "for (let k = 0; k < 6 && todo.length; k++) {   // restore a few lines at a time",
+  "hj": "for (let k = 0; k < 6 && todo.length; k++) {   // 每次復原數行"
+ },
+ "function finishTyping() {             // 다 쳤거나, 중간에 다른 기능을 누르면 바로 끝낸다": {
+  "en": "function finishTyping() {             // finish at once when done, or when another feature is pressed",
+  "hj": "function finishTyping() {             // 擊畢或中途按他鈕，即刻終之"
+ },
+ "if (e.target.id === 'shake') return;  // 뒤섞기는 짝 찾기 대신 뒤섞기만": {
+  "en": "if (e.target.id === 'shake') return;  // the scramble button only scrambles, no matching",
+  "hj": "if (e.target.id === 'shake') return;  // 攪亂之鈕唯攪亂，不尋對"
+ },
+ "if (pos >= text.length) {       // 이 줄 끝 → 다음 줄": {
+  "en": "if (pos >= text.length) {       // end of this line → next line",
+  "hj": "if (pos >= text.length) {       // 此行既終 → 次行"
+ },
+ "let holdLens = 0;                     // 짝 찾기 직후 렌즈를 잠깐 고정": {
+  "en": "let holdLens = 0;                     // pin the lens briefly after a match",
+  "hj": "let holdLens = 0;                     // 尋對之後，暫定透鏡"
+ },
+ "let lastX = innerWidth / 2, lastY = innerHeight / 2;   // 마지막 마우스 위치 (없으면 화면 가운데)": {
+  "en": "let lastX = innerWidth / 2, lastY = innerHeight / 2;   // last mouse position (screen center if none)",
+  "hj": "let lastX = innerWidth / 2, lastY = innerHeight / 2;   // 鼠之末位（無則屏中）"
+ },
+ "let level = 2;                        // 0 = 코드 안 보임 … 4 = 코드 또렷": {
+  "en": "let level = 2;                        // 0 = code hidden … 4 = code sharp",
+  "hj": "let level = 2;                        // 零＝碼不見 … 四＝碼分明"
+ },
+ "let orig = [];                        // 지금 보여 줄 줄 (뒤섞여도 이걸로 되돌린다)": {
+  "en": "let orig = [];                        // lines to show now (restored from this after scrambling)",
+  "hj": "let orig = [];                        // 今所示之行（攪亂後據此復原）"
+ },
+ "let pristine = [];                    // 처음 받은 그대로 (한글 원본)": {
+  "en": "let pristine = [];                    // exactly as first loaded (Korean original)",
+  "hj": "let pristine = [];                    // 初得之原貌（韓文原本）"
+ },
+ "let shaking = false;                  // 뒤섞는 동안은 코드를 다 보이게": {
+  "en": "let shaking = false;                  // show all the code while scrambling",
+  "hj": "let shaking = false;                  // 攪亂之間，碼皆可見"
+ },
+ "let typing = false;                   // 타자 치는 동안도 코드를 다 보이게": {
+  "en": "let typing = false;                   // show all the code while typing too",
+  "hj": "let typing = false;                   // 打字之間，碼亦皆可見"
+ },
+ "mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* 버튼 */": {
+  "en": "mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* button */",
+  "hj": "mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* 按鈕 */"
+ },
+ "memo.dispatchEvent(new Event('input'));   // 뒤 코드에도 그대로 써진다": {
+  "en": "memo.dispatchEvent(new Event('input'));   // also written into the code behind",
+  "hj": "memo.dispatchEvent(new Event('input'));   // 後碼亦同書之"
+ },
+ "setDark(document.documentElement.classList.contains('dark'));   // 블랙 모드 버튼 이름도 바꾼다": {
+  "en": "setDark(document.documentElement.classList.contains('dark'));   // also rename the dark mode button",
+  "hj": "setDark(document.documentElement.classList.contains('dark'));   // 黑色模式之鈕名亦易"
+ },
+ "{ sel: '#bar > span:first-child', ko: '창', en: 'Window', hj: '窓' },": {
+  "en": "{ sel: '#bar > span:first-child', ko: 'Window', en: 'Window', hj: '窓' },",
+  "hj": "{ sel: '#bar > span:first-child', ko: '窓', en: 'Window', hj: '窓' },"
+ },
+ "{ sel: '#bigger', ko: '렌즈 크게', en: 'Bigger lens', hj: '放大透鏡' },": {
+  "en": "{ sel: '#bigger', ko: 'Bigger lens', en: 'Bigger lens', hj: '放大透鏡' },",
+  "hj": "{ sel: '#bigger', ko: '放大透鏡', en: 'Bigger lens', hj: '放大透鏡' },"
+ },
+ "{ sel: '#down', ko: '◀ 불투명', en: '◀ Opaque', hj: '◀ 不透明' },": {
+  "en": "{ sel: '#down', ko: '◀ Opaque', en: '◀ Opaque', hj: '◀ 不透明' },",
+  "hj": "{ sel: '#down', ko: '◀ 不透明', en: '◀ Opaque', hj: '◀ 不透明' },"
+ },
+ "{ sel: '#memo', attr: 'placeholder', ko: '여기에 글자를 적어 보세요', en: 'Type something here', hj: '請於此處書寫文字' },": {
+  "en": "{ sel: '#memo', attr: 'placeholder', ko: 'Type something here', en: 'Type something here', hj: '請於此處書寫文字' },",
+  "hj": "{ sel: '#memo', attr: 'placeholder', ko: '請於此處書寫文字', en: 'Type something here', hj: '請於此處書寫文字' },"
+ },
+ "{ sel: '#retype', ko: '타자 다시 보기', en: 'Replay typing', hj: '重看打字' },": {
+  "en": "{ sel: '#retype', ko: 'Replay typing', en: 'Replay typing', hj: '重看打字' },",
+  "hj": "{ sel: '#retype', ko: '重看打字', en: 'Replay typing', hj: '重看打字' },"
+ },
+ "{ sel: '#screen li:nth-child(1)', ko: '목록 하나', en: 'Item one', hj: '目錄一' },": {
+  "en": "{ sel: '#screen li:nth-child(1)', ko: 'Item one', en: 'Item one', hj: '目錄一' },",
+  "hj": "{ sel: '#screen li:nth-child(1)', ko: '目錄一', en: 'Item one', hj: '目錄一' },"
+ },
+ "{ sel: '#screen li:nth-child(2)', ko: '목록 둘', en: 'Item two', hj: '目錄二' },": {
+  "en": "{ sel: '#screen li:nth-child(2)', ko: 'Item two', en: 'Item two', hj: '目錄二' },",
+  "hj": "{ sel: '#screen li:nth-child(2)', ko: '目錄二', en: 'Item two', hj: '目錄二' },"
+ },
+ "{ sel: '#screen p', ko: '이 페이지는 자기 자신의 코드를 겹쳐 보여줍니다. (더미 내용)',": {
+  "en": "{ sel: '#screen p', ko: 'This page shows its own code layered behind it. (dummy text)',",
+  "hj": "{ sel: '#screen p', ko: '此頁示其自身之碼，重疊於後。（假內容）',"
+ },
+ "{ sel: '#shake', ko: '코드 뒤섞기 (막 눌러 보세요)', en: 'Scramble code (mash it!)', hj: '攪亂代碼（請連擊）' },": {
+  "en": "{ sel: '#shake', ko: 'Scramble code (mash it!)', en: 'Scramble code (mash it!)', hj: '攪亂代碼（請連擊）' },",
+  "hj": "{ sel: '#shake', ko: '攪亂代碼（請連擊）', en: 'Scramble code (mash it!)', hj: '攪亂代碼（請連擊）' },"
+ },
+ "{ sel: '#smaller', ko: '렌즈 작게', en: 'Smaller lens', hj: '縮小透鏡' },": {
+  "en": "{ sel: '#smaller', ko: 'Smaller lens', en: 'Smaller lens', hj: '縮小透鏡' },",
+  "hj": "{ sel: '#smaller', ko: '縮小透鏡', en: 'Smaller lens', hj: '縮小透鏡' },"
+ },
+ "{ sel: '#up', ko: '투명 ▶', en: 'Clear ▶', hj: '透明 ▶' },": {
+  "en": "{ sel: '#up', ko: 'Clear ▶', en: 'Clear ▶', hj: '透明 ▶' },",
+  "hj": "{ sel: '#up', ko: '透明 ▶', en: 'Clear ▶', hj: '透明 ▶' },"
+ },
+ "{ sel: 'h1', ko: '투명창', en: 'Glass Window', hj: '透明窓' },": {
+  "en": "{ sel: 'h1', ko: 'Glass Window', en: 'Glass Window', hj: '透明窓' },",
+  "hj": "{ sel: 'h1', ko: '透明窓', en: 'Glass Window', hj: '透明窓' },"
+ }
+}

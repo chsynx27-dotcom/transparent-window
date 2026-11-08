@@ -112,12 +112,12 @@
 
   // 코드를 줄 단위로 넣는다 (짝 찾기에서 줄을 집어내려고)
   let lines = [];
-  let orig = [];
-  let pristine = [];                        // 원본 줄 (뒤섞여도 이걸로 되돌린다)
+  let orig = [];                        // 지금 보여 줄 줄 (뒤섞여도 이걸로 되돌린다)
+  let pristine = [];                    // 처음 받은 그대로 (한글 원본)
   function showCode(src) {
     codeEl.textContent = '';
     orig = src.split('\n');
-    pristine = orig.slice();            // 처음 받은 그대로 (짝 찾기용, 바꾸지 않는다)
+    pristine = orig.slice();
     memoIdx = orig.findIndex(t => t.trim().startsWith('<input id="memo"'));
     memoBase = memoIdx >= 0 ? orig[memoIdx] : '';
     lines = orig.map(text => {
@@ -134,18 +134,19 @@
   function setLine(i) {
     const line = lines[i], text = orig[i];
     if (i !== eggIdx) { line.textContent = text + '\n'; return; }
-    const at = text.lastIndexOf('버튼');
+    const word = EGG[lang], at = text.lastIndexOf(word);
+    if (at < 0) { line.textContent = text + '\n'; return; }
     line.textContent = '';
     const egg = document.createElement('span');
-    egg.className = 'egg'; egg.textContent = '버튼';
+    egg.className = 'egg'; egg.textContent = word;
     egg.addEventListener('click', hatch);
-    line.append(text.slice(0, at), egg, text.slice(at + 2) + '\n');
+    line.append(text.slice(0, at), egg, text.slice(at + word.length) + '\n');
   }
 
   // 이스터에그: 코드 속 '버튼'을 누르면 글상자에 살짝 적힌다
   function hatch(e) {
     e.stopPropagation();
-    memo.value = '이스터에그';
+    memo.value = EGG_TEXT[lang];
     memo.dispatchEvent(new Event('input'));   // 뒤 코드에도 그대로 써진다
   }
 
@@ -307,21 +308,26 @@
     { sel: '#down', ko: '◀ 불투명', en: '◀ Opaque', hj: '◀ 不透明' },
     { sel: '#up', ko: '투명 ▶', en: 'Clear ▶', hj: '透明 ▶' },
   ];
-  const pat = (w, t) => w.attr ? `${w.attr}="${t}"` : `>${t}<`;   // 코드 줄 속에서 찾을 모양
+  const EGG = { ko: '버튼', en: 'button', hj: '按鈕' };   // 코드 속 숨은 글자
+  const EGG_TEXT = { ko: '이스터에그', en: 'Easter egg', hj: '彩蛋' };   // 누르면 글상자에 적히는 말
+  // 코드 줄 번역표: lang.json { "한글 줄": { en, hj } } — 없는 줄은 한글 그대로
+  let LINES = {};
+  fetch('lang.json').then(r => r.json()).then(j => { LINES = j; }).catch(() => {});
+  function tr(line, l) {
+    const t = l !== 'ko' && LINES[line.trim()]?.[l];
+    return t ? line.slice(0, line.length - line.trimStart().length) + t : line;
+  }
   function setLang(next) {
     finishTyping();
     WORDS.forEach(w => {
       const el = document.querySelector(w.sel);
-      const from = w[lang], to = w[next];
-      if (w.attr) el.setAttribute(w.attr, to); else el.textContent = to;
-      // 뒤 코드: <body> 아래 HTML 줄에서 그 글자를 바꾼다
-      const body = orig.findIndex(t => t.startsWith('<body'));
-      const i = orig.findIndex((t, k) => k > body && t.includes(pat(w, from)));
-      if (i < 0) return;
-      if (i === memoIdx) { memoBase = memoBase.replace(pat(w, from), pat(w, to)); writeMemoLine(); }
-      else { orig[i] = orig[i].replace(pat(w, from), pat(w, to)); setLine(i); }
+      if (w.attr) el.setAttribute(w.attr, w[next]); else el.textContent = w[next];
     });
     lang = next;
+    // 뒤 코드도 줄마다 그 언어로 (입력칸 줄은 적은 글자를 다시 붙인다)
+    orig = pristine.map(t => tr(t, lang));
+    lines.forEach((s, i) => setLine(i));
+    if (memoIdx >= 0) { memoBase = orig[memoIdx]; writeMemoLine(); }
     document.documentElement.lang = next === 'en' ? 'en' : 'ko';
     document.getElementById('en').setAttribute('aria-pressed', lang === 'en');
     document.getElementById('hj').setAttribute('aria-pressed', lang === 'hj');

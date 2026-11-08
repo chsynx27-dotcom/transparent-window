@@ -515,10 +515,6 @@
   "en": "{ words: ['rain', 'rain', '雨'], run: () => rain() },",
   "hj": "{ words: ['雨', 'rain', '雨'], run: () => rain() },"
  },
- "{ words: ['지구', 'earth', '地球'], run: () => earth() },": {
-  "en": "{ words: ['earth', 'earth', '地球'], run: () => earth() },",
-  "hj": "{ words: ['地球', 'earth', '地球'], run: () => earth() },"
- },
  "{ words: ['펑', '폭발', 'boom', '爆'], run: () => boom() },": {
   "en": "{ words: ['boom', 'explode', 'boom', '爆'], run: () => boom() },",
   "hj": "{ words: ['爆', '爆發', 'boom', '爆'], run: () => boom() },"
@@ -606,5 +602,9 @@
  "texts.forEach(t => {            // 글 조각을 단위마다 <span class=\"u\">로 감싼다 (코드 색 span은 그대로)": {
   "en": "texts.forEach(t => {            // wrap each unit of text in <span class=\"u\"> (code-color spans stay)",
   "hj": "texts.forEach(t => {            // 每單位文字包以 <span class=\"u\"> (碼色 span 不動)"
+ },
+ "{ words: ['지구', '행성', 'earth', 'planet', '地球', '行星'], run: () => earth() },": {
+  "en": "{ words: ['earth', 'planet', 'earth', 'planet', '地球', '行星'], run: () => earth() },",
+  "hj": "{ words: ['地球', '行星', 'earth', 'planet', '地球', '行星'], run: () => earth() },"
  }
 }

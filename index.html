@@ -409,7 +409,7 @@
   const SECRETS = [
     { words: ['펑', '폭발', 'boom', '爆'], run: () => boom() },
     { words: ['비', 'rain', '雨'], run: () => rain() },
-    { words: ['지구', 'earth', '地球'], run: () => earth() },
+    { words: ['지구', '행성', 'earth', 'planet', '地球', '行星'], run: () => earth() },
   ];
   let secretTimer = null, lastSecret = '';
   const findSecret = () => SECRETS.find(x => x.words.some(w => memo.value.trim().toLowerCase().endsWith(w)));

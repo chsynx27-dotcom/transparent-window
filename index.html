@@ -13,9 +13,9 @@
     overflow: auto; font: 13px/1.5 monospace; white-space: pre-wrap;
     pointer-events: none; z-index: 0; color: #111;
     /* 투시 렌즈: 마우스 둘레는 코드가 또렷, 나머지는 슬라이더 값만큼 */
-    --x: -9999px; --y: -9999px; --base: 0.5;
-    -webkit-mask-image: radial-gradient(circle 140px at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%);
-            mask-image: radial-gradient(circle 140px at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%);
+    --x: -9999px; --y: -9999px; --base: 0.5; --r: 140px;
+    -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%);
+            mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%);
   }
   #bar {
     position: fixed; left: 0; right: 0; bottom: 0; height: 56px;
@@ -23,7 +23,8 @@
     border-top: 1px solid #ccc; background: #fff;
   }
   #bar input { flex: 1; }
-  #screen > *, #screen li { cursor: pointer; }
+  #screen > *, #screen li, #screen button { cursor: pointer; }
+  #tools { display: flex; flex-wrap: wrap; gap: 8px; }
   .hit { background: #ffe14d; transition: background 0.3s; }
 </style>
 </head>
@@ -31,7 +32,11 @@
 <main id="screen">
   <h1>투명창</h1>
   <p>이 페이지는 자기 자신의 코드를 겹쳐 보여줍니다. (더미 내용)</p>
-  <button type="button">버튼 예시</button>
+  <div id="tools">
+    <button type="button" id="shake">코드 뒤섞기 (막 눌러 보세요)</button>
+    <button type="button" id="bigger">렌즈 크게</button>
+    <button type="button" id="smaller">렌즈 작게</button>
+  </div>
   <ul>
     <li>목록 하나</li>
     <li>목록 둘</li>
@@ -52,9 +57,10 @@
   const mix = document.getElementById('mix');
 
   // 화면 글자는 항상 진하게(앞). 슬라이더는 뒤에 깔린 코드만 점점 보이게 한다.
+  let shaking = false;                  // 뒤섞는 동안은 코드를 다 보이게
   function apply() {
     const t = mix.value / 100;          // 0 = 코드 안 보임, 1 = 코드 또렷
-    codeEl.style.setProperty('--base', t);
+    codeEl.style.setProperty('--base', shaking ? 1 : t);
   }
   mix.addEventListener('input', apply);
   apply();
@@ -70,9 +76,11 @@
 
   // 코드를 줄 단위로 넣는다 (짝 찾기에서 줄을 집어내려고)
   let lines = [];
+  let orig = [];                        // 원본 줄 (뒤섞여도 이걸로 되돌린다)
   function showCode(src) {
     codeEl.textContent = '';
-    lines = src.split('\n').map(text => {
+    orig = src.split('\n');
+    lines = orig.map(text => {
       const span = document.createElement('span');
       span.textContent = text + '\n';
       codeEl.appendChild(span);
@@ -82,14 +90,16 @@
 
   // 짝 찾기: 화면 요소를 누르면 그 요소를 만든 코드 줄이 반짝인다
   screenEl.addEventListener('click', e => {
-    const el = e.target.closest('#screen > *, #screen li');
+    if (e.target.id === 'shake') return;  // 뒤섞기는 짝 찾기 대신 뒤섞기만
+    const el = e.target.closest('#screen button, #screen li, #screen > *');
     if (!el) return;
     const first = el.outerHTML.split('\n')[0].trim();
     // 화면(main) 부분의 줄에서만 찾는다 — 스크립트 속 같은 글자는 제외
-    const start = lines.findIndex(s => s.textContent.includes('<main id="screen">'));
-    const end = lines.findIndex((s, i) => i > start && s.textContent.includes('</main>'));
-    const line = lines.slice(start, end).find(s => s.textContent.trim().startsWith(first));
-    if (!line) return;
+    const start = orig.findIndex(t => t.includes('<main id="screen">'));
+    const end = orig.findIndex((t, i) => i > start && t.includes('</main>'));
+    const idx = orig.findIndex((t, i) => i > start && i < end && t.trim().startsWith(first));
+    if (idx < 0) return;
+    const line = lines[idx];
 
     lines.forEach(s => s.classList.remove('hit'));
     line.classList.add('hit');
@@ -99,6 +109,41 @@
     holdLens = Date.now() + 1500;
     setTimeout(() => line.classList.remove('hit'), 1500);
   });
+
+  // 코드 뒤섞기: 누를 때마다 코드가 더 많이 깨지고, 손을 떼면 한 줄씩 원래대로 돌아온다
+  const GLYPHS = '█▓▒░<>/{}=;#*$%&@!?01';
+  let power = 0, restoreTimer = null, restoring = null;
+  const broken = new Set();
+  document.getElementById('shake').addEventListener('click', () => {
+    clearTimeout(restoreTimer); clearInterval(restoring);
+    shaking = true; apply();
+    power = Math.min(power + 1, 30);
+    const n = power * 4;                // 막 누를수록 더 많은 줄이 깨진다
+    for (let k = 0; k < n; k++) {
+      const i = Math.floor(Math.random() * lines.length);
+      lines[i].textContent = orig[i].replace(/\S/g, c =>
+        Math.random() < 0.3 + power / 50 ? GLYPHS[Math.floor(Math.random() * GLYPHS.length)] : c) + '\n';
+      broken.add(i);
+    }
+    restoreTimer = setTimeout(restore, 700);
+  });
+  function restore() {
+    const todo = [...broken];
+    restoring = setInterval(() => {
+      for (let k = 0; k < 6 && todo.length; k++) {   // 한 번에 몇 줄씩 되돌린다
+        const i = todo.splice(Math.floor(Math.random() * todo.length), 1)[0];
+        lines[i].textContent = orig[i] + '\n';
+        broken.delete(i);
+      }
+      if (!todo.length) { clearInterval(restoring); power = 0; shaking = false; apply(); }
+    }, 30);
+  }
+
+  // 렌즈 크기
+  let radius = 140;
+  function setRadius(r) { radius = Math.max(60, Math.min(400, r)); codeEl.style.setProperty('--r', radius + 'px'); }
+  document.getElementById('bigger').addEventListener('click', () => setRadius(radius + 60));
+  document.getElementById('smaller').addEventListener('click', () => setRadius(radius - 60));
 
   // 자기 자신의 원본 코드를 가져온다 (file://로 열면 실패 → 현재 DOM으로 대체)
   fetch(location.href)

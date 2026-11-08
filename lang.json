@@ -587,12 +587,24 @@
   "en": "#code.rq2 > .ln { text-shadow: 0 -6px color-mix(in srgb, currentColor 45%, transparent),   /* step 2: longer tails in the code's own colors */",
   "hj": "#code.rq2 > .ln { text-shadow: 0 -6px color-mix(in srgb, currentColor 45%, transparent),   /* 二段：本色碼尾更長 */"
  },
- "/* 1·2단계: 0단계처럼 그냥 떨어지되 빗줄기답게 — 줄마다 속도가 다르고 점점 빨라지며 곧게, 위로 꼬리를 남긴다 */": {
-  "en": "/* Steps 1·2: just fall like step 0 but rain-like — each line at its own speed, accelerating straight down, leaving a tail above */",
-  "hj": "/* 一二段：如零段直落而似雨 — 每行速度各異，漸快直下，上留尾痕 */"
+ "/* 1·2단계: 0단계처럼 그냥 떨어지되 빗줄기답게 — 떨어지는 단위가 작아진다(0 줄 → 1 단어 → 2 글자), 속도는 제각각, 위로 꼬리 */": {
+  "en": "/* Steps 1·2: just fall like step 0 but rain-like — the falling unit gets smaller (0 line → 1 word → 2 character), each at its own speed, tail above */",
+  "hj": "/* 一二段：如零段直落而似雨 — 落下單位漸小 (零行 → 一詞 → 二字)，速度各異，上留尾痕 */"
  },
- "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 1·2단계: 줄마다 떨어지는 속도가 다르게": {
-  "en": "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // steps 1·2: each line falls at a different speed",
-  "hj": "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 一二段：每行落速各異"
+ "// 떨어지는 단위: 0단계 줄 / 1단계 단어 / 2단계 글자 (화면에 보이는 줄만 잘게 쪼개고, 끝나면 원래대로)": {
+  "en": "// falling unit: step 0 line / step 1 word / step 2 character (only visible lines are split, restored afterward)",
+  "hj": "// 落下單位：零段行 / 一段詞 / 二段字 (只拆可見之行，畢則復原)"
+ },
+ "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 1·2단계: 단위마다 떨어지는 속도가 다르게": {
+  "en": "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // steps 1·2: each unit falls at a different speed",
+  "hj": "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 一二段：每單位落速各異"
+ },
+ "saved.forEach(([l, h]) => l.innerHTML = h);   // 쪼갠 줄을 원래대로": {
+  "en": "saved.forEach(([l, h]) => l.innerHTML = h);   // restore the split lines",
+  "hj": "saved.forEach(([l, h]) => l.innerHTML = h);   // 拆開之行復原"
+ },
+ "texts.forEach(t => {            // 글 조각을 단위마다 <span class=\"u\">로 감싼다 (코드 색 span은 그대로)": {
+  "en": "texts.forEach(t => {            // wrap each unit of text in <span class=\"u\"> (code-color spans stay)",
+  "hj": "texts.forEach(t => {            // 每單位文字包以 <span class=\"u\"> (碼色 span 不動)"
  }
 }

@@ -113,9 +113,10 @@
   #code.rain > .ln { display: block; animation: drop 1.4s cubic-bezier(.5,0,.9,.5) var(--d) both; }
   #code.unrain > .ln { display: block; animation: drop 1s cubic-bezier(.1,.5,.5,1) var(--d) both reverse; }
   @keyframes drop { to { transform: translateY(110vh) rotate(var(--rot)); opacity: 0.15; } }
-  /* 1·2단계: 0단계처럼 그냥 떨어지되 빗줄기답게 — 줄마다 속도가 다르고 점점 빨라지며 곧게, 위로 꼬리를 남긴다 */
-  #code.rain.rq1 > .ln, #code.rain.rq2 > .ln { animation: fall var(--t) cubic-bezier(.55,0,1,.45) var(--d) both; }
-  #code.unrain.rq1 > .ln, #code.unrain.rq2 > .ln { animation: fall 0.9s cubic-bezier(0,.55,.45,1) var(--d) both reverse; }
+  /* 1·2단계: 0단계처럼 그냥 떨어지되 빗줄기답게 — 떨어지는 단위가 작아진다(0 줄 → 1 단어 → 2 글자), 속도는 제각각, 위로 꼬리 */
+  #code.rain.rq1 > .ln, #code.rain.rq2 > .ln, #code.unrain.rq1 > .ln, #code.unrain.rq2 > .ln { animation: none; }
+  #code.rain .u { display: inline-block; animation: fall var(--t) cubic-bezier(.55,0,1,.45) var(--d) both; }
+  #code.unrain .u { display: inline-block; animation: fall 0.9s cubic-bezier(0,.55,.45,1) var(--d) both reverse; }
   @keyframes fall { to { transform: translateY(110vh); opacity: 0.3; } }
   #code.rq1 > .ln { text-shadow: 0 -7px color-mix(in srgb, currentColor 28%, transparent), 0 -15px color-mix(in srgb, currentColor 12%, transparent); }
   #code.rq2 > .ln { text-shadow: 0 -6px color-mix(in srgb, currentColor 45%, transparent),   /* 2단계: 코드 색 그대로 더 긴 꼬리 */
@@ -459,17 +460,41 @@
       setTimeout(() => { codeEl.classList.remove('gray'); raining = false; apply(); }, 4600);
       return;
     }
-    lines.forEach(s => {                // 한 줄씩
-      s.style.setProperty('--d', (Math.random() * 0.8).toFixed(2) + 's');
+    // 떨어지는 단위: 0단계 줄 / 1단계 단어 / 2단계 글자 (화면에 보이는 줄만 잘게 쪼개고, 끝나면 원래대로)
+    let units = lines, saved = [];
+    if (quality >= 1) {
+      const seen = lines.filter(l => { const r = l.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; });
+      saved = seen.map(l => [l, l.innerHTML]);
+      const re = quality === 2 ? /\S/g : /\S+/g;
+      seen.forEach(l => {
+        const walk = document.createTreeWalker(l, NodeFilter.SHOW_TEXT), texts = [];
+        while (walk.nextNode()) texts.push(walk.currentNode);
+        texts.forEach(t => {            // 글 조각을 단위마다 <span class="u">로 감싼다 (코드 색 span은 그대로)
+          const frag = document.createDocumentFragment(); let at = 0;
+          t.data.replace(re, (m, i) => {
+            frag.append(t.data.slice(at, i));
+            const u = document.createElement('span'); u.className = 'u'; u.textContent = m; frag.append(u);
+            at = i + m.length;
+          });
+          frag.append(t.data.slice(at)); t.replaceWith(frag);
+        });
+      });
+      units = [...codeEl.querySelectorAll('.u')];
+    }
+    units.forEach(s => {
+      s.style.setProperty('--d', (Math.random() * (quality ? 1 : 0.8)).toFixed(2) + 's');
       s.style.setProperty('--rot', quality === 0 ? (Math.random() * 30 - 15).toFixed(1) + 'deg' : '0deg');
-      s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 1·2단계: 줄마다 떨어지는 속도가 다르게
+      s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 1·2단계: 단위마다 떨어지는 속도가 다르게
     });
     const rq = 'rq' + quality;
     codeEl.classList.add('rain', rq);
     setTimeout(() => {                  // 다 떨어지면 되감아 올린다
       codeEl.classList.remove('rain'); void codeEl.offsetWidth;
       codeEl.classList.add('unrain');
-      setTimeout(() => { codeEl.classList.remove('unrain', rq); raining = false; apply(); }, 1900);
+      setTimeout(() => {
+        codeEl.classList.remove('unrain', rq); raining = false; apply();
+        saved.forEach(([l, h]) => l.innerHTML = h);   // 쪼갠 줄을 원래대로
+      }, 1900);
     }, 2400);
   }
   // 지구: 대륙 지도 (위도 10도 띠마다 육지 경도 구간, 북 85° → 남 -85°)

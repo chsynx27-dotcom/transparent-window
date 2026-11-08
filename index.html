@@ -854,9 +854,12 @@
       last = now;
       const power = t < LONG ? Math.min(1, t / 400) : Math.max(0, 1 - (t - LONG) / 700);   // 서서히 켜졌다 꺼짐
       const ease = q === 0 ? 1 : 0.15;               // 0단계는 바로 그 자리로, 나머지는 따라오듯
+      const diag = Math.hypot(innerWidth, innerHeight);
       words.forEach(w => {
         const mx = lastX - w.x, my = lastY - w.y, d = Math.hypot(mx, my);
-        const pull = power * Math.max(0, 1 - d / 650) ** 1.5 * 0.85;   // 가까울수록 세게 (마우스에 딱 붙지는 않게)
+        const pull = q >= 3
+          ? power * (0.35 + 0.5 * Math.max(0, 1 - d / diag))          // 3단계: 화면 반대편 단어까지 끌려온다
+          : power * Math.max(0, 1 - d / 650) ** 1.5 * 0.85;   // 가까울수록 세게 (마우스에 딱 붙지는 않게)
         w.dx += (mx * pull - w.dx) * ease; w.dy += (my * pull - w.dy) * ease;
         const turn = q >= 2 ? Math.atan2(my, mx) * 180 / Math.PI * pull * 0.4 : 0;
         w.span.style.transform = `translate(${w.dx}px, ${w.dy}px) rotate(${turn}deg)`;

@@ -7,11 +7,11 @@
 <link rel="icon" href="data:,">
 <style>
   body { margin: 0; font-family: sans-serif; }
-  #screen { padding: 24px; padding-bottom: 80px; }
+  #screen { position: relative; z-index: 1; padding: 24px; padding-bottom: 80px; }
   #code {
     position: fixed; inset: 0 0 56px 0; margin: 0; padding: 24px;
     overflow: auto; font: 13px/1.5 monospace; white-space: pre-wrap;
-    pointer-events: none; font-weight: bold;
+    pointer-events: none; z-index: 0; color: #888;
   }
   #bar {
     position: fixed; left: 0; right: 0; bottom: 0; height: 56px;
@@ -45,10 +45,10 @@
   const codeEl = document.getElementById('code');
   const mix = document.getElementById('mix');
 
-  // 코드(위 글자)는 항상 진하게. 슬라이더는 아래 화면만 흐리게 한다.
+  // 화면 글자는 항상 진하게(앞). 슬라이더는 뒤에 깔린 코드만 점점 보이게 한다.
   function apply() {
-    const t = mix.value / 100;          // 0 = 화면 선명, 1 = 화면 사라짐
-    screenEl.style.opacity = 1 - t;
+    const t = mix.value / 100;          // 0 = 코드 안 보임, 1 = 코드 또렷
+    codeEl.style.opacity = t;
   }
   mix.addEventListener('input', apply);
   apply();

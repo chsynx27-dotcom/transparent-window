@@ -685,9 +685,10 @@
     shaking = true; apply();
     power = MAX;
     if (quality === 2) {                // 2단계: 앞 창은 가운데서 터져 사방으로 퍼지고, 뒤 코드는 화산처럼 솟구친다
-      const comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5);   // 3단계보다 살짝 느리고 덜 격하게
-      erupt();
-      setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(comeBack, 900); }, 2000);   // 코드가 다시 나타난 뒤 창이 돌아온다
+      erupt();                          // 코드가 먼저 솟구치고
+      let comeBack = () => {};
+      setTimeout(() => comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5), 350);   // 이어서 창이 퍼진다 (3단계보다 살짝 느리고 덜 격하게)
+      setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(() => comeBack(), 900); }, 2000);   // 코드가 다시 나타난 뒤 창이 돌아온다
       return;
     }
     const codeBack = scatter(quality);  // 0·1단계: 뒤 코드는 덩어리째 흩어지고, 앞 창은 2단계처럼 터져 퍼지되 단계가 낮을수록 느리게
@@ -774,7 +775,7 @@
         { transform: 'none', color: cool, opacity: 1 },
         { transform: `translate(${drift * 0.3}px, -20px)`, color: '#ff4d1a', opacity: 1, offset: 0.15 },
         { transform: `translate(${drift}px, ${-fly}px) rotate(${spin}deg)`, color: '#ffb020', opacity: 0 },
-      ], { duration: 900 + Math.random() * 400, delay: wave * 500 + Math.random() * 120, easing: 'cubic-bezier(.4,0,.9,.6)', fill: 'both' });
+      ], { duration: 900 + Math.random() * 400, delay: wave * 300 + Math.random() * 100, easing: 'cubic-bezier(.3,.1,.8,.6)', fill: 'both' });
     });
     codeEl.style.opacity = 0;
     document.body.append(lava);

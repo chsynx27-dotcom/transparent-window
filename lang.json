@@ -619,17 +619,9 @@
   "en": "if (quality === 2) {                // step 2: the front window bursts from the center and spreads everywhere; the back code erupts like a volcano",
   "hj": "if (quality === 2) {                // 二段：前窗自中央炸開四散，後碼如火山噴起"
  },
- "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(comeBack, 900); }, 2000);   // 코드가 다시 나타난 뒤 창이 돌아온다": {
-  "en": "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(comeBack, 900); }, 2000);   // the window comes back after the code reappears",
-  "hj": "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(comeBack, 900); }, 2000);   // 碼重現後窗方歸"
- },
  "function blowAway(bx, by, wait = 550, calm = 0) {   // wait: 떨리는 시간 (0이면 떨지 않고 바로 터짐) / calm: 0~1, 클수록 느리고 덜 격하게": {
   "en": "function blowAway(bx, by, wait = 550, calm = 0) {   // wait: shudder time (0 = burst at once) / calm: 0–1, higher = slower and gentler",
   "hj": "function blowAway(bx, by, wait = 550, calm = 0) {   // wait：顫抖時間 (0 則即炸) / calm：0~1，愈大愈慢愈緩"
- },
- "const comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5);   // 3단계보다 살짝 느리고 덜 격하게": {
-  "en": "const comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5);   // a bit slower and gentler than step 3",
-  "hj": "const comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5);   // 較三段稍慢稍緩"
  },
  "function breakLines() {               // 뒤 코드 줄을 깨뜨린다 (앞 화면은 그대로)": {
   "en": "function breakLines() {               // break the back code lines (front screen untouched)",
@@ -666,5 +658,17 @@
  "const ang = Math.random() * Math.PI * 2;        // 덩어리마다 제각각 여기저기로": {
   "en": "const ang = Math.random() * Math.PI * 2;        // each chunk off in its own direction",
   "hj": "const ang = Math.random() * Math.PI * 2;        // 各塊各奔一方"
+ },
+ "erupt();                          // 코드가 먼저 솟구치고": {
+  "en": "erupt();                          // the code erupts first",
+  "hj": "erupt();                          // 碼先噴起"
+ },
+ "setTimeout(() => comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5), 350);   // 이어서 창이 퍼진다 (3단계보다 살짝 느리고 덜 격하게)": {
+  "en": "setTimeout(() => comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5), 350);   // then the window spreads (a bit slower and gentler than step 3)",
+  "hj": "setTimeout(() => comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5), 350);   // 繼而窗散 (較三段稍慢稍緩)"
+ },
+ "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(() => comeBack(), 900); }, 2000);   // 코드가 다시 나타난 뒤 창이 돌아온다": {
+  "en": "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(() => comeBack(), 900); }, 2000);   // the window comes back after the code reappears",
+  "hj": "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(() => comeBack(), 900); }, 2000);   // 碼重現後窗方歸"
  }
 }

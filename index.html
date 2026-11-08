@@ -27,6 +27,17 @@
     border-top: 1px solid var(--line); background: var(--bg);
   }
   #dots { letter-spacing: 4px; font-size: 18px; }
+  #dots i { font-style: normal; }
+  #dots i::before { content: '○'; }
+  #dots i.on::before { content: '●'; }
+  #dots svg { display: none; }
+  /* 3단계: 단계 칸이 동그란 칸이 되고, 가운데 세 칸에 비밀 단어 힌트 아이콘 (비 · 펑 · 지구) */
+  :root.q3 #dots { display: inline-flex; gap: 6px; letter-spacing: 0; }
+  :root.q3 #dots i::before { content: none; }
+  :root.q3 #dots i { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
+    border: 1.5px solid var(--accent); color: var(--accent); transition: background 0.2s, color 0.2s; }
+  :root.q3 #dots i.on { background: var(--accent); color: #fff; }
+  :root.q3 #dots svg { display: block; width: 13px; height: 13px; }
   /* 단계가 바뀔 때 코드 진하기가 점점 바뀌도록 */
   @property --base { syntax: '<number>'; inherits: true; initial-value: 0.5; }
   @property --r { syntax: '<length>'; inherits: true; initial-value: 140px; }
@@ -239,6 +250,12 @@
   const dots = document.getElementById('dots');
 
   // 화면 글자는 항상 진하게(앞). 좌우 버튼으로 뒤에 깔린 코드의 진하기를 5단계로 바꾼다.
+  // 단계 칸 아이콘 (3단계에서만 보임): 비밀 단어 힌트 — 물방울(비) · 터짐(펑) · 지구(지구)
+  const HINTS = ['',
+    '<svg viewBox="0 0 24 24"><path d="M12 3c3 4.5 6 7.8 6 11a6 6 0 0 1-12 0c0-3.2 3-6.5 6-11z" fill="currentColor"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.1 6-2.6-3.1 5.8 5.4 3.2-6.4.8.6 6.5-4.7-4.5-4.7 4.5.6-6.5-6.4-.8 5.4-3.2L3.8 5.5l6 2.6z" fill="currentColor"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg>',
+    ''];
   let level = 2;                        // 0 = 코드 안 보임 … 4 = 코드 또렷
   let shaking = false;                  // 뒤섞는 동안은 코드를 다 보이게
   let typing = false;                   // 타자 치는 동안도 코드를 다 보이게
@@ -247,7 +264,7 @@
     codeEl.style.setProperty('--base', shaking || typing || raining ? 1 : level / 4);
     document.documentElement.style.setProperty('--glass', shaking || typing ? 0 : 1 - level / 4);
     const shown = typing ? 4 : level;  // 타자 중에는 끝까지 투명(코드 다 보임)으로 표시
-    dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // 지금 단계 표시
+    dots.innerHTML = HINTS.map((h, i) => `<i${i <= shown ? ' class="on"' : ''}>${h}</i>`).join('');   // 지금 단계 표시
     dots.setAttribute('aria-label', `창 투명도 ${shown + 1}/5단계`);
   }
   document.getElementById('down').addEventListener('click', () => { level = Math.max(0, level - 1); apply(); });

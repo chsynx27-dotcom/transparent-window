@@ -311,10 +311,6 @@
   "en": "dots.setAttribute('aria-label', `Window clarity ${shown + 1}/5`);",
   "hj": "dots.setAttribute('aria-label', `窓透明度 ${shown + 1}/5階`);"
  },
- "dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // 지금 단계 표시": {
-  "en": "dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // show the current step",
-  "hj": "dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // 示今之階"
- },
  "eggIdx = orig.findIndex(t => t.includes('/* 버튼 */'));": {
   "en": "eggIdx = orig.findIndex(t => t.includes('/* button */'));",
   "hj": "eggIdx = orig.findIndex(t => t.includes('/* 按鈕 */'));"
@@ -682,5 +678,17 @@
  "const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2, 550, 0, true);   // 앞 창: 덜덜 떨다가 조각조각 날아간다": {
   "en": "const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2, 550, 0, true);   // front window: shudders, then flies apart piece by piece",
   "hj": "const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2, 550, 0, true);   // 前窗：顫抖後片片飛散"
+ },
+ "/* 3단계: 단계 칸이 동그란 칸이 되고, 가운데 세 칸에 비밀 단어 힌트 아이콘 (비 · 펑 · 지구) */": {
+  "en": "/* Step 3: the level marks become round cells, the middle three holding secret-word hint icons (rain · boom · earth) */",
+  "hj": "/* 三段：段格化為圓格，中間三格置秘語提示圖示 (雨 · 爆 · 地球) */"
+ },
+ "dots.innerHTML = HINTS.map((h, i) => `<i${i <= shown ? ' class=\"on\"' : ''}>${h}</i>`).join('');   // 지금 단계 표시": {
+  "en": "dots.innerHTML = HINTS.map((h, i) => `<i${i <= shown ? ' class=\"on\"' : ''}>${h}</i>`).join('');   // show the current level",
+  "hj": "dots.innerHTML = HINTS.map((h, i) => `<i${i <= shown ? ' class=\"on\"' : ''}>${h}</i>`).join('');   // 示當前段"
+ },
+ "// 단계 칸 아이콘 (3단계에서만 보임): 비밀 단어 힌트 — 물방울(비) · 터짐(펑) · 지구(지구)": {
+  "en": "// level-cell icons (visible only at step 3): secret-word hints — drop (rain) · burst (boom) · globe (earth)",
+  "hj": "// 段格圖示 (僅三段可見)：秘語提示 — 水滴 (雨) · 炸 (爆) · 地球 (地球)"
  }
 }

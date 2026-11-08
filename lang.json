@@ -719,10 +719,6 @@
   "en": "// Black hole step 3: the hole slowly opens, and words stream in one after another, nearest first, swirling slowly,",
   "hj": "// 黑洞第 3 级：洞慢慢张开，词从近到远一个接一个流进去，慢慢旋转，"
  },
- "const END = 6000;                   // 이때까지 원반이 돈다": {
-  "en": "const END = 6000;                   // the disk spins until this time",
-  "hj": "const END = 6000;                   // 盘一直转到这个时间"
- },
  "const flights = [...pieces()].map(el => {     // 앞 창 글자도 천천히 소용돌이치며 구멍 속으로": {
   "en": "const flights = [...pieces()].map(el => {     // the front window's text also swirls slowly into the hole",
   "hj": "const flights = [...pieces()].map(el => {     // 前面窗口的文字也慢慢旋进洞里"
@@ -1023,10 +1019,6 @@
   "en": "if (big) c.globalCompositeOperation = 'lighter';   // phone: light adds up, so denser areas glow white-hot",
   "hj": "if (big) c.globalCompositeOperation = 'lighter';   // 手机：光会叠加，越密的地方越白热"
  },
- "if (big) words.push(...Array.from({ length: 5 }, () => words.map(w => ({ ...w }))).flat());   // 폰: 원반이 커서 단어를 6배로 채운다": {
-  "en": "if (big) words.push(...Array.from({ length: 5 }, () => words.map(w => ({ ...w }))).flat());   // phone: the disc is big, so fill it with 6x the words",
-  "hj": "if (big) words.push(...Array.from({ length: 5 }, () => words.map(w => ({ ...w }))).flat());   // 手机：盘很大，所以用 6 倍的词填满"
- },
  "if (big) {                        // 폰: 25%는 구멍 둘레에 바짝 걸친 빛 고리, 나머지는 화면을 가로지르는 원반 (안쪽일수록 촘촘)": {
   "en": "if (big) {                        // phone: 25% become a ring of light hugging the hole, the rest the disc across the screen (denser inside)",
   "hj": "if (big) {                        // 手机：25% 变成贴着洞的光环，其余变成斜穿画面的盘（越靠里越密）"
@@ -1126,5 +1118,13 @@
  "const A0 = parseFloat(getComputedStyle(codeEl).getPropertyValue('--base')) || 0.5;   // 원래 코드의 진하기 — 빛나기 전에는 이 진하기 그대로": {
   "en": "const A0 = parseFloat(getComputedStyle(codeEl).getPropertyValue('--base')) || 0.5;   // the original code's strength — kept as is until it starts glowing",
   "hj": "const A0 = parseFloat(getComputedStyle(codeEl).getPropertyValue('--base')) || 0.5;   // 原本代码的深浅 — 开始发光前保持不变"
+ },
+ "const END = big ? 8500 : 6000;      // 이때까지 원반이 돈다 (폰은 조금 더 오래)": {
+  "en": "const END = big ? 8500 : 6000;      // the disc spins until this time (a little longer on phones)",
+  "hj": "const END = big ? 8500 : 6000;      // 盘一直转到这个时间（手机上稍长一些）"
+ },
+ "if (big) words.push(...Array.from({ length: 8 }, () => words.map(w => ({ ...w }))).flat());   // 폰: 원반이 커서 단어를 9배로 채운다": {
+  "en": "if (big) words.push(...Array.from({ length: 8 }, () => words.map(w => ({ ...w }))).flat());   // phone: the disc is big, so fill it with 9x the words",
+  "hj": "if (big) words.push(...Array.from({ length: 8 }, () => words.map(w => ({ ...w }))).flat());   // 手机：盘很大，所以用 9 倍的词填满"
  }
 }

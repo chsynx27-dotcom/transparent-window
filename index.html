@@ -182,7 +182,6 @@
   #hole { position: fixed; z-index: 5; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%) scale(0);
     background: radial-gradient(circle, #000 0 60%, #fff6e4 63%, rgba(255,196,130,.55) 67%, transparent 74%);
     box-shadow: 0 0 80px 30px rgba(255,170,90,.22); }
-  #flock.garg span { text-shadow: 0 0 6px rgba(255,170,90,.8); }
   /* 지구: 코드 글자로 그린 도는 지구. 단계가 오를수록 색·명암·매끄러움이 더해진다 */
   #globe { position: fixed; inset: 0; margin: 0; z-index: 1; pointer-events: none; overflow: hidden;
     font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; white-space: pre; font-variant-ligatures: none;
@@ -939,23 +938,6 @@
     }
     return words;
   }
-  // 단어 덩어리를 코드 대신 띄운다 (진짜 코드는 그동안 숨김). 돌려주는 함수로 원래대로
-  function wordLayer() {
-    const layer = document.createElement('div'); layer.id = 'flock';
-    const spans = visibleWords().map(({ t, x, y }) => {
-      const span = document.createElement('span');
-      span.textContent = t; span.style.left = x + 'px'; span.style.top = y + 'px';
-      layer.append(span);
-      return { span, x: x + span.textContent.length * 4, y: y + 9 };   // 단어 가운데쯤
-    });
-    codeEl.style.opacity = 0;
-    document.body.append(layer);
-    return [spans, () => {
-      layer.remove();
-      codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // 다시 밝아지듯
-      codeEl.style.opacity = '';
-    }];
-  }
   function erupt() {
     const words = visibleWords();
     const lava = document.createElement('div'); lava.id = 'flock';
@@ -1054,7 +1036,36 @@
     holeOn = true; finishTyping();
     if (quality >= 3) return gargantua();
     const q = quality, cx = lastX, cy = lastY;
-    const [words, done] = wordLayer();
+    // 뒤 코드 단어는 캔버스 한 장에 그린다 (단어 span 수백 개를 각자 움직이면 버벅인다). 움직임은 아래 pull()과 같다
+    const words = visibleWords(), spinW = q >= 2 ? 3 * Math.PI : 0, TURN = 5 * Math.PI / 180;
+    const ease = q === 0 ? (p => Math.floor(Math.min(1, Math.max(0, p)) * 60) / 60) : bezier(.5, 0, .8, .6);   // 0단계: 60장으로 살짝 뚝뚝
+    let font, base, ready = false;
+    const cv = charCanvas('flock', (ctx, now) => {
+      ctx.font = font; ctx.fillStyle = base;
+      if (!ready) {
+        words.forEach(w => { w.hw = ctx.measureText(w.t).width / 2; const x = w.x + w.hw, y = w.y + 9.75;
+          w.a0 = Math.atan2(y - cy, x - cx); w.r0 = Math.hypot(x - cx, y - cy); w.delay = Math.min(400, w.r0 * 0.3); });
+        ready = true;
+      }
+      for (const w of words) {
+        const t = ease((now - w.delay) / 1300);
+        if (t >= 1) continue;           // 다 빨려 들어감
+        const a = w.a0 + 4.5 * t * t, r = w.r0 * (1 - t) ** 1.6;
+        const s = Math.round((1 - 0.9 * t) * 20) / 20, turn = Math.round(spinW * t / TURN) * TURN;   // 크기·회전은 몇 단계로 묶어 같은 글자 모양을 다시 쓴다
+        ctx.globalAlpha = 1 - t;
+        ctx.setTransform(dpr * s, 0, 0, dpr * s, (cx + Math.cos(a) * r) * dpr, (cy + Math.sin(a) * r) * dpr);
+        if (turn) ctx.rotate(turn);
+        ctx.fillText(w.t, -w.hw, 0);
+      }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.globalAlpha = 1;
+    });
+    const dpr = devicePixelRatio || 1, cs = getComputedStyle(cv);
+    font = `13px ${cs.fontFamily}`; base = cs.color;
+    codeEl.style.opacity = 0; codeEl.style.visibility = 'hidden';   // 숨긴 코드는 아예 안 그리게
+    const done = () => {
+      cv.remove(); codeEl.style.opacity = codeEl.style.visibility = '';
+      codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // 다시 밝아지듯
+    };
     const pull = (el, x, y, spinSelf) => {          // 한 요소를 (cx, cy)로 소용돌이치며 빨아들이는 움직임
       const a0 = Math.atan2(y - cy, x - cx), r0 = Math.hypot(x - cx, y - cy), frames = [];
       for (let i = 0; i <= 12; i++) {
@@ -1062,9 +1073,9 @@
         frames.push({ transform: `translate(${cx + Math.cos(a) * r - x}px, ${cy + Math.sin(a) * r - y}px) rotate(${spinSelf * t}deg) scale(${1 - 0.9 * t})`,
           opacity: 1 - t });                // 끝까지 빨려 들어가 사라진다
       }
-      return el.animate(frames, { duration: 1300, delay: Math.min(400, r0 * 0.3), easing: q === 0 ? 'steps(30)' : 'cubic-bezier(.5,0,.8,.6)', fill: 'both' });
+      return el.animate(frames, { duration: 1300, delay: Math.min(400, r0 * 0.3), easing: q === 0 ? 'steps(60)' : 'cubic-bezier(.5,0,.8,.6)', fill: 'both' });
     };
-    const anims = words.map(w => pull(w.span, w.x, w.y, q >= 2 ? 540 : 0));
+    const anims = [];
     pieces().forEach(el => {
       const r = el.getBoundingClientRect();
       anims.push(pull(el, r.left + r.width / 2, r.top + r.height / 2, q >= 2 ? 360 : 0));
@@ -1087,38 +1098,65 @@
     const R = Math.min(innerWidth, innerHeight) * 0.08, cool = getComputedStyle(codeEl).color;
     const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));   // 마우스가 가장자리여도 원반이 화면 안에 다 보이게
     const cx = clamp(lastX, R * 4.5, innerWidth - R * 4.5), cy = clamp(lastY, R * 2, innerHeight - R * 2.5);
-    const [words, done] = wordLayer();
-    const layer = document.getElementById('flock'); layer.classList.add('garg');
+    // 단어는 캔버스 두 장에 그린다: 구멍 뒤(뒤 캔버스) · 구멍 앞(앞 캔버스) — 원반 앞쪽 절반이 구멍 앞을 지나도록.
+    // (단어 span 수백 개가 위치·색·앞뒤 순서를 매 프레임 바꾸면 크게 버벅인다)
+    const words = visibleWords(), dpr = devicePixelRatio || 1;
+    const layer = document.createElement('div'); layer.id = 'flock'; layer.className = 'garg';
+    const sheet = z => {
+      const c = document.createElement('canvas'); c.width = innerWidth * dpr; c.height = innerHeight * dpr;
+      Object.assign(c.style, { position: 'absolute', left: 0, top: 0, width: innerWidth + 'px', height: innerHeight + 'px', zIndex: z });
+      return c;
+    };
+    const back = sheet(1), front = sheet(6);
     const hole = document.createElement('div'); hole.id = 'hole';
     Object.assign(hole.style, { left: cx + 'px', top: cy + 'px', width: R * 2.4 + 'px', height: R * 2.4 + 'px' });
-    layer.append(hole);                 // 원반 단어가 구멍 앞·뒤로 지나가도록 같은 층에
+    layer.append(back, hole, front);    // 뒤 캔버스 · 구멍(z 5) · 앞 캔버스 순서로 겹친다
+    document.body.append(layer);
+    codeEl.style.opacity = 0; codeEl.style.visibility = 'hidden';
+    const done = () => {
+      layer.remove(); codeEl.style.opacity = codeEl.style.visibility = '';
+      codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });
+    };
     const END = 6000;                   // 이때까지 원반이 돈다
     hole.animate([{ transform: 'translate(-50%, -50%) scale(0)' }, { transform: 'translate(-50%, -50%) scale(1)', offset: 0.3 },
       { transform: 'translate(-50%, -50%) scale(1.08)', offset: 0.9 }, { transform: 'translate(-50%, -50%) scale(0)' }],
       { duration: END + 700, easing: 'ease-in-out', fill: 'forwards' });
-    const far = Math.max(...words.map(w => Math.hypot(w.x - cx, w.y - cy)), 1);
     const tilt = -8 * Math.PI / 180, cosT = Math.cos(tilt), sinT = Math.sin(tilt);
+    const bctx = back.getContext('2d'), fctx = front.getContext('2d'), family = getComputedStyle(layer).fontFamily;
+    const [cr, cg, cb] = cool.match(/[\d.]+/g).map(Number);   // 원래 코드 색 → 금빛으로 물든다
+    [bctx, fctx].forEach(c => { c.font = `13px ${family}`; c.textBaseline = 'middle';
+      c.shadowColor = 'rgba(255,170,90,.8)'; c.shadowBlur = 6 * dpr; });   // 단어마다 은은한 금빛 번짐
+    words.forEach(w => { w.hw = bctx.measureText(w.t).width / 2; w.x += w.hw; w.y += 9.75; });   // 단어 가운데
+    const far = Math.max(...words.map(w => Math.hypot(w.x - cx, w.y - cy)), 1);
     words.forEach(w => {
-      const r0 = Math.hypot(w.x - cx, w.y - cy), a0 = Math.atan2(w.y - cy, w.x - cx);
-      const ring = Math.random() < 0.35;              // 35%는 구멍을 감싸는 빛 테두리, 나머지는 납작한 원반
-      const ax = ring ? R * (1.25 + Math.random() * 0.3) : R * (1.7 + Math.random() * 2.4);
-      const ay = ring ? ax : ax * 0.17;
-      const delay = r0 / far * 2000 + Math.random() * 250;   // 가까운 단어부터 줄줄이
-      const D = END - delay, spinIn = 2.5 + Math.random() * 6.3, w0 = 1.1 * R / ax;   // 안쪽일수록 빨리 돈다 (rad/s)
-      const frames = [];
-      for (let i = 0; i <= 32; i++) {
-        const t = i / 32, s = 0.45;                // 앞 45%: 소용돌이치며 들어옴 / 뒤: 제자리 궤도를 돈다
+      w.r0 = Math.hypot(w.x - cx, w.y - cy); w.a0 = Math.atan2(w.y - cy, w.x - cx);
+      w.ring = Math.random() < 0.35;    // 35%는 구멍을 감싸는 빛 테두리, 나머지는 납작한 원반
+      w.ax = w.ring ? R * (1.25 + Math.random() * 0.3) : R * (1.7 + Math.random() * 2.4);
+      w.ay = w.ring ? w.ax : w.ax * 0.17;
+      w.delay = w.r0 / far * 2000 + Math.random() * 250;   // 가까운 단어부터 줄줄이
+      w.D = END - w.delay; w.spinIn = 2.5 + Math.random() * 6.3; w.w0 = 1.1 * R / w.ax;   // 안쪽일수록 빨리 돈다 (rad/s)
+      w.to = w.ring ? [255, 243, 220] : [255, 191, 122];
+    });
+    const t0 = performance.now();
+    requestAnimationFrame(function frame(now) {
+      if (!layer.isConnected) return;
+      const T = now - t0;
+      for (const c of [bctx, fctx]) { c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, back.width, back.height); }
+      for (const w of words) {
+        const t = Math.min(1, Math.max(0, (T - w.delay) / w.D)), s = 0.45;   // 앞 45%: 소용돌이치며 들어옴 / 뒤: 제자리 궤도를 돈다
         let phi, rx, ry, k;
         if (t <= s) { const u = t / s; k = u * u * (3 - 2 * u);
-          phi = a0 + spinIn * k; rx = r0 + (ax - r0) * k; ry = r0 + (ay - r0) * k; }
-        else { k = 1; phi = a0 + spinIn + w0 * (t - s) * D / 1000; rx = ax; ry = ay; }
+          phi = w.a0 + w.spinIn * k; rx = w.r0 + (w.ax - w.r0) * k; ry = w.r0 + (w.ay - w.r0) * k; }
+        else { k = 1; phi = w.a0 + w.spinIn + w.w0 * (t - s) * w.D / 1000; rx = w.ax; ry = w.ay; }
         const ex = Math.cos(phi) * rx, ey = Math.sin(phi) * ry;
         const px = cx + ex * cosT - ey * sinT, py = cy + ex * sinT + ey * cosT;
-        frames.push({ transform: `translate(${px - w.x}px, ${py - w.y}px) scale(${1 - 0.35 * k})`,
-          color: k < 0.5 ? cool : ring ? '#fff3dc' : '#ffbf7a', offset: t,
-          zIndex: !ring && k === 1 && Math.sin(phi) > 0 ? 10 : 1 });   // 원반 앞쪽 절반은 구멍 앞을 지난다
+        const c = !w.ring && k === 1 && Math.sin(phi) > 0 ? fctx : bctx;   // 원반 앞쪽 절반은 구멍 앞을 지난다
+        const m = Math.min(1, Math.max(0, (k - 0.4) / 0.2)), sc = Math.round((1 - 0.35 * k) * 20) / 20;
+        c.fillStyle = `rgb(${cr + (w.to[0] - cr) * m},${cg + (w.to[1] - cg) * m},${cb + (w.to[2] - cb) * m})`;
+        c.setTransform(dpr * sc, 0, 0, dpr * sc, px * dpr, py * dpr);
+        c.fillText(w.t, -w.hw, 0);
       }
-      w.span.animate(frames, { duration: D, delay, easing: 'linear', fill: 'both' });
+      requestAnimationFrame(frame);
     });
     const flights = [...pieces()].map(el => {     // 앞 창 글자도 천천히 소용돌이치며 구멍 속으로
       const r = el.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;

@@ -103,8 +103,14 @@
   .rise { animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
   @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
   /* 화면이 깨지는 순간: 전체가 한 번 크게 흔들린다 */
-  :root.broken { overflow: hidden; }
+  :root.broken, :root.flying { overflow: hidden; }
   :root.broken #screen { animation: quake 0.4s; }
+  #screen.jolt { animation: jolt 0.55s linear; }   /* 3단계 펑: 날아가기 전에 덜덜 떤다 */
+  @keyframes jolt { 0%, 100% { transform: none; } 10% { transform: translate(-3px, 2px) rotate(-0.4deg); }
+    20% { transform: translate(4px, -2px) rotate(0.5deg); } 30% { transform: translate(-5px, -3px) rotate(-0.6deg); }
+    40% { transform: translate(5px, 3px) rotate(0.6deg); } 50% { transform: translate(-7px, 2px) rotate(-0.8deg); }
+    60% { transform: translate(7px, -4px) rotate(0.9deg); } 70% { transform: translate(-8px, 4px) rotate(-1deg); }
+    80% { transform: translate(9px, -3px) rotate(1.1deg); } 90% { transform: translate(-10px, 3px) rotate(-1.2deg); } }
   /* 펑: 부풀며 번지다 사라짐 / 되돌아올 때: 작게 모였다 나타남 */
   .pop { animation: pop 0.45s ease-out both; }
   @keyframes pop { 40% { transform: scale(1.25); filter: blur(1px); opacity: 1; }
@@ -143,6 +149,20 @@
       linear-gradient(var(--gray), var(--gray)); }
   @keyframes rainfall { from { background-position: 0 0, 14px 60px, 7px 100px, 0 0; }
     to { background-position: 0 190px, 14px 320px, 7px 250px, 0 0; } }
+  /* 펑 (3단계): 코드는 제자리, 글자 속으로 검은 속·빨간 테두리가 터져 번졌다가 원래 색으로 */
+  @property --br { syntax: '<length>'; inherits: false; initial-value: 0px; }
+  @property --core { syntax: '<color>'; inherits: false; initial-value: #111; }
+  @property --ring { syntax: '<color>'; inherits: false; initial-value: #d4140f; }
+  #code.burn, #code.burn *, #code.burn > .ln::before { color: transparent !important; }
+  #code.burn { -webkit-background-clip: text; background-clip: text;
+    background-image: radial-gradient(circle at var(--bx) var(--by), var(--core) calc(var(--br) * 0.5),
+      var(--ring) calc(var(--br) * 0.8), #ff6a1a calc(var(--br) * 0.93), var(--code) var(--br));
+    animation: burn 2.6s cubic-bezier(.3,.6,.45,1) both; }
+  :root.dark #code.burn { animation-name: burn-dark; }
+  @keyframes burn { 0% { --br: 0px; --core: #111; --ring: #d4140f; }
+    60% { --br: 120vmax; --core: #111; --ring: #d4140f; } 100% { --br: 120vmax; --core: var(--code); --ring: var(--code); } }
+  @keyframes burn-dark { 0% { --br: 0px; --core: #4a0606; --ring: #ff2a1a; }
+    60% { --br: 120vmax; --core: #4a0606; --ring: #ff2a1a; } 100% { --br: 120vmax; --core: var(--code); --ring: var(--code); } }
   /* 지구: 코드 글자로 그린 도는 지구. 단계가 오를수록 색·명암·매끄러움이 더해진다 */
   #globe { position: fixed; inset: 0; margin: 0; z-index: 1; pointer-events: none; overflow: hidden;
     font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; white-space: pre; font-variant-ligatures: none;
@@ -641,6 +661,17 @@
   addEventListener('click', e => { if (document.documentElement.classList.contains('earth') && e.target !== memo) endEarth(); });
   function boom() {                     // 한 번에 최대치로 터뜨린다
     finishTyping();
+    if (quality >= 3) {                 // 3단계: 코드는 제자리, 렌즈 자리(없으면 가운데)에서 검붉게 터져 번진다
+      if (codeEl.classList.contains('burn')) return;
+      const x = parseFloat(codeEl.style.getPropertyValue('--x')), y = parseFloat(codeEl.style.getPropertyValue('--y'));
+      codeEl.style.setProperty('--bx', x > 0 ? x + 'px' : '50%');
+      codeEl.style.setProperty('--by', y > 0 ? y + 'px' : '50%');
+      shaking = true; apply();
+      codeEl.classList.add('burn');
+      blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2);   // 앞 창: 덜덜 떨다가 조각조각 날아간다
+      setTimeout(() => { codeEl.classList.remove('burn'); shaking = false; apply(); }, 2700);
+      return;
+    }
     clearTimeout(restoreTimer); clearInterval(restoring);
     shaking = true; apply();
     power = MAX;
@@ -668,6 +699,29 @@
       }
     });
     if (burst) document.documentElement.classList.add('broken');
+  }
+  // 앞 창 날아가기 (3단계 펑): 창이 덜덜 떨고 → 조각들이 터진 자리 반대쪽으로 돌며 날아가고, 창 유리도 사라졌다가 → 되돌아온다
+  function blowAway(bx, by) {
+    screenEl.classList.add('jolt');
+    setTimeout(() => {
+      screenEl.classList.remove('jolt');
+      document.documentElement.classList.add('flying');
+      const flights = [...pieces()].map(el => {
+        const r = el.getBoundingClientRect();
+        const dx = r.left + r.width / 2 - bx, dy = r.top + r.height / 2 - by, d = Math.hypot(dx, dy) || 1;
+        const far = 700 + Math.random() * 500;
+        const tx = dx / d * far + (Math.random() - 0.5) * 300, ty = dy / d * far + (Math.random() - 0.5) * 300 - 120;
+        return el.animate([{ transform: 'none', opacity: 1 },
+          { transform: `translate(${tx}px, ${ty}px) rotate(${(Math.random() - 0.5) * 720}deg) scale(0.7)`, opacity: 0 }],
+          { duration: 750, delay: Math.random() * 80, easing: 'cubic-bezier(.15,.7,.3,1)', fill: 'forwards' });
+      });
+      flights.push(screenEl.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(1.08)' }],
+        { duration: 500, easing: 'ease-out', fill: 'forwards' }));
+      setTimeout(() => flights.forEach(a => {   // 되돌아온다
+        a.updatePlaybackRate(1.4); a.reverse();
+        a.finished.then(() => { a.cancel(); document.documentElement.classList.remove('flying'); });
+      }), 1500);
+    }, 550);
   }
   function mend() {                     // 터진 글자를 원래대로 되돌린다
     pieces().forEach(el => {

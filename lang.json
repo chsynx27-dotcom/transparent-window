@@ -531,10 +531,6 @@
   "en": "/* Steps 1·2: just fall like step 0 but rain-like — the falling unit gets smaller (0 line → 1 word → 2 character), each at its own speed, tail above */",
   "hj": "/* 一二段：如零段直落而似雨 — 落下單位漸小 (零行 → 一詞 → 二字)，速度各異，上留尾痕 */"
  },
- "// 떨어지는 단위: 0단계 줄 / 1단계 단어 / 2단계 글자 (화면에 보이는 줄만 잘게 쪼개고, 끝나면 원래대로)": {
-  "en": "// falling unit: step 0 line / step 1 word / step 2 character (only visible lines are split, restored afterward)",
-  "hj": "// 落下單位：零段行 / 一段詞 / 二段字 (只拆可見之行，畢則復原)"
- },
  "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 1·2단계: 단위마다 떨어지는 속도가 다르게": {
   "en": "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // steps 1·2: each unit falls at a different speed",
   "hj": "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 一二段：每單位落速各異"
@@ -683,14 +679,6 @@
   "en": "/* Step 3: the level marks become round cells, each holding a secret-word hint icon (magnet · rain · boom · earth · black hole) */",
   "hj": "/* 三段：段格化為圓格，每格置秘語提示圖示 (磁石 · 雨 · 爆 · 地球 · 黑洞) */"
  },
- "/* 자석 3단계: 끌려온 단어가 빛난다 */": {
-  "en": "/* Magnet step 3: pulled words glow */",
-  "hj": "/* 磁石三段：被吸之詞發光 */"
- },
- "// 0단계 뚝뚝 끊기며 / 1단계 부드럽게 / 2단계 마우스 쪽으로 기울고 가까울수록 보라빛 / 3단계 + 빛": {
-  "en": "// step 0 choppy / step 1 smooth / step 2 tilt toward the mouse, purpler when closer / step 3 + glow",
-  "hj": "// 零段頓挫 / 一段流暢 / 二段傾向滑鼠，愈近愈紫 / 三段 + 光"
- },
  "// 단계 칸 아이콘 (3단계에서만 보임): 비밀 단어 힌트 — 자석 · 물방울(비) · 터짐(펑) · 지구 · 소용돌이(블랙홀)": {
   "en": "// level-cell icons (visible only at step 3): secret-word hints — magnet · drop (rain) · burst (boom) · globe · swirl (black hole)",
   "hj": "// 段格圖示 (僅三段可見)：秘語提示 — 磁石 · 水滴 (雨) · 炸 (爆) · 地球 · 漩渦 (黑洞)"
@@ -707,10 +695,6 @@
   "en": "// visible back code as word chunks (shared by eruption, magnet, black hole — lighter than single characters)",
   "hj": "// 可見之後碼化為詞塊 (火山·磁石·黑洞共用 — 較單字輕)"
  },
- "const ease = q === 0 ? 1 : 0.15;               // 0단계는 바로 그 자리로, 나머지는 따라오듯": {
-  "en": "const ease = q === 0 ? 1 : 0.15;               // step 0 jumps straight there, others follow along",
-  "hj": "const ease = q === 0 ? 1 : 0.15;               // 零段直至其位，餘者隨行"
- },
  "const power = t < LONG ? Math.min(1, t / 400) : Math.max(0, 1 - (t - LONG) / 700);   // 서서히 켜졌다 꺼짐": {
   "en": "const power = t < LONG ? Math.min(1, t / 400) : Math.max(0, 1 - (t - LONG) / 700);   // fades on, then off",
   "hj": "const power = t < LONG ? Math.min(1, t / 400) : Math.max(0, 1 - (t - LONG) / 700);   // 漸開漸關"
@@ -719,17 +703,9 @@
   "en": "const pull = (el, x, y, spinSelf) => {          // motion that swirls one element into (cx, cy)",
   "hj": "const pull = (el, x, y, spinSelf) => {          // 將一元素旋吸至 (cx, cy) 之動"
  },
- "const pull = power * Math.max(0, 1 - d / 650) ** 1.5 * 0.85;   // 가까울수록 세게 (마우스에 딱 붙지는 않게)": {
-  "en": "const pull = power * Math.max(0, 1 - d / 650) ** 1.5 * 0.85;   // stronger when closer (but never stuck right on the mouse)",
-  "hj": "const pull = power * Math.max(0, 1 - d / 650) ** 1.5 * 0.85;   // 愈近愈強 (不緊貼滑鼠)"
- },
  "const words = [];                   // 붙어 있는 글자끼리 한 단어로": {
   "en": "const words = [];                   // adjacent characters form one word",
   "hj": "const words = [];                   // 相連之字合為一詞"
- },
- "if (q === 0 && now - last < 120) return;      // 0단계: 일부러 뚝뚝": {
-  "en": "if (q === 0 && now - last < 120) return;      // step 0: choppy on purpose",
-  "hj": "if (q === 0 && now - last < 120) return;      // 零段：刻意頓挫"
  },
  "return { span, x: x + span.textContent.length * 4, y: y + 9 };   // 단어 가운데쯤": {
   "en": "return { span, x: x + span.textContent.length * 4, y: y + 9 };   // around the word's center",
@@ -822,5 +798,161 @@
  "codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // 다시 밝아지듯": {
   "en": "codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // as if brightening again",
   "hj": "codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // 如復明"
+ },
+ "#code.rq2c .u { visibility: hidden; }   /* 2단계 비: 글자는 캔버스가 대신 그린다 */": {
+  "en": "#code.rq2c .u { visibility: hidden; }   /* step 2 rain: a canvas draws the letters instead */",
+  "hj": "#code.rq2c .u { visibility: hidden; }   /* 二階雨：字由畫布代繪 */"
+ },
+ "#eggs .a { clip-path: url(#egg-left); } #eggs .b { clip-path: url(#egg-right); }   /* 1단계: 세로로 반 가른다 */": {
+  "en": "#eggs .a { clip-path: url(#egg-left); } #eggs .b { clip-path: url(#egg-right); }   /* step 1: split down the middle */",
+  "hj": "#eggs .a { clip-path: url(#egg-left); } #eggs .b { clip-path: url(#egg-right); }   /* 一階：縱剖為二 */"
+ },
+ "/* 0단계: 글자 달걀 [] — 깨지면 [ */": {
+  "en": "/* Step 0: a text egg [] — cracked becomes [ */",
+  "hj": "/* 零階：字之卵 [] — 碎則為 [ */"
+ },
+ "/* 1단계: 테두리 달걀, 반쪽이 옆으로 기울며 미끄러져 사라진다 */": {
+  "en": "/* Step 1: an outline egg; one half tilts, slides off and fades */",
+  "hj": "/* 一階：輪廓之卵，半殼側傾滑落而逝 */"
+ },
+ "/* 2단계: 명암 있는 달걀, 흔들리다 지그재그로 금 가며 윗부분이 튕겨 나간다 */": {
+  "en": "/* Step 2: a shaded egg wobbles, cracks in a zigzag, and its top pops off */",
+  "hj": "/* 二階：有明暗之卵，搖晃後鋸齒而裂，上殼彈出 */"
+ },
+ "/* 3단계: 광택 달걀 + 그림자, 흔들림 → 윗껍질이 날아가고 안에서 노른자 빛 */": {
+  "en": "/* Step 3: glossy egg + shadow; wobble → top shell flies off, yolk glows inside */",
+  "hj": "/* 三階：光澤之卵與影，搖晃 → 上殼飛去，內現蛋黃之光 */"
+ },
+ "/* 이스터에그 달걀 6개 (오른쪽 아래): 하나 찾을 때마다 하나씩 깨진다. 단계가 오를수록 달걀도, 깨지는 모습도 좋아진다 */": {
+  "en": "/* Six Easter-egg eggs (bottom right): one cracks for each egg found. Higher steps make both the eggs and the cracking nicer */",
+  "hj": "/* 彩蛋之卵六枚（右下）：每覓得一則碎一枚。階愈高，卵與碎狀愈精 */"
+ },
+ "/* 화면에 보이는 줄(.f)만 떨어뜨린다 — 화면 밖 1,000여 줄까지 움직이면 프레임이 크게 떨어진다 */": {
+  "en": "/* only lines on screen (.f) fall — moving the 1,000-odd off-screen lines too drops the frame rate badly */",
+  "hj": "/* 僅落屏上之行(.f) — 若連屏外千餘行皆動，幀率大降 */"
+ },
+ "// 0~2단계는 최소한: 마우스 가까운 단어만 살짝 (0단계 가장 좁고 약하게·뚝뚝 끊기며 / 1·2단계 조금 더 넓게·부드럽게)": {
+  "en": "// steps 0–2 are minimal: only words near the mouse, slightly (step 0 narrowest, weakest, choppy / steps 1·2 a bit wider, smooth)",
+  "hj": "// 零至二階從簡：僅近鼠之詞微動（零階最窄最弱、斷續 / 一·二階稍廣、柔順）"
+ },
+ "// 2단계 비 (글자 1,000여 개): 글자 자리·색을 한 번 읽고, 떨어지고 되감기는 건 캔버스 한 장에 그린다.": {
+  "en": "// step 2 rain (1,000-odd letters): read each letter's place and color once, draw the fall and rewind on one canvas.",
+  "hj": "// 二階雨（字千餘）：一次讀取字之位與色，落下與倒捲皆繪於一畫布。"
+ },
+ "// 3단계: 마우스 쪽으로 엿가락처럼 늘어난다 — 마우스 반대쪽 끝은 제자리에 두고 마우스 쪽으로만 길어짐.": {
+  "en": "// step 3: stretches toward the mouse like taffy — the far end stays put, only the mouse side grows.",
+  "hj": "// 三階：如飴向鼠延展 — 遠鼠之端不動，唯向鼠側伸長。"
+ },
+ "// 3단계: 화면 반대편 단어까지, 자리는 거의 그대로 마우스 쪽으로 엿가락처럼 늘어나며 보라빛 + 빛": {
+  "en": "// step 3: even words across the screen stay nearly in place but stretch toward the mouse like taffy, purple + glow",
+  "hj": "// 三階：遠至屏之彼端之詞，位幾不移，如飴向鼠延展，紫色並光"
+ },
+ "// 3단계만 끌릴수록 보라빛 (코드 색 위에 보라를 겹쳐 물들임) + 빛 (빛 세기도 몇 단계로 묶음)": {
+  "en": "// step 3 only: the stronger the pull, the more purple (purple layered over the code color) + glow (glow strength also in a few steps)",
+  "hj": "// 唯三階：引愈強愈紫（紫疊於碼色之上）並光（光之強弱亦分數級）"
+ },
+ "// CSS cubic-bezier와 같은 이징 (캔버스용, 미리 표로 만들어 둔다)": {
+  "en": "// same easing as CSS cubic-bezier (for canvas, precomputed as a table)",
+  "hj": "// 與 CSS cubic-bezier 同之緩動（畫布用，預製為表）"
+ },
+ "// CSS 때와 같은 움직임 — 단위마다 늦게 출발(d)·속도 제각각(t), 위로 코드 색 꼬리 세 겹, 떨어질수록 옅어짐": {
+  "en": "// same motion as the CSS version — each unit starts late (d) at its own speed (t), three code-colored tails above, fading as it falls",
+  "hj": "// 與 CSS 時同動 — 各單位遲發(d)、速各異(t)，上曳碼色之尾三重，愈落愈淡"
+ },
+ "// 글자 캔버스: 수백~수천 글자를 span 대신 캔버스 한 장에 그린다 (span마다 움직이면 프레임이 크게 떨어진다).": {
+  "en": "// letter canvas: draws hundreds to thousands of letters on one canvas instead of spans (moving each span drops the frame rate badly).",
+  "hj": "// 字之畫布：數百至數千字不用 span，繪於一畫布（每 span 皆動則幀率大降）。"
+ },
+ "// 늘어남(0.1)·방향(3도)은 몇 단계로 묶어 같은 글자 모양을 다시 쓴다 (매 프레임 새 모양이면 느려진다)": {
+  "en": "// stretch (0.1) and direction (3°) are snapped to steps so letter shapes get reused (a new shape every frame is slow)",
+  "hj": "// 伸長(0.1)·方向(3度)分級，以重用同一字形（每幀新形則慢）"
+ },
+ "// 단어는 캔버스 한 장에 그린다 (단어 span마다 위치·색을 매 프레임 바꾸면 프레임이 크게 떨어진다)": {
+  "en": "// words are drawn on one canvas (changing each word span's position and color every frame drops the frame rate badly)",
+  "hj": "// 詞繪於一畫布（每幀改每詞 span 之位與色，則幀率大降）"
+ },
+ "// 떨어지는 단위: 0단계 줄 / 1단계 단어 / 2단계 글자 (화면에 보이는 줄만 움직이거나 잘게 쪼개고, 끝나면 원래대로)": {
+  "en": "// falling unit: step 0 lines / step 1 words / step 2 letters (only on-screen lines move or get split, restored afterward)",
+  "hj": "// 落下單位：零階行 / 一階詞 / 二階字（唯屏上之行動或細分，畢則復原）"
+ },
+ "// 이스터에그 달걀 6개: 코드 속 '버튼' + 비밀 단어 5개. 처음 찾을 때마다 왼쪽 달걀부터 하나씩 깨진다": {
+  "en": "// six Easter-egg eggs: the 'button' in the code + 5 secret words. Each first find cracks the next egg from the left",
+  "hj": "// 彩蛋之卵六枚：碼中之「按鈕」並秘語五則。每初覓得，自左碎一枚"
+ },
+ "// 캔버스를 화면에서 떼면 그리기도 멈춘다": {
+  "en": "// removing the canvas from the page also stops drawing",
+  "hj": "// 畫布離屏則繪亦止"
+ },
+ ": power * Math.max(0, 1 - d / REACH[q][0]) ** 1.5 * REACH[q][1];  // 0~2단계: 가까운 단어만 조금 (가까울수록 세게)": {
+  "en": ": power * Math.max(0, 1 - d / REACH[q][0]) ** 1.5 * REACH[q][1];  // steps 0–2: only nearby words, a little (stronger when closer)",
+  "hj": ": power * Math.max(0, 1 - d / REACH[q][0]) ** 1.5 * REACH[q][1];  // 零至二階：唯近詞微動（愈近愈強）"
+ },
+ "? power * (0.35 + 0.5 * Math.max(0, 1 - d / diag))          // 3단계: 화면 반대편 단어까지 당겨진다": {
+  "en": "? power * (0.35 + 0.5 * Math.max(0, 1 - d / diag))          // step 3: even words across the screen get pulled",
+  "hj": "? power * (0.35 + 0.5 * Math.max(0, 1 - d / diag))          // 三階：遠至屏之彼端之詞亦被引"
+ },
+ "codeEl.after(cv);                   // 앞 창 뒤, 코드와 같은 층": {
+  "en": "codeEl.after(cv);                   // behind the front window, same layer as the code",
+  "hj": "codeEl.after(cv);                   // 前窓之後，與碼同層"
+ },
+ "codeEl.style.visibility = 'hidden';   // 숨긴 코드 1,000여 줄을 아예 안 그리게 (투명만 하면 캔버스가 바뀔 때마다 같이 다시 그려진다)": {
+  "en": "codeEl.style.visibility = 'hidden';   // don't paint the 1,000-odd hidden code lines at all (if merely transparent, they repaint whenever the canvas changes)",
+  "hj": "codeEl.style.visibility = 'hidden';   // 所藏千餘行碼全不繪（僅透明則畫布每變皆隨之重繪）"
+ },
+ "const CRACK_MS = [0, 500, 950, 1250];  // 단계별 깨지는 시간 (0단계는 바로 [ 가 된다)": {
+  "en": "const CRACK_MS = [0, 500, 950, 1250];  // cracking time per step (step 0 turns into [ at once)",
+  "hj": "const CRACK_MS = [0, 500, 950, 1250];  // 各階碎裂之時（零階即成 [）"
+ },
+ "const REACH = [[160, 0.2], [260, 0.3], [360, 0.4]];   // 0~2단계: [끌리는 거리(px), 최대 세기] — 최소한으로": {
+  "en": "const REACH = [[160, 0.2], [260, 0.3], [360, 0.4]];   // steps 0–2: [pull distance (px), max strength] — kept minimal",
+  "hj": "const REACH = [[160, 0.2], [260, 0.3], [360, 0.4]];   // 零至二階：[引距(px), 最大強度] — 從簡"
+ },
+ "const ZIG = '0,16 4,13 8,17 12,13 16,17 20,13 24,16';    // 2단계부터 금 가는 선": {
+  "en": "const ZIG = '0,16 4,13 8,17 12,13 16,17 20,13 24,16';    // crack line from step 2",
+  "hj": "const ZIG = '0,16 4,13 8,17 12,13 16,17 20,13 24,16';    // 二階起之裂線"
+ },
+ "const e = now < 2400 ? fall((now - p.d) / p.t) : rise(1 - (now - 2400 - p.d) / 900);   // 떨어짐 → 되감아 올림": {
+  "en": "const e = now < 2400 ? fall((now - p.d) / p.t) : rise(1 - (now - 2400 - p.d) / 900);   // fall → rewind back up",
+  "hj": "const e = now < 2400 ? fall((now - p.d) / p.t) : rise(1 - (now - 2400 - p.d) / 900);   // 落下 → 倒捲而上"
+ },
+ "const ease = q === 0 ? 1 : 0.15;   // 0단계는 바로 그 자리로, 나머지는 따라오듯": {
+  "en": "const ease = q === 0 ? 1 : 0.15;   // step 0 jumps straight there, others follow along",
+  "hj": "const ease = q === 0 ? 1 : 0.15;   // 零階直抵其位，餘者隨之"
+ },
+ "const ext = (Math.abs(c) * w.hw + Math.abs(n) * 6) * s;   // 늘어난 만큼 마우스 쪽으로 밀어 반대쪽 끝을 고정": {
+  "en": "const ext = (Math.abs(c) * w.hw + Math.abs(n) * 6) * s;   // shift toward the mouse by the stretch so the far end stays fixed",
+  "hj": "const ext = (Math.abs(c) * w.hw + Math.abs(n) * 6) * s;   // 依伸長向鼠推移，以固遠端"
+ },
+ "const look = k => looks[k] ??= (() => {   // 지구 글자 색 이름 → 색·굵기 (CSS에 적힌 그대로 읽는다)": {
+  "en": "const look = k => looks[k] ??= (() => {   // globe letter color name → color & weight (read straight from the CSS)",
+  "hj": "const look = k => looks[k] ??= (() => {   // 地球字色名 → 色·粗細（依 CSS 所書讀之）"
+ },
+ "const mix = tint((t - 33) / 1400);   // 날아가는 동안 도착할 칸의 지구 색으로 물든다 (원래 코드 색 → 지구 색)": {
+  "en": "const mix = tint((t - 33) / 1400);   // while flying, tint to the globe color of the target cell (code color → globe color)",
+  "hj": "const mix = tint((t - 33) / 1400);   // 飛行間染為所至格之地球色（碼色 → 地球色）"
+ },
+ "const move = q >= 3 ? w.pull * 0.06 : w.pull;   // 3단계는 자리는 거의 그대로, 대신 늘어난다": {
+  "en": "const move = q >= 3 ? w.pull * 0.06 : w.pull;   // step 3 barely moves, it stretches instead",
+  "hj": "const move = q >= 3 ? w.pull * 0.06 : w.pull;   // 三階位幾不移，代之以伸長"
+ },
+ "for (const p of parts) {         // 굵기별로 모아 두어 글꼴은 몇 번만 바꾼다": {
+  "en": "for (const p of parts) {         // grouped by weight so the font changes only a few times",
+  "hj": "for (const p of parts) {         // 依粗細歸類，字型僅換數次"
+ },
+ "if (!(q === 0 && t - last < 120)) {  // 0단계: 일부러 뚝뚝 (움직임만 띄엄띄엄 갱신)": {
+  "en": "if (!(q === 0 && t - last < 120)) {  // step 0: deliberately choppy (motion updated only now and then)",
+  "hj": "if (!(q === 0 && t - last < 120)) {  // 零階：故作斷續（動作間歇更新）"
+ },
+ "if (foundEggs.has(id)) return;      // 같은 이스터에그는 한 번만": {
+  "en": "if (foundEggs.has(id)) return;      // each Easter egg counts once",
+  "hj": "if (foundEggs.has(id)) return;      // 同一彩蛋僅計一次"
+ },
+ "if (t > LONG + 900) {             // 끝: 코드가 다시 밝아지듯 제자리에": {
+  "en": "if (t > LONG + 900) {             // end: the code returns in place, brightening back",
+  "hj": "if (t > LONG + 900) {             // 終：碼復歸原位，如重明"
+ },
+ "});                                 // 첫 그림은 다음 프레임부터 (부르는 쪽이 준비를 마친 뒤)": {
+  "en": "});                                 // first drawing from the next frame (after the caller is ready)",
+  "hj": "});                                 // 首繪始於次幀（待呼者備妥）"
  }
 }

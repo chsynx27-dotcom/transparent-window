@@ -217,6 +217,44 @@
   #corner [aria-pressed="true"] { font-weight: bold; background: #ffe14d; color: #111; }
   #memo { margin-top: 16px; font-size: 16px; padding: 6px; }
   .hit { background: #ffe14d; color: #111; transition: background 0.3s; }
+  /* 이스터에그 달걀 6개 (오른쪽 아래): 하나 찾을 때마다 하나씩 깨진다. 단계가 오를수록 달걀도, 깨지는 모습도 좋아진다 */
+  #eggs { position: fixed; right: 14px; bottom: 64px; z-index: 3; display: flex; align-items: flex-end; gap: 3px; pointer-events: none; }
+  #eggs i { display: inline-block; }
+  /* 0단계: 글자 달걀 [] — 깨지면 [ */
+  #eggs b { font: 10px/1 monospace; color: color-mix(in srgb, var(--fg) 55%, transparent); }
+  #eggs b::before { content: '[]'; } #eggs .cracked b::before { content: '['; }
+  #eggs svg { display: none; width: 8px; height: 11px; overflow: visible; }
+  :root.q1 #eggs b { display: none; } :root.q1 #eggs svg { display: block; }
+  #eggs .shell { fill: none; stroke: color-mix(in srgb, var(--fg) 60%, transparent); stroke-width: 1.6; }
+  #eggs .shine, #eggs .yolk, #eggs .crack { display: none; }
+  #eggs .a { clip-path: url(#egg-left); } #eggs .b { clip-path: url(#egg-right); }   /* 1단계: 세로로 반 가른다 */
+  #eggs .cracked .b { display: none; }
+  #eggs .a, #eggs .b { transform-box: fill-box; transform-origin: 50% 100%; }
+  /* 1단계: 테두리 달걀, 반쪽이 옆으로 기울며 미끄러져 사라진다 */
+  :root.q1 #eggs .cracking .b { animation: egg-slide 0.5s ease-in forwards; }
+  @keyframes egg-slide { to { transform: translate(7px, 2px) rotate(25deg); opacity: 0; } }
+  /* 2단계: 명암 있는 달걀, 흔들리다 지그재그로 금 가며 윗부분이 튕겨 나간다 */
+  :root.q2 #eggs { right: 22px; bottom: 28px; gap: 4px; }
+  :root.q2 #eggs svg { width: 9px; height: 12px; }
+  :root.q2 #eggs .shell { fill: url(#egg-fill); stroke: color-mix(in srgb, var(--fg) 25%, transparent); stroke-width: 0.8; }
+  :root.q2 #eggs .a { clip-path: url(#egg-bottom); } :root.q2 #eggs .b { clip-path: url(#egg-top); }
+  :root.q2 #eggs .cracked .crack { display: inline; fill: none; stroke: color-mix(in srgb, var(--fg) 45%, transparent); stroke-width: 0.8; }
+  :root.q2 #eggs .cracking { animation: egg-wobble 0.35s ease-in-out; }
+  :root.q2 #eggs .cracking .b { animation: egg-pop 0.6s cubic-bezier(.3,.6,.6,1) 0.35s forwards; }
+  @keyframes egg-wobble { 25% { transform: rotate(-12deg); } 75% { transform: rotate(12deg); } }
+  @keyframes egg-pop { 40% { transform: translate(3px, -9px) rotate(20deg); opacity: 1; } to { transform: translate(8px, -4px) rotate(70deg); opacity: 0; } }
+  /* 3단계: 광택 달걀 + 그림자, 흔들림 → 윗껍질이 날아가고 안에서 노른자 빛 */
+  :root.q3 #eggs svg { width: 11px; height: 14px; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.25)); }
+  :root.q3 #eggs .shell { fill: url(#egg-gloss); stroke: none; }
+  :root.q3 #eggs .shine { display: inline; fill: #fff; opacity: .7; }
+  :root.q3 #eggs .cracked .yolk { display: inline; fill: url(#egg-yolk); }
+  :root.q3 #eggs .cracked { filter: drop-shadow(0 0 5px rgba(255,190,60,.55)) drop-shadow(0 2px 3px rgba(0,0,0,.25)); }
+  :root.q3 #eggs .cracking { animation: egg-wobble 0.45s ease-in-out, egg-glow 1.4s ease-out 0.45s; }
+  :root.q3 #eggs .cracking .b { animation: egg-fly 0.8s cubic-bezier(.2,.7,.4,1) 0.45s forwards; }
+  :root.q3 #eggs .cracking .yolk { animation: egg-yolk 0.6s ease-out 0.45s both; transform-box: fill-box; transform-origin: center; }
+  @keyframes egg-fly { 30% { transform: translate(4px, -16px) rotate(35deg); opacity: 1; } to { transform: translate(14px, -10px) rotate(160deg); opacity: 0; } }
+  @keyframes egg-glow { 0% { filter: drop-shadow(0 0 0 rgba(255,190,60,0)); } 25% { filter: drop-shadow(0 0 12px rgba(255,200,80,.95)); } }
+  @keyframes egg-yolk { from { transform: scale(0.3); opacity: 0; } }
 </style>
 </head>
 <body class="intro">
@@ -225,6 +263,7 @@
   <button type="button" id="hj">漢字</button>
   <button type="button" id="dark">블랙 모드</button>
 </div>
+<div id="eggs" aria-hidden="true"></div>
 <main id="screen">
   <h1>투명창</h1>
   <p>이 페이지는 자기 자신의 코드를 겹쳐 보여줍니다. (더미 내용)</p>
@@ -344,9 +383,37 @@
     line.append(text.slice(0, at), egg, text.slice(at + word.length) + '\n');
   }
 
+  // 이스터에그 달걀 6개: 코드 속 '버튼' + 비밀 단어 5개. 처음 찾을 때마다 왼쪽 달걀부터 하나씩 깨진다
+  const EGG_PATH = 'M12 1C6 1 1.5 10 1.5 18.5 1.5 25.5 6 31 12 31s10.5-5.5 10.5-12.5C22.5 10 18 1 12 1z';
+  const ZIG = '0,16 4,13 8,17 12,13 16,17 20,13 24,16';    // 2단계부터 금 가는 선
+  const eggsEl = document.getElementById('eggs'), foundEggs = new Set();
+  eggsEl.innerHTML = `<svg width="0" height="0" style="position:absolute"><defs>
+      <clipPath id="egg-shape"><path d="${EGG_PATH}"/></clipPath>
+      <clipPath id="egg-left"><rect x="-4" y="-4" width="16" height="40"/></clipPath>
+      <clipPath id="egg-right"><rect x="12" y="-4" width="16" height="40"/></clipPath>
+      <clipPath id="egg-top"><polygon points="-4,-4 28,-4 28,16 ${ZIG.split(' ').reverse().join(' ')}"/></clipPath>
+      <clipPath id="egg-bottom"><polygon points="${ZIG} 28,40 -4,40"/></clipPath>
+      <linearGradient id="egg-fill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffaf0"/><stop offset="1" stop-color="#e3d5bd"/></linearGradient>
+      <radialGradient id="egg-gloss" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#f4e8d4"/><stop offset="1" stop-color="#c9b08a"/></radialGradient>
+      <radialGradient id="egg-yolk" cx=".45" cy=".4"><stop offset="0" stop-color="#ffe680"/><stop offset="1" stop-color="#f29a1f"/></radialGradient>
+    </defs></svg>` + Array.from({ length: 6 }, () => `<i><b></b><svg viewBox="0 0 24 32">
+      <g class="a"><path class="shell" d="${EGG_PATH}"/><ellipse class="yolk" cx="12" cy="19.5" rx="7" ry="3.4"/><ellipse class="shine" cx="8" cy="10" rx="2" ry="3.6" transform="rotate(-20 8 10)"/></g>
+      <g class="b"><path class="shell" d="${EGG_PATH}"/><ellipse class="shine" cx="8" cy="10" rx="2" ry="3.6" transform="rotate(-20 8 10)"/></g>
+      <polyline class="crack" points="${ZIG}" clip-path="url(#egg-shape)"/></svg></i>`).join('');
+  const CRACK_MS = [0, 500, 950, 1250];  // 단계별 깨지는 시간 (0단계는 바로 [ 가 된다)
+  function foundEgg(id) {
+    if (foundEggs.has(id)) return;      // 같은 이스터에그는 한 번만
+    foundEggs.add(id);
+    const egg = eggsEl.querySelectorAll('i')[foundEggs.size - 1];
+    if (!egg) return;
+    egg.classList.add('cracking');
+    setTimeout(() => { egg.classList.remove('cracking'); egg.classList.add('cracked'); }, CRACK_MS[quality]);
+  }
+
   // 이스터에그: 코드 속 '버튼'을 누르면 글상자에 살짝 적힌다
   function hatch(e) {
     e.stopPropagation();
+    foundEgg('button');
     memo.value = EGG_TEXT[lang];
     memo.dispatchEvent(new Event('input'));   // 뒤 코드에도 그대로 써진다
   }
@@ -465,7 +532,7 @@
   function checkSecret() {
     const v = memo.value.trim().toLowerCase();
     const hit = findSecret();
-    if (hit && v !== lastSecret) hit.run();
+    if (hit && v !== lastSecret) { hit.run(); foundEgg(hit.words[0]); }
     lastSecret = hit ? v : '';          // 같은 글 그대로면 다시 터지지 않게
   }
   function writeMemoLine() {

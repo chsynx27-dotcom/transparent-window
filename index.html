@@ -113,6 +113,19 @@
   #code.rain > .ln { display: block; animation: drop 1.4s cubic-bezier(.5,0,.9,.5) var(--d) both; }
   #code.unrain > .ln { display: block; animation: drop 1s cubic-bezier(.1,.5,.5,1) var(--d) both reverse; }
   @keyframes drop { to { transform: translateY(110vh) rotate(var(--rot)); opacity: 0.15; } }
+  /* 1단계: 곧게 떨어지며 아래로 길게 늘어나 빗줄기처럼 */
+  #code.rain.rq1 > .ln { transform-origin: 50% 0; animation: drop1 1.3s cubic-bezier(.55,0,.85,.4) var(--d) both; }
+  #code.unrain.rq1 > .ln { transform-origin: 50% 0; animation: drop1 1s cubic-bezier(.1,.5,.5,1) var(--d) both reverse; }
+  @keyframes drop1 { 30% { transform: translateY(6vh) scaleY(1.4); opacity: 0.9; }
+    to { transform: translateY(110vh) scaleY(2.6); opacity: 0.1; } }
+  /* 2단계: 바람 맞은 비처럼 모두 같은 방향으로 비스듬히, 코드 색 그대로 꼬리를 끌며 */
+  #code.rain.rq2 > .ln, #code.unrain.rq2 > .ln {
+    text-shadow: -2px -6px color-mix(in srgb, currentColor 45%, transparent),
+      -4px -13px color-mix(in srgb, currentColor 25%, transparent), -6px -21px color-mix(in srgb, currentColor 12%, transparent); }
+  #code.rq2 { overflow-x: hidden; }   /* 비스듬히 나가도 가로 스크롤바가 생기지 않게 */
+  #code.rain.rq2 > .ln { animation: drop2 1.3s cubic-bezier(.5,0,.9,.5) var(--d) both; }
+  #code.unrain.rq2 > .ln { animation: drop2 1s cubic-bezier(.1,.5,.5,1) var(--d) both reverse; }
+  @keyframes drop2 { to { transform: translate(28vh, 110vh) skewX(-14deg); opacity: 0.15; } }
   /* 코드 비 (3단계): 코드가 먼저 흑백으로 바래고, 글자는 제자리에 둔 채 파란 빗줄기가 글자 속으로만 흘러내린다 */
   #code.gray, #code.gray * { transition: color 0.6s; }
   #code.gray, #code.gray *, #code.gray > .ln::before { color: var(--gray) !important; }

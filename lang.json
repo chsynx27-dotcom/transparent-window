@@ -582,5 +582,17 @@
  "setTimeout(() => {                  // 다 모이면 지구가 나타난다": {
   "en": "setTimeout(() => {                  // once all gathered, the earth appears",
   "hj": "setTimeout(() => {                  // 聚齊則地球現"
+ },
+ "/* 1단계: 곧게 떨어지며 아래로 길게 늘어나 빗줄기처럼 */": {
+  "en": "/* Step 1: falls straight down, stretching long like rain streaks */",
+  "hj": "/* 一段：直落而下，拉長如雨絲 */"
+ },
+ "/* 2단계: 바람 맞은 비처럼 모두 같은 방향으로 비스듬히, 코드 색 그대로 꼬리를 끌며 */": {
+  "en": "/* Step 2: all slanting one way like wind-blown rain, trailing tails in their own code colors */",
+  "hj": "/* 二段：如風中雨同向斜落，拖著本色碼尾 */"
+ },
+ "#code.rq2 { overflow-x: hidden; }   /* 비스듬히 나가도 가로 스크롤바가 생기지 않게 */": {
+  "en": "#code.rq2 { overflow-x: hidden; }   /* no horizontal scrollbar when lines slant off */",
+  "hj": "#code.rq2 { overflow-x: hidden; }   /* 斜出亦不生橫捲軸 */"
  }
 }

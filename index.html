@@ -1244,9 +1244,9 @@
     const END = big ? 8500 : 6000;      // 이때까지 원반이 돈다 (폰은 조금 더 오래)
     const GLOW = 600;                   // 단어가 제자리에서 빛나기 시작해 다 물드는 시간 (그다음 바로 끌려간다)
     const A0 = parseFloat(getComputedStyle(codeEl).getPropertyValue('--base')) || 0.5;   // 원래 코드의 진하기 — 빛나기 전에는 이 진하기 그대로
-    hole.animate([{ transform: 'translate(-50%, -50%) scale(0)' }, { transform: 'translate(-50%, -50%) scale(1)', offset: 0.3 },
-      { transform: 'translate(-50%, -50%) scale(1.08)', offset: 0.9 }, { transform: 'translate(-50%, -50%) scale(0)' }],
-      { duration: END + 700, easing: 'ease-in-out', fill: 'forwards' });
+    hole.animate([{ transform: 'translate(-50%, -50%) scale(0)', easing: 'ease-in-out' }, { transform: 'translate(-50%, -50%) scale(1)', offset: 0.3 * END / (END + 700) },
+      { transform: 'translate(-50%, -50%) scale(1.08)', offset: END / (END + 700), easing: 'cubic-bezier(.45, 0, .55, 1)' }, { transform: 'translate(-50%, -50%) scale(0)' }],
+      { duration: END + 700, fill: 'forwards' });
     // 원반 기울기: PC는 살짝(-8°), 폰은 화면 비율에 맞춰 오른쪽 아래로 (세로 화면 약 55°) — 화면을 비스듬히 가로지르게
     const tilt = big ? Math.atan2(innerHeight, innerWidth) * 0.85 : -8 * Math.PI / 180, cosT = Math.cos(tilt), sinT = Math.sin(tilt);
     const bctx = back.getContext('2d'), fctx = front.getContext('2d'), family = getComputedStyle(layer).fontFamily;

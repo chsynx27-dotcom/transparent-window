@@ -152,10 +152,11 @@
   #globe .s0 { color: #9fd0ff; } #globe .s1 { color: #4f9df5; } #globe .s2 { color: #2f6fd0; } #globe .s3 { color: #1c3f7a; }
   #globe .ic { color: #e9f3ff; font-weight: 700; text-shadow: 0 0 2px #7fb2ff; }
   :root.earth-on #globe { opacity: 1; transform: none; }
-  /* 지구가 되기 전: 코드가 흩어지지 않고 그대로 원 모양으로 오므라든다 (원 크기 = 지구 크기 42vmin) */
-  #code { clip-path: circle(150vmax at 50% 50%); }
-  :root.earth #code { clip-path: circle(42vmin at 50% 50%); transition: clip-path 1.2s cubic-bezier(.6,0,.3,1), opacity 0.6s; }
-  :root.earth-on #code { opacity: 0; }
+  /* 지구가 되기 전: 코드 글자가 하나하나 떨어져 나와 지구 원 모양 자리로 모인다 */
+  :root.earth #code { opacity: 0; }
+  #flock { position: fixed; inset: 0; z-index: 1; pointer-events: none; transition: opacity 0.4s;
+    font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; color: var(--code); }
+  #flock span { position: absolute; }
   :root.earth #screen { opacity: 0.2; }
   .unpop { animation: unpop 0.6s cubic-bezier(.2,.8,.3,1) both; }
   @keyframes unpop { from { transform: scale(0.6); filter: blur(6px); opacity: 0; } }
@@ -485,7 +486,7 @@
   const isLand = (lat, lon) => (LAND[Math.min(17, Math.max(0, Math.floor((90 - lat) / 10)))] || [])
     .some(([a, b]) => lon >= a && lon <= b);
   const globeEl = document.getElementById('globe');
-  let earthFrame = null, earthTimer = null;
+  let earthFrame = null, earthTimer = null, flock = null;
   const FPS_GAP = [250, 100, 40, 0];    // 단계별 그리기 간격(ms): 0단계 초당 4장 … 3단계 매 프레임
   const LIGHT = [-0.45, 0.55, 0.7];     // 빛이 오는 방향 (왼쪽 위 앞)
   function earth() {
@@ -501,6 +502,7 @@
     const stream = orig.map(l => l.replace(/[^\x20-\x7e]/g, '').trim()).filter(Boolean).join(' ').replace(/\s+/g, ' ');
     const big = stream.repeat(Math.ceil(W * H / stream.length) + 1);
     const tex = Array.from({ length: H }, (_, i) => big.slice(i * W, i * W + W));
+    gather(cw, ch, cx, cy, R);
     const tilt = 23.4 * Math.PI / 180;
     const q = quality, gap = FPS_GAP[q];
     const t0 = performance.now();
@@ -548,10 +550,44 @@
     document.documentElement.classList.add('earth');
     setTimeout(() => {                  // 다 빨려 들어가면 지구가 나타난다
       document.documentElement.classList.add('earth-on');
-    }, 1200);
-    earthTimer = setTimeout(endEarth, 10000);   // 10초 뒤 코드로 돌아간다
+      if (flock) { flock.style.opacity = 0; const f = flock; setTimeout(() => f.remove(), 400); flock = null; }
+    }, 900);
+    earthTimer = setTimeout(endEarth, 6000);    // 6초 뒤 코드로 돌아간다
+  }
+  // 모이기: 화면의 코드 글자를 하나씩 떼어, 화면 전체를 원으로 눌러 담은 자리(지구 칸)로 날린다 — 배치 모양은 유지
+  function gather(cw, ch, cx, cy, R) {
+    if (flock) flock.remove();
+    flock = document.createElement('div'); flock.id = 'flock';
+    const offset = quality >= 2 ? cw * 5.5 : 0;     // 2단계부터는 줄 번호만큼 오른쪽
+    const src = [];
+    for (const line of lines) {
+      const rect = line.getClientRects()[0];
+      if (!rect || rect.bottom < 0 || rect.top > innerHeight) continue;
+      let x = rect.left + offset;
+      for (const c of line.textContent) {
+        if (c.trim() && x < innerWidth && src.length < 1500) src.push({ c, x, y: rect.top });
+        x += c.charCodeAt(0) > 0x2e80 ? cw * 2 : cw;
+      }
+    }
+    // 지구 원 안의 칸들 (위에서 아래, 왼쪽에서 오른쪽) — 글자를 읽는 순서대로 고르게 나눠 채운다
+    const cells = [];
+    for (let ty = Math.floor((cy - R) / ch) * ch; ty < cy + R; ty += ch)
+      for (let tx = Math.floor((cx - R) / cw) * cw; tx < cx + R; tx += cw)
+        if (Math.hypot(tx + cw / 2 - cx, ty + ch / 2 - cy) <= R) cells.push([tx, ty]);
+    src.forEach(({ c, x, y }, i) => {
+      const [tx, ty] = cells[Math.floor(i * cells.length / src.length)];
+      const span = document.createElement('span');
+      span.textContent = c; span.style.left = x + 'px'; span.style.top = y + 'px';
+      flock.append(span);
+      span.animate([
+        { transform: 'translate(0, 0)' },
+        { transform: `translate(${tx - x}px, ${ty - y}px)` },
+      ], { duration: 650, delay: Math.random() * 200, easing: 'cubic-bezier(.6,0,.25,1)', fill: 'forwards' });
+    });
+    document.body.append(flock);
   }
   function endEarth() {
+    if (flock) { flock.remove(); flock = null; }
     document.documentElement.classList.remove('earth', 'earth-on');
     clearTimeout(earthTimer);
     setTimeout(() => cancelAnimationFrame(earthFrame), 900);

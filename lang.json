@@ -546,5 +546,21 @@
  "if (quality >= 3) {                 // 3단계: 흑백으로 바랜 뒤 제자리에서 파란 비": {
   "en": "if (quality >= 3) {                 // step 3: fade to grayscale, then blue rain in place",
   "hj": "if (quality >= 3) {                 // 三段：褪為黑白後原地藍雨"
+ },
+ "/* 지구가 되기 전: 코드 글자가 하나하나 떨어져 나와 지구 원 모양 자리로 모인다 */": {
+  "en": "/* Before the earth: code characters break off one by one and gather into the earth's circle */",
+  "hj": "/* 地球之前：碼字一一脫離，聚成地球圓形 */"
+ },
+ "// 모이기: 화면의 코드 글자를 하나씩 떼어, 화면 전체를 원으로 눌러 담은 자리(지구 칸)로 날린다 — 배치 모양은 유지": {
+  "en": "// Gather: pull each code character off the screen and fly it to its spot in the screen squeezed into a circle (earth cells) — layout kept",
+  "hj": "// 聚：逐字取下屏上碼字，飛至全屏壓成圓之位 (地球格) — 保留排列"
+ },
+ "earthTimer = setTimeout(endEarth, 6000);    // 6초 뒤 코드로 돌아간다": {
+  "en": "earthTimer = setTimeout(endEarth, 6000);    // back to the code after 6 seconds",
+  "hj": "earthTimer = setTimeout(endEarth, 6000);    // 六秒後回到碼"
+ },
+ "// 지구 원 안의 칸들 (위에서 아래, 왼쪽에서 오른쪽) — 글자를 읽는 순서대로 고르게 나눠 채운다": {
+  "en": "// cells inside the earth's circle (top to bottom, left to right) — filled evenly in reading order",
+  "hj": "// 地球圓內之格 (上而下，左而右) — 依讀序均分填滿"
  }
 }

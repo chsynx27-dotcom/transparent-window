@@ -986,5 +986,17 @@
  "words.forEach(w => { w.hw = bctx.measureText(w.t).width / 2; w.x += w.hw; w.y += 9.75; });   // 단어 가운데": {
   "en": "words.forEach(w => { w.hw = bctx.measureText(w.t).width / 2; w.x += w.hw; w.y += 9.75; });   // word center",
   "hj": "words.forEach(w => { w.hw = bctx.measureText(w.t).width / 2; w.x += w.hw; w.y += 9.75; });   // 詞之中心"
+ },
+ "#memo { margin-top: 16px; font-size: 16px; padding: 6px; max-width: 100%; box-sizing: border-box; }   /* 폰에서 화면보다 넓어지지 않게 */": {
+  "en": "#memo { margin-top: 16px; font-size: 16px; padding: 6px; max-width: 100%; box-sizing: border-box; }   /* don't grow wider than the screen on phones */",
+  "hj": "#memo { margin-top: 16px; font-size: 16px; padding: 6px; max-width: 100%; box-sizing: border-box; }   /* 於手機不寬於屏 */"
+ },
+ "@media (max-width: 600px) {           /* 폰: 떠 있는 조절 막대가 눌려 버튼 글자가 세로로 꺾이지 않게 — 내용만큼 넓게, 간격은 좁게 */": {
+  "en": "@media (max-width: 600px) {           /* phone: keep the floating control bar from squeezing button text into a vertical column — as wide as its content, tighter gaps */",
+  "hj": "@media (max-width: 600px) {           /* 手機：免浮動調節條受擠致按鈕字直折 — 寬如其內容，間距收窄 */"
+ },
+ "@media (max-width: 600px) { :root.q2 #eggs { right: 16px; bottom: 84px; } }   /* 폰: 떠 있는 조절 막대와 겹치지 않게 그 위로 */": {
+  "en": "@media (max-width: 600px) { :root.q2 #eggs { right: 16px; bottom: 84px; } }   /* phone: sit above the floating control bar so they don't overlap */",
+  "hj": "@media (max-width: 600px) { :root.q2 #eggs { right: 16px; bottom: 84px; } }   /* 手機：置於浮動調節條之上，免相疊 */"
  }
 }

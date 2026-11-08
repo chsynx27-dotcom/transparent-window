@@ -14,7 +14,7 @@
   #screen { position: relative; z-index: 1; padding: 24px; padding-bottom: 80px; }
   #code {
     position: fixed; inset: 0 0 56px 0; margin: 0; padding: 24px;
-    overflow: auto; font: 13px/1.5 monospace; white-space: pre-wrap;
+    overflow: auto; font: 13px/1.5 monospace; white-space: pre-wrap; overflow-wrap: anywhere;
     pointer-events: none; z-index: 0; color: var(--code);
     /* 투시 렌즈: 마우스 둘레는 코드가 또렷, 나머지는 단계 버튼 값만큼 */
     --x: -9999px; --y: -9999px; --base: 0.5; --r: 140px;
@@ -215,7 +215,7 @@
   #corner { position: fixed; top: 16px; right: 24px; z-index: 2; display: flex; gap: 6px; }
   #dark { min-width: 7.5em; text-align: center; }
   #corner [aria-pressed="true"] { font-weight: bold; background: #ffe14d; color: #111; }
-  #memo { margin-top: 16px; font-size: 16px; padding: 6px; }
+  #memo { margin-top: 16px; font-size: 16px; padding: 6px; max-width: 100%; box-sizing: border-box; }   /* 폰에서 화면보다 넓어지지 않게 */
   .hit { background: #ffe14d; color: #111; transition: background 0.3s; }
   /* 이스터에그 달걀 6개 (오른쪽 아래): 하나 찾을 때마다 하나씩 깨진다. 단계가 오를수록 달걀도, 깨지는 모습도 좋아진다 */
   #eggs { position: fixed; right: 40px; bottom: 84px; z-index: 3; display: flex; align-items: flex-end; gap: 5px; pointer-events: none; }
@@ -236,7 +236,12 @@
   /* 2단계: 명암 있는 달걀, 흔들리다 지그재그로 금 가며 윗부분이 튕겨 나간다 */
   :root.q2 #eggs { right: 48px; bottom: 48px; gap: 4px; }
   :root.q2 #eggs svg { width: 12px; height: 16px; }
-  :root.q2 #eggs .shell { fill: url(#egg-fill); stroke: color-mix(in srgb, var(--fg) 25%, transparent); stroke-width: 0.8; }
+  @media (max-width: 600px) { :root.q2 #eggs { right: 16px; bottom: 84px; } }   /* 폰: 떠 있는 조절 막대와 겹치지 않게 그 위로 */
+  @media (max-width: 600px) {           /* 폰: 떠 있는 조절 막대가 눌려 버튼 글자가 세로로 꺾이지 않게 — 내용만큼 넓게, 간격은 좁게 */
+    :root.q2 #bar { width: max-content; max-width: calc(100% - 16px); box-sizing: border-box; gap: 6px; padding: 0 10px; }
+    :root.q2 #bar button { padding: 0 8px; white-space: nowrap; }
+  }
+  :root.q2 #eggs .shell { fill: url(#egg-fill); stroke: color-mix(in srgb, var(--fg) 40%, transparent); stroke-width: 0.8; }
   :root.q2 #eggs .a { clip-path: url(#egg-bottom); } :root.q2 #eggs .b { clip-path: url(#egg-top); }
   :root.q2 #eggs .cracked .crack { display: inline; fill: none; stroke: color-mix(in srgb, var(--fg) 45%, transparent); stroke-width: 0.8; }
   :root.q2 #eggs .cracking { animation: egg-wobble 0.35s ease-in-out; }

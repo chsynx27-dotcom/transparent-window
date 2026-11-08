@@ -33,6 +33,7 @@
   body.intro #screen { opacity: 0; }
   #screen > *, #screen li, #screen button { cursor: pointer; }
   #tools { display: flex; flex-wrap: wrap; gap: 8px; }
+  #memo { margin-top: 16px; font-size: 16px; padding: 6px; }
   .hit { background: #ffe14d; transition: background 0.3s; }
 </style>
 </head>
@@ -46,6 +47,7 @@
     <button type="button" id="smaller">렌즈 작게</button>
     <button type="button" id="retype">타자 다시 보기</button>
   </div>
+  <input id="memo" type="text" placeholder="여기에 글자를 적어 보세요" size="30">
   <ul>
     <li>목록 하나</li>
     <li>목록 둘</li>
@@ -97,6 +99,8 @@
   function showCode(src) {
     codeEl.textContent = '';
     orig = src.split('\n');
+    memoIdx = orig.findIndex(t => t.trim().startsWith('<input id="memo"'));
+    memoBase = memoIdx >= 0 ? orig[memoIdx] : '';
     lines = orig.map(text => {
       const span = document.createElement('span');
       codeEl.appendChild(span);
@@ -171,17 +175,37 @@
     const start = orig.findIndex(t => t.includes('<main id="screen">'));
     const end = orig.findIndex((t, i) => i > start && t.includes('</main>'));
     const idx = orig.findIndex((t, i) => i > start && i < end && t.trim().startsWith(first));
-    if (idx < 0) return;
-    const line = lines[idx];
+    const found = el.id === 'memo' ? memoIdx : idx;   // 입력칸 줄은 글자가 들어가 모양이 바뀌므로 따로 기억
+    if (found < 0) return;
+    flash(found);
+  });
 
+  // 코드 줄 하나를 반짝이고 렌즈를 그 줄로 옮긴다
+  let flashTimer = null;
+  function flash(i) {
+    const line = lines[i];
     lines.forEach(s => s.classList.remove('hit'));
     line.classList.add('hit');
     line.scrollIntoView({ block: 'center' });
     const r = line.getBoundingClientRect();
-    lens(r.left + 120, r.top + r.height / 2); // 렌즈를 그 줄로 옮긴다
+    lens(r.left + 120, r.top + r.height / 2);
     holdLens = Date.now() + 1500;
-    setTimeout(() => line.classList.remove('hit'), 1500);
+    clearTimeout(flashTimer);
+    flashTimer = setTimeout(() => line.classList.remove('hit'), 1500);
+  }
+
+  // 앞에서 글자를 적으면 뒤의 코드(입력칸 줄)에 그대로 써진다
+  let memoIdx = -1;
+  const memo = document.getElementById('memo');
+  memo.addEventListener('input', () => {
+    if (memoIdx < 0) return;
+    finishTyping();
+    const v = memo.value.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+    orig[memoIdx] = memoBase.replace(/>$/, v ? ` value="${v}">` : '>');
+    lines[memoIdx].textContent = orig[memoIdx] + '\n';
+    flash(memoIdx);
   });
+  let memoBase = '';
 
   // 코드 뒤섞기: 누를 때마다 코드가 더 많이 깨지고, 손을 떼면 한 줄씩 원래대로 돌아온다
   const GLYPHS = '█▓▒░<>/{}=;#*$%&@!?01';

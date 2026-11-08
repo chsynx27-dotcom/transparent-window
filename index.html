@@ -39,6 +39,7 @@
     <button type="button" id="shake">코드 뒤섞기 (막 눌러 보세요)</button>
     <button type="button" id="bigger">렌즈 크게</button>
     <button type="button" id="smaller">렌즈 작게</button>
+    <button type="button" id="retype">타자 다시 보기</button>
   </div>
   <ul>
     <li>목록 하나</li>
@@ -63,8 +64,9 @@
   // 화면 글자는 항상 진하게(앞). 좌우 버튼으로 뒤에 깔린 코드의 진하기를 5단계로 바꾼다.
   let level = 2;                        // 0 = 코드 안 보임 … 4 = 코드 또렷
   let shaking = false;                  // 뒤섞는 동안은 코드를 다 보이게
+  let typing = false;                   // 타자 치는 동안도 코드를 다 보이게
   function apply() {
-    codeEl.style.setProperty('--base', shaking ? 1 : level / 4);
+    codeEl.style.setProperty('--base', shaking || typing ? 1 : level / 4);
     dots.textContent = '●'.repeat(level + 1) + '○'.repeat(4 - level);   // 지금 단계 표시
     dots.setAttribute('aria-label', `코드 진하기 ${level + 1}/5단계`);
   }
@@ -89,15 +91,56 @@
     orig = src.split('\n');
     lines = orig.map(text => {
       const span = document.createElement('span');
-      span.textContent = text + '\n';
       codeEl.appendChild(span);
       return span;
     });
+    typeOut();
   }
+
+  // 타자 효과: 코드가 누가 치는 것처럼 한 글자씩 쓰여 나간다
+  const SPEED = 30;                     // 한 프레임(약 1/60초)에 치는 글자 수
+  let typeFrame = null;
+  function typeOut() {
+    cancelAnimationFrame(typeFrame);
+    lines.forEach(s => { s.textContent = ''; });
+    codeEl.scrollTop = 0;
+    typing = true; apply();
+    let li = 0, pos = 0;
+    function step() {
+      let budget = SPEED;
+      while (budget > 0 && li < lines.length) {
+        const text = orig[li];
+        const take = Math.min(budget, text.length - pos);
+        pos += take; budget -= take;
+        if (pos >= text.length) {       // 이 줄 끝 → 다음 줄
+          lines[li].textContent = text + '\n';
+          li++; pos = 0; budget--;
+        } else {
+          lines[li].textContent = text.slice(0, pos) + '▌\n';
+        }
+      }
+      // 치고 있는 줄이 화면 아래로 내려가면 따라 내려간다
+      const cur = lines[Math.min(li, lines.length - 1)];
+      if (cur.offsetTop > codeEl.scrollTop + codeEl.clientHeight * 0.7)
+        codeEl.scrollTop = cur.offsetTop - codeEl.clientHeight * 0.7;
+      if (li < lines.length) typeFrame = requestAnimationFrame(step);
+      else finishTyping();
+    }
+    typeFrame = requestAnimationFrame(step);
+  }
+  function finishTyping() {             // 다 쳤거나, 중간에 다른 기능을 누르면 바로 끝낸다
+    if (!typing) return;
+    cancelAnimationFrame(typeFrame);
+    lines.forEach((s, i) => { s.textContent = orig[i] + '\n'; });
+    codeEl.scrollTo({ top: 0, behavior: 'smooth' });
+    typing = false; apply();
+  }
+  document.getElementById('retype').addEventListener('click', e => { e.stopPropagation(); typeOut(); });
 
   // 짝 찾기: 화면 요소를 누르면 그 요소를 만든 코드 줄이 반짝인다
   screenEl.addEventListener('click', e => {
     if (e.target.id === 'shake') return;  // 뒤섞기는 짝 찾기 대신 뒤섞기만
+    finishTyping();
     const el = e.target.closest('#screen button, #screen li, #screen > *');
     if (!el) return;
     const first = el.outerHTML.split('\n')[0].trim();
@@ -122,6 +165,7 @@
   let power = 0, restoreTimer = null, restoring = null;
   const broken = new Set();
   document.getElementById('shake').addEventListener('click', () => {
+    finishTyping();
     clearTimeout(restoreTimer); clearInterval(restoring);
     shaking = true; apply();
     power = Math.min(power + 1, 30);

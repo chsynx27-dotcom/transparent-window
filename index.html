@@ -1062,7 +1062,7 @@
         frames.push({ transform: `translate(${cx + Math.cos(a) * r - x}px, ${cy + Math.sin(a) * r - y}px) rotate(${spinSelf * t}deg) scale(${1 - 0.9 * t})`,
           opacity: 1 - t });                // 끝까지 빨려 들어가 사라진다
       }
-      return el.animate(frames, { duration: 1300, delay: Math.min(400, r0 * 0.3), easing: q === 0 ? 'steps(10)' : 'cubic-bezier(.5,0,.8,.6)', fill: 'both' });
+      return el.animate(frames, { duration: 1300, delay: Math.min(400, r0 * 0.3), easing: q === 0 ? 'steps(30)' : 'cubic-bezier(.5,0,.8,.6)', fill: 'both' });
     };
     const anims = words.map(w => pull(w.span, w.x, w.y, q >= 2 ? 540 : 0));
     pieces().forEach(el => {

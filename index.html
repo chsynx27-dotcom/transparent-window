@@ -242,9 +242,6 @@
   #memo { margin-top: 16px; font-size: 16px; padding: 6px; max-width: 100%; box-sizing: border-box; }   /* 폰에서 화면보다 넓어지지 않게 */
   .hit { background: #ffe14d; color: #111; transition: background 0.3s; }
   /* 이스터에그 달걀 6개 (오른쪽 아래): 하나 찾을 때마다 하나씩 깨진다. 단계가 오를수록 달걀도, 깨지는 모습도 좋아진다 */
-  #toast { position: fixed; left: 50%; top: 50%; z-index: 20; max-width: calc(100% - 32px); box-sizing: border-box; padding: 16px 24px;
-    border-radius: 14px; background: var(--fg); color: var(--bg); font-size: 17px; line-height: 1.5; text-align: center;
-    pointer-events: none; box-shadow: 0 12px 40px rgba(0,0,0,.3); }
   #eggs { position: fixed; right: 40px; bottom: 84px; z-index: 3; display: flex; align-items: flex-end; gap: 5px; pointer-events: none; }
   #eggs i { display: inline-block; }
   /* 0단계: 글자 달걀 [] — 깨지면 [ */
@@ -503,15 +500,20 @@
     if (!egg) return;
     egg.classList.add('cracking');
     setTimeout(() => { egg.classList.remove('cracking'); egg.classList.add('cracked'); }, CRACK_MS[quality]);
-    if (foundEggs.size === 6) setTimeout(() => toast(ALL_FOUND[lang]), CRACK_MS[quality] + 500);
+    if (foundEggs.size === 6) whenIdle(() => typeMemo(ALL_FOUND[lang]));
   }
-  // 달걀을 다 깨면 화면 가운데에 잠깐 뜨는 말
+  // 달걀을 다 깨면: 마지막 효과가 끝나길 기다렸다가, 글상자를 비우고 그 자리에 이 말을 한 글자씩 적는다
   const ALL_FOUND = { ko: '이제 이 창에 숨은 건 없어요. 다 꿰뚫어 봤네요 👀', en: 'Nothing left hidden in this window. You saw right through it. 👀', hj: '这扇窗已没有秘密，你全看穿了。👀' };
-  function toast(text) {
-    const el = document.createElement('div'); el.id = 'toast'; el.textContent = text; document.body.append(el);
-    el.animate([{ opacity: 0, transform: 'translate(-50%, -40%)' }, { opacity: 1, transform: 'translate(-50%, -50%)', offset: 0.1 },
-      { opacity: 1, transform: 'translate(-50%, -50%)', offset: 0.85 }, { opacity: 0, transform: 'translate(-50%, -50%)' }],
-      { duration: 5000, easing: 'ease-out', fill: 'forwards' }).onfinish = () => el.remove();
+  const busy = () => holeOn || magnetOn || raining || shaking || power > 0 || !!document.getElementById('flock')
+    || /\b(flying|broken|earth)\b/.test(document.documentElement.className);
+  function whenIdle(fn, calm = 0) { setTimeout(() => busy() ? whenIdle(fn) : calm >= 4 ? fn() : whenIdle(fn, calm + 1), 200); }
+  function typeMemo(text) {
+    const chars = [...text]; let i = 0;
+    memo.value = ''; memo.dispatchEvent(new Event('input'));
+    const tick = setInterval(() => {
+      memo.value += chars[i++]; memo.dispatchEvent(new Event('input'));
+      if (i >= chars.length) clearInterval(tick);
+    }, 70);
   }
 
   // 이스터에그: 코드 속 '버튼'을 누르면 글상자에 살짝 적힌다

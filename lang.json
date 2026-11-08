@@ -1083,10 +1083,6 @@
   "en": "// PC: the omen — the screen darkens like space, stars twinkle, and the window rumbles low",
   "hj": "// 电脑：前兆 — 画面像太空一样暗下来，星星闪烁，窗口低沉地隆隆震动"
  },
- "// 달걀을 다 깨면 화면 가운데에 잠깐 뜨는 말": {
-  "en": "// the message that briefly appears in the middle once every egg is cracked",
-  "hj": "// 蛋全部碎掉后，在画面中央短暂出现的一句话"
- },
  "const ALL_FOUND = { ko: '이제 이 창에 숨은 건 없어요. 다 꿰뚫어 봤네요 👀', en: 'Nothing left hidden in this window. You saw right through it. 👀', hj: '这扇窗已没有秘密，你全看穿了。👀' };": {
   "en": "const ALL_FOUND = { ko: 'Nothing left hidden in this window. You saw right through it. 👀', en: 'Nothing left hidden in this window. You saw right through it. 👀', hj: '这扇窗已没有秘密，你全看穿了。👀' };",
   "hj": "const ALL_FOUND = { ko: '这扇窗已没有秘密，你全看穿了。👀', en: 'Nothing left hidden in this window. You saw right through it. 👀', hj: '这扇窗已没有秘密，你全看穿了。👀' };"
@@ -1126,5 +1122,9 @@
  "if (big) words.push(...Array.from({ length: 8 }, () => words.map(w => ({ ...w }))).flat());   // 폰: 원반이 커서 단어를 9배로 채운다": {
   "en": "if (big) words.push(...Array.from({ length: 8 }, () => words.map(w => ({ ...w }))).flat());   // phone: the disc is big, so fill it with 9x the words",
   "hj": "if (big) words.push(...Array.from({ length: 8 }, () => words.map(w => ({ ...w }))).flat());   // 手机：盘很大，所以用 9 倍的词填满"
+ },
+ "// 달걀을 다 깨면: 마지막 효과가 끝나길 기다렸다가, 글상자를 비우고 그 자리에 이 말을 한 글자씩 적는다": {
+  "en": "// once every egg is cracked: wait for the last effect to end, clear the text box, and type this message into it letter by letter",
+  "hj": "// 蛋全部碎掉后：等最后一个效果结束，清空文本框，在那里一个字一个字地写下这句话"
  }
 }

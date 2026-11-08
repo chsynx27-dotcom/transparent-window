@@ -15,10 +15,6 @@
   "en": "/* when the step goes up, elements rise one after another */",
   "hj": "/* 级别提升时，元素依次浮现 */"
  },
- "/* 블랙 모드: 색만 바꾼다 */": {
-  "en": "/* Dark mode: only the colors change */",
-  "hj": "/* 深色模式：只换颜色 */"
- },
  "/* 블랙/화이트 전환을 부드럽게: 화면 전체가 0.6초에 걸쳐 스르륵 바뀐다 */": {
   "en": "/* Smooth dark/light switch: the whole screen crossfades over 0.6s */",
   "hj": "/* 深浅色平滑切换：整个画面在 0.6 秒内渐变 */"
@@ -74,10 +70,6 @@
  "// 불투명으로 시작: 앞 화면은 숨기고, 렌즈를 화면 전체 크기로 키운다": {
   "en": "// Start opaque: hide the front screen and grow the lens to the whole screen",
   "hj": "// 以不透明开始：隐藏前面的画面，把透镜放大到全屏"
- },
- "// 블랙 모드: 누를 때마다 켜고 끈다, 고른 것은 이 브라우저에 기억": {
-  "en": "// Dark mode: each press toggles it; the choice is remembered in this browser",
-  "hj": "// 深色模式：每按一次切换；选择会记在这个浏览器里"
  },
  "// 비밀 단어: 글상자 끝에 이 말이 있으면 반응한다": {
   "en": "// Secret words: react when the text box ends with one of these",
@@ -171,10 +163,6 @@
   "en": "<button type=\"button\" id=\"bigger\">Bigger lens</button>",
   "hj": "<button type=\"button\" id=\"bigger\">放大透镜</button>"
  },
- "<button type=\"button\" id=\"dark\">블랙 모드</button>": {
-  "en": "<button type=\"button\" id=\"dark\">Dark mode</button>",
-  "hj": "<button type=\"button\" id=\"dark\">深色模式</button>"
- },
  "<button type=\"button\" id=\"down\">◀ 불투명</button>": {
   "en": "<button type=\"button\" id=\"down\">◀ Opaque</button>",
   "hj": "<button type=\"button\" id=\"down\">◀ 不透明</button>"
@@ -230,10 +218,6 @@
  "[1, 2, 3].forEach(n => root.classList.toggle('q' + n, q >= n));   // 단계는 쌓인다": {
   "en": "[1, 2, 3].forEach(n => root.classList.toggle('q' + n, q >= n));   // steps stack up",
   "hj": "[1, 2, 3].forEach(n => root.classList.toggle('q' + n, q >= n));   // 级别逐级叠加"
- },
- "const DARK_LABEL = { ko: ['블랙 모드', '화이트 모드'], en: ['Dark mode', 'Light mode'], hj: ['深色模式', '浅色模式'] };": {
-  "en": "const DARK_LABEL = { ko: ['Dark mode', 'Light mode'], en: ['Dark mode', 'Light mode'], hj: ['深色模式', '浅色模式'] };",
-  "hj": "const DARK_LABEL = { ko: ['深色模式', '浅色模式'], en: ['Dark mode', 'Light mode'], hj: ['深色模式', '浅色模式'] };"
  },
  "const EGG = { ko: '버튼', en: 'button', hj: '按钮' };   // 코드 속 숨은 글자": {
   "en": "const EGG = { ko: 'button', en: 'button', hj: '按钮' };   // the hidden word in the code",
@@ -398,10 +382,6 @@
  "memo.dispatchEvent(new Event('input'));   // 뒤 코드에도 그대로 써진다": {
   "en": "memo.dispatchEvent(new Event('input'));   // also written into the code behind",
   "hj": "memo.dispatchEvent(new Event('input'));   // 后面的代码里也照样写上"
- },
- "setDark(document.documentElement.classList.contains('dark'));   // 블랙 모드 버튼 이름도 바꾼다": {
-  "en": "setDark(document.documentElement.classList.contains('dark'));   // also rename the dark mode button",
-  "hj": "setDark(document.documentElement.classList.contains('dark'));   // 深色模式按钮的名字也一起换"
  },
  "setTimeout(() => {                  // 다 떨어지면 되감아 올린다": {
   "en": "setTimeout(() => {                  // once everything has fallen, rewind it back up",
@@ -1126,5 +1106,29 @@
  "// 달걀을 다 깨면: 마지막 효과가 끝나길 기다렸다가, 글상자를 비우고 그 자리에 이 말을 한 글자씩 적는다": {
   "en": "// once every egg is cracked: wait for the last effect to end, clear the text box, and type this message into it letter by letter",
   "hj": "// 蛋全部碎掉后：等最后一个效果结束，清空文本框，在那里一个字一个字地写下这句话"
+ },
+ "/* 다크 모드: 색만 바꾼다 */": {
+  "en": "/* Dark mode: only the colors change */",
+  "hj": "/* 深色模式：只换颜色 */"
+ },
+ "<button type=\"button\" id=\"dark\">다크 모드</button>": {
+  "en": "<button type=\"button\" id=\"dark\">Dark mode</button>",
+  "hj": "<button type=\"button\" id=\"dark\">深色模式</button>"
+ },
+ "const DARK_LABEL = { ko: ['다크 모드', '라이트 모드'], en: ['Dark mode', 'Light mode'], hj: ['深色模式', '浅色模式'] };": {
+  "en": "const DARK_LABEL = { ko: ['Dark mode', 'Light mode'], en: ['Dark mode', 'Light mode'], hj: ['深色模式', '浅色模式'] };",
+  "hj": "const DARK_LABEL = { ko: ['深色模式', '浅色模式'], en: ['Dark mode', 'Light mode'], hj: ['深色模式', '浅色模式'] };"
+ },
+ "setDark(document.documentElement.classList.contains('dark'));   // 다크 모드 버튼 이름도 바꾼다": {
+  "en": "setDark(document.documentElement.classList.contains('dark'));   // also rename the dark mode button",
+  "hj": "setDark(document.documentElement.classList.contains('dark'));   // 深色模式按钮的名字也一起换"
+ },
+ "// 다크 모드: 누를 때마다 켜고 끈다, 고른 것은 이 브라우저에 기억": {
+  "en": "// Dark mode: each press toggles it; the choice is remembered in this browser",
+  "hj": "// 深色模式：每按一次切换；选择会记在这个浏览器里"
+ },
+ "const root = document.documentElement, forced = !root.classList.contains('dark');   // 라이트 모드여도 블랙홀 동안은 강제로 어둡게 → 끝나면 되돌린다": {
+  "en": "const root = document.documentElement, forced = !root.classList.contains('dark');   // even in light mode, force it dark during the black hole → switch back afterward",
+  "hj": "const root = document.documentElement, forced = !root.classList.contains('dark');   // 即使是浅色模式，黑洞期间也强制变暗 → 结束后恢复"
  }
 }

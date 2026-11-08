@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
   :root { --bg: #fff; --fg: #000; --code: #111; --line: #ccc; color-scheme: light; }
-  /* 블랙 모드: 색만 바꾼다 */
+  /* 다크 모드: 색만 바꾼다 */
   :root.dark { --bg: #0d0d0d; --fg: #f2f2f2; --code: #e6e6e6; --line: #333; color-scheme: dark; }
   body { margin: 0; font-family: sans-serif; background: var(--bg); color: var(--fg); }
   #screen { position: relative; z-index: 1; padding: 24px; padding-bottom: 80px; }
@@ -320,7 +320,7 @@
 <div id="corner">
   <button type="button" id="en">EN</button>
   <button type="button" id="hj">中文</button>
-  <button type="button" id="dark">블랙 모드</button>
+  <button type="button" id="dark">다크 모드</button>
 </div>
 <div id="eggs" aria-hidden="true"></div>
 <main id="screen">
@@ -1142,6 +1142,9 @@
   function blackhole() {
     if (holeOn) return;
     holeOn = true; finishTyping();
+    const root = document.documentElement, forced = !root.classList.contains('dark');   // 라이트 모드여도 블랙홀 동안은 강제로 어둡게 → 끝나면 되돌린다
+    if (forced) { root.classList.add('dark'); const back = setInterval(() => { if (holeOn) return; clearInterval(back);
+      const off = () => root.classList.remove('dark'); document.startViewTransition ? document.startViewTransition(off) : off(); }, 100); }
     if (quality >= 3) return gargantua();
     const q = quality, cx = lastX, cy = lastY;
     // 뒤 코드 단어는 캔버스 한 장에 그린다 (단어 span 수백 개를 각자 움직이면 버벅인다). 움직임은 아래 pull()과 같다
@@ -1407,7 +1410,7 @@
 
   // 영문 / 한자: 앞 화면 글자를 바꾸고, 뒤 코드의 그 줄도 같이 바꾼다. 같은 버튼을 다시 누르면 한글로
   let lang = 'ko';
-  const DARK_LABEL = { ko: ['블랙 모드', '화이트 모드'], en: ['Dark mode', 'Light mode'], hj: ['深色模式', '浅色模式'] };
+  const DARK_LABEL = { ko: ['다크 모드', '라이트 모드'], en: ['Dark mode', 'Light mode'], hj: ['深色模式', '浅色模式'] };
   const WORDS = [
     { sel: 'h1', ko: '투명창', en: 'Glass Window', hj: '透明窗' },
     { sel: '#screen p', ko: '이 페이지는 자기 자신의 코드를 겹쳐 보여줍니다. (더미 내용)',
@@ -1447,7 +1450,7 @@
     document.documentElement.lang = next === 'en' ? 'en' : next === 'hj' ? 'zh-CN' : 'ko';
     document.getElementById('en').setAttribute('aria-pressed', lang === 'en');
     document.getElementById('hj').setAttribute('aria-pressed', lang === 'hj');
-    setDark(document.documentElement.classList.contains('dark'));   // 블랙 모드 버튼 이름도 바꾼다
+    setDark(document.documentElement.classList.contains('dark'));   // 다크 모드 버튼 이름도 바꾼다
     setQuality(quality);
   }
   document.getElementById('en').addEventListener('click', () => setLang(lang === 'en' ? 'ko' : 'en'));
@@ -1481,7 +1484,7 @@
     setTimeout(() => items.forEach(el => el.classList.remove('rise')), 1200);
   });
 
-  // 블랙 모드: 누를 때마다 켜고 끈다, 고른 것은 이 브라우저에 기억
+  // 다크 모드: 누를 때마다 켜고 끈다, 고른 것은 이 브라우저에 기억
   const darkBtn = document.getElementById('dark');
   function setDark(on) {
     document.documentElement.classList.toggle('dark', on);

@@ -55,10 +55,10 @@
 <pre id="code" aria-hidden="true"></pre>
 
 <div id="bar">
-  <span>코드</span>
-  <button type="button" id="down">◀ 투명</button>
+  <span>창</span>
+  <button type="button" id="down">◀ 불투명</button>
   <span id="dots" aria-live="polite"></span>
-  <button type="button" id="up">불투명 ▶</button>
+  <button type="button" id="up">투명 ▶</button>
 </div>
 
 <script>
@@ -72,9 +72,9 @@
   let typing = false;                   // 타자 치는 동안도 코드를 다 보이게
   function apply() {
     codeEl.style.setProperty('--base', shaking || typing ? 1 : level / 4);
-    const shown = typing ? 4 : level;  // 타자 중에는 불투명으로 표시
+    const shown = typing ? 4 : level;  // 타자 중에는 끝까지 투명(코드 다 보임)으로 표시
     dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // 지금 단계 표시
-    dots.setAttribute('aria-label', `코드 진하기 ${level + 1}/5단계`);
+    dots.setAttribute('aria-label', `창 투명도 ${shown + 1}/5단계`);
   }
   document.getElementById('down').addEventListener('click', () => { level = Math.max(0, level - 1); apply(); });
   document.getElementById('up').addEventListener('click', () => { level = Math.min(4, level + 1); apply(); });

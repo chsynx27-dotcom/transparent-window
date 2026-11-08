@@ -583,16 +583,16 @@
   "en": "setTimeout(() => {                  // once all gathered, the earth appears",
   "hj": "setTimeout(() => {                  // 聚齊則地球現"
  },
- "/* 1단계: 곧게 떨어지며 아래로 길게 늘어나 빗줄기처럼 */": {
-  "en": "/* Step 1: falls straight down, stretching long like rain streaks */",
-  "hj": "/* 一段：直落而下，拉長如雨絲 */"
+ "#code.rq2 > .ln { text-shadow: 0 -6px color-mix(in srgb, currentColor 45%, transparent),   /* 2단계: 코드 색 그대로 더 긴 꼬리 */": {
+  "en": "#code.rq2 > .ln { text-shadow: 0 -6px color-mix(in srgb, currentColor 45%, transparent),   /* step 2: longer tails in the code's own colors */",
+  "hj": "#code.rq2 > .ln { text-shadow: 0 -6px color-mix(in srgb, currentColor 45%, transparent),   /* 二段：本色碼尾更長 */"
  },
- "/* 2단계: 바람 맞은 비처럼 모두 같은 방향으로 비스듬히, 코드 색 그대로 꼬리를 끌며 */": {
-  "en": "/* Step 2: all slanting one way like wind-blown rain, trailing tails in their own code colors */",
-  "hj": "/* 二段：如風中雨同向斜落，拖著本色碼尾 */"
+ "/* 1·2단계: 0단계처럼 그냥 떨어지되 빗줄기답게 — 줄마다 속도가 다르고 점점 빨라지며 곧게, 위로 꼬리를 남긴다 */": {
+  "en": "/* Steps 1·2: just fall like step 0 but rain-like — each line at its own speed, accelerating straight down, leaving a tail above */",
+  "hj": "/* 一二段：如零段直落而似雨 — 每行速度各異，漸快直下，上留尾痕 */"
  },
- "#code.rq2 { overflow-x: hidden; }   /* 비스듬히 나가도 가로 스크롤바가 생기지 않게 */": {
-  "en": "#code.rq2 { overflow-x: hidden; }   /* no horizontal scrollbar when lines slant off */",
-  "hj": "#code.rq2 { overflow-x: hidden; }   /* 斜出亦不生橫捲軸 */"
+ "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 1·2단계: 줄마다 떨어지는 속도가 다르게": {
+  "en": "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // steps 1·2: each line falls at a different speed",
+  "hj": "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 一二段：每行落速各異"
  }
 }

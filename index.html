@@ -36,11 +36,13 @@
   body.intro #screen { opacity: 0; }
   #screen > *, #screen li, #screen button { cursor: pointer; }
   #tools { display: flex; flex-wrap: wrap; gap: 8px; }
+  #dark { position: fixed; top: 16px; right: 24px; z-index: 2; }
   #memo { margin-top: 16px; font-size: 16px; padding: 6px; }
   .hit { background: #ffe14d; color: #111; transition: background 0.3s; }
 </style>
 </head>
 <body class="intro">
+<button type="button" id="dark">블랙 모드</button>
 <main id="screen">
   <h1>투명창</h1>
   <p>이 페이지는 자기 자신의 코드를 겹쳐 보여줍니다. (더미 내용)</p>
@@ -49,7 +51,6 @@
     <button type="button" id="bigger">렌즈 크게</button>
     <button type="button" id="smaller">렌즈 작게</button>
     <button type="button" id="retype">타자 다시 보기</button>
-    <button type="button" id="dark">블랙 모드</button>
   </div>
   <input id="memo" type="text" placeholder="여기에 글자를 적어 보세요" size="30">
   <ul>

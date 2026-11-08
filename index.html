@@ -128,8 +128,11 @@
     100% { transform: scale(1.8); filter: blur(10px); opacity: 0; } }
   /* 코드 비 (0~2단계): 줄이 한 줄씩 떨어졌다가 되감기듯 올라온다. 1단계만 곧게, 0·2단계는 제멋대로 기울며 */
   #code.scatter > .ln { display: block; width: fit-content; }   /* 펑 0·1단계: 줄을 따로 (글자 길이만큼) 움직이려고 */
-  #code.rain > .ln { display: block; animation: drop 1.4s cubic-bezier(.5,0,.9,.5) var(--d) both; }
-  #code.unrain > .ln { display: block; animation: drop 1s cubic-bezier(.1,.5,.5,1) var(--d) both reverse; }
+  #code.rain > .ln, #code.unrain > .ln { display: block; }
+  /* 화면에 보이는 줄(.f)만 떨어뜨린다 — 화면 밖 1,000여 줄까지 움직이면 프레임이 크게 떨어진다 */
+  #code.rain > .ln.f { animation: drop 1.4s cubic-bezier(.5,0,.9,.5) var(--d) both; }
+  #code.unrain > .ln.f { animation: drop 1s cubic-bezier(.1,.5,.5,1) var(--d) both reverse; }
+  #code.rq2c .u { visibility: hidden; }   /* 2단계 비: 글자는 캔버스가 대신 그린다 */
   @keyframes drop { to { transform: translateY(110vh) rotate(var(--rot)); opacity: 0.15; } }
   /* 1·2단계: 0단계처럼 그냥 떨어지되 빗줄기답게 — 떨어지는 단위가 작아진다(0 줄 → 1 단어 → 2 글자), 속도는 제각각, 위로 꼬리 */
   #code.rain.rq1 > .ln, #code.rain.rq2 > .ln, #code.unrain.rq1 > .ln, #code.unrain.rq2 > .ln { animation: none; }
@@ -180,8 +183,6 @@
     background: radial-gradient(circle, #000 0 60%, #fff6e4 63%, rgba(255,196,130,.55) 67%, transparent 74%);
     box-shadow: 0 0 80px 30px rgba(255,170,90,.22); }
   #flock.garg span { text-shadow: 0 0 6px rgba(255,170,90,.8); }
-  /* 자석 3단계: 끌려온 단어가 빛난다 */
-  :root.q3 #flock.magnet span { text-shadow: 0 0 calc(var(--pull, 0) * 10px) var(--accent); }
   /* 지구: 코드 글자로 그린 도는 지구. 단계가 오를수록 색·명암·매끄러움이 더해진다 */
   #globe { position: fixed; inset: 0; margin: 0; z-index: 1; pointer-events: none; overflow: hidden;
     font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; white-space: pre; font-variant-ligatures: none;
@@ -508,10 +509,11 @@
       setTimeout(() => { codeEl.classList.remove('gray'); raining = false; apply(); }, 4600);
       return;
     }
-    // 떨어지는 단위: 0단계 줄 / 1단계 단어 / 2단계 글자 (화면에 보이는 줄만 잘게 쪼개고, 끝나면 원래대로)
-    let units = lines, saved = [];
+    // 떨어지는 단위: 0단계 줄 / 1단계 단어 / 2단계 글자 (화면에 보이는 줄만 움직이거나 잘게 쪼개고, 끝나면 원래대로)
+    const seen = lines.filter(l => { const r = l.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; });
+    let units = seen, saved = [];
+    seen.forEach(l => l.classList.add('f'));
     if (quality >= 1) {
-      const seen = lines.filter(l => { const r = l.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; });
       saved = seen.map(l => [l, l.innerHTML]);
       const re = quality === 2 ? /\S/g : /\S+/g;
       seen.forEach(l => {
@@ -529,6 +531,7 @@
       });
       units = [...codeEl.querySelectorAll('.u')];
     }
+    if (quality === 2) return rainCanvas(units, saved, seen);
     units.forEach(s => {
       s.style.setProperty('--d', (Math.random() * (quality ? 1 : 0.8)).toFixed(2) + 's');
       s.style.setProperty('--rot', quality === 0 ? (Math.random() * 30 - 15).toFixed(1) + 'deg' : '0deg');
@@ -542,8 +545,41 @@
       setTimeout(() => {
         codeEl.classList.remove('unrain', rq); raining = false; apply();
         saved.forEach(([l, h]) => l.innerHTML = h);   // 쪼갠 줄을 원래대로
+        seen.forEach(l => l.classList.remove('f'));
       }, 1900);
     }, 2400);
+  }
+  // 2단계 비 (글자 1,000여 개): 글자 자리·색을 한 번 읽고, 떨어지고 되감기는 건 캔버스 한 장에 그린다.
+  // CSS 때와 같은 움직임 — 단위마다 늦게 출발(d)·속도 제각각(t), 위로 코드 색 꼬리 세 겹, 떨어질수록 옅어짐
+  function rainCanvas(units, saved, seen) {
+    const fall = bezier(.55, 0, 1, .45), rise = bezier(0, .55, .45, 1), drop = innerHeight * 1.1;
+    const TAIL = [[-6, .45], [-13, .25], [-21, .12]];
+    const drops = units.map(u => {
+      const r = u.getBoundingClientRect(), cs = getComputedStyle(u);
+      return { c: u.textContent, x: r.left, y: r.top + r.height / 2, color: cs.color,
+        font: `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`,
+        d: Math.random() * 1000, t: 600 + Math.random() * 700 };
+    }).sort((a, b) => a.font < b.font ? -1 : 1);
+    codeEl.classList.add('rq2c');
+    const cv = charCanvas('rainfx', (ctx, now) => {
+      let font = '';
+      for (const p of drops) {
+        const e = now < 2400 ? fall((now - p.d) / p.t) : rise(1 - (now - 2400 - p.d) / 900);   // 떨어짐 → 되감아 올림
+        const y = p.y + drop * e, a = 1 - 0.7 * e;
+        if (y - 21 > innerHeight) continue;
+        if (p.font !== font) ctx.font = font = p.font;
+        ctx.fillStyle = p.color;
+        for (const [dy, k] of TAIL) { ctx.globalAlpha = a * k; ctx.fillText(p.c, p.x, y + dy); }
+        ctx.globalAlpha = a; ctx.fillText(p.c, p.x, y);
+      }
+    });
+    cv.style.cssText += 'position: fixed; left: 0; top: 0; z-index: 0; pointer-events: none;';
+    codeEl.after(cv);                   // 앞 창 뒤, 코드와 같은 층
+    setTimeout(() => {
+      cv.remove(); codeEl.classList.remove('rq2c'); raining = false; apply();
+      saved.forEach(([l, h]) => l.innerHTML = h);
+      seen.forEach(l => l.classList.remove('f'));
+    }, 2400 + 1900);
   }
   // 지구: 대륙 지도 (위도 10도 띠마다 육지 경도 구간, 북 85° → 남 -85°)
   const LAND = [
@@ -662,28 +698,66 @@
     }
     return src;
   }
+  // CSS cubic-bezier와 같은 이징 (캔버스용, 미리 표로 만들어 둔다)
+  function bezier(x1, y1, x2, y2) {
+    const f = (a, b, t) => 3 * a * (1 - t) ** 2 * t + 3 * b * (1 - t) * t * t + t ** 3, table = [];
+    for (let i = 0; i <= 100; i++) {
+      let lo = 0, hi = 1;
+      for (let k = 0; k < 20; k++) { const m = (lo + hi) / 2; f(x1, x2, m) < i / 100 ? lo = m : hi = m; }
+      table.push(f(y1, y2, (lo + hi) / 2));
+    }
+    return p => table[Math.round(Math.min(1, Math.max(0, p)) * 100)];
+  }
+  // 글자 캔버스: 수백~수천 글자를 span 대신 캔버스 한 장에 그린다 (span마다 움직이면 프레임이 크게 떨어진다).
+  // 캔버스를 화면에서 떼면 그리기도 멈춘다
+  function charCanvas(id, draw) {
+    const cv = document.createElement('canvas'), dpr = devicePixelRatio || 1;
+    cv.id = id; cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+    cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px';
+    document.body.append(cv);
+    const ctx = cv.getContext('2d'); ctx.scale(dpr, dpr); ctx.textBaseline = 'middle';
+    const t0 = performance.now();
+    requestAnimationFrame(function frame(now) {
+      if (!cv.isConnected) return;
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      draw(ctx, now - t0);
+      requestAnimationFrame(frame);
+    });                                 // 첫 그림은 다음 프레임부터 (부르는 쪽이 준비를 마친 뒤)
+    return cv;
+  }
   function gather(cw, ch, cx, cy, R, colorAt) {
     if (flock) flock.remove();
-    flock = document.createElement('div'); flock.id = 'flock';
     const src = visibleChars(cw, 1500);
     // 지구 원 안의 칸들 (위에서 아래, 왼쪽에서 오른쪽) — 글자를 읽는 순서대로 고르게 나눠 채운다
     const cells = [];
     for (let ty = Math.floor((cy - R) / ch) * ch; ty < cy + R; ty += ch)
       for (let tx = Math.floor((cx - R) / cw) * cw; tx < cx + R; tx += cw)
         if (Math.hypot(tx + cw / 2 - cx, ty + ch / 2 - cy) <= R) cells.push([tx, ty]);
-    src.forEach(({ c, x, y }, i) => {
-      const [tx, ty] = cells[Math.floor(i * cells.length / src.length)];
-      const span = document.createElement('span');
-      span.textContent = c; span.style.left = x + 'px'; span.style.top = y + 'px';
-      flock.append(span);
-      const k = colorAt(tx + cw / 2, ty + ch / 2);
-      requestAnimationFrame(() => requestAnimationFrame(() => span.className = k));
-      span.animate([
-        { transform: 'translate(0, 0)' },
-        { transform: `translate(${tx - x}px, ${ty - y}px)` },
-      ], { duration: 1300, delay: Math.random() * 400, easing: 'cubic-bezier(.6,0,.25,1)', fill: 'forwards' });
+    const move = bezier(.6, 0, .25, 1), tint = bezier(.25, .1, .25, 1);
+    let parts = [], base, family, looks = {};
+    flock = charCanvas('flock', (ctx, t) => {
+      const mix = tint((t - 33) / 1400);   // 날아가는 동안 도착할 칸의 지구 색으로 물든다 (원래 코드 색 → 지구 색)
+      const at = p => { const m = move((t - p.delay) / 1300); return [p.x + (p.tx - p.x) * m, p.y + (p.ty - p.y) * m + ch / 2]; };
+      ctx.font = `13px ${family}`; ctx.fillStyle = base; ctx.globalAlpha = 1 - mix;
+      if (mix < 1) for (const p of parts) ctx.fillText(p.c, ...at(p));
+      ctx.globalAlpha = mix;
+      let font = '';
+      for (const p of parts) {         // 굵기별로 모아 두어 글꼴은 몇 번만 바꾼다
+        if (p.look.font !== font) ctx.font = font = p.look.font;
+        ctx.fillStyle = p.look.color; ctx.fillText(p.c, ...at(p));
+      }
     });
-    document.body.append(flock);
+    const cs = getComputedStyle(flock);
+    base = cs.color; family = cs.fontFamily;
+    const look = k => looks[k] ??= (() => {   // 지구 글자 색 이름 → 색·굵기 (CSS에 적힌 그대로 읽는다)
+      const s = document.createElement('span'); s.className = k; flock.append(s);
+      const c = getComputedStyle(s), v = { color: c.color, font: `${c.fontWeight} 13px ${family}` };
+      s.remove(); return v;
+    })();
+    parts = src.map(({ c, x, y }, i) => {
+      const [tx, ty] = cells[Math.floor(i * cells.length / src.length)];
+      return { c, x, y, tx, ty, delay: Math.random() * 400, look: look(colorAt(tx + cw / 2, ty + ch / 2)) };
+    }).sort((a, b) => a.look.font < b.look.font ? -1 : 1);
   }
   function endEarth() {
     if (flock) { flock.remove(); flock = null; }
@@ -836,37 +910,67 @@
     }, 2000);
   }
   // 자석: 몇 초 동안 코드 단어들이 마우스 쪽으로 끌려와 따라다니다 제자리로.
-  // 0단계 뚝뚝 끊기며 / 1단계 부드럽게 / 2단계 마우스 쪽으로 기울고 가까울수록 보라빛 / 3단계 + 빛
+  // 0~2단계는 최소한: 마우스 가까운 단어만 살짝 (0단계 가장 좁고 약하게·뚝뚝 끊기며 / 1·2단계 조금 더 넓게·부드럽게)
+  // 3단계: 화면 반대편 단어까지, 자리는 거의 그대로 마우스 쪽으로 엿가락처럼 늘어나며 보라빛 + 빛
   let magnetOn = false;
   function magnet() {
     if (magnetOn) return;
     magnetOn = true; finishTyping();
-    const [words, done] = wordLayer();
-    document.getElementById('flock').classList.add('magnet');
-    const q = quality, t0 = performance.now(), LONG = 4200;
-    words.forEach(w => { w.dx = 0; w.dy = 0; });
-    let last = 0;
-    (function frame(now) {
-      const t = now - t0;
-      if (t > LONG + 900) { magnetOn = false; done(); return; }
-      requestAnimationFrame(frame);
-      if (q === 0 && now - last < 120) return;      // 0단계: 일부러 뚝뚝
-      last = now;
+    // 단어는 캔버스 한 장에 그린다 (단어 span마다 위치·색을 매 프레임 바꾸면 프레임이 크게 떨어진다)
+    const q = quality, LONG = 4200, words = visibleWords();
+    const REACH = [[160, 0.2], [260, 0.3], [360, 0.4]];   // 0~2단계: [끌리는 거리(px), 최대 세기] — 최소한으로
+    const STEP = 3 * Math.PI / 180;
+    let last = -1e9, sized = false;
+    const cv = charCanvas('flock', (ctx, t) => {
+      if (t > LONG + 900) {             // 끝: 코드가 다시 밝아지듯 제자리에
+        cv.remove(); magnetOn = false;
+        codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });
+        codeEl.style.opacity = codeEl.style.visibility = ''; return;
+      }
+      ctx.font = font;
+      if (!sized) { words.forEach(w => { w.hw = ctx.measureText(w.t).width / 2; w.dx = w.dy = w.pull = w.s = w.ang = 0; }); sized = true; }
       const power = t < LONG ? Math.min(1, t / 400) : Math.max(0, 1 - (t - LONG) / 700);   // 서서히 켜졌다 꺼짐
-      const ease = q === 0 ? 1 : 0.15;               // 0단계는 바로 그 자리로, 나머지는 따라오듯
-      const diag = Math.hypot(innerWidth, innerHeight);
-      words.forEach(w => {
-        const mx = lastX - w.x, my = lastY - w.y, d = Math.hypot(mx, my);
-        const pull = q >= 3
-          ? power * (0.35 + 0.5 * Math.max(0, 1 - d / diag))          // 3단계: 화면 반대편 단어까지 끌려온다
-          : power * Math.max(0, 1 - d / 650) ** 1.5 * 0.85;   // 가까울수록 세게 (마우스에 딱 붙지는 않게)
-        w.dx += (mx * pull - w.dx) * ease; w.dy += (my * pull - w.dy) * ease;
-        const turn = q >= 2 ? Math.atan2(my, mx) * 180 / Math.PI * pull * 0.4 : 0;
-        w.span.style.transform = `translate(${w.dx}px, ${w.dy}px) rotate(${turn}deg)`;
-        if (q >= 2) { w.span.style.color = `color-mix(in srgb, var(--accent) ${Math.round(pull * 100)}%, var(--code))`;
-          w.span.style.setProperty('--pull', pull.toFixed(2)); }
-      });
-    })(t0);
+      if (!(q === 0 && t - last < 120)) {  // 0단계: 일부러 뚝뚝 (움직임만 띄엄띄엄 갱신)
+        last = t;
+        const ease = q === 0 ? 1 : 0.15;   // 0단계는 바로 그 자리로, 나머지는 따라오듯
+        const diag = Math.hypot(innerWidth, innerHeight);
+        for (const w of words) {
+          const mx = lastX - (w.x + w.hw), my = lastY - (w.y + 9), d = Math.hypot(mx, my);
+          w.pull = q >= 3
+            ? power * (0.35 + 0.5 * Math.max(0, 1 - d / diag))          // 3단계: 화면 반대편 단어까지 당겨진다
+            : power * Math.max(0, 1 - d / REACH[q][0]) ** 1.5 * REACH[q][1];  // 0~2단계: 가까운 단어만 조금 (가까울수록 세게)
+          const move = q >= 3 ? w.pull * 0.06 : w.pull;   // 3단계는 자리는 거의 그대로, 대신 늘어난다
+          w.dx += (mx * move - w.dx) * ease; w.dy += (my * move - w.dy) * ease;
+          if (q >= 3) { w.s += (w.pull * 0.7 - w.s) * ease; w.ang = Math.atan2(my, mx); }
+        }
+      }
+      // 3단계만 끌릴수록 보라빛 (코드 색 위에 보라를 겹쳐 물들임) + 빛 (빛 세기도 몇 단계로 묶음)
+      for (const pass of q >= 3 ? [0, 1] : [0]) {
+        ctx.fillStyle = pass ? accent : base;
+        ctx.shadowColor = accent;
+        for (const w of words) {
+          const a = q >= 3 ? (pass ? w.pull : 1 - w.pull) : 1;
+          if (a <= 0.01) continue;
+          ctx.globalAlpha = a;
+          ctx.shadowBlur = pass ? Math.round(w.pull * 5) * 2 : 0;
+          ctx.setTransform(dpr, 0, 0, dpr, (w.x + w.hw + w.dx) * dpr, (w.y + 9.75 + w.dy) * dpr);
+          // 3단계: 마우스 쪽으로 엿가락처럼 늘어난다 — 마우스 반대쪽 끝은 제자리에 두고 마우스 쪽으로만 길어짐.
+          // 늘어남(0.1)·방향(3도)은 몇 단계로 묶어 같은 글자 모양을 다시 쓴다 (매 프레임 새 모양이면 느려진다)
+          const s = Math.round(w.s * 10) / 10;
+          if (s > 0) {
+            const ang = Math.round(w.ang / STEP) * STEP, c = Math.cos(ang), n = Math.sin(ang);
+            const ext = (Math.abs(c) * w.hw + Math.abs(n) * 6) * s;   // 늘어난 만큼 마우스 쪽으로 밀어 반대쪽 끝을 고정
+            ctx.translate(c * ext, n * ext); ctx.rotate(ang); ctx.scale(1 + s, 1); ctx.rotate(-ang);
+          }
+          ctx.fillText(w.t, -w.hw, 0);
+        }
+      }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+    });
+    const dpr = devicePixelRatio || 1, cs = getComputedStyle(cv);
+    const font = `13px ${cs.fontFamily}`, base = cs.color, accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || base;
+    codeEl.style.opacity = 0;
+    codeEl.style.visibility = 'hidden';   // 숨긴 코드 1,000여 줄을 아예 안 그리게 (투명만 하면 캔버스가 바뀔 때마다 같이 다시 그려진다)
   }
   // 블랙홀: 렌즈(마우스) 자리로 코드와 앞 창이 소용돌이치며 빨려 들어가 사라졌다가, 다시 밝아지듯 제자리에 나타난다.
   // 0단계 뚝뚝 끊기며 / 1단계 부드럽게 / 2단계 단어가 돌며 / 3단계는 gargantua() — 코드가 블랙홀 모양이 된다

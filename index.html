@@ -12,7 +12,7 @@
     position: fixed; inset: 0 0 56px 0; margin: 0; padding: 24px;
     overflow: auto; font: 13px/1.5 monospace; white-space: pre-wrap;
     pointer-events: none; z-index: 0; color: #111;
-    /* 투시 렌즈: 마우스 둘레는 코드가 또렷, 나머지는 슬라이더 값만큼 */
+    /* 투시 렌즈: 마우스 둘레는 코드가 또렷, 나머지는 단계 버튼 값만큼 */
     --x: -9999px; --y: -9999px; --base: 0.5; --r: 140px;
     -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%);
             mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%);
@@ -22,7 +22,7 @@
     display: flex; align-items: center; gap: 12px; padding: 0 16px;
     border-top: 1px solid #ccc; background: #fff;
   }
-  #bar input { flex: 1; }
+  #bar button[aria-pressed="true"] { font-weight: bold; background: #ffe14d; }
   #screen > *, #screen li, #screen button { cursor: pointer; }
   #tools { display: flex; flex-wrap: wrap; gap: 8px; }
   .hit { background: #ffe14d; transition: background 0.3s; }
@@ -46,23 +46,27 @@
 <pre id="code" aria-hidden="true"></pre>
 
 <div id="bar">
-  <span>화면</span>
-  <input id="mix" type="range" min="0" max="100" value="50" aria-label="화면과 코드 비율">
   <span>코드</span>
+  <button type="button" data-level="0">0</button>
+  <button type="button" data-level="1">1</button>
+  <button type="button" data-level="2">2</button>
+  <button type="button" data-level="3">3</button>
+  <button type="button" data-level="4">4</button>
 </div>
 
 <script>
   const screenEl = document.getElementById('screen');
   const codeEl = document.getElementById('code');
-  const mix = document.getElementById('mix');
+  const levelBtns = document.querySelectorAll('#bar [data-level]');
 
-  // 화면 글자는 항상 진하게(앞). 슬라이더는 뒤에 깔린 코드만 점점 보이게 한다.
+  // 화면 글자는 항상 진하게(앞). 5단계 버튼으로 뒤에 깔린 코드의 진하기를 정한다.
+  let level = 2;                        // 0 = 코드 안 보임 … 4 = 코드 또렷
   let shaking = false;                  // 뒤섞는 동안은 코드를 다 보이게
   function apply() {
-    const t = mix.value / 100;          // 0 = 코드 안 보임, 1 = 코드 또렷
-    codeEl.style.setProperty('--base', shaking ? 1 : t);
+    codeEl.style.setProperty('--base', shaking ? 1 : level / 4);
+    levelBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.level == level));
   }
-  mix.addEventListener('input', apply);
+  levelBtns.forEach(b => b.addEventListener('click', () => { level = +b.dataset.level; apply(); }));
   apply();
 
   // 투시 렌즈: 마우스(손가락)가 있는 곳만 뒤의 코드가 비쳐 보인다

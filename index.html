@@ -204,6 +204,7 @@
   :root.earth #code { opacity: 0; }
   #flock { position: fixed; inset: 0; z-index: 1; pointer-events: none; transition: opacity 0.4s;
     font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; color: var(--code); }
+  :root:not(.q1) #flock { font-family: monospace; }   /* 0단계: 뒤 코드와 같은 글꼴 (다르면 글자 폭이 달라 단어끼리 겹친다) */
   #flock span { position: absolute; transition: color 1.4s, font-weight 1.4s; }   /* 날아가는 동안 도착할 칸의 지구 색으로 물든다 */
   #flock .w { color: #b0b4ba; }
   :root.dark #flock .w { color: #5f6368; }
@@ -753,14 +754,20 @@
   // 화면에 보이는 뒤 코드 글자들과 그 자리 (지구 모이기·화산 분출이 함께 쓴다)
   function visibleChars(cw, limit) {
     const offset = quality >= 2 ? cw * 5.5 : 0;     // 2단계부터는 줄 번호만큼 오른쪽
+    // 한글·한자 폭은 실제로 잰다 (글꼴에 따라 영문 2칸보다 좁아, 2칸으로 치면 그 뒤 글자가 점점 오른쪽으로 밀린다)
+    const probe = document.createElement('span');
+    probe.textContent = '가'.repeat(10); probe.style.font = getComputedStyle(codeEl).font;
+    document.body.append(probe);
+    const ww = probe.getBoundingClientRect().width / 10; probe.remove();
     const src = [];
     for (const line of lines) {
       const rect = line.getClientRects()[0];
       if (!rect || rect.bottom < 0 || rect.top > innerHeight) continue;
       let x = rect.left + offset;
       for (const c of line.textContent) {
-        if (c.trim() && x < innerWidth && src.length < limit) src.push({ c, x, y: rect.top });
-        x += c.charCodeAt(0) > 0x2e80 ? cw * 2 : cw;
+        const w = c.charCodeAt(0) > 0x2e80 ? ww : cw;
+        if (c.trim() && x < innerWidth && src.length < limit) src.push({ c, x, y: rect.top, w });
+        x += w;
       }
     }
     return src;
@@ -925,8 +932,8 @@
     document.body.append(probe);
     const cw = probe.getBoundingClientRect().width / 10; probe.remove();
     const words = [];                   // 붙어 있는 글자끼리 한 단어로
-    for (const { c, x, y } of visibleChars(cw, 3000)) {
-      const w = c.charCodeAt(0) > 0x2e80 ? cw * 2 : cw, last = words[words.length - 1];
+    for (const { c, x, y, w } of visibleChars(cw, 3000)) {
+      const last = words[words.length - 1];
       if (last && last.y === y && Math.abs(last.end - x) < 1) { last.t += c; last.end = x + w; }
       else words.push({ t: c, x, y, end: x + w });
     }

@@ -1,4 +1,12 @@
 {
+ "/* 2단계: 포인트 색·그림자·움직임 */": {
+  "en": "/* Step 2: accent color, shadows, motion */",
+  "hj": "/* 第二階：點色、陰影、動態 */"
+ },
+ "/* 3단계: 유리창 — 반투명 유리 버튼, 흐르는 배경빛, 렌즈 테두리 */": {
+  "en": "/* Step 3: glass window — frosted buttons, drifting background light, lens ring */",
+  "hj": "/* 第三階：琉璃窓——半透琉璃之鈕、流動背光、透鏡之環 */"
+ },
  "/* 단계가 바뀔 때 코드 진하기가 점점 바뀌도록 */": {
   "en": "/* When the step changes, fade the code darkness gradually */",
   "hj": "/* 階變之時，碼之濃淡漸移 */"
@@ -18,6 +26,10 @@
  "/* 첫 연출: 타자가 끝나면 꽉 찬 코드가 렌즈 크기로 줄어든다 */": {
   "en": "/* Intro: when typing ends, the full-screen code shrinks into the lens */",
   "hj": "/* 開場：打字既畢，滿屏之碼縮為透鏡 */"
+ },
+ "/* 퀄리티 업 1단계: 글꼴·여백·둥근 모서리로 정돈 */": {
+  "en": "/* Quality up step 1: tidy up with fonts, spacing, rounded corners */",
+  "hj": "/* 品質提升第一階：以字體、留白、圓角整之 */"
  },
  "/* 투시 렌즈: 마우스 둘레는 코드가 또렷, 나머지는 단계 버튼 값만큼 */": {
   "en": "/* X-ray lens: code is sharp around the mouse, elsewhere it follows the step buttons */",
@@ -87,6 +99,10 @@
   "en": "// put the code in line by line (so matching can pick a line)",
   "hj": "// 逐行納碼（以便尋對取行）"
  },
+ "// 퀄리티 업: 누를 때마다 디자인이 한 단계씩 좋아진다 (최대 3단계, 그다음 누르면 처음으로)": {
+  "en": "// Quality up: each press improves the design one step (up to 3, then back to the start)",
+  "hj": "// 品質提升：每按則設計進一階（至三階，再按則復初）"
+ },
  "// 타자 중에 아무 데나 누르면 건너뛴다": {
   "en": "// clicking anywhere while typing skips it",
   "hj": "// 打字之中，按任處則略之"
@@ -118,6 +134,10 @@
  "<button type=\"button\" id=\"down\">◀ 불투명</button>": {
   "en": "<button type=\"button\" id=\"down\">◀ Opaque</button>",
   "hj": "<button type=\"button\" id=\"down\">◀ 不透明</button>"
+ },
+ "<button type=\"button\" id=\"quality\">퀄리티 업 0/3</button>": {
+  "en": "<button type=\"button\" id=\"quality\">Quality up 0/3</button>",
+  "hj": "<button type=\"button\" id=\"quality\">品質提升 0/3</button>"
  },
  "<button type=\"button\" id=\"retype\">타자 다시 보기</button>": {
   "en": "<button type=\"button\" id=\"retype\">Replay typing</button>",
@@ -163,6 +183,10 @@
   "en": "<title>Glass Window</title>",
   "hj": "<title>透明窓</title>"
  },
+ "[1, 2, 3].forEach(n => root.classList.toggle('q' + n, q >= n));   // 단계는 쌓인다": {
+  "en": "[1, 2, 3].forEach(n => root.classList.toggle('q' + n, q >= n));   // steps stack up",
+  "hj": "[1, 2, 3].forEach(n => root.classList.toggle('q' + n, q >= n));   // 諸階相疊"
+ },
  "const DARK_LABEL = { ko: ['블랙 모드', '화이트 모드'], en: ['Dark mode', 'Light mode'], hj: ['黑色模式', '白色模式'] };": {
   "en": "const DARK_LABEL = { ko: ['Dark mode', 'Light mode'], en: ['Dark mode', 'Light mode'], hj: ['黑色模式', '白色模式'] };",
   "hj": "const DARK_LABEL = { ko: ['黑色模式', '白色模式'], en: ['Dark mode', 'Light mode'], hj: ['黑色模式', '白色模式'] };"
@@ -174,6 +198,10 @@
  "const EGG_TEXT = { ko: '이스터에그', en: 'Easter egg', hj: '彩蛋' };   // 누르면 글상자에 적히는 말": {
   "en": "const EGG_TEXT = { ko: 'Easter egg', en: 'Easter egg', hj: '彩蛋' };   // the word written into the text box when clicked",
   "hj": "const EGG_TEXT = { ko: '彩蛋', en: 'Easter egg', hj: '彩蛋' };   // 按則書於文字框之語"
+ },
+ "const QUALITY_LABEL = { ko: '퀄리티 업', en: 'Quality up', hj: '品質提升' };": {
+  "en": "const QUALITY_LABEL = { ko: 'Quality up', en: 'Quality up', hj: '品質提升' };",
+  "hj": "const QUALITY_LABEL = { ko: '品質提升', en: 'Quality up', hj: '品質提升' };"
  },
  "const SPEED = 30;                     // 한 프레임(약 1/60초)에 치는 글자 수": {
   "en": "const SPEED = 30;                     // characters typed per frame (about 1/60 s)",
@@ -190,6 +218,10 @@
  "const n = power * 4;                // 막 누를수록 더 많은 줄이 깨진다": {
   "en": "const n = power * 4;                // the more you mash, the more lines break",
   "hj": "const n = power * 4;                // 愈連擊，壞行愈多"
+ },
+ "const ring = document.createElement('div');   // 3단계에서 보이는 렌즈 테두리": {
+  "en": "const ring = document.createElement('div');   // lens ring shown at step 3",
+  "hj": "const ring = document.createElement('div');   // 第三階所見之透鏡環"
  },
  "const shown = typing ? 4 : level;  // 타자 중에는 끝까지 투명(코드 다 보임)으로 표시": {
   "en": "const shown = typing ? 4 : level;  // while typing, show fully clear (all code visible)",

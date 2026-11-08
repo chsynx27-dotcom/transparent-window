@@ -43,6 +43,43 @@
   #screen * { pointer-events: auto; }
   .egg { pointer-events: auto; cursor: pointer; font-size: 9px; }
   .egg:hover { background: #ffe14d; color: #111; }
+  /* 퀄리티 업 1단계: 글꼴·여백·둥근 모서리로 정돈 */
+  :root.q1 body { font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif; }
+  :root.q1 #screen { padding: 40px 48px 96px; }
+  :root.q1 h1 { font-size: 48px; letter-spacing: -0.03em; margin: 0 0 12px; }
+  :root.q1 #screen p { opacity: 0.75; font-size: 17px; }
+  :root.q1 button, :root.q1 #memo { border-radius: 10px; border: 1px solid var(--line); background: var(--bg);
+    color: var(--fg); padding: 8px 14px; font: inherit; font-size: 14px; }
+  :root.q1 #memo { padding: 10px 14px; width: 320px; }
+  :root.q1 #bar { padding: 0 24px; gap: 14px; }
+
+  /* 2단계: 포인트 색·그림자·움직임 */
+  :root.q2 { --accent: #5b5bf0; --code: #3d3d8f; }
+  :root.q2.dark { --accent: #9d9bff; --code: #c9c7ff; }
+  :root.q2 h1 { background: linear-gradient(90deg, var(--accent), #e0569b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  :root.q2 button { box-shadow: 0 2px 8px rgba(0,0,0,0.12); transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s; }
+  :root.q2 button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.18); border-color: var(--accent); }
+  :root.q2 #memo:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+  :root.q2 #dots { color: var(--accent); }
+  :root.q2 .hit { background: var(--accent); color: #fff; }
+
+  /* 3단계: 유리창 — 반투명 유리 버튼, 흐르는 배경빛, 렌즈 테두리 */
+  :root.q3 body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background:
+      radial-gradient(40vw 40vw at var(--gx) 20%, rgba(91,91,240,0.18), transparent 70%),
+      radial-gradient(35vw 35vw at 85% var(--gy), rgba(224,86,155,0.16), transparent 70%);
+    animation: drift 12s ease-in-out infinite alternate; }
+  @property --gx { syntax: '<percentage>'; inherits: true; initial-value: 20%; }
+  @property --gy { syntax: '<percentage>'; inherits: true; initial-value: 75%; }
+  @keyframes drift { to { --gx: 70%; --gy: 30%; } }
+  :root.q3 button, :root.q3 #memo, :root.q3 #bar { background: color-mix(in srgb, var(--bg) 55%, transparent);
+    backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+  :root.q3 #bar { border-top-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  :root.q3 h1 { font-size: 64px; }
+  #ring { position: fixed; left: var(--x); top: var(--y); width: calc(var(--r) * 1.2); aspect-ratio: 1;
+    transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; display: none;
+    border: 1.5px solid color-mix(in srgb, var(--accent, #888) 70%, transparent);
+    box-shadow: 0 0 24px color-mix(in srgb, var(--accent, #888) 45%, transparent); }
+  :root.q3 #ring { display: block; }
   #corner { position: fixed; top: 16px; right: 24px; z-index: 2; display: flex; gap: 6px; }
   #corner [aria-pressed="true"] { font-weight: bold; background: #ffe14d; color: #111; }
   #memo { margin-top: 16px; font-size: 16px; padding: 6px; }
@@ -63,6 +100,7 @@
     <button type="button" id="bigger">렌즈 크게</button>
     <button type="button" id="smaller">렌즈 작게</button>
     <button type="button" id="retype">타자 다시 보기</button>
+    <button type="button" id="quality">퀄리티 업 0/3</button>
   </div>
   <input id="memo" type="text" placeholder="여기에 글자를 적어 보세요" size="30">
   <ul>
@@ -116,6 +154,7 @@
   let pristine = [];                    // 처음 받은 그대로 (한글 원본)
   function showCode(src) {
     codeEl.textContent = '';
+    codeEl.append(ring);
     orig = src.split('\n');
     pristine = orig.slice();
     memoIdx = orig.findIndex(t => t.trim().startsWith('<input id="memo"'));
@@ -285,6 +324,8 @@
 
   // 렌즈 크기
   let radius = 140;
+  const ring = document.createElement('div');   // 3단계에서 보이는 렌즈 테두리
+  ring.id = 'ring';
   function setRadius(r) { radius = Math.max(60, Math.min(400, r)); codeEl.style.setProperty('--r', radius + 'px'); }
   document.getElementById('bigger').addEventListener('click', () => setRadius(radius + 60));
   document.getElementById('smaller').addEventListener('click', () => setRadius(radius - 60));
@@ -332,9 +373,25 @@
     document.getElementById('en').setAttribute('aria-pressed', lang === 'en');
     document.getElementById('hj').setAttribute('aria-pressed', lang === 'hj');
     setDark(document.documentElement.classList.contains('dark'));   // 블랙 모드 버튼 이름도 바꾼다
+    setQuality(quality);
   }
   document.getElementById('en').addEventListener('click', () => setLang(lang === 'en' ? 'ko' : 'en'));
   document.getElementById('hj').addEventListener('click', () => setLang(lang === 'hj' ? 'ko' : 'hj'));
+
+  // 퀄리티 업: 누를 때마다 디자인이 한 단계씩 좋아진다 (최대 3단계, 그다음 누르면 처음으로)
+  const QUALITY_LABEL = { ko: '퀄리티 업', en: 'Quality up', hj: '品質提升' };
+  let quality = 0;
+  function setQuality(q) {
+    quality = q;
+    const root = document.documentElement;
+    [1, 2, 3].forEach(n => root.classList.toggle('q' + n, q >= n));   // 단계는 쌓인다
+    document.getElementById('quality').textContent = `${QUALITY_LABEL[lang]} ${q}/3`;
+  }
+  document.getElementById('quality').addEventListener('click', () => {
+    const next = (quality + 1) % 4;
+    if (document.startViewTransition) document.startViewTransition(() => setQuality(next));
+    else setQuality(next);
+  });
 
   // 블랙 모드: 누를 때마다 켜고 끈다, 고른 것은 이 브라우저에 기억
   const darkBtn = document.getElementById('dark');

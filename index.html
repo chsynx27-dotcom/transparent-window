@@ -312,7 +312,7 @@
 <body class="intro">
 <div id="corner">
   <button type="button" id="en">EN</button>
-  <button type="button" id="hj">漢字</button>
+  <button type="button" id="hj">中文</button>
   <button type="button" id="dark">블랙 모드</button>
 </div>
 <div id="eggs" aria-hidden="true"></div>
@@ -606,16 +606,17 @@
   });
   // 비밀 단어: 글상자 끝에 이 말이 있으면 반응한다
   const SECRETS = [
-    { words: ['펑', '폭발', 'boom', '爆'], run: () => boom() },
+    { words: ['펑', '폭발', 'boom', '爆', '爆炸'], run: () => boom() },
     { words: ['비', 'rain', '雨'], run: () => rain() },
     { words: ['지구', '행성', 'earth', 'planet', '地球', '行星'], run: () => earth() },
-    { words: ['자석', 'magnet', '磁石'], run: () => magnet() },
+    { words: ['자석', 'magnet', '磁石', '磁铁'], run: () => magnet() },
     { words: ['블랙홀', '우주', 'blackhole', 'black hole', 'space', '黑洞', '宇宙'], run: () => blackhole() },
   ];
   let secretTimer = null, lastSecret = '';
   const findSecret = () => SECRETS.find(x => x.words.some(w => memo.value.trim().toLowerCase().endsWith(w)));
   function checkSecret() {
     const v = memo.value.trim().toLowerCase();
+    if (/(이스터에그|이스트에그|easter ?egg|彩蛋)$/.test(v)) foundEgg('button');   // '이스터에그'라고 적어도 코드 속 '버튼'을 찾은 것으로 친다
     const hit = findSecret();
     if (hit && v !== lastSecret) { hit.run(); foundEgg(hit.words[0]); }
     lastSecret = hit ? v : '';          // 같은 글 그대로면 다시 터지지 않게
@@ -1360,24 +1361,24 @@
 
   // 영문 / 한자: 앞 화면 글자를 바꾸고, 뒤 코드의 그 줄도 같이 바꾼다. 같은 버튼을 다시 누르면 한글로
   let lang = 'ko';
-  const DARK_LABEL = { ko: ['블랙 모드', '화이트 모드'], en: ['Dark mode', 'Light mode'], hj: ['黑色模式', '白色模式'] };
+  const DARK_LABEL = { ko: ['블랙 모드', '화이트 모드'], en: ['Dark mode', 'Light mode'], hj: ['深色模式', '浅色模式'] };
   const WORDS = [
-    { sel: 'h1', ko: '투명창', en: 'Glass Window', hj: '透明窓' },
+    { sel: 'h1', ko: '투명창', en: 'Glass Window', hj: '透明窗' },
     { sel: '#screen p', ko: '이 페이지는 자기 자신의 코드를 겹쳐 보여줍니다. (더미 내용)',
       en: 'This page shows its own code layered behind it. (dummy text)',
-      hj: '此頁示其自身之碼，重疊於後。（假內容）' },
-    { sel: '#shake', ko: '코드 뒤섞기 (막 눌러 보세요)', en: 'Scramble code (mash it!)', hj: '攪亂代碼（請連擊）' },
-    { sel: '#bigger', ko: '렌즈 크게', en: 'Bigger lens', hj: '放大透鏡' },
-    { sel: '#smaller', ko: '렌즈 작게', en: 'Smaller lens', hj: '縮小透鏡' },
+      hj: '此页会把自身的代码叠在后面显示。（示例内容）' },
+    { sel: '#shake', ko: '코드 뒤섞기 (막 눌러 보세요)', en: 'Scramble code (mash it!)', hj: '打乱代码（快速连点）' },
+    { sel: '#bigger', ko: '렌즈 크게', en: 'Bigger lens', hj: '放大透镜' },
+    { sel: '#smaller', ko: '렌즈 작게', en: 'Smaller lens', hj: '缩小透镜' },
     { sel: '#retype', ko: '타자 다시 보기', en: 'Replay typing', hj: '重看打字' },
-    { sel: '#memo', attr: 'placeholder', ko: '여기에 글자를 적어 보세요', en: 'Type something here', hj: '請於此處書寫文字' },
-    { sel: '#screen li:nth-child(1)', ko: '목록 하나', en: 'Item one', hj: '目錄一' },
-    { sel: '#screen li:nth-child(2)', ko: '목록 둘', en: 'Item two', hj: '目錄二' },
-    { sel: '#bar > span:first-child', ko: '창', en: 'Window', hj: '窓' },
+    { sel: '#memo', attr: 'placeholder', ko: '여기에 글자를 적어 보세요', en: 'Type something here', hj: '在这里输入文字' },
+    { sel: '#screen li:nth-child(1)', ko: '목록 하나', en: 'Item one', hj: '列表一' },
+    { sel: '#screen li:nth-child(2)', ko: '목록 둘', en: 'Item two', hj: '列表二' },
+    { sel: '#bar > span:first-child', ko: '창', en: 'Window', hj: '窗' },
     { sel: '#down', ko: '◀ 불투명', en: '◀ Opaque', hj: '◀ 不透明' },
     { sel: '#up', ko: '투명 ▶', en: 'Clear ▶', hj: '透明 ▶' },
   ];
-  const EGG = { ko: '버튼', en: 'button', hj: '按鈕' };   // 코드 속 숨은 글자
+  const EGG = { ko: '버튼', en: 'button', hj: '按钮' };   // 코드 속 숨은 글자
   const EGG_TEXT = { ko: '이스터에그', en: 'Easter egg', hj: '彩蛋' };   // 누르면 글상자에 적히는 말
   // 코드 줄 번역표: lang.json { "한글 줄": { en, hj } } — 없는 줄은 한글 그대로
   let LINES = {};
@@ -1397,7 +1398,7 @@
     orig = pristine.map(t => tr(t, lang));
     lines.forEach((s, i) => setLine(i));
     if (memoIdx >= 0) { memoBase = orig[memoIdx]; writeMemoLine(); }
-    document.documentElement.lang = next === 'en' ? 'en' : 'ko';
+    document.documentElement.lang = next === 'en' ? 'en' : next === 'hj' ? 'zh-CN' : 'ko';
     document.getElementById('en').setAttribute('aria-pressed', lang === 'en');
     document.getElementById('hj').setAttribute('aria-pressed', lang === 'hj');
     setDark(document.documentElement.classList.contains('dark'));   // 블랙 모드 버튼 이름도 바꾼다
@@ -1407,8 +1408,8 @@
   document.getElementById('hj').addEventListener('click', () => setLang(lang === 'hj' ? 'ko' : 'hj'));
 
   // 퀄리티 업: 누를 때마다 디자인이 한 단계씩 좋아진다 (최대 3단계, 그다음 누르면 처음으로)
-  const QUALITY_LABEL = { ko: '퀄리티 업', en: 'Quality up', hj: '品質提升' };
-  const STAGE = { ko: ['기본', '정돈', '디자인', '완성'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整頓', '設計', '完成'] };
+  const QUALITY_LABEL = { ko: '퀄리티 업', en: 'Quality up', hj: '质量提升' };
+  const STAGE = { ko: ['기본', '정돈', '디자인', '완성'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整理', '设计', '完成'] };
   let quality = 0;
   function setQuality(q) {
     quality = q;

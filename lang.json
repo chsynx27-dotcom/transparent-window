@@ -1,179 +1,179 @@
 {
  "/* 2단계 '디자인': 편집기처럼 색 구분된 코드·줄 번호, 떠 있는 조절 막대, 포인트 색 하나 */": {
   "en": "/* Step 2 'Designed': editor-style colored code with line numbers, a floating control bar, one accent color */",
-  "hj": "/* 第二階「設計」：如編輯器之分色碼與行號、浮動之調節條、單一點色 */"
+  "hj": "/* 第 2 级「设计」：编辑器风格的彩色代码和行号、悬浮控制条、一个强调色 */"
  },
  "/* 3단계 '완성': 앞 화면이 진짜 창(제목 표시줄이 있는 유리 패널), 렌즈 테두리 */": {
   "en": "/* Step 3 'Polished': the front becomes a real window (glass panel with a title bar), lens ring */",
-  "hj": "/* 第三階「完成」：前屏成真窓（有標題欄之琉璃板）、透鏡之環 */"
+  "hj": "/* 第 3 级「完成」：前面变成真正的窗口（带标题栏的玻璃面板），透镜外圈 */"
  },
  "/* 단계가 바뀔 때 코드 진하기가 점점 바뀌도록 */": {
   "en": "/* When the step changes, fade the code darkness gradually */",
-  "hj": "/* 階變之時，碼之濃淡漸移 */"
+  "hj": "/* 级别变化时，代码深浅逐渐过渡 */"
  },
  "/* 단계가 오를 때 요소들이 차례로 떠오른다 */": {
   "en": "/* when the step goes up, elements rise one after another */",
-  "hj": "/* 階升之時，諸物依次浮起 */"
+  "hj": "/* 级别提升时，元素依次浮现 */"
  },
  "/* 블랙 모드: 색만 바꾼다 */": {
   "en": "/* Dark mode: only the colors change */",
-  "hj": "/* 黑色模式：唯變其色 */"
+  "hj": "/* 深色模式：只换颜色 */"
  },
  "/* 블랙/화이트 전환을 부드럽게: 화면 전체가 0.6초에 걸쳐 스르륵 바뀐다 */": {
   "en": "/* Smooth dark/light switch: the whole screen crossfades over 0.6s */",
-  "hj": "/* 黑白轉換務求柔順：全屏歷零點六秒而漸變 */"
+  "hj": "/* 深浅色平滑切换：整个画面在 0.6 秒内渐变 */"
  },
  "/* 유리 짙기 = 아래 투명/불투명 단계와 연동 (--glass: 0 투명 … 1 불투명) */": {
   "en": "/* Glass density follows the clear/opaque steps below (--glass: 0 clear … 1 opaque) */",
-  "hj": "/* 琉璃之濃淡隨下方透明／不透明之階（--glass：零透明 … 一不透明） */"
+  "hj": "/* 玻璃浓度跟随下方的透明/不透明级别（--glass：0 透明 … 1 不透明） */"
  },
  "/* 이스터에그: 코드 속 작은 '버튼' 글자만 누를 수 있다 */": {
   "en": "/* Easter egg: only the tiny 'button' word in the code is clickable */",
-  "hj": "/* 彩蛋：碼中唯小字「按鈕」可按 */"
+  "hj": "/* 彩蛋：只有代码里小小的「按钮」二字可以点 */"
  },
  "/* 지구: 코드 글자로 그린 도는 지구. 단계가 오를수록 색·명암·매끄러움이 더해진다 */": {
   "en": "/* Earth: a spinning globe drawn with code; higher steps add color, shading and smoothness */",
-  "hj": "/* 地球：以碼字繪之旋轉地球；階愈高，色、明暗、流暢愈增 */"
+  "hj": "/* 地球：用代码画出的旋转地球；级别越高，颜色、明暗和流畅度越好 */"
  },
  "/* 첫 연출: 타자가 끝나면 꽉 찬 코드가 렌즈 크기로 줄어든다 */": {
   "en": "/* Intro: when typing ends, the full-screen code shrinks into the lens */",
-  "hj": "/* 開場：打字既畢，滿屏之碼縮為透鏡 */"
+  "hj": "/* 开场：打字结束后，满屏代码缩进透镜里 */"
  },
  "/* 코드 비 (0~2단계): 줄이 한 줄씩 떨어졌다가 되감기듯 올라온다. 1단계만 곧게, 0·2단계는 제멋대로 기울며 */": {
   "en": "/* Code rain (steps 0–2): lines fall one by one, then rewind back up. Step 1 falls straight, steps 0 and 2 tilt every which way */",
-  "hj": "/* 碼雨（零至二階）：逐行而墜，復如倒捲而上。唯一階直墜，零、二階亂斜而墜 */"
+  "hj": "/* 代码雨（第 0–2 级）：一行行落下，再倒放回去。第 1 级垂直落下，第 0、2 级东倒西歪 */"
  },
  "/* 퀄리티 업 1단계 '정돈': 글꼴 체계·여백·같은 크기의 버튼 */": {
   "en": "/* Quality up step 1 'Tidy': type scale, spacing, same-size buttons */",
-  "hj": "/* 品質提升第一階「整頓」：字體之制、留白、等大之鈕 */"
+  "hj": "/* 质量提升第 1 级「整理」：字号体系、间距、同尺寸按钮 */"
  },
  "/* 투시 렌즈: 마우스 둘레는 코드가 또렷, 나머지는 단계 버튼 값만큼 */": {
   "en": "/* X-ray lens: code is sharp around the mouse, elsewhere it follows the step buttons */",
-  "hj": "/* 透視鏡：鼠周碼明，餘從階鈕之值 */"
+  "hj": "/* 透视镜：鼠标周围的代码清晰，其余部分随级别按钮变化 */"
  },
  "/* 펑: 부풀며 번지다 사라짐 / 되돌아올 때: 작게 모였다 나타남 */": {
   "en": "/* pop: swell, blur and vanish / coming back: gather small and appear */",
-  "hj": "/* 爆：脹而暈散 / 歸來：聚小而現 */"
+  "hj": "/* 砰：膨胀、模糊后消失 / 回来时：从小聚拢后出现 */"
  },
  "/* 화면이 깨지는 순간: 전체가 한 번 크게 흔들린다 */": {
   "en": "/* the moment the screen breaks: the whole thing shakes hard once */",
-  "hj": "/* 屏碎之時：全體大震一次 */"
+  "hj": "/* 画面破碎的瞬间：整体猛烈晃动一次 */"
  },
  "// 꽉 찬 코드가 마우스 자리의 렌즈로 쪼그라들고, 앞 화면이 떠오른다": {
   "en": "// the full code shrinks into the lens at the mouse, and the front screen rises",
-  "hj": "// 滿屏之碼縮為鼠處之鏡，前屏浮現"
+  "hj": "// 满屏代码缩进鼠标处的透镜，前面的画面浮现"
  },
  "// 뒤 코드도 줄마다 그 언어로 (입력칸 줄은 적은 글자를 다시 붙인다)": {
   "en": "// the code behind switches line by line too (the input line gets its typed text back)",
-  "hj": "// 後碼亦逐行易之（輸入框之行復附所書之字）"
+  "hj": "// 后面的代码也逐行切换（输入行恢复已输入的文字）"
  },
  "// 렌즈 크기": {
   "en": "// Lens size",
-  "hj": "// 透鏡大小"
+  "hj": "// 透镜大小"
  },
  "// 불투명으로 시작: 앞 화면은 숨기고, 렌즈를 화면 전체 크기로 키운다": {
   "en": "// Start opaque: hide the front screen and grow the lens to the whole screen",
-  "hj": "// 始於全顯：隱前屏，擴透鏡至滿屏"
+  "hj": "// 以不透明开始：隐藏前面的画面，把透镜放大到全屏"
  },
  "// 블랙 모드: 누를 때마다 켜고 끈다, 고른 것은 이 브라우저에 기억": {
   "en": "// Dark mode: each press toggles it; the choice is remembered in this browser",
-  "hj": "// 黑色模式：每按則開闔，所擇記於此瀏覽器"
+  "hj": "// 深色模式：每按一次切换；选择会记在这个浏览器里"
  },
  "// 비밀 단어: 글상자 끝에 이 말이 있으면 반응한다": {
   "en": "// Secret words: react when the text box ends with one of these",
-  "hj": "// 密語：文字框末有此語則應之"
+  "hj": "// 秘密词：文本框以这些词结尾时触发"
  },
  "// 앞에서 글자를 적으면 뒤의 코드(입력칸 줄)에 그대로 써진다": {
   "en": "// text typed in front is written straight into the code behind (the input line)",
-  "hj": "// 前書之字，即書於後碼（輸入框之行）"
+  "hj": "// 前面输入的文字会直接写进后面的代码（输入行）"
  },
  "// 영문 / 한자: 앞 화면 글자를 바꾸고, 뒤 코드의 그 줄도 같이 바꾼다. 같은 버튼을 다시 누르면 한글로": {
   "en": "// English / Hanja: change the front text and the code behind; press the same button again for Korean",
-  "hj": "// 英文／漢字：易前屏之字，後碼亦隨之。再按同鈕則復韓文"
+  "hj": "// 英文 / 中文：切换前面的文字和后面的代码；再按同一个按钮回到韩文"
  },
  "// 오를 때는 화면 요소들이 차례로 떠오른다": {
   "en": "// going up, the screen elements rise one after another",
-  "hj": "// 升階之時，屏上諸物依次浮起"
+  "hj": "// 级别提升时，画面元素依次浮现"
  },
  "// 이스터에그: 코드 속 '버튼'을 누르면 글상자에 살짝 적힌다": {
   "en": "// Easter egg: clicking 'button' in the code quietly fills the text box",
-  "hj": "// 彩蛋：按碼中「按鈕」，則書於文字框"
+  "hj": "// 彩蛋：点击代码里的「按钮」，文本框里会悄悄写上字"
  },
  "// 자기 자신의 원본 코드를 가져온다 (file://로 열면 실패 → 현재 DOM으로 대체)": {
   "en": "// fetch our own source code (fails on file:// → use the current DOM instead)",
-  "hj": "// 取自身之原碼（以 file:// 開則敗 → 代以今之 DOM）"
+  "hj": "// 读取自己的源代码（file:// 下会失败 → 改用当前 DOM）"
  },
  "// 지구: 대륙 지도 (위도 10도 띠마다 육지 경도 구간, 북 85° → 남 -85°)": {
   "en": "// Earth: continent map (land longitude ranges per 10° latitude band, north 85° → south -85°)",
-  "hj": "// 地球：大陸圖（每緯十度一帶，陸地經度區間，北85°→南-85°）"
+  "hj": "// 地球：大陆地图（每 10° 纬度带的陆地经度范围，北 85° → 南 -85°）"
  },
  "// 짝 찾기: 화면 요소를 누르면 그 요소를 만든 코드 줄이 반짝인다": {
   "en": "// Match finder: clicking a screen element flashes the code line that made it",
-  "hj": "// 尋對：按屏上之物，則生之之碼行閃爍"
+  "hj": "// 找对应：点击画面元素，生成它的那行代码会闪一下"
  },
  "// 치고 있는 줄이 화면 아래로 내려가면 따라 내려간다": {
   "en": "// follow down when the line being typed goes below the screen",
-  "hj": "// 所擊之行出屏下，則隨之而下"
+  "hj": "// 正在打字的行跑到屏幕下方时，跟着往下滚"
  },
  "// 코드 뒤섞기: 누를 때마다 코드가 더 많이 깨지고, 손을 떼면 한 줄씩 원래대로 돌아온다": {
   "en": "// Scramble: each press breaks more code; let go and it returns line by line",
-  "hj": "// 攪亂：每按碼愈亂，釋手則逐行復原"
+  "hj": "// 打乱：每按一次打乱更多代码；松手后逐行恢复"
  },
  "// 코드 색 구분: 주석·문자열·태그·예약어·숫자를 조각내 표시 (색은 2단계부터 보인다)": {
   "en": "// Code coloring: split comments, strings, tags, keywords, numbers (colors show from step 2)",
-  "hj": "// 碼之分色：析註、字串、標籤、保留字、數（色自第二階始見）"
+  "hj": "// 代码上色：区分注释、字符串、标签、关键字、数字（第 2 级起显示颜色）"
  },
  "// 코드 줄 번역표: lang.json { \"한글 줄\": { en, hj } } — 없는 줄은 한글 그대로": {
   "en": "// code line table: lang.json { \"Korean line\": { en, hj } } — missing lines stay Korean",
-  "hj": "// 碼行譯表：lang.json { \"韓文行\": { en, hj } } —— 無者仍作韓文"
+  "hj": "// 代码行对照表：lang.json { \"韩文行\": { en, hj } } — 没有的行保持韩文"
  },
  "// 코드 줄 하나를 반짝이고 렌즈를 그 줄로 옮긴다": {
   "en": "// flash one code line and move the lens onto it",
-  "hj": "// 閃一碼行，移鏡於其上"
+  "hj": "// 让一行代码闪一下，并把透镜移过去"
  },
  "// 코드 줄 하나를 원본대로 쓴다. 이스터에그 줄이면 '버튼' 글자만 누를 수 있게 꾸민다": {
   "en": "// write one code line as is; on the easter-egg line, make only the word 'button' clickable",
-  "hj": "// 依原書碼一行；若為彩蛋之行，則唯「按鈕」二字可按"
+  "hj": "// 原样写入一行代码；彩蛋那行只让「按钮」二字可以点"
  },
  "// 코드를 줄 단위로 넣는다 (짝 찾기에서 줄을 집어내려고)": {
   "en": "// put the code in line by line (so matching can pick a line)",
-  "hj": "// 逐行納碼（以便尋對取行）"
+  "hj": "// 按行放入代码（方便找对应时取出某一行）"
  },
  "// 퀄리티 업: 누를 때마다 디자인이 한 단계씩 좋아진다 (최대 3단계, 그다음 누르면 처음으로)": {
   "en": "// Quality up: each press improves the design one step (up to 3, then back to the start)",
-  "hj": "// 品質提升：每按則設計進一階（至三階，再按則復初）"
+  "hj": "// 质量提升：每按一次设计提升一级（最多 3 级，之后回到开头）"
  },
  "// 타자 중에 아무 데나 누르면 건너뛴다": {
   "en": "// clicking anywhere while typing skips it",
-  "hj": "// 打字之中，按任處則略之"
+  "hj": "// 打字时点任意处即可跳过"
  },
  "// 타자 효과: 코드가 누가 치는 것처럼 한 글자씩 쓰여 나간다": {
   "en": "// Typing effect: the code appears one character at a time, as if someone types it",
-  "hj": "// 打字之效：碼如人擊鍵，逐字而出"
+  "hj": "// 打字效果：代码像有人在敲一样一个字一个字地出现"
  },
  "// 투시 렌즈: 마우스(손가락)가 있는 곳만 뒤의 코드가 비쳐 보인다": {
   "en": "// X-ray lens: the code behind shows through only where the mouse (finger) is",
-  "hj": "// 透視鏡：唯鼠（指）所在，後碼透見"
+  "hj": "// 透视镜：只有鼠标（手指）所在处能透出后面的代码"
  },
  "// 화면 글자 깨뜨리기: 절반을 넘기면 앞 화면 글자가 기호로 바뀌며 색이 갈라지다가, 최대치에서 펑 터진다": {
   "en": "// Breaking the screen text: past halfway the front text turns into symbols and its colors split, and at the max it pops",
-  "hj": "// 碎屏上之字：過半則前字化為符號、色裂，至極則爆"
+  "hj": "// 画面文字破碎：过半后前面的文字变成符号、颜色错开，到最大时砰地炸开"
  },
  "// 화면 글자는 항상 진하게(앞). 좌우 버튼으로 뒤에 깔린 코드의 진하기를 5단계로 바꾼다.": {
   "en": "// Screen text always stays dark (in front). Left/right buttons set the code behind in 5 steps.",
-  "hj": "// 屏上之字恆濃（居前）。左右二鈕分五階調其後之碼。"
+  "hj": "// 画面文字始终深色（在前面）。左右按钮把后面代码的深浅分 5 级调节。"
  },
  "// 화면(main) 부분의 줄에서만 찾는다 — 스크립트 속 같은 글자는 제외": {
   "en": "// search only in the screen (main) lines — skip the same text inside the script",
-  "hj": "// 唯於屏（main）之行中尋之——腳本中同字不計"
+  "hj": "// 只在画面（main）的行里找 — 跳过 script 里相同的文字"
  },
  "<button type=\"button\" id=\"bigger\">렌즈 크게</button>": {
   "en": "<button type=\"button\" id=\"bigger\">Bigger lens</button>",
-  "hj": "<button type=\"button\" id=\"bigger\">放大透鏡</button>"
+  "hj": "<button type=\"button\" id=\"bigger\">放大透镜</button>"
  },
  "<button type=\"button\" id=\"dark\">블랙 모드</button>": {
   "en": "<button type=\"button\" id=\"dark\">Dark mode</button>",
-  "hj": "<button type=\"button\" id=\"dark\">黑色模式</button>"
+  "hj": "<button type=\"button\" id=\"dark\">深色模式</button>"
  },
  "<button type=\"button\" id=\"down\">◀ 불투명</button>": {
   "en": "<button type=\"button\" id=\"down\">◀ Opaque</button>",
@@ -181,7 +181,7 @@
  },
  "<button type=\"button\" id=\"quality\">퀄리티 업 · 기본 0/3</button>": {
   "en": "<button type=\"button\" id=\"quality\">Quality up · Basic 0/3</button>",
-  "hj": "<button type=\"button\" id=\"quality\">品質提升 · 基本 0/3</button>"
+  "hj": "<button type=\"button\" id=\"quality\">质量提升 · 基本 0/3</button>"
  },
  "<button type=\"button\" id=\"retype\">타자 다시 보기</button>": {
   "en": "<button type=\"button\" id=\"retype\">Replay typing</button>",
@@ -189,11 +189,11 @@
  },
  "<button type=\"button\" id=\"shake\">코드 뒤섞기 (막 눌러 보세요)</button>": {
   "en": "<button type=\"button\" id=\"shake\">Scramble code (mash it!)</button>",
-  "hj": "<button type=\"button\" id=\"shake\">攪亂代碼（請連擊）</button>"
+  "hj": "<button type=\"button\" id=\"shake\">打乱代码（快速连点）</button>"
  },
  "<button type=\"button\" id=\"smaller\">렌즈 작게</button>": {
   "en": "<button type=\"button\" id=\"smaller\">Smaller lens</button>",
-  "hj": "<button type=\"button\" id=\"smaller\">縮小透鏡</button>"
+  "hj": "<button type=\"button\" id=\"smaller\">缩小透镜</button>"
  },
  "<button type=\"button\" id=\"up\">투명 ▶</button>": {
   "en": "<button type=\"button\" id=\"up\">Clear ▶</button>",
@@ -201,343 +201,343 @@
  },
  "<h1>투명창</h1>": {
   "en": "<h1>Glass Window</h1>",
-  "hj": "<h1>透明窓</h1>"
+  "hj": "<h1>透明窗</h1>"
  },
  "<input id=\"memo\" type=\"text\" placeholder=\"여기에 글자를 적어 보세요\" size=\"30\">": {
   "en": "<input id=\"memo\" type=\"text\" placeholder=\"Type something here\" size=\"30\">",
-  "hj": "<input id=\"memo\" type=\"text\" placeholder=\"請於此處書寫文字\" size=\"30\">"
+  "hj": "<input id=\"memo\" type=\"text\" placeholder=\"在这里输入文字\" size=\"30\">"
  },
  "<li>목록 둘</li>": {
   "en": "<li>Item two</li>",
-  "hj": "<li>目錄二</li>"
+  "hj": "<li>列表二</li>"
  },
  "<li>목록 하나</li>": {
   "en": "<li>Item one</li>",
-  "hj": "<li>目錄一</li>"
+  "hj": "<li>列表一</li>"
  },
  "<p>이 페이지는 자기 자신의 코드를 겹쳐 보여줍니다. (더미 내용)</p>": {
   "en": "<p>This page shows its own code layered behind it. (dummy text)</p>",
-  "hj": "<p>此頁示其自身之碼，重疊於後。（假內容）</p>"
+  "hj": "<p>此页会把自身的代码叠在后面显示。（示例内容）</p>"
  },
  "<span>창</span>": {
   "en": "<span>Window</span>",
-  "hj": "<span>窓</span>"
+  "hj": "<span>窗</span>"
  },
  "<title>투명창</title>": {
   "en": "<title>Glass Window</title>",
-  "hj": "<title>透明窓</title>"
+  "hj": "<title>透明窗</title>"
  },
  "[1, 2, 3].forEach(n => root.classList.toggle('q' + n, q >= n));   // 단계는 쌓인다": {
   "en": "[1, 2, 3].forEach(n => root.classList.toggle('q' + n, q >= n));   // steps stack up",
-  "hj": "[1, 2, 3].forEach(n => root.classList.toggle('q' + n, q >= n));   // 諸階相疊"
+  "hj": "[1, 2, 3].forEach(n => root.classList.toggle('q' + n, q >= n));   // 级别逐级叠加"
  },
- "const DARK_LABEL = { ko: ['블랙 모드', '화이트 모드'], en: ['Dark mode', 'Light mode'], hj: ['黑色模式', '白色模式'] };": {
-  "en": "const DARK_LABEL = { ko: ['Dark mode', 'Light mode'], en: ['Dark mode', 'Light mode'], hj: ['黑色模式', '白色模式'] };",
-  "hj": "const DARK_LABEL = { ko: ['黑色模式', '白色模式'], en: ['Dark mode', 'Light mode'], hj: ['黑色模式', '白色模式'] };"
+ "const DARK_LABEL = { ko: ['블랙 모드', '화이트 모드'], en: ['Dark mode', 'Light mode'], hj: ['深色模式', '浅色模式'] };": {
+  "en": "const DARK_LABEL = { ko: ['Dark mode', 'Light mode'], en: ['Dark mode', 'Light mode'], hj: ['深色模式', '浅色模式'] };",
+  "hj": "const DARK_LABEL = { ko: ['深色模式', '浅色模式'], en: ['Dark mode', 'Light mode'], hj: ['深色模式', '浅色模式'] };"
  },
- "const EGG = { ko: '버튼', en: 'button', hj: '按鈕' };   // 코드 속 숨은 글자": {
-  "en": "const EGG = { ko: 'button', en: 'button', hj: '按鈕' };   // the hidden word in the code",
-  "hj": "const EGG = { ko: '按鈕', en: 'button', hj: '按鈕' };   // 碼中隱字"
+ "const EGG = { ko: '버튼', en: 'button', hj: '按钮' };   // 코드 속 숨은 글자": {
+  "en": "const EGG = { ko: 'button', en: 'button', hj: '按钮' };   // the hidden word in the code",
+  "hj": "const EGG = { ko: '按钮', en: 'button', hj: '按钮' };   // 代码里藏着的字"
  },
  "const EGG_TEXT = { ko: '이스터에그', en: 'Easter egg', hj: '彩蛋' };   // 누르면 글상자에 적히는 말": {
   "en": "const EGG_TEXT = { ko: 'Easter egg', en: 'Easter egg', hj: '彩蛋' };   // the word written into the text box when clicked",
-  "hj": "const EGG_TEXT = { ko: '彩蛋', en: 'Easter egg', hj: '彩蛋' };   // 按則書於文字框之語"
+  "hj": "const EGG_TEXT = { ko: '彩蛋', en: 'Easter egg', hj: '彩蛋' };   // 点击后写进文本框的字"
  },
  "const FPS_GAP = [250, 100, 40, 0];    // 단계별 그리기 간격(ms): 0단계 초당 4장 … 3단계 매 프레임": {
   "en": "const FPS_GAP = [250, 100, 40, 0];    // draw interval per step (ms): step 0 = 4 fps … step 3 = every frame",
-  "hj": "const FPS_GAP = [250, 100, 40, 0];    // 各階繪畫間隔（毫秒）：零階每秒四幀 … 三階每幀"
+  "hj": "const FPS_GAP = [250, 100, 40, 0];    // 各级绘制间隔（ms）：第 0 级 = 4 fps … 第 3 级 = 每帧"
  },
  "const LIGHT = [-0.45, 0.55, 0.7];     // 빛이 오는 방향 (왼쪽 위 앞)": {
   "en": "const LIGHT = [-0.45, 0.55, 0.7];     // light direction (upper left, front)",
-  "hj": "const LIGHT = [-0.45, 0.55, 0.7];     // 光之來向（左上前）"
+  "hj": "const LIGHT = [-0.45, 0.55, 0.7];     // 光照方向（左上、前方）"
  },
  "const MAX = 20;                       // 이만큼 연타하면 최대치 → 화면이 깨진다": {
   "en": "const MAX = 20;                       // mash this many times to hit the max → the screen breaks",
-  "hj": "const MAX = 20;                       // 連擊至此為極 → 屏碎"
+  "hj": "const MAX = 20;                       // 连按这么多次到最大 → 画面破碎"
  },
- "const QUALITY_LABEL = { ko: '퀄리티 업', en: 'Quality up', hj: '品質提升' };": {
-  "en": "const QUALITY_LABEL = { ko: 'Quality up', en: 'Quality up', hj: '品質提升' };",
-  "hj": "const QUALITY_LABEL = { ko: '品質提升', en: 'Quality up', hj: '品質提升' };"
+ "const QUALITY_LABEL = { ko: '퀄리티 업', en: 'Quality up', hj: '质量提升' };": {
+  "en": "const QUALITY_LABEL = { ko: 'Quality up', en: 'Quality up', hj: '质量提升' };",
+  "hj": "const QUALITY_LABEL = { ko: '质量提升', en: 'Quality up', hj: '质量提升' };"
  },
  "const SPEED = 30;                     // 한 프레임(약 1/60초)에 치는 글자 수": {
   "en": "const SPEED = 30;                     // characters typed per frame (about 1/60 s)",
-  "hj": "const SPEED = 30;                     // 每幀（約六十分之一秒）所擊字數"
+  "hj": "const SPEED = 30;                     // 每帧（约 1/60 秒）打出的字数"
  },
- "const STAGE = { ko: ['기본', '정돈', '디자인', '완성'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整頓', '設計', '完成'] };": {
-  "en": "const STAGE = { ko: ['Basic', 'Tidy', 'Designed', 'Polished'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整頓', '設計', '完成'] };",
-  "hj": "const STAGE = { ko: ['基本', '整頓', '設計', '完成'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整頓', '設計', '完成'] };"
+ "const STAGE = { ko: ['기본', '정돈', '디자인', '완성'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整理', '设计', '完成'] };": {
+  "en": "const STAGE = { ko: ['Basic', 'Tidy', 'Designed', 'Polished'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整理', '设计', '完成'] };",
+  "hj": "const STAGE = { ko: ['基本', '整理', '设计', '完成'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整理', '设计', '完成'] };"
  },
  "const TYPE_LIMIT = 2200;              // 이만큼(ms) 치다가 나머지는 한 번에 채우고 넘어간다": {
   "en": "const TYPE_LIMIT = 2200;              // type for this long (ms), then fill in the rest at once and move on",
-  "hj": "const TYPE_LIMIT = 2200;              // 擊至此（毫秒），餘者一舉填之而進"
+  "hj": "const TYPE_LIMIT = 2200;              // 打这么久（ms）后，剩下的一次填满并继续"
  },
  "const firstLine = new WeakMap();      // 처음(한글) 모양의 첫 줄을 기억": {
   "en": "const firstLine = new WeakMap();      // remember each element's original (Korean) first line",
-  "hj": "const firstLine = new WeakMap();      // 記其初（韓文）之首行"
+  "hj": "const firstLine = new WeakMap();      // 记住每个元素原来的（韩文）第一行"
  },
  "const found = el.id === 'memo' ? memoIdx : idx;   // 입력칸 줄은 글자가 들어가 모양이 바뀌므로 따로 기억": {
   "en": "const found = el.id === 'memo' ? memoIdx : idx;   // the input line changes as text goes in, so it is remembered separately",
-  "hj": "const found = el.id === 'memo' ? memoIdx : idx;   // 輸入框之行因字入而變形，故別記之"
+  "hj": "const found = el.id === 'memo' ? memoIdx : idx;   // 输入行会随文字改变形状，所以单独记住"
  },
  "const n = power * 6;                // 막 누를수록 더 많은 줄이 깨진다": {
   "en": "const n = power * 6;                // the more you mash, the more lines break",
-  "hj": "const n = power * 6;                // 愈連擊，壞行愈多"
+  "hj": "const n = power * 6;                // 按得越多，碎掉的行越多"
  },
  "const offset = quality >= 2 ? cw * 5.5 : 0;     // 2단계부터는 줄 번호만큼 오른쪽": {
   "en": "const offset = quality >= 2 ? cw * 5.5 : 0;     // from step 2, shift right by the line-number width",
-  "hj": "const offset = quality >= 2 ? cw * 5.5 : 0;     // 自二階起，右移行號之寬"
+  "hj": "const offset = quality >= 2 ? cw * 5.5 : 0;     // 第 2 级起，向右偏移行号的宽度"
  },
  "const ring = document.createElement('div');   // 3단계에서 보이는 렌즈 테두리": {
   "en": "const ring = document.createElement('div');   // lens ring shown at step 3",
-  "hj": "const ring = document.createElement('div');   // 第三階所見之透鏡環"
+  "hj": "const ring = document.createElement('div');   // 第 3 级显示的透镜外圈"
  },
  "const saved = new Map();              // 깨지기 전 글자 (되돌릴 때 쓴다)": {
   "en": "const saved = new Map();              // text before breaking (used to restore)",
-  "hj": "const saved = new Map();              // 未碎之字（復原用）"
+  "hj": "const saved = new Map();              // 破碎前的文字（用来恢复）"
  },
  "const shown = typing ? 4 : level;  // 타자 중에는 끝까지 투명(코드 다 보임)으로 표시": {
   "en": "const shown = typing ? 4 : level;  // while typing, show fully clear (all code visible)",
-  "hj": "const shown = typing ? 4 : level;  // 打字之中示為全透（碼皆可見）"
+  "hj": "const shown = typing ? 4 : level;  // 打字时显示为完全透明（代码全部可见）"
  },
  "const spin = (now - t0) / 1000 * 0.6;           // 초당 약 34도 회전": {
   "en": "const spin = (now - t0) / 1000 * 0.6;           // turns about 34° per second",
-  "hj": "const spin = (now - t0) / 1000 * 0.6;           // 每秒約轉三十四度"
+  "hj": "const spin = (now - t0) / 1000 * 0.6;           // 每秒约转 34°"
  },
  "const y2 = -ny * Math.cos(tilt) + nz * Math.sin(tilt);   // 지축 기울기": {
   "en": "const y2 = -ny * Math.cos(tilt) + nz * Math.sin(tilt);   // axial tilt",
-  "hj": "const y2 = -ny * Math.cos(tilt) + nz * Math.sin(tilt);   // 地軸之傾"
+  "hj": "const y2 = -ny * Math.cos(tilt) + nz * Math.sin(tilt);   // 地轴倾斜"
  },
  "dots.setAttribute('aria-label', `창 투명도 ${shown + 1}/5단계`);": {
   "en": "dots.setAttribute('aria-label', `Window clarity ${shown + 1}/5`);",
-  "hj": "dots.setAttribute('aria-label', `窓透明度 ${shown + 1}/5階`);"
+  "hj": "dots.setAttribute('aria-label', `窗口透明度 ${shown + 1}/5 级`);"
  },
  "eggIdx = orig.findIndex(t => t.includes('/* 버튼 */'));": {
   "en": "eggIdx = orig.findIndex(t => t.includes('/* button */'));",
-  "hj": "eggIdx = orig.findIndex(t => t.includes('/* 按鈕 */'));"
+  "hj": "eggIdx = orig.findIndex(t => t.includes('/* 按钮 */'));"
  },
  "else setDark(next);                 // 지원 안 하는 브라우저는 바로 바꾼다": {
   "en": "else setDark(next);                 // browsers without support switch instantly",
-  "hj": "else setDark(next);                 // 不支援之瀏覽器即時轉換"
+  "hj": "else setDark(next);                 // 不支持的浏览器直接切换"
  },
  "for (let k = 0; k < 6 && todo.length; k++) {   // 한 번에 몇 줄씩 되돌린다": {
   "en": "for (let k = 0; k < 6 && todo.length; k++) {   // restore a few lines at a time",
-  "hj": "for (let k = 0; k < 6 && todo.length; k++) {   // 每次復原數行"
+  "hj": "for (let k = 0; k < 6 && todo.length; k++) {   // 每次恢复几行"
  },
  "function boom() {                     // 한 번에 최대치로 터뜨린다": {
   "en": "function boom() {                     // blow it up to the max in one go",
-  "hj": "function boom() {                     // 一舉至極而爆"
+  "hj": "function boom() {                     // 一口气炸到最大"
  },
  "function cls(L, lat, nx, ny, nz) {  // 글자 한 칸의 색 이름": {
   "en": "function cls(L, lat, nx, ny, nz) {  // color name for one character cell",
-  "hj": "function cls(L, lat, nx, ny, nz) {  // 一格之色名"
+  "hj": "function cls(L, lat, nx, ny, nz) {  // 一个字格的颜色名"
  },
  "function finishTyping() {             // 다 쳤거나, 중간에 다른 기능을 누르면 바로 끝낸다": {
   "en": "function finishTyping() {             // finish at once when done, or when another feature is pressed",
-  "hj": "function finishTyping() {             // 擊畢或中途按他鈕，即刻終之"
+  "hj": "function finishTyping() {             // 打完时，或按下其他功能时，一次性收尾"
  },
  "function mend() {                     // 터진 글자를 원래대로 되돌린다": {
   "en": "function mend() {                     // bring the popped text back",
-  "hj": "function mend() {                     // 復爆字於原貌"
+  "hj": "function mend() {                     // 把炸开的文字恢复原样"
  },
  "if (!findSecret()) lastSecret = '';   // 비밀 단어를 지우면 다음에 다시 반응": {
   "en": "if (!findSecret()) lastSecret = '';   // once the secret word is erased, it can fire again",
-  "hj": "if (!findSecret()) lastSecret = '';   // 密語既去，後可再應"
+  "hj": "if (!findSecret()) lastSecret = '';   // 删掉秘密词后，下次还能再触发"
  },
  "if (e.target.id === 'shake') return;  // 뒤섞기는 짝 찾기 대신 뒤섞기만": {
   "en": "if (e.target.id === 'shake') return;  // the scramble button only scrambles, no matching",
-  "hj": "if (e.target.id === 'shake') return;  // 攪亂之鈕唯攪亂，不尋對"
+  "hj": "if (e.target.id === 'shake') return;  // 打乱按钮只负责打乱，不找对应"
  },
  "if (next === 0) {                   // 처음으로 돌아갈 때는 부드럽게 겹쳐 바꾼다": {
   "en": "if (next === 0) {                   // going back to the start, crossfade smoothly",
-  "hj": "if (next === 0) {                   // 復初之時，柔和交疊而易"
+  "hj": "if (next === 0) {                   // 回到开头时平滑渐变"
  },
  "if (now - last < gap) return;     // 낮은 단계는 일부러 뚝뚝 끊기게": {
   "en": "if (now - last < gap) return;     // low steps stutter on purpose",
-  "hj": "if (now - last < gap) return;     // 低階故意頓挫"
+  "hj": "if (now - last < gap) return;     // 低级别故意卡顿"
  },
  "if (pos >= text.length) {       // 이 줄 끝 → 다음 줄": {
   "en": "if (pos >= text.length) {       // end of this line → next line",
-  "hj": "if (pos >= text.length) {       // 此行既終 → 次行"
+  "hj": "if (pos >= text.length) {       // 这一行结束 → 下一行"
  },
  "lastSecret = hit ? v : '';          // 같은 글 그대로면 다시 터지지 않게": {
   "en": "lastSecret = hit ? v : '';          // don't fire again while the text stays the same",
-  "hj": "lastSecret = hit ? v : '';          // 文同則不再發"
+  "hj": "lastSecret = hit ? v : '';          // 文字不变时不再重复触发"
  },
  "let holdLens = 0;                     // 짝 찾기 직후 렌즈를 잠깐 고정": {
   "en": "let holdLens = 0;                     // pin the lens briefly after a match",
-  "hj": "let holdLens = 0;                     // 尋對之後，暫定透鏡"
+  "hj": "let holdLens = 0;                     // 找到对应后短暂固定透镜"
  },
  "let level = 2;                        // 0 = 코드 안 보임 … 4 = 코드 또렷": {
   "en": "let level = 2;                        // 0 = code hidden … 4 = code sharp",
-  "hj": "let level = 2;                        // 零＝碼不見 … 四＝碼分明"
+  "hj": "let level = 2;                        // 0 = 看不见代码 … 4 = 代码清晰"
  },
  "let orig = [];                        // 지금 보여 줄 줄 (뒤섞여도 이걸로 되돌린다)": {
   "en": "let orig = [];                        // lines to show now (restored from this after scrambling)",
-  "hj": "let orig = [];                        // 今所示之行（攪亂後據此復原）"
+  "hj": "let orig = [];                        // 当前要显示的行（打乱后据此恢复）"
  },
  "let pristine = [];                    // 처음 받은 그대로 (한글 원본)": {
   "en": "let pristine = [];                    // exactly as first loaded (Korean original)",
-  "hj": "let pristine = [];                    // 初得之原貌（韓文原本）"
+  "hj": "let pristine = [];                    // 第一次读到的原样（韩文原文）"
  },
  "let raining = false;                  // 비가 내리는 동안도 코드를 다 보이게": {
   "en": "let raining = false;                  // show all the code while it rains too",
-  "hj": "let raining = false;                  // 雨中碼亦皆可見"
+  "hj": "let raining = false;                  // 下雨时也让代码全部可见"
  },
  "let shaking = false;                  // 뒤섞는 동안은 코드를 다 보이게": {
   "en": "let shaking = false;                  // show all the code while scrambling",
-  "hj": "let shaking = false;                  // 攪亂之間，碼皆可見"
+  "hj": "let shaking = false;                  // 打乱时让代码全部可见"
  },
  "let typing = false;                   // 타자 치는 동안도 코드를 다 보이게": {
   "en": "let typing = false;                   // show all the code while typing too",
-  "hj": "let typing = false;                   // 打字之間，碼亦皆可見"
+  "hj": "let typing = false;                   // 打字时也让代码全部可见"
  },
  "mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* 버튼 */": {
   "en": "mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* button */",
-  "hj": "mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* 按鈕 */"
+  "hj": "mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* 按钮 */"
  },
  "memo.dispatchEvent(new Event('input'));   // 뒤 코드에도 그대로 써진다": {
   "en": "memo.dispatchEvent(new Event('input'));   // also written into the code behind",
-  "hj": "memo.dispatchEvent(new Event('input'));   // 後碼亦同書之"
+  "hj": "memo.dispatchEvent(new Event('input'));   // 后面的代码里也照样写上"
  },
  "setDark(document.documentElement.classList.contains('dark'));   // 블랙 모드 버튼 이름도 바꾼다": {
   "en": "setDark(document.documentElement.classList.contains('dark'));   // also rename the dark mode button",
-  "hj": "setDark(document.documentElement.classList.contains('dark'));   // 黑色模式之鈕名亦易"
+  "hj": "setDark(document.documentElement.classList.contains('dark'));   // 深色模式按钮的名字也一起换"
  },
  "setTimeout(() => {                  // 다 떨어지면 되감아 올린다": {
   "en": "setTimeout(() => {                  // once everything has fallen, rewind it back up",
-  "hj": "setTimeout(() => {                  // 墜盡則倒捲而上"
+  "hj": "setTimeout(() => {                  // 全部落下后，再倒放回去"
  },
- "{ sel: '#bar > span:first-child', ko: '창', en: 'Window', hj: '窓' },": {
-  "en": "{ sel: '#bar > span:first-child', ko: 'Window', en: 'Window', hj: '窓' },",
-  "hj": "{ sel: '#bar > span:first-child', ko: '窓', en: 'Window', hj: '窓' },"
+ "{ sel: '#bar > span:first-child', ko: '창', en: 'Window', hj: '窗' },": {
+  "en": "{ sel: '#bar > span:first-child', ko: 'Window', en: 'Window', hj: '窗' },",
+  "hj": "{ sel: '#bar > span:first-child', ko: '窗', en: 'Window', hj: '窗' },"
  },
- "{ sel: '#bigger', ko: '렌즈 크게', en: 'Bigger lens', hj: '放大透鏡' },": {
-  "en": "{ sel: '#bigger', ko: 'Bigger lens', en: 'Bigger lens', hj: '放大透鏡' },",
-  "hj": "{ sel: '#bigger', ko: '放大透鏡', en: 'Bigger lens', hj: '放大透鏡' },"
+ "{ sel: '#bigger', ko: '렌즈 크게', en: 'Bigger lens', hj: '放大透镜' },": {
+  "en": "{ sel: '#bigger', ko: 'Bigger lens', en: 'Bigger lens', hj: '放大透镜' },",
+  "hj": "{ sel: '#bigger', ko: '放大透镜', en: 'Bigger lens', hj: '放大透镜' },"
  },
  "{ sel: '#down', ko: '◀ 불투명', en: '◀ Opaque', hj: '◀ 不透明' },": {
   "en": "{ sel: '#down', ko: '◀ Opaque', en: '◀ Opaque', hj: '◀ 不透明' },",
   "hj": "{ sel: '#down', ko: '◀ 不透明', en: '◀ Opaque', hj: '◀ 不透明' },"
  },
- "{ sel: '#memo', attr: 'placeholder', ko: '여기에 글자를 적어 보세요', en: 'Type something here', hj: '請於此處書寫文字' },": {
-  "en": "{ sel: '#memo', attr: 'placeholder', ko: 'Type something here', en: 'Type something here', hj: '請於此處書寫文字' },",
-  "hj": "{ sel: '#memo', attr: 'placeholder', ko: '請於此處書寫文字', en: 'Type something here', hj: '請於此處書寫文字' },"
+ "{ sel: '#memo', attr: 'placeholder', ko: '여기에 글자를 적어 보세요', en: 'Type something here', hj: '在这里输入文字' },": {
+  "en": "{ sel: '#memo', attr: 'placeholder', ko: 'Type something here', en: 'Type something here', hj: '在这里输入文字' },",
+  "hj": "{ sel: '#memo', attr: 'placeholder', ko: '在这里输入文字', en: 'Type something here', hj: '在这里输入文字' },"
  },
  "{ sel: '#retype', ko: '타자 다시 보기', en: 'Replay typing', hj: '重看打字' },": {
   "en": "{ sel: '#retype', ko: 'Replay typing', en: 'Replay typing', hj: '重看打字' },",
   "hj": "{ sel: '#retype', ko: '重看打字', en: 'Replay typing', hj: '重看打字' },"
  },
- "{ sel: '#screen li:nth-child(1)', ko: '목록 하나', en: 'Item one', hj: '目錄一' },": {
-  "en": "{ sel: '#screen li:nth-child(1)', ko: 'Item one', en: 'Item one', hj: '目錄一' },",
-  "hj": "{ sel: '#screen li:nth-child(1)', ko: '目錄一', en: 'Item one', hj: '目錄一' },"
+ "{ sel: '#screen li:nth-child(1)', ko: '목록 하나', en: 'Item one', hj: '列表一' },": {
+  "en": "{ sel: '#screen li:nth-child(1)', ko: 'Item one', en: 'Item one', hj: '列表一' },",
+  "hj": "{ sel: '#screen li:nth-child(1)', ko: '列表一', en: 'Item one', hj: '列表一' },"
  },
- "{ sel: '#screen li:nth-child(2)', ko: '목록 둘', en: 'Item two', hj: '目錄二' },": {
-  "en": "{ sel: '#screen li:nth-child(2)', ko: 'Item two', en: 'Item two', hj: '目錄二' },",
-  "hj": "{ sel: '#screen li:nth-child(2)', ko: '目錄二', en: 'Item two', hj: '目錄二' },"
+ "{ sel: '#screen li:nth-child(2)', ko: '목록 둘', en: 'Item two', hj: '列表二' },": {
+  "en": "{ sel: '#screen li:nth-child(2)', ko: 'Item two', en: 'Item two', hj: '列表二' },",
+  "hj": "{ sel: '#screen li:nth-child(2)', ko: '列表二', en: 'Item two', hj: '列表二' },"
  },
  "{ sel: '#screen p', ko: '이 페이지는 자기 자신의 코드를 겹쳐 보여줍니다. (더미 내용)',": {
   "en": "{ sel: '#screen p', ko: 'This page shows its own code layered behind it. (dummy text)',",
-  "hj": "{ sel: '#screen p', ko: '此頁示其自身之碼，重疊於後。（假內容）',"
+  "hj": "{ sel: '#screen p', ko: '此页会把自身的代码叠在后面显示。（示例内容）',"
  },
- "{ sel: '#shake', ko: '코드 뒤섞기 (막 눌러 보세요)', en: 'Scramble code (mash it!)', hj: '攪亂代碼（請連擊）' },": {
-  "en": "{ sel: '#shake', ko: 'Scramble code (mash it!)', en: 'Scramble code (mash it!)', hj: '攪亂代碼（請連擊）' },",
-  "hj": "{ sel: '#shake', ko: '攪亂代碼（請連擊）', en: 'Scramble code (mash it!)', hj: '攪亂代碼（請連擊）' },"
+ "{ sel: '#shake', ko: '코드 뒤섞기 (막 눌러 보세요)', en: 'Scramble code (mash it!)', hj: '打乱代码（快速连点）' },": {
+  "en": "{ sel: '#shake', ko: 'Scramble code (mash it!)', en: 'Scramble code (mash it!)', hj: '打乱代码（快速连点）' },",
+  "hj": "{ sel: '#shake', ko: '打乱代码（快速连点）', en: 'Scramble code (mash it!)', hj: '打乱代码（快速连点）' },"
  },
- "{ sel: '#smaller', ko: '렌즈 작게', en: 'Smaller lens', hj: '縮小透鏡' },": {
-  "en": "{ sel: '#smaller', ko: 'Smaller lens', en: 'Smaller lens', hj: '縮小透鏡' },",
-  "hj": "{ sel: '#smaller', ko: '縮小透鏡', en: 'Smaller lens', hj: '縮小透鏡' },"
+ "{ sel: '#smaller', ko: '렌즈 작게', en: 'Smaller lens', hj: '缩小透镜' },": {
+  "en": "{ sel: '#smaller', ko: 'Smaller lens', en: 'Smaller lens', hj: '缩小透镜' },",
+  "hj": "{ sel: '#smaller', ko: '缩小透镜', en: 'Smaller lens', hj: '缩小透镜' },"
  },
  "{ sel: '#up', ko: '투명 ▶', en: 'Clear ▶', hj: '透明 ▶' },": {
   "en": "{ sel: '#up', ko: 'Clear ▶', en: 'Clear ▶', hj: '透明 ▶' },",
   "hj": "{ sel: '#up', ko: '透明 ▶', en: 'Clear ▶', hj: '透明 ▶' },"
  },
- "{ sel: 'h1', ko: '투명창', en: 'Glass Window', hj: '透明窓' },": {
-  "en": "{ sel: 'h1', ko: 'Glass Window', en: 'Glass Window', hj: '透明窓' },",
-  "hj": "{ sel: 'h1', ko: '透明窓', en: 'Glass Window', hj: '透明窓' },"
+ "{ sel: 'h1', ko: '투명창', en: 'Glass Window', hj: '透明窗' },": {
+  "en": "{ sel: 'h1', ko: 'Glass Window', en: 'Glass Window', hj: '透明窗' },",
+  "hj": "{ sel: 'h1', ko: '透明窗', en: 'Glass Window', hj: '透明窗' },"
  },
  "{ words: ['비', 'rain', '雨'], run: () => rain() },": {
   "en": "{ words: ['rain', 'rain', '雨'], run: () => rain() },",
   "hj": "{ words: ['雨', 'rain', '雨'], run: () => rain() },"
  },
- "{ words: ['펑', '폭발', 'boom', '爆'], run: () => boom() },": {
-  "en": "{ words: ['boom', 'explode', 'boom', '爆'], run: () => boom() },",
-  "hj": "{ words: ['爆', '爆發', 'boom', '爆'], run: () => boom() },"
+ "{ words: ['펑', '폭발', 'boom', '爆', '爆炸'], run: () => boom() },": {
+  "en": "{ words: ['boom', 'explode', 'boom', '爆', '爆炸'], run: () => boom() },",
+  "hj": "{ words: ['砰', '爆炸', 'boom', '爆', '爆炸'], run: () => boom() },"
  },
  "/* 코드 비 (3단계): 코드가 먼저 흑백으로 바래고, 글자는 제자리에 둔 채 파란 빗줄기가 글자 속으로만 흘러내린다 */": {
   "en": "/* Code rain (step 3): the code first fades to grayscale, then blue streaks run down inside the letters, which stay in place */",
-  "hj": "/* 碼雨 (三段)：碼先褪為黑白，字留原位，藍色雨絲只在字中流下 */"
+  "hj": "/* 代码雨（第 3 级）：代码先褪成灰阶，然后蓝色雨痕在原地的字里流下 */"
  },
  "// 지구 표면에 감을 코드: 이 페이지 코드를 한 줄로 이어 붙여 위도 줄마다 차례로 감는다 (한 칸짜리 글자만)": {
   "en": "// Code wrapped on the earth: this page's code joined into one line, wound around each latitude row in turn (single-width chars only)",
-  "hj": "// 繞地球之碼：本頁碼連成一行，依緯線逐行纏繞 (只取單格字)"
+  "hj": "// 缠在地球上的代码：把本页代码连成一行，依次绕满每一纬度行（只用半角字符）"
  },
  "background-image:                   /* 빗방울 머리는 진하게, 꼬리는 위로 옅어짐 */": {
   "en": "background-image:                   /* raindrop heads are strong, tails fade upward */",
-  "hj": "background-image:                   /* 雨滴頭濃，尾向上漸淡 */"
+  "hj": "background-image:                   /* 雨滴头部浓，尾部往上渐淡 */"
  },
  "g = tex[ti][tj].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');   // 바다·육지 모두 코드 글자 (육지는 색으로 구분)": {
   "en": "g = tex[ti][tj].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');   // sea and land are both code (land told apart by color)",
-  "hj": "g = tex[ti][tj].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');   // 海陸皆為碼字 (陸以色分)"
+  "hj": "g = tex[ti][tj].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');   // 海和陆地都是代码（陆地靠颜色区分）"
  },
  "if (quality >= 3) {                 // 3단계: 흑백으로 바랜 뒤 제자리에서 파란 비": {
   "en": "if (quality >= 3) {                 // step 3: fade to grayscale, then blue rain in place",
-  "hj": "if (quality >= 3) {                 // 三段：褪為黑白後原地藍雨"
+  "hj": "if (quality >= 3) {                 // 第 3 级：褪成灰阶后原地下蓝色的雨"
  },
  "/* 지구가 되기 전: 코드 글자가 하나하나 떨어져 나와 지구 원 모양 자리로 모인다 */": {
   "en": "/* Before the earth: code characters break off one by one and gather into the earth's circle */",
-  "hj": "/* 地球之前：碼字一一脫離，聚成地球圓形 */"
+  "hj": "/* 地球出现前：代码字符一个个脱落，聚成地球的圆 */"
  },
  "// 모이기: 화면의 코드 글자를 하나씩 떼어, 화면 전체를 원으로 눌러 담은 자리(지구 칸)로 날린다 — 배치 모양은 유지": {
   "en": "// Gather: pull each code character off the screen and fly it to its spot in the screen squeezed into a circle (earth cells) — layout kept",
-  "hj": "// 聚：逐字取下屏上碼字，飛至全屏壓成圓之位 (地球格) — 保留排列"
+  "hj": "// 聚拢：把每个代码字符从画面上取下，飞到「压成圆形的画面」（地球格子）里的对应位置 — 保持排版"
  },
  "earthTimer = setTimeout(endEarth, 6000);    // 6초 뒤 코드로 돌아간다": {
   "en": "earthTimer = setTimeout(endEarth, 6000);    // back to the code after 6 seconds",
-  "hj": "earthTimer = setTimeout(endEarth, 6000);    // 六秒後回到碼"
+  "hj": "earthTimer = setTimeout(endEarth, 6000);    // 6 秒后回到代码"
  },
  "// 지구 원 안의 칸들 (위에서 아래, 왼쪽에서 오른쪽) — 글자를 읽는 순서대로 고르게 나눠 채운다": {
   "en": "// cells inside the earth's circle (top to bottom, left to right) — filled evenly in reading order",
-  "hj": "// 地球圓內之格 (上而下，左而右) — 依讀序均分填滿"
+  "hj": "// 地球圆内的格子（从上到下、从左到右）— 按阅读顺序均匀填满"
  },
  "#flock span { position: absolute; transition: color 1.4s, font-weight 1.4s; }   /* 날아가는 동안 도착할 칸의 지구 색으로 물든다 */": {
   "en": "#flock span { position: absolute; transition: color 1.4s, font-weight 1.4s; }   /* while flying, each takes on the earth color of the cell it lands in */",
-  "hj": "#flock span { position: absolute; transition: color 1.4s, font-weight 1.4s; }   /* 飛行中染上所落格之地球色 */"
+  "hj": "#flock span { position: absolute; transition: color 1.4s, font-weight 1.4s; }   /* 飞行途中逐渐变成落点格子的地球颜色 */"
  },
  "const HAND = 1800;                  // 모이기 끝 → 지구로 바뀌는 때(ms)": {
   "en": "const HAND = 1800;                  // gathering ends → moment it turns into the earth (ms)",
-  "hj": "const HAND = 1800;                  // 聚畢 → 化為地球之時 (ms)"
+  "hj": "const HAND = 1800;                  // 聚拢结束 → 变成地球的时刻（ms）"
  },
  "function at(nx, ny, spin) {        // 화면 칸 → 지구 위 위도·경도": {
   "en": "function at(nx, ny, spin) {        // screen cell → latitude/longitude on the earth",
-  "hj": "function at(nx, ny, spin) {        // 屏格 → 地球經緯"
+  "hj": "function at(nx, ny, spin) {        // 画面格子 → 地球上的经纬度"
  },
  "gather(cw, ch, cx, cy, R, (px, py) => {   // 그 칸이 지구로 바뀌는 순간의 색 이름": {
   "en": "gather(cw, ch, cx, cy, R, (px, py) => {   // color name of that cell the moment it becomes the earth",
-  "hj": "gather(cw, ch, cx, cy, R, (px, py) => {   // 該格化為地球時之色名"
+  "hj": "gather(cw, ch, cx, cy, R, (px, py) => {   // 变成地球那一刻该格子的颜色名"
  },
  "setTimeout(() => {                  // 다 모이면 지구가 나타난다": {
   "en": "setTimeout(() => {                  // once all gathered, the earth appears",
-  "hj": "setTimeout(() => {                  // 聚齊則地球現"
+  "hj": "setTimeout(() => {                  // 全部聚拢后地球出现"
  },
  "#code.rq2 > .ln { text-shadow: 0 -6px color-mix(in srgb, currentColor 45%, transparent),   /* 2단계: 코드 색 그대로 더 긴 꼬리 */": {
   "en": "#code.rq2 > .ln { text-shadow: 0 -6px color-mix(in srgb, currentColor 45%, transparent),   /* step 2: longer tails in the code's own colors */",
-  "hj": "#code.rq2 > .ln { text-shadow: 0 -6px color-mix(in srgb, currentColor 45%, transparent),   /* 二段：本色碼尾更長 */"
+  "hj": "#code.rq2 > .ln { text-shadow: 0 -6px color-mix(in srgb, currentColor 45%, transparent),   /* 第 2 级：用代码本身的颜色拖出更长的尾巴 */"
  },
  "/* 1·2단계: 0단계처럼 그냥 떨어지되 빗줄기답게 — 떨어지는 단위가 작아진다(0 줄 → 1 단어 → 2 글자), 속도는 제각각, 위로 꼬리 */": {
   "en": "/* Steps 1·2: just fall like step 0 but rain-like — the falling unit gets smaller (0 line → 1 word → 2 character), each at its own speed, tail above */",
-  "hj": "/* 一二段：如零段直落而似雨 — 落下單位漸小 (零行 → 一詞 → 二字)，速度各異，上留尾痕 */"
+  "hj": "/* 第 1·2 级：像第 0 级一样落下但更像雨 — 落下单位越来越小（0 行 → 1 词 → 2 字），各自速度不同，尾巴在上 */"
  },
  "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 1·2단계: 단위마다 떨어지는 속도가 다르게": {
   "en": "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // steps 1·2: each unit falls at a different speed",
-  "hj": "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 一二段：每單位落速各異"
+  "hj": "s.style.setProperty('--t', (0.6 + Math.random() * 0.7).toFixed(2) + 's');   // 第 1·2 级：每个单位下落速度不同"
  },
  "saved.forEach(([l, h]) => l.innerHTML = h);   // 쪼갠 줄을 원래대로": {
   "en": "saved.forEach(([l, h]) => l.innerHTML = h);   // restore the split lines",
-  "hj": "saved.forEach(([l, h]) => l.innerHTML = h);   // 拆開之行復原"
+  "hj": "saved.forEach(([l, h]) => l.innerHTML = h);   // 恢复拆开的行"
  },
  "texts.forEach(t => {            // 글 조각을 단위마다 <span class=\"u\">로 감싼다 (코드 색 span은 그대로)": {
   "en": "texts.forEach(t => {            // wrap each unit of text in <span class=\"u\"> (code-color spans stay)",
-  "hj": "texts.forEach(t => {            // 每單位文字包以 <span class=\"u\"> (碼色 span 不動)"
+  "hj": "texts.forEach(t => {            // 把每个文字单位包进 <span class=\"u\">（代码颜色的 span 保留）"
  },
  "{ words: ['지구', '행성', 'earth', 'planet', '地球', '行星'], run: () => earth() },": {
   "en": "{ words: ['earth', 'planet', 'earth', 'planet', '地球', '行星'], run: () => earth() },",
@@ -545,531 +545,531 @@
  },
  "/* 펑 (3단계): 코드는 제자리, 글자 속으로 검은 속·빨간 테두리가 터져 번졌다가 원래 색으로 */": {
   "en": "/* Boom (step 3): code stays put; a black core with a red rim bursts and spreads through the letters, then back to normal colors */",
-  "hj": "/* 爆 (三段)：碼不動，黑心紅邊於字中炸開漫延，後復本色 */"
+  "hj": "/* 砰（第 3 级）：代码不动；黑色核心带红边炸开，在字里扩散，然后恢复原色 */"
  },
  "if (quality >= 3) {                 // 3단계: 코드는 제자리, 렌즈 자리(없으면 가운데)에서 검붉게 터져 번진다": {
   "en": "if (quality >= 3) {                 // step 3: code stays put; bursts black-red from the lens spot (or the center) and spreads",
-  "hj": "if (quality >= 3) {                 // 三段：碼不動，自鏡處 (無則中央) 黑紅炸開漫延"
+  "hj": "if (quality >= 3) {                 // 第 3 级：代码不动；从透镜位置（或中心）黑红色炸开并扩散"
  },
  "#screen.jolt { animation: jolt 0.55s linear; }   /* 3단계 펑: 날아가기 전에 덜덜 떤다 */": {
   "en": "#screen.jolt { animation: jolt 0.55s linear; }   /* step 3 boom: shudders before flying off */",
-  "hj": "#screen.jolt { animation: jolt 0.55s linear; }   /* 三段爆：飛散前顫抖 */"
+  "hj": "#screen.jolt { animation: jolt 0.55s linear; }   /* 第 3 级砰：飞出去之前先抖一抖 */"
  },
  "// 앞 창 날아가기 (3단계 펑): 창이 덜덜 떨고 → 조각들이 터진 자리 반대쪽으로 돌며 날아가고, 창 유리도 사라졌다가 → 제자리에 서서히 나타난다": {
   "en": "// Front window blows away (step 3 boom): the window shudders → pieces spin off away from the blast, the glass vanishes too → then it slowly reappears in place",
-  "hj": "// 前窗飛散 (三段爆)：窗顫抖 → 碎片背爆點旋飛，玻璃亦消 → 原處徐徐重現"
+  "hj": "// 前面的窗口被炸飞（第 3 级砰）：窗口发抖 → 碎片背着爆点旋转飞散，玻璃也消失 → 然后在原地慢慢重现"
  },
  "setTimeout(() => {                // 순서: 뒤 코드가 원래 색·진하기로 완전히 돌아온 뒤 → 앞 패널이 나타나기 시작": {
   "en": "setTimeout(() => {                // order: the back code fully returns to its colors and strength → then the front panel starts to appear",
-  "hj": "setTimeout(() => {                // 次序：後碼盡復本色濃淡 → 前板方始浮現"
+  "hj": "setTimeout(() => {                // 顺序：后面的代码完全恢复颜色和深浅 → 然后前面的面板开始出现"
  },
  "setTimeout(comeBack, 700);      // 진하기 되돌림(0.4초)이 끝나고 잠깐 쉰 뒤": {
   "en": "setTimeout(comeBack, 700);      // after the strength restore (0.4s) ends and a short pause",
-  "hj": "setTimeout(comeBack, 700);      // 濃淡復原 (0.4 秒) 畢，稍歇之後"
+  "hj": "setTimeout(comeBack, 700);      // 深浅恢复（0.4 秒）结束并稍停之后"
  },
  "return () => {                      // 조각을 다시 모으지 않고, 보이지 않는 사이 제자리에 두었다가 서서히 나타난다": {
   "en": "return () => {                      // don't reassemble the pieces; put them back while unseen, then fade in slowly",
-  "hj": "return () => {                      // 不再聚合碎片，趁不見時歸位，再徐徐浮現"
+  "hj": "return () => {                      // 不把碎片拼回去；趁看不见时放回原位，再慢慢淡入"
  },
  "// 화면에 보이는 뒤 코드 글자들과 그 자리 (지구 모이기·화산 분출이 함께 쓴다)": {
   "en": "// back-code characters visible on screen and their spots (shared by the earth gather and the eruption)",
-  "hj": "// 屏上可見之後碼字及其位 (地球聚合與火山噴發共用)"
+  "hj": "// 画面上可见的后面代码字符及其位置（地球聚拢和喷发共用）"
  },
  "// 다 날아가면 코드가 서서히 다시 나타난다": {
   "en": "// once all have flown off, the code slowly reappears",
-  "hj": "// 盡飛去後，碼徐徐重現"
+  "hj": "// 全部飞走后，代码慢慢重现"
  },
  "// 아래 가운데에서 가까운 단어부터 먼저 터져 나간다 (분출이 퍼져 나가는 느낌)": {
   "en": "// words nearer the bottom center burst first (the eruption spreads outward)",
-  "hj": "// 近下方中央之詞先噴 (噴發向外擴散)"
+  "hj": "// 越靠近下方中央的词越先喷出（喷发向外扩散）"
  },
  "// 화산 분출 (2단계 펑): 코드가 단어 덩어리째 제자리에서 용암빛으로 솟구쳐 화면 위로 날아가 사라지고,": {
   "en": "// Eruption (step 2 boom): the code shoots up word by word, lava-colored, from where it sits and flies off the top,",
-  "hj": "// 火山噴發 (二段爆)：碼以詞為塊原地如熔岩噴起，飛出屏頂消失，"
+  "hj": "// 喷发（第 2 级砰）：代码逐词从原地以岩浆色向上喷出，飞出画面顶端，"
  },
  "const fly = y + 60 + Math.random() * 200;      // 화면 위 바깥까지": {
   "en": "const fly = y + 60 + Math.random() * 200;      // all the way past the top of the screen",
-  "hj": "const fly = y + 60 + Math.random() * 200;      // 直至屏頂之外"
+  "hj": "const fly = y + 60 + Math.random() * 200;      // 一直飞过画面顶端"
  },
  "setTimeout(() => {                  // 다 날아가면 코드가 서서히 다시 나타난다": {
   "en": "setTimeout(() => {                  // once all have flown off, the code slowly reappears",
-  "hj": "setTimeout(() => {                  // 盡飛去後，碼徐徐重現"
+  "hj": "setTimeout(() => {                  // 全部飞走后，代码慢慢重现"
  },
  "if (quality === 2) {                // 2단계: 앞 창은 가운데서 터져 사방으로 퍼지고, 뒤 코드는 화산처럼 솟구친다": {
   "en": "if (quality === 2) {                // step 2: the front window bursts from the center and spreads everywhere; the back code erupts like a volcano",
-  "hj": "if (quality === 2) {                // 二段：前窗自中央炸開四散，後碼如火山噴起"
+  "hj": "if (quality === 2) {                // 第 2 级：前面的窗口从中心炸开四散；后面的代码像火山一样喷发"
  },
  "function breakLines() {               // 뒤 코드 줄을 깨뜨린다 (앞 화면은 그대로)": {
   "en": "function breakLines() {               // break the back code lines (front screen untouched)",
-  "hj": "function breakLines() {               // 碎後碼之行 (前屏不動)"
+  "hj": "function breakLines() {               // 打碎后面的代码行（前面的画面不动）"
  },
  "// 흩어지기 (펑 0·1단계): 화면에 보이는 코드가 0단계는 3~7줄 덩어리째, 1단계는 한 줄씩 가운데서 사방으로 흩어진다": {
   "en": "// Scatter (boom steps 0·1): visible code flies out from the center — step 0 in chunks of 3–7 lines, step 1 line by line",
-  "hj": "// 散 (爆零一段)：可見之碼自中央四散 — 零段三至七行成塊，一段逐行"
+  "hj": "// 四散（砰第 0·1 级）：可见的代码从中心向外飞散 — 第 0 级 3–7 行一块，第 1 级逐行"
  },
  "const codeBack = scatter(quality);  // 0·1단계: 뒤 코드는 덩어리째 흩어지고, 앞 창은 2단계처럼 터져 퍼지되 단계가 낮을수록 느리게": {
   "en": "const codeBack = scatter(quality);  // steps 0·1: the back code scatters in chunks; the front window bursts like step 2, slower at lower steps",
-  "hj": "const codeBack = scatter(quality);  // 零一段：後碼成塊四散，前窗如二段炸散，段愈低愈慢"
+  "hj": "const codeBack = scatter(quality);  // 第 0·1 级：后面的代码成块飞散；前面的窗口像第 2 级一样炸开，级别越低越慢"
  },
  "group.forEach(l => {              // 덩어리 안 줄들은 함께, 덩어리 가운데를 축으로 돈다": {
   "en": "group.forEach(l => {              // lines in a chunk move together, turning around the chunk center",
-  "hj": "group.forEach(l => {              // 塊內諸行同動，繞塊心旋轉"
+  "hj": "group.forEach(l => {              // 一块里的行一起移动，绕块中心旋转"
  },
  "return () => {                      // 보이지 않는 사이 제자리에 두고 서서히 나타난다": {
   "en": "return () => {                      // put back in place while unseen, then fade in slowly",
-  "hj": "return () => {                      // 趁不見時歸位，再徐徐浮現"
+  "hj": "return () => {                      // 趁看不见时放回原位，再慢慢淡入"
  },
  "setTimeout(() => {                  // 코드가 먼저 서서히 돌아오고 → 그다음 창": {
   "en": "setTimeout(() => {                  // the code slowly comes back first → then the window",
-  "hj": "setTimeout(() => {                  // 碼先徐徐歸來 → 而後窗"
+  "hj": "setTimeout(() => {                  // 代码先慢慢回来 → 然后是窗口"
  },
  "#code.scatter > .ln { display: block; width: fit-content; }   /* 펑 0·1단계: 줄을 따로 (글자 길이만큼) 움직이려고 */": {
   "en": "#code.scatter > .ln { display: block; width: fit-content; }   /* boom steps 0·1: so each line moves on its own (only as wide as its text) */",
-  "hj": "#code.scatter > .ln { display: block; width: fit-content; }   /* 爆零一段：使各行 (僅文字長) 分動 */"
+  "hj": "#code.scatter > .ln { display: block; width: fit-content; }   /* 砰第 0·1 级：让每行单独移动（宽度只到文字） */"
  },
  "const gx = a.left + a.width / 2, gy = (a.top + b.bottom) / 2;   // 덩어리 가운데": {
   "en": "const gx = a.left + a.width / 2, gy = (a.top + b.bottom) / 2;   // chunk center",
-  "hj": "const gx = a.left + a.width / 2, gy = (a.top + b.bottom) / 2;   // 塊之中心"
+  "hj": "const gx = a.left + a.width / 2, gy = (a.top + b.bottom) / 2;   // 块中心"
  },
  "const ang = Math.random() * Math.PI * 2;        // 덩어리마다 제각각 여기저기로": {
   "en": "const ang = Math.random() * Math.PI * 2;        // each chunk off in its own direction",
-  "hj": "const ang = Math.random() * Math.PI * 2;        // 各塊各奔一方"
+  "hj": "const ang = Math.random() * Math.PI * 2;        // 每块飞向各自的方向"
  },
  "erupt();                          // 코드가 먼저 솟구치고": {
   "en": "erupt();                          // the code erupts first",
-  "hj": "erupt();                          // 碼先噴起"
+  "hj": "erupt();                          // 代码先喷发"
  },
  "setTimeout(() => comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5), 350);   // 이어서 창이 퍼진다 (3단계보다 살짝 느리고 덜 격하게)": {
   "en": "setTimeout(() => comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5), 350);   // then the window spreads (a bit slower and gentler than step 3)",
-  "hj": "setTimeout(() => comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5), 350);   // 繼而窗散 (較三段稍慢稍緩)"
+  "hj": "setTimeout(() => comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5), 350);   // 然后窗口四散（比第 3 级稍慢、稍柔）"
  },
  "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(() => comeBack(), 900); }, 2000);   // 코드가 다시 나타난 뒤 창이 돌아온다": {
   "en": "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(() => comeBack(), 900); }, 2000);   // the window comes back after the code reappears",
-  "hj": "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(() => comeBack(), 900); }, 2000);   // 碼重現後窗方歸"
+  "hj": "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(() => comeBack(), 900); }, 2000);   // 代码重现后窗口再回来"
  },
  "function blowAway(bx, by, wait = 550, calm = 0, glitch = false) {   // wait: 떨리는 시간 (0이면 떨지 않고 바로 터짐) / calm: 0~1, 클수록 느리고 덜 격하게": {
   "en": "function blowAway(bx, by, wait = 550, calm = 0, glitch = false) {   // wait: shudder time (0 = burst at once) / calm: 0–1, higher = slower and gentler",
-  "hj": "function blowAway(bx, by, wait = 550, calm = 0, glitch = false) {   // wait：顫抖時間 (0 則即炸) / calm：0~1，愈大愈慢愈緩"
+  "hj": "function blowAway(bx, by, wait = 550, calm = 0, glitch = false) {   // wait：发抖时间（0 = 立刻炸开）/ calm：0–1，越大越慢越柔"
  },
  "if (glitch) {                       // 글자가 오류 나듯 점점 심하게 깨지고 빨강·파랑으로 어긋난 채 날아간다": {
   "en": "if (glitch) {                       // the letters glitch harder and harder, red/blue split, as they fly off",
-  "hj": "if (glitch) {                       // 字如故障漸碎，紅藍錯位而飛"
+  "hj": "if (glitch) {                       // 飞走时文字越来越乱，红蓝错开"
  },
  "setTimeout(() => clearInterval(tick), wait + 1000);   // 다 날아가 안 보이면 멈춘다": {
   "en": "setTimeout(() => clearInterval(tick), wait + 1000);   // stop once everything has flown out of sight",
-  "hj": "setTimeout(() => clearInterval(tick), wait + 1000);   // 盡飛不見則止"
+  "hj": "setTimeout(() => clearInterval(tick), wait + 1000);   // 全部飞出视野后停止"
  },
  "if (tick) { clearInterval(tick); mend(); }   // 깨진 글자를 원래대로": {
   "en": "if (tick) { clearInterval(tick); mend(); }   // restore the broken letters",
-  "hj": "if (tick) { clearInterval(tick); mend(); }   // 碎字復原"
+  "hj": "if (tick) { clearInterval(tick); mend(); }   // 恢复碎掉的文字"
  },
  "const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2, 550, 0, true);   // 앞 창: 덜덜 떨다가 조각조각 날아간다": {
   "en": "const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2, 550, 0, true);   // front window: shudders, then flies apart piece by piece",
-  "hj": "const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2, 550, 0, true);   // 前窗：顫抖後片片飛散"
+  "hj": "const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2, 550, 0, true);   // 前面的窗口：发抖后一片片飞散"
  },
  "dots.innerHTML = HINTS.map((h, i) => `<i${i <= shown ? ' class=\"on\"' : ''}>${h}</i>`).join('');   // 지금 단계 표시": {
   "en": "dots.innerHTML = HINTS.map((h, i) => `<i${i <= shown ? ' class=\"on\"' : ''}>${h}</i>`).join('');   // show the current level",
-  "hj": "dots.innerHTML = HINTS.map((h, i) => `<i${i <= shown ? ' class=\"on\"' : ''}>${h}</i>`).join('');   // 示當前段"
+  "hj": "dots.innerHTML = HINTS.map((h, i) => `<i${i <= shown ? ' class=\"on\"' : ''}>${h}</i>`).join('');   // 显示当前级别"
  },
  "/* 3단계: 단계 칸이 동그란 칸이 되고, 칸마다 비밀 단어 힌트 아이콘 (자석 · 비 · 펑 · 지구 · 블랙홀) */": {
   "en": "/* Step 3: the level marks become round cells, each holding a secret-word hint icon (magnet · rain · boom · earth · black hole) */",
-  "hj": "/* 三段：段格化為圓格，每格置秘語提示圖示 (磁石 · 雨 · 爆 · 地球 · 黑洞) */"
+  "hj": "/* 第 3 级：级别标记变成圆格，每格一个秘密词提示图标（磁铁 · 雨 · 砰 · 地球 · 黑洞） */"
  },
  "// 자석: 몇 초 동안 코드 단어들이 마우스 쪽으로 끌려와 따라다니다 제자리로.": {
   "en": "// Magnet: for a few seconds the code words get pulled toward the mouse and follow it, then go home.",
-  "hj": "// 磁石：數秒間碼詞被吸向滑鼠隨之而動，後歸原位。"
+  "hj": "// 磁铁：几秒内代码里的词被吸向鼠标并跟着走，然后回家。"
  },
  "// 화면에 보이는 뒤 코드를 단어 덩어리로 (화산·자석·블랙홀이 함께 쓴다 — 글자 하나하나보다 가볍다)": {
   "en": "// visible back code as word chunks (shared by eruption, magnet, black hole — lighter than single characters)",
-  "hj": "// 可見之後碼化為詞塊 (火山·磁石·黑洞共用 — 較單字輕)"
+  "hj": "// 可见的后面代码按词分块（喷发、磁铁、黑洞共用 — 比单个字符轻）"
  },
  "const power = t < LONG ? Math.min(1, t / 400) : Math.max(0, 1 - (t - LONG) / 700);   // 서서히 켜졌다 꺼짐": {
   "en": "const power = t < LONG ? Math.min(1, t / 400) : Math.max(0, 1 - (t - LONG) / 700);   // fades on, then off",
-  "hj": "const power = t < LONG ? Math.min(1, t / 400) : Math.max(0, 1 - (t - LONG) / 700);   // 漸開漸關"
+  "hj": "const power = t < LONG ? Math.min(1, t / 400) : Math.max(0, 1 - (t - LONG) / 700);   // 渐强，然后渐弱"
  },
  "const pull = (el, x, y, spinSelf) => {          // 한 요소를 (cx, cy)로 소용돌이치며 빨아들이는 움직임": {
   "en": "const pull = (el, x, y, spinSelf) => {          // motion that swirls one element into (cx, cy)",
-  "hj": "const pull = (el, x, y, spinSelf) => {          // 將一元素旋吸至 (cx, cy) 之動"
+  "hj": "const pull = (el, x, y, spinSelf) => {          // 把一个元素旋入 (cx, cy) 的动作"
  },
  "const words = [];                   // 붙어 있는 글자끼리 한 단어로": {
   "en": "const words = [];                   // adjacent characters form one word",
-  "hj": "const words = [];                   // 相連之字合為一詞"
+  "hj": "const words = [];                   // 相邻字符组成一个词"
  },
  "{ words: ['블랙홀', '우주', 'blackhole', 'black hole', 'space', '黑洞', '宇宙'], run: () => blackhole() },": {
   "en": "{ words: ['black hole', 'space', 'blackhole', 'black hole', 'space', '黑洞', '宇宙'], run: () => blackhole() },",
   "hj": "{ words: ['黑洞', '宇宙', 'blackhole', 'black hole', 'space', '黑洞', '宇宙'], run: () => blackhole() },"
  },
- "{ words: ['자석', 'magnet', '磁石'], run: () => magnet() },": {
-  "en": "{ words: ['magnet', 'magnet', '磁石'], run: () => magnet() },",
-  "hj": "{ words: ['磁石', 'magnet', '磁石'], run: () => magnet() },"
+ "{ words: ['자석', 'magnet', '磁石', '磁铁'], run: () => magnet() },": {
+  "en": "{ words: ['magnet', 'magnet', '磁石', '磁铁'], run: () => magnet() },",
+  "hj": "{ words: ['磁铁', 'magnet', '磁石', '磁铁'], run: () => magnet() },"
  },
  "/* 블랙홀 3단계: 검은 구멍 + 얇게 빛나는 고리 + 따뜻한 빛무리 (코드 단어들이 그 둘레 원반이 된다) */": {
   "en": "/* Black hole step 3: a black hole + a thin glowing ring + a warm halo (the code words become the disk around it) */",
-  "hj": "/* 黑洞三段：黑洞 + 細亮環 + 暖光暈 (碼詞化為其周之盤) */"
+  "hj": "/* 黑洞第 3 级：黑洞 + 细细的发光环 + 温暖的光晕（代码里的词变成周围的盘） */"
  },
  "// 0단계 뚝뚝 끊기며 / 1단계 부드럽게 / 2단계 단어가 돌며 / 3단계는 gargantua() — 코드가 블랙홀 모양이 된다": {
   "en": "// step 0 choppy / step 1 smooth / step 2 words spin / step 3 is gargantua() — the code becomes a black hole",
-  "hj": "// 零段頓挫 / 一段流暢 / 二段詞旋 / 三段為 gargantua() — 碼化為黑洞"
+  "hj": "// 第 0 级卡顿 / 第 1 级流畅 / 第 2 级词会自转 / 第 3 级是 gargantua() — 代码变成黑洞"
  },
  "// 금빛으로 물들어 납작한 원반(강착원반)과 구멍을 감싸는 빛 테두리가 되어 돈다 → 사그라들고 코드·창 순서로 서서히 돌아온다": {
   "en": "// turning gold, forming a flat disk (accretion disk) and a glowing rim around the hole, orbiting → fades, then code and window return slowly in turn",
-  "hj": "// 染金化為扁盤 (吸積盤) 與環洞之光邊而旋 → 漸消，碼與窗依序徐歸"
+  "hj": "// 变成金色，形成扁平的盘（吸积盘）和洞口的发光边，绕行 → 淡出，然后代码和窗口依次慢慢回来"
  },
  "// 블랙홀 3단계: 검은 구멍이 서서히 열리고, 가까운 단어부터 줄줄이 천천히 소용돌이치며 끌려와": {
   "en": "// Black hole step 3: the hole slowly opens, and words stream in one after another, nearest first, swirling slowly,",
-  "hj": "// 黑洞三段：洞徐開，近詞先、連綿徐旋而入，"
+  "hj": "// 黑洞第 3 级：洞慢慢张开，词从近到远一个接一个流进去，慢慢旋转，"
  },
  "const END = 6000;                   // 이때까지 원반이 돈다": {
   "en": "const END = 6000;                   // the disk spins until this time",
-  "hj": "const END = 6000;                   // 盤旋至此時"
+  "hj": "const END = 6000;                   // 盘一直转到这个时间"
  },
  "const flights = [...pieces()].map(el => {     // 앞 창 글자도 천천히 소용돌이치며 구멍 속으로": {
   "en": "const flights = [...pieces()].map(el => {     // the front window's text also swirls slowly into the hole",
-  "hj": "const flights = [...pieces()].map(el => {     // 前窗之字亦徐旋入洞"
+  "hj": "const flights = [...pieces()].map(el => {     // 前面窗口的文字也慢慢旋进洞里"
  },
  "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: 'forwards' }), END);   // 사그라든다": {
   "en": "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: 'forwards' }), END);   // fades away",
-  "hj": "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: 'forwards' }), END);   // 漸消"
+  "hj": "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: 'forwards' }), END);   // 淡出消失"
  },
  "setTimeout(() => {                  // 코드가 먼저 서서히 → 그다음 창": {
   "en": "setTimeout(() => {                  // the code first, slowly → then the window",
-  "hj": "setTimeout(() => {                  // 碼先徐歸 → 而後窗"
+  "hj": "setTimeout(() => {                  // 先是代码，慢慢地 → 然后是窗口"
  },
  "const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));   // 마우스가 가장자리여도 원반이 화면 안에 다 보이게": {
   "en": "const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));   // keep the whole disk on screen even if the mouse is at the edge",
-  "hj": "const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));   // 滑鼠雖在邊緣，盤仍全在屏內"
+  "hj": "const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));   // 即使鼠标在边缘，整个盘也留在画面内"
  },
  "opacity: 1 - t });                // 끝까지 빨려 들어가 사라진다": {
   "en": "opacity: 1 - t });                // sucked all the way in and gone",
-  "hj": "opacity: 1 - t });                // 盡吸而沒"
+  "hj": "opacity: 1 - t });                // 完全被吸进去消失"
  },
  "anims.push(screenEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 800, fill: 'both' }));   // 창 유리도 사라진다": {
   "en": "anims.push(screenEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 800, fill: 'both' }));   // the window glass vanishes too",
-  "hj": "anims.push(screenEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 800, fill: 'both' }));   // 窗玻璃亦消"
+  "hj": "anims.push(screenEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 800, fill: 'both' }));   // 窗口玻璃也消失"
  },
  "setTimeout(() => {                  // 다 사라진 뒤, 다시 밝아지듯 코드가 먼저 → 그다음 창": {
   "en": "setTimeout(() => {                  // once all is gone, brightening back — the code first → then the window",
-  "hj": "setTimeout(() => {                  // 盡消之後，如復明而歸 — 碼先 → 而後窗"
+  "hj": "setTimeout(() => {                  // 全部消失后重新亮起 — 先代码 → 后窗口"
  },
  "// 블랙홀: 렌즈(마우스) 자리로 코드와 앞 창이 소용돌이치며 빨려 들어가 사라졌다가, 다시 밝아지듯 제자리에 나타난다.": {
   "en": "// Black hole: the code and the front window swirl into the lens (mouse) spot and vanish, then reappear in place as if brightening again.",
-  "hj": "// 黑洞：碼與前窗旋入鏡處 (滑鼠) 而沒，復如漸明般於原位重現。"
+  "hj": "// 黑洞：代码和前面的窗口旋进透镜（鼠标）位置后消失，然后像重新亮起一样在原地重现。"
  },
  "codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // 다시 밝아지듯": {
   "en": "codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // as if brightening again",
-  "hj": "codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // 如復明"
+  "hj": "codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // 像重新亮起一样"
  },
  "#code.rq2c .u { visibility: hidden; }   /* 2단계 비: 글자는 캔버스가 대신 그린다 */": {
   "en": "#code.rq2c .u { visibility: hidden; }   /* step 2 rain: a canvas draws the letters instead */",
-  "hj": "#code.rq2c .u { visibility: hidden; }   /* 二階雨：字由畫布代繪 */"
+  "hj": "#code.rq2c .u { visibility: hidden; }   /* 第 2 级雨：改由画布绘制文字 */"
  },
  "#eggs .a { clip-path: url(#egg-left); } #eggs .b { clip-path: url(#egg-right); }   /* 1단계: 세로로 반 가른다 */": {
   "en": "#eggs .a { clip-path: url(#egg-left); } #eggs .b { clip-path: url(#egg-right); }   /* step 1: split down the middle */",
-  "hj": "#eggs .a { clip-path: url(#egg-left); } #eggs .b { clip-path: url(#egg-right); }   /* 一階：縱剖為二 */"
+  "hj": "#eggs .a { clip-path: url(#egg-left); } #eggs .b { clip-path: url(#egg-right); }   /* 第 1 级：从中间纵向剖开 */"
  },
  "/* 0단계: 글자 달걀 [] — 깨지면 [ */": {
   "en": "/* Step 0: a text egg [] — cracked becomes [ */",
-  "hj": "/* 零階：字之卵 [] — 碎則為 [ */"
+  "hj": "/* 第 0 级：文字蛋 [] — 碎了变成 [ */"
  },
  "/* 1단계: 테두리 달걀, 반쪽이 옆으로 기울며 미끄러져 사라진다 */": {
   "en": "/* Step 1: an outline egg; one half tilts, slides off and fades */",
-  "hj": "/* 一階：輪廓之卵，半殼側傾滑落而逝 */"
+  "hj": "/* 第 1 级：线框蛋；一半倾斜滑开并淡出 */"
  },
  "/* 2단계: 명암 있는 달걀, 흔들리다 지그재그로 금 가며 윗부분이 튕겨 나간다 */": {
   "en": "/* Step 2: a shaded egg wobbles, cracks in a zigzag, and its top pops off */",
-  "hj": "/* 二階：有明暗之卵，搖晃後鋸齒而裂，上殼彈出 */"
+  "hj": "/* 第 2 级：有明暗的蛋摇晃，裂出锯齿纹，上半部弹开 */"
  },
  "/* 3단계: 광택 달걀 + 그림자, 흔들림 → 윗껍질이 날아가고 안에서 노른자 빛 */": {
   "en": "/* Step 3: glossy egg + shadow; wobble → top shell flies off, yolk glows inside */",
-  "hj": "/* 三階：光澤之卵與影，搖晃 → 上殼飛去，內現蛋黃之光 */"
+  "hj": "/* 第 3 级：光泽蛋 + 阴影；摇晃 → 上壳飞走，里面蛋黄发光 */"
  },
  "/* 이스터에그 달걀 6개 (오른쪽 아래): 하나 찾을 때마다 하나씩 깨진다. 단계가 오를수록 달걀도, 깨지는 모습도 좋아진다 */": {
   "en": "/* Six Easter-egg eggs (bottom right): one cracks for each egg found. Higher steps make both the eggs and the cracking nicer */",
-  "hj": "/* 彩蛋之卵六枚（右下）：每覓得一則碎一枚。階愈高，卵與碎狀愈精 */"
+  "hj": "/* 六个彩蛋（右下角）：每找到一个就碎一个。级别越高，蛋和碎裂效果越好 */"
  },
  "/* 화면에 보이는 줄(.f)만 떨어뜨린다 — 화면 밖 1,000여 줄까지 움직이면 프레임이 크게 떨어진다 */": {
   "en": "/* only lines on screen (.f) fall — moving the 1,000-odd off-screen lines too drops the frame rate badly */",
-  "hj": "/* 僅落屏上之行(.f) — 若連屏外千餘行皆動，幀率大降 */"
+  "hj": "/* 只有屏幕上的行（.f）会落下 — 连屏幕外的上千行一起移动会让帧率大跌 */"
  },
  "// 0~2단계는 최소한: 마우스 가까운 단어만 살짝 (0단계 가장 좁고 약하게·뚝뚝 끊기며 / 1·2단계 조금 더 넓게·부드럽게)": {
   "en": "// steps 0–2 are minimal: only words near the mouse, slightly (step 0 narrowest, weakest, choppy / steps 1·2 a bit wider, smooth)",
-  "hj": "// 零至二階從簡：僅近鼠之詞微動（零階最窄最弱、斷續 / 一·二階稍廣、柔順）"
+  "hj": "// 第 0–2 级尽量轻：只动鼠标附近的词，幅度小（第 0 级范围最窄、最弱、卡顿 / 第 1·2 级稍宽、流畅）"
  },
  "// 2단계 비 (글자 1,000여 개): 글자 자리·색을 한 번 읽고, 떨어지고 되감기는 건 캔버스 한 장에 그린다.": {
   "en": "// step 2 rain (1,000-odd letters): read each letter's place and color once, draw the fall and rewind on one canvas.",
-  "hj": "// 二階雨（字千餘）：一次讀取字之位與色，落下與倒捲皆繪於一畫布。"
+  "hj": "// 第 2 级雨（上千个字）：每个字的位置和颜色只读一次，在一张画布上画出下落和倒放。"
  },
  "// 3단계: 마우스 쪽으로 엿가락처럼 늘어난다 — 마우스 반대쪽 끝은 제자리에 두고 마우스 쪽으로만 길어짐.": {
   "en": "// step 3: stretches toward the mouse like taffy — the far end stays put, only the mouse side grows.",
-  "hj": "// 三階：如飴向鼠延展 — 遠鼠之端不動，唯向鼠側伸長。"
+  "hj": "// 第 3 级：像麦芽糖一样朝鼠标拉长 — 远端不动，只有靠鼠标的一侧伸长。"
  },
  "// 3단계: 화면 반대편 단어까지, 자리는 거의 그대로 마우스 쪽으로 엿가락처럼 늘어나며 보라빛 + 빛": {
   "en": "// step 3: even words across the screen stay nearly in place but stretch toward the mouse like taffy, purple + glow",
-  "hj": "// 三階：遠至屏之彼端之詞，位幾不移，如飴向鼠延展，紫色並光"
+  "hj": "// 第 3 级：画面另一头的词也几乎不动，但像麦芽糖一样朝鼠标拉长，紫色 + 光晕"
  },
  "// 3단계만 끌릴수록 보라빛 (코드 색 위에 보라를 겹쳐 물들임) + 빛 (빛 세기도 몇 단계로 묶음)": {
   "en": "// step 3 only: the stronger the pull, the more purple (purple layered over the code color) + glow (glow strength also in a few steps)",
-  "hj": "// 唯三階：引愈強愈紫（紫疊於碼色之上）並光（光之強弱亦分數級）"
+  "hj": "// 仅第 3 级：吸力越强越紫（在代码颜色上叠紫色）+ 光晕（光晕强度也分几级）"
  },
  "// CSS cubic-bezier와 같은 이징 (캔버스용, 미리 표로 만들어 둔다)": {
   "en": "// same easing as CSS cubic-bezier (for canvas, precomputed as a table)",
-  "hj": "// 與 CSS cubic-bezier 同之緩動（畫布用，預製為表）"
+  "hj": "// 与 CSS cubic-bezier 相同的缓动（画布用，预先算成表）"
  },
  "// CSS 때와 같은 움직임 — 단위마다 늦게 출발(d)·속도 제각각(t), 위로 코드 색 꼬리 세 겹, 떨어질수록 옅어짐": {
   "en": "// same motion as the CSS version — each unit starts late (d) at its own speed (t), three code-colored tails above, fading as it falls",
-  "hj": "// 與 CSS 時同動 — 各單位遲發(d)、速各異(t)，上曳碼色之尾三重，愈落愈淡"
+  "hj": "// 与 CSS 版本相同的动作 — 每个单位延迟（d）出发、各自速度（t），上方三道代码色尾巴，边落边淡"
  },
  "// 글자 캔버스: 수백~수천 글자를 span 대신 캔버스 한 장에 그린다 (span마다 움직이면 프레임이 크게 떨어진다).": {
   "en": "// letter canvas: draws hundreds to thousands of letters on one canvas instead of spans (moving each span drops the frame rate badly).",
-  "hj": "// 字之畫布：數百至數千字不用 span，繪於一畫布（每 span 皆動則幀率大降）。"
+  "hj": "// 文字画布：用一张画布代替 span 画出成百上千个字（逐个移动 span 会让帧率大跌）。"
  },
  "// 늘어남(0.1)·방향(3도)은 몇 단계로 묶어 같은 글자 모양을 다시 쓴다 (매 프레임 새 모양이면 느려진다)": {
   "en": "// stretch (0.1) and direction (3°) are snapped to steps so letter shapes get reused (a new shape every frame is slow)",
-  "hj": "// 伸長(0.1)·方向(3度)分級，以重用同一字形（每幀新形則慢）"
+  "hj": "// 拉伸（0.1）和方向（3°）按级取整，以便复用字形（每帧新字形会很慢）"
  },
  "// 단어는 캔버스 한 장에 그린다 (단어 span마다 위치·색을 매 프레임 바꾸면 프레임이 크게 떨어진다)": {
   "en": "// words are drawn on one canvas (changing each word span's position and color every frame drops the frame rate badly)",
-  "hj": "// 詞繪於一畫布（每幀改每詞 span 之位與色，則幀率大降）"
+  "hj": "// 词画在一张画布上（每帧改变每个词 span 的位置和颜色会让帧率大跌）"
  },
  "// 떨어지는 단위: 0단계 줄 / 1단계 단어 / 2단계 글자 (화면에 보이는 줄만 움직이거나 잘게 쪼개고, 끝나면 원래대로)": {
   "en": "// falling unit: step 0 lines / step 1 words / step 2 letters (only on-screen lines move or get split, restored afterward)",
-  "hj": "// 落下單位：零階行 / 一階詞 / 二階字（唯屏上之行動或細分，畢則復原）"
+  "hj": "// 下落单位：第 0 级行 / 第 1 级词 / 第 2 级字（只移动或拆分屏幕上的行，之后恢复）"
  },
  "// 이스터에그 달걀 6개: 코드 속 '버튼' + 비밀 단어 5개. 처음 찾을 때마다 왼쪽 달걀부터 하나씩 깨진다": {
   "en": "// six Easter-egg eggs: the 'button' in the code + 5 secret words. Each first find cracks the next egg from the left",
-  "hj": "// 彩蛋之卵六枚：碼中之「按鈕」並秘語五則。每初覓得，自左碎一枚"
+  "hj": "// 六个彩蛋：代码里的「按钮」+ 5 个秘密词。每次首次找到，就从左边起碎掉下一个蛋"
  },
  "// 캔버스를 화면에서 떼면 그리기도 멈춘다": {
   "en": "// removing the canvas from the page also stops drawing",
-  "hj": "// 畫布離屏則繪亦止"
+  "hj": "// 把画布从页面移除，绘制也随之停止"
  },
  ": power * Math.max(0, 1 - d / REACH[q][0]) ** 1.5 * REACH[q][1];  // 0~2단계: 가까운 단어만 조금 (가까울수록 세게)": {
   "en": ": power * Math.max(0, 1 - d / REACH[q][0]) ** 1.5 * REACH[q][1];  // steps 0–2: only nearby words, a little (stronger when closer)",
-  "hj": ": power * Math.max(0, 1 - d / REACH[q][0]) ** 1.5 * REACH[q][1];  // 零至二階：唯近詞微動（愈近愈強）"
+  "hj": ": power * Math.max(0, 1 - d / REACH[q][0]) ** 1.5 * REACH[q][1];  // 第 0–2 级：只有附近的词，轻轻地（越近越强）"
  },
  "? power * (0.35 + 0.5 * Math.max(0, 1 - d / diag))          // 3단계: 화면 반대편 단어까지 당겨진다": {
   "en": "? power * (0.35 + 0.5 * Math.max(0, 1 - d / diag))          // step 3: even words across the screen get pulled",
-  "hj": "? power * (0.35 + 0.5 * Math.max(0, 1 - d / diag))          // 三階：遠至屏之彼端之詞亦被引"
+  "hj": "? power * (0.35 + 0.5 * Math.max(0, 1 - d / diag))          // 第 3 级：画面另一头的词也会被吸"
  },
  "codeEl.after(cv);                   // 앞 창 뒤, 코드와 같은 층": {
   "en": "codeEl.after(cv);                   // behind the front window, same layer as the code",
-  "hj": "codeEl.after(cv);                   // 前窓之後，與碼同層"
+  "hj": "codeEl.after(cv);                   // 在前面窗口之后，与代码同一层"
  },
  "codeEl.style.visibility = 'hidden';   // 숨긴 코드 1,000여 줄을 아예 안 그리게 (투명만 하면 캔버스가 바뀔 때마다 같이 다시 그려진다)": {
   "en": "codeEl.style.visibility = 'hidden';   // don't paint the 1,000-odd hidden code lines at all (if merely transparent, they repaint whenever the canvas changes)",
-  "hj": "codeEl.style.visibility = 'hidden';   // 所藏千餘行碼全不繪（僅透明則畫布每變皆隨之重繪）"
+  "hj": "codeEl.style.visibility = 'hidden';   // 完全不绘制隐藏的上千行代码（只是透明的话，画布一变它们就会重绘）"
  },
  "const CRACK_MS = [0, 500, 950, 1250];  // 단계별 깨지는 시간 (0단계는 바로 [ 가 된다)": {
   "en": "const CRACK_MS = [0, 500, 950, 1250];  // cracking time per step (step 0 turns into [ at once)",
-  "hj": "const CRACK_MS = [0, 500, 950, 1250];  // 各階碎裂之時（零階即成 [）"
+  "hj": "const CRACK_MS = [0, 500, 950, 1250];  // 各级碎裂时间（第 0 级立刻变成 [）"
  },
  "const REACH = [[160, 0.2], [260, 0.3], [360, 0.4]];   // 0~2단계: [끌리는 거리(px), 최대 세기] — 최소한으로": {
   "en": "const REACH = [[160, 0.2], [260, 0.3], [360, 0.4]];   // steps 0–2: [pull distance (px), max strength] — kept minimal",
-  "hj": "const REACH = [[160, 0.2], [260, 0.3], [360, 0.4]];   // 零至二階：[引距(px), 最大強度] — 從簡"
+  "hj": "const REACH = [[160, 0.2], [260, 0.3], [360, 0.4]];   // 第 0–2 级：[吸引距离（px），最大强度] — 尽量轻"
  },
  "const ZIG = '0,16 4,13 8,17 12,13 16,17 20,13 24,16';    // 2단계부터 금 가는 선": {
   "en": "const ZIG = '0,16 4,13 8,17 12,13 16,17 20,13 24,16';    // crack line from step 2",
-  "hj": "const ZIG = '0,16 4,13 8,17 12,13 16,17 20,13 24,16';    // 二階起之裂線"
+  "hj": "const ZIG = '0,16 4,13 8,17 12,13 16,17 20,13 24,16';    // 第 2 级起的裂纹线"
  },
  "const e = now < 2400 ? fall((now - p.d) / p.t) : rise(1 - (now - 2400 - p.d) / 900);   // 떨어짐 → 되감아 올림": {
   "en": "const e = now < 2400 ? fall((now - p.d) / p.t) : rise(1 - (now - 2400 - p.d) / 900);   // fall → rewind back up",
-  "hj": "const e = now < 2400 ? fall((now - p.d) / p.t) : rise(1 - (now - 2400 - p.d) / 900);   // 落下 → 倒捲而上"
+  "hj": "const e = now < 2400 ? fall((now - p.d) / p.t) : rise(1 - (now - 2400 - p.d) / 900);   // 落下 → 倒放回去"
  },
  "const ease = q === 0 ? 1 : 0.15;   // 0단계는 바로 그 자리로, 나머지는 따라오듯": {
   "en": "const ease = q === 0 ? 1 : 0.15;   // step 0 jumps straight there, others follow along",
-  "hj": "const ease = q === 0 ? 1 : 0.15;   // 零階直抵其位，餘者隨之"
+  "hj": "const ease = q === 0 ? 1 : 0.15;   // 第 0 级直接跳到位，其他级跟随过去"
  },
  "const ext = (Math.abs(c) * w.hw + Math.abs(n) * 6) * s;   // 늘어난 만큼 마우스 쪽으로 밀어 반대쪽 끝을 고정": {
   "en": "const ext = (Math.abs(c) * w.hw + Math.abs(n) * 6) * s;   // shift toward the mouse by the stretch so the far end stays fixed",
-  "hj": "const ext = (Math.abs(c) * w.hw + Math.abs(n) * 6) * s;   // 依伸長向鼠推移，以固遠端"
+  "hj": "const ext = (Math.abs(c) * w.hw + Math.abs(n) * 6) * s;   // 按拉伸量朝鼠标偏移，使远端保持不动"
  },
  "const look = k => looks[k] ??= (() => {   // 지구 글자 색 이름 → 색·굵기 (CSS에 적힌 그대로 읽는다)": {
   "en": "const look = k => looks[k] ??= (() => {   // globe letter color name → color & weight (read straight from the CSS)",
-  "hj": "const look = k => looks[k] ??= (() => {   // 地球字色名 → 色·粗細（依 CSS 所書讀之）"
+  "hj": "const look = k => looks[k] ??= (() => {   // 地球文字颜色名 → 颜色和粗细（直接从 CSS 读取）"
  },
  "const mix = tint((t - 33) / 1400);   // 날아가는 동안 도착할 칸의 지구 색으로 물든다 (원래 코드 색 → 지구 색)": {
   "en": "const mix = tint((t - 33) / 1400);   // while flying, tint to the globe color of the target cell (code color → globe color)",
-  "hj": "const mix = tint((t - 33) / 1400);   // 飛行間染為所至格之地球色（碼色 → 地球色）"
+  "hj": "const mix = tint((t - 33) / 1400);   // 飞行途中染成目标格子的地球色（代码色 → 地球色）"
  },
  "const move = q >= 3 ? w.pull * 0.06 : w.pull;   // 3단계는 자리는 거의 그대로, 대신 늘어난다": {
   "en": "const move = q >= 3 ? w.pull * 0.06 : w.pull;   // step 3 barely moves, it stretches instead",
-  "hj": "const move = q >= 3 ? w.pull * 0.06 : w.pull;   // 三階位幾不移，代之以伸長"
+  "hj": "const move = q >= 3 ? w.pull * 0.06 : w.pull;   // 第 3 级几乎不移动，改为拉长"
  },
  "for (const p of parts) {         // 굵기별로 모아 두어 글꼴은 몇 번만 바꾼다": {
   "en": "for (const p of parts) {         // grouped by weight so the font changes only a few times",
-  "hj": "for (const p of parts) {         // 依粗細歸類，字型僅換數次"
+  "hj": "for (const p of parts) {         // 按粗细分组，只换几次字体"
  },
  "if (!(q === 0 && t - last < 120)) {  // 0단계: 일부러 뚝뚝 (움직임만 띄엄띄엄 갱신)": {
   "en": "if (!(q === 0 && t - last < 120)) {  // step 0: deliberately choppy (motion updated only now and then)",
-  "hj": "if (!(q === 0 && t - last < 120)) {  // 零階：故作斷續（動作間歇更新）"
+  "hj": "if (!(q === 0 && t - last < 120)) {  // 第 0 级：故意卡顿（只偶尔更新动作）"
  },
  "if (foundEggs.has(id)) return;      // 같은 이스터에그는 한 번만": {
   "en": "if (foundEggs.has(id)) return;      // each Easter egg counts once",
-  "hj": "if (foundEggs.has(id)) return;      // 同一彩蛋僅計一次"
+  "hj": "if (foundEggs.has(id)) return;      // 同一个彩蛋只算一次"
  },
  "if (t > LONG + 900) {             // 끝: 코드가 다시 밝아지듯 제자리에": {
   "en": "if (t > LONG + 900) {             // end: the code returns in place, brightening back",
-  "hj": "if (t > LONG + 900) {             // 終：碼復歸原位，如重明"
+  "hj": "if (t > LONG + 900) {             // 结束：代码在原地重新亮起回来"
  },
  "});                                 // 첫 그림은 다음 프레임부터 (부르는 쪽이 준비를 마친 뒤)": {
   "en": "});                                 // first drawing from the next frame (after the caller is ready)",
-  "hj": "});                                 // 首繪始於次幀（待呼者備妥）"
+  "hj": "});                                 // 从下一帧开始首次绘制（调用方准备好之后）"
  },
  "// (단어 span 수백 개가 위치·색·앞뒤 순서를 매 프레임 바꾸면 크게 버벅인다)": {
   "en": "// (hundreds of word spans changing position, color and stacking order every frame stutter badly)",
-  "hj": "// （數百詞 span 每幀改位、色、前後之序，則大頓）"
+  "hj": "// （几百个词 span 每帧改变位置、颜色和层叠顺序会严重卡顿）"
  },
  "// 단어는 캔버스 두 장에 그린다: 구멍 뒤(뒤 캔버스) · 구멍 앞(앞 캔버스) — 원반 앞쪽 절반이 구멍 앞을 지나도록.": {
   "en": "// words are drawn on two canvases: behind the hole (back) · in front of it (front) — so the disc's near half passes in front of the hole.",
-  "hj": "// 詞繪於二畫布：洞後（後布）· 洞前（前布）— 令盤之前半過於洞前。"
+  "hj": "// 词画在两张画布上：洞后（back）· 洞前（front）— 让盘的近半边从洞前经过。"
  },
  "// 뒤 코드 단어는 캔버스 한 장에 그린다 (단어 span 수백 개를 각자 움직이면 버벅인다). 움직임은 아래 pull()과 같다": {
   "en": "// the back code's words are drawn on one canvas (moving hundreds of word spans one by one stutters). Same motion as pull() below",
-  "hj": "// 後碼之詞繪於一畫布（數百詞 span 各自動則頓）。動作同下 pull()"
+  "hj": "// 后面代码的词画在一张画布上（逐个移动几百个词 span 会卡）。动作与下面的 pull() 相同"
  },
  "codeEl.style.opacity = 0; codeEl.style.visibility = 'hidden';   // 숨긴 코드는 아예 안 그리게": {
   "en": "codeEl.style.opacity = 0; codeEl.style.visibility = 'hidden';   // don't paint the hidden code at all",
-  "hj": "codeEl.style.opacity = 0; codeEl.style.visibility = 'hidden';   // 所藏之碼全不繪"
+  "hj": "codeEl.style.opacity = 0; codeEl.style.visibility = 'hidden';   // 完全不绘制隐藏的代码"
  },
  "const [cr, cg, cb] = cool.match(/[\\d.]+/g).map(Number);   // 원래 코드 색 → 금빛으로 물든다": {
   "en": "const [cr, cg, cb] = cool.match(/[\\d.]+/g).map(Number);   // tints from the code color to gold",
-  "hj": "const [cr, cg, cb] = cool.match(/[\\d.]+/g).map(Number);   // 自碼色染為金"
+  "hj": "const [cr, cg, cb] = cool.match(/[\\d.]+/g).map(Number);   // 从代码色渐变到金色"
  },
  "const c = !w.ring && k === 1 && Math.sin(phi) > 0 ? fctx : bctx;   // 원반 앞쪽 절반은 구멍 앞을 지난다": {
   "en": "const c = !w.ring && k === 1 && Math.sin(phi) > 0 ? fctx : bctx;   // the near half of the disc passes in front of the hole",
-  "hj": "const c = !w.ring && k === 1 && Math.sin(phi) > 0 ? fctx : bctx;   // 盤之前半過於洞前"
+  "hj": "const c = !w.ring && k === 1 && Math.sin(phi) > 0 ? fctx : bctx;   // 盘的近半边从洞前经过"
  },
  "const ease = q === 0 ? (p => Math.floor(Math.min(1, Math.max(0, p)) * 60) / 60) : bezier(.5, 0, .8, .6);   // 0단계: 60장으로 살짝 뚝뚝": {
   "en": "const ease = q === 0 ? (p => Math.floor(Math.min(1, Math.max(0, p)) * 60) / 60) : bezier(.5, 0, .8, .6);   // step 0: 60 frames, slightly choppy",
-  "hj": "const ease = q === 0 ? (p => Math.floor(Math.min(1, Math.max(0, p)) * 60) / 60) : bezier(.5, 0, .8, .6);   // 零階：六十幀，微斷續"
+  "hj": "const ease = q === 0 ? (p => Math.floor(Math.min(1, Math.max(0, p)) * 60) / 60) : bezier(.5, 0, .8, .6);   // 第 0 级：60 帧，略带卡顿"
  },
  "const s = Math.round((1 - 0.9 * t) * 20) / 20, turn = Math.round(spinW * t / TURN) * TURN;   // 크기·회전은 몇 단계로 묶어 같은 글자 모양을 다시 쓴다": {
   "en": "const s = Math.round((1 - 0.9 * t) * 20) / 20, turn = Math.round(spinW * t / TURN) * TURN;   // size and rotation snap to steps so letter shapes get reused",
-  "hj": "const s = Math.round((1 - 0.9 * t) * 20) / 20, turn = Math.round(spinW * t / TURN) * TURN;   // 大小·旋轉分級，以重用同一字形"
+  "hj": "const s = Math.round((1 - 0.9 * t) * 20) / 20, turn = Math.round(spinW * t / TURN) * TURN;   // 大小和旋转按级取整，以便复用字形"
  },
  "const t = Math.min(1, Math.max(0, (T - w.delay) / w.D)), s = 0.45;   // 앞 45%: 소용돌이치며 들어옴 / 뒤: 제자리 궤도를 돈다": {
   "en": "const t = Math.min(1, Math.max(0, (T - w.delay) / w.D)), s = 0.45;   // first 45%: spiral in / after: orbit in place",
-  "hj": "const t = Math.min(1, Math.max(0, (T - w.delay) / w.D)), s = 0.45;   // 前四成五：旋入 / 後：循軌而轉"
+  "hj": "const t = Math.min(1, Math.max(0, (T - w.delay) / w.D)), s = 0.45;   // 前 45%：螺旋进入 / 之后：原地绕行"
  },
  "if (t >= 1) continue;           // 다 빨려 들어감": {
   "en": "if (t >= 1) continue;           // fully swallowed",
-  "hj": "if (t >= 1) continue;           // 盡被吸入"
+  "hj": "if (t >= 1) continue;           // 已完全吞没"
  },
  "layer.append(back, hole, front);    // 뒤 캔버스 · 구멍(z 5) · 앞 캔버스 순서로 겹친다": {
   "en": "layer.append(back, hole, front);    // stacked as back canvas · hole (z 5) · front canvas",
-  "hj": "layer.append(back, hole, front);    // 依後布 · 洞(z 5) · 前布之序相疊"
+  "hj": "layer.append(back, hole, front);    // 叠放顺序：后画布 · 洞（z 5）· 前画布"
  },
  "w.D = END - w.delay; w.spinIn = 2.5 + Math.random() * 6.3; w.w0 = 1.1 * R / w.ax;   // 안쪽일수록 빨리 돈다 (rad/s)": {
   "en": "w.D = END - w.delay; w.spinIn = 2.5 + Math.random() * 6.3; w.w0 = 1.1 * R / w.ax;   // inner ones orbit faster (rad/s)",
-  "hj": "w.D = END - w.delay; w.spinIn = 2.5 + Math.random() * 6.3; w.w0 = 1.1 * R / w.ax;   // 愈內轉愈速 (rad/s)"
+  "hj": "w.D = END - w.delay; w.spinIn = 2.5 + Math.random() * 6.3; w.w0 = 1.1 * R / w.ax;   // 越靠里绕得越快（rad/s）"
  },
  "w.delay = w.r0 / far * 2000 + Math.random() * 250;   // 가까운 단어부터 줄줄이": {
   "en": "w.delay = w.r0 / far * 2000 + Math.random() * 250;   // nearest words first, one after another",
-  "hj": "w.delay = w.r0 / far * 2000 + Math.random() * 250;   // 自近詞始，接踵而至"
+  "hj": "w.delay = w.r0 / far * 2000 + Math.random() * 250;   // 最近的词先进，一个接一个"
  },
  "words.forEach(w => { w.hw = bctx.measureText(w.t).width / 2; w.x += w.hw; w.y += 9.75; });   // 단어 가운데": {
   "en": "words.forEach(w => { w.hw = bctx.measureText(w.t).width / 2; w.x += w.hw; w.y += 9.75; });   // word center",
-  "hj": "words.forEach(w => { w.hw = bctx.measureText(w.t).width / 2; w.x += w.hw; w.y += 9.75; });   // 詞之中心"
+  "hj": "words.forEach(w => { w.hw = bctx.measureText(w.t).width / 2; w.x += w.hw; w.y += 9.75; });   // 词的中心"
  },
  "#memo { margin-top: 16px; font-size: 16px; padding: 6px; max-width: 100%; box-sizing: border-box; }   /* 폰에서 화면보다 넓어지지 않게 */": {
   "en": "#memo { margin-top: 16px; font-size: 16px; padding: 6px; max-width: 100%; box-sizing: border-box; }   /* don't grow wider than the screen on phones */",
-  "hj": "#memo { margin-top: 16px; font-size: 16px; padding: 6px; max-width: 100%; box-sizing: border-box; }   /* 於手機不寬於屏 */"
+  "hj": "#memo { margin-top: 16px; font-size: 16px; padding: 6px; max-width: 100%; box-sizing: border-box; }   /* 手机上不超过屏幕宽度 */"
  },
  "@media (max-width: 600px) {           /* 폰: 떠 있는 조절 막대가 눌려 버튼 글자가 세로로 꺾이지 않게 — 내용만큼 넓게, 간격은 좁게 */": {
   "en": "@media (max-width: 600px) {           /* phone: keep the floating control bar from squeezing button text into a vertical column — as wide as its content, tighter gaps */",
-  "hj": "@media (max-width: 600px) {           /* 手機：免浮動調節條受擠致按鈕字直折 — 寬如其內容，間距收窄 */"
+  "hj": "@media (max-width: 600px) {           /* 手机：别让悬浮控制条把按钮文字挤成竖排 — 按内容宽度，间距收紧 */"
  },
  "@media (max-width: 600px) { :root.q2 #eggs { right: 16px; bottom: 84px; } }   /* 폰: 떠 있는 조절 막대와 겹치지 않게 그 위로 */": {
   "en": "@media (max-width: 600px) { :root.q2 #eggs { right: 16px; bottom: 84px; } }   /* phone: sit above the floating control bar so they don't overlap */",
-  "hj": "@media (max-width: 600px) { :root.q2 #eggs { right: 16px; bottom: 84px; } }   /* 手機：置於浮動調節條之上，免相疊 */"
+  "hj": "@media (max-width: 600px) { :root.q2 #eggs { right: 16px; bottom: 84px; } }   /* 手机：放在悬浮控制条上方，免得重叠 */"
  },
  "// PC: 마우스 자리에 작은 블랙홀 / 폰(터치): 중심은 화면 왼쪽 위 바깥, 아주 큰 구멍이 모서리를 덮고": {
   "en": "// PC: a small black hole at the mouse / phone (touch): center just off the top-left, a huge hole covering the corner",
-  "hj": "// 電腦：鼠處小黑洞 / 手機（觸控）：中心在屏左上之外，巨洞覆其角"
+  "hj": "// 电脑：鼠标处一个小黑洞 / 手机（触屏）：中心在左上角外面一点，一个盖住角落的巨大黑洞"
  },
  "// 빽빽한 빛 원반이 화면을 대각선으로 가로질러 구멍 앞을 지나며, 구멍 둘레를 빛 고리가 감싼다 (인터스텔라풍)": {
   "en": "// a dense glowing disc crosses the screen diagonally in front of the hole, with a ring of light hugging it (Interstellar style)",
-  "hj": "// 密光之盤斜貫屏面、過於洞前，光環繞洞（星際效應之風）"
+  "hj": "// 一个致密的发光盘斜穿画面、从洞前经过，还有一圈贴着洞的光环（星际穿越风格）"
  },
  "// 손으로 다루는 효과(자석)의 기준점: 마우스든 손가락이든 실제 포인터 자리": {
   "en": "// reference point for hands-on effects (magnet): the actual pointer, mouse or finger",
-  "hj": "// 手控效果（磁石）之基準：實際指標之位，鼠或指皆然"
+  "hj": "// 手动效果（磁铁）的基准点：实际的指针位置，鼠标或手指"
  },
  "// 원반 기울기: PC는 살짝(-8°), 폰은 화면 비율에 맞춰 오른쪽 아래로 (세로 화면 약 55°) — 화면을 비스듬히 가로지르게": {
   "en": "// disc tilt: slight on PC (-8°), on phones down-right by the screen ratio (about 55° in portrait) — crossing the screen at a slant",
-  "hj": "// 盤之傾角：電腦微傾(-8°)，手機依屏比向右下（直屏約55°）— 斜貫屏面"
+  "hj": "// 盘的倾斜：电脑上稍微（-8°），手机上按屏幕比例朝右下（竖屏约 55°）— 斜着穿过画面"
  },
  "// 효과의 기준점: 마지막 마우스 위치. 폰(손가락)은 항상 화면 가운데": {
   "en": "// effects' reference point: the last mouse position. On phones (finger) always the screen center",
-  "hj": "// 效果之基準：末次鼠位。手機（指）恆為屏中"
+  "hj": "// 效果的基准点：最后的鼠标位置。手机（手指）上始终是屏幕中心"
  },
  "const TRAIL = [0];                  // 잔상 (지금은 한 겹 — 겹치면 글자가 복제돼 보여서)": {
   "en": "const TRAIL = [0];                  // trails (just one layer for now — more looks like duplicated letters)",
-  "hj": "const TRAIL = [0];                  // 殘影（今僅一重 — 多重則字似複製）"
+  "hj": "const TRAIL = [0];                  // 拖尾（目前只有一层 — 多了看起来像字重复）"
  },
  "const hot = 1 - Math.min(1, (w.ax / R - 1) / 3);   // 안쪽은 크림·흰색, 바깥은 주황": {
   "en": "const hot = 1 - Math.min(1, (w.ax / R - 1) / 3);   // cream-white inside, orange outside",
-  "hj": "const hot = 1 - Math.min(1, (w.ax / R - 1) / 3);   // 內為乳白，外為橙"
+  "hj": "const hot = 1 - Math.min(1, (w.ax / R - 1) / 3);   // 内侧奶白色，外侧橙色"
  },
  "const m = Math.min(1, Math.max(0, (k - 0.4) / 0.2)), sc = Math.round((big ? 1.3 + 0.1 * k : 1 - 0.35 * k) * 20) / 20;   // 폰: 큰 구멍에 맞게 글자도 크게": {
   "en": "const m = Math.min(1, Math.max(0, (k - 0.4) / 0.2)), sc = Math.round((big ? 1.3 + 0.1 * k : 1 - 0.35 * k) * 20) / 20;   // phone: bigger letters to match the big hole",
-  "hj": "const m = Math.min(1, Math.max(0, (k - 0.4) / 0.2)), sc = Math.round((big ? 1.3 + 0.1 * k : 1 - 0.35 * k) * 20) / 20;   // 手機：字亦隨巨洞而大"
+  "hj": "const m = Math.min(1, Math.max(0, (k - 0.4) / 0.2)), sc = Math.round((big ? 1.3 + 0.1 * k : 1 - 0.35 * k) * 20) / 20;   // 手机：配合大洞把字放大"
  },
  "const mx = pointX - (w.x + w.hw), my = pointY - (w.y + 9), d = Math.hypot(mx, my);   // 마우스·손가락 쪽으로": {
   "en": "const mx = pointX - (w.x + w.hw), my = pointY - (w.y + 9), d = Math.hypot(mx, my);   // toward the mouse or finger",
-  "hj": "const mx = pointX - (w.x + w.hw), my = pointY - (w.y + 9), d = Math.hypot(mx, my);   // 向鼠或指"
+  "hj": "const mx = pointX - (w.x + w.hw), my = pointY - (w.y + 9), d = Math.hypot(mx, my);   // 朝向鼠标或手指"
  },
  "document.documentElement.style.touchAction = 'none';   // 폰: 자석이 도는 동안 손가락으로 끌어도 화면이 스크롤되지 않게": {
   "en": "document.documentElement.style.touchAction = 'none';   // phone: no scrolling while dragging a finger during the magnet",
-  "hj": "document.documentElement.style.touchAction = 'none';   // 手機：磁石作用間以指拖曳亦不捲屏"
+  "hj": "document.documentElement.style.touchAction = 'none';   // 手机：磁铁期间拖动手指时不滚动"
  },
  "else { c.shadowColor = 'rgba(255,170,90,.8)'; c.shadowBlur = 6 * dpr; } });   // PC: 단어마다 은은한 금빛 번짐": {
   "en": "else { c.shadowColor = 'rgba(255,170,90,.8)'; c.shadowBlur = 6 * dpr; } });   // PC: a soft golden glow on each word",
-  "hj": "else { c.shadowColor = 'rgba(255,170,90,.8)'; c.shadowBlur = 6 * dpr; } });   // 電腦：每詞微現金色光暈"
+  "hj": "else { c.shadowColor = 'rgba(255,170,90,.8)'; c.shadowBlur = 6 * dpr; } });   // 电脑：每个词带柔和的金色光晕"
  },
  "if (big) c.globalCompositeOperation = 'lighter';   // 폰: 빛을 겹쳐 더해 빽빽한 곳일수록 하얗게 달아오른다": {
   "en": "if (big) c.globalCompositeOperation = 'lighter';   // phone: light adds up, so denser areas glow white-hot",
-  "hj": "if (big) c.globalCompositeOperation = 'lighter';   // 手機：光相疊加，愈密愈白熾"
+  "hj": "if (big) c.globalCompositeOperation = 'lighter';   // 手机：光会叠加，越密的地方越白热"
  },
  "if (big) words.push(...Array.from({ length: 5 }, () => words.map(w => ({ ...w }))).flat());   // 폰: 원반이 커서 단어를 6배로 채운다": {
   "en": "if (big) words.push(...Array.from({ length: 5 }, () => words.map(w => ({ ...w }))).flat());   // phone: the disc is big, so fill it with 6x the words",
-  "hj": "if (big) words.push(...Array.from({ length: 5 }, () => words.map(w => ({ ...w }))).flat());   // 手機：盤大，以六倍之詞填之"
+  "hj": "if (big) words.push(...Array.from({ length: 5 }, () => words.map(w => ({ ...w }))).flat());   // 手机：盘很大，所以用 6 倍的词填满"
  },
  "if (big) {                        // 폰: 25%는 구멍 둘레에 바짝 걸친 빛 고리, 나머지는 화면을 가로지르는 원반 (안쪽일수록 촘촘)": {
   "en": "if (big) {                        // phone: 25% become a ring of light hugging the hole, the rest the disc across the screen (denser inside)",
-  "hj": "if (big) {                        // 手機：二成五為緊繞洞之光環，餘為貫屏之盤（愈內愈密）"
+  "hj": "if (big) {                        // 手机：25% 变成贴着洞的光环，其余变成斜穿画面的盘（越靠里越密）"
  },
  "if (j && k < 1) return;        // 잔상은 궤도에 들어선 뒤에만": {
   "en": "if (j && k < 1) return;        // trails only once on the orbit",
-  "hj": "if (j && k < 1) return;        // 入軌後方有殘影"
+  "hj": "if (j && k < 1) return;        // 拖尾只在绕行时出现一次"
  },
  "} else {                          // PC: 35%는 구멍을 감싸는 빛 테두리, 나머지는 납작한 원반": {
   "en": "} else {                          // PC: 35% become the bright ring around the hole, the rest the flat disc",
-  "hj": "} else {                          // 電腦：三成五為環洞之光環，餘為扁盤"
+  "hj": "} else {                          // 电脑：35% 变成洞周围的亮环，其余变成扁平的盘"
  },
  "/* 모바일 전용(손가락 화면만, PC는 그대로): 누르는 칸 규격 — Material 48dp·Apple 44pt 중 큰 쪽 48px, 칸 사이 8px.": {
   "en": "/* mobile only (touch screens, PC unchanged): tap target spec — the larger of Material 48dp / Apple 44pt = 48px, 8px between targets.",
-  "hj": "/* 限手機（觸控屏，電腦不變）：觸點規格 — Material 48dp・Apple 44pt 取大者 48px，間距 8px。"
+  "hj": "/* 仅限手机（触屏，电脑不变）：触控目标规格 — Material 48dp 与 Apple 44pt 取大者 48px，间距 8px。"
  },
  "// 한글·한자 폭은 실제로 잰다 (글꼴에 따라 영문 2칸보다 좁아, 2칸으로 치면 그 뒤 글자가 점점 오른쪽으로 밀린다)": {
   "en": "// measure Hangul/Hanja width for real (depending on the font it's narrower than 2 Latin cells; counting it as 2 pushes later letters further right)",
-  "hj": "// 實測韓文・漢字之寬（依字型而窄於英文兩格，若算兩格則其後字漸向右移）"
+  "hj": "// 实际测量韩文/汉字的宽度（因字体而异，比 2 个英文字格窄；按 2 格算的话后面的字会越来越往右偏）"
  },
  ":root.q2 #eggs { bottom: 96px; }   /* 커진 막대(20+64) 위로 */": {
   "en": ":root.q2 #eggs { bottom: 96px; }   /* above the enlarged bar (20+64) */",
-  "hj": ":root.q2 #eggs { bottom: 96px; }   /* 置於加大之調節條（20+64）之上 */"
+  "hj": ":root.q2 #eggs { bottom: 96px; }   /* 放在加大的控制条（20+64）上方 */"
  },
  ":root.q3 #screen { margin-bottom: 100px; }      /* 끝까지 내리면 창 아래가 떠 있는 막대(20+64) 위로 나오게 */": {
   "en": ":root.q3 #screen { margin-bottom: 100px; }      /* scrolled to the end, the window bottom clears the floating bar (20+64) */",
-  "hj": ":root.q3 #screen { margin-bottom: 100px; }      /* 捲至盡頭時，窗底出於浮動條（20+64）之上 */"
+  "hj": ":root.q3 #screen { margin-bottom: 100px; }      /* 滚到底时，窗口底部露出在悬浮控制条（20+64）上方 */"
  },
  ":root:not(.q1) #flock { font-family: monospace; }   /* 0단계: 뒤 코드와 같은 글꼴 (다르면 글자 폭이 달라 단어끼리 겹친다) */": {
   "en": ":root:not(.q1) #flock { font-family: monospace; }   /* step 0: same font as the code behind (a different width makes words overlap) */",
-  "hj": ":root:not(.q1) #flock { font-family: monospace; }   /* 零階：與後方程式同字型（字寬不同則詞相疊） */"
+  "hj": ":root:not(.q1) #flock { font-family: monospace; }   /* 第 0 级：与后面的代码同一字体（宽度不同的话词会重叠） */"
  },
  ":root:not(.q3) #screen { padding-top: 80px; }   /* 커진 오른쪽 위 버튼(16+48)과 제목이 겹치지 않게 */": {
   "en": ":root:not(.q3) #screen { padding-top: 80px; }   /* keep the enlarged top-right buttons (16+48) off the title */",
-  "hj": ":root:not(.q3) #screen { padding-top: 80px; }   /* 免加大之右上按鈕（16+48）與標題相疊 */"
+  "hj": ":root:not(.q3) #screen { padding-top: 80px; }   /* 避免加大的右上角按钮（16+48）与标题重叠 */"
  },
  "probe.textContent = '가'.repeat(10); probe.style.font = getComputedStyle(codeEl).font;": {
   "en": "probe.textContent = '가'.repeat(10); probe.style.font = getComputedStyle(codeEl).font;",
@@ -1077,18 +1077,22 @@
  },
  "입력칸 글자 16px 이상 = iOS가 눌렀을 때 화면을 확대하지 않음. touch-action = 연타해도 두 번 탭 확대 안 됨 */": {
   "en": "input text 16px or more = iOS does not zoom when tapped. touch-action = rapid tapping does not double-tap zoom */",
-  "hj": "輸入欄字 16px 以上 = iOS 點擊時不放大。touch-action = 連點亦不雙擊放大 */"
+  "hj": "输入框字号 16px 以上 = iOS 点击时不放大。touch-action = 连点也不会双击放大 */"
  },
  "// 손가락 끌기: 마우스처럼 렌즈·자석이 손가락을 따라오고, 손가락 자리에 동그란 포인터가 뜬다 (터치 화면만)": {
   "en": "// finger drag: like a mouse, the lens and magnet follow the finger, and a round pointer appears under it (touch screens only)",
-  "hj": "// 指拖：如滑鼠，透鏡・磁石隨指而動，指下現圓形指標（限觸控屏）"
+  "hj": "// 手指拖动：像鼠标一样，透镜和磁铁跟着手指走，手指下出现一个圆形指针（仅限触屏）"
  },
  "// 단계 칸 아이콘 (3단계에서만 보임): 비밀 단어 힌트 — 자석 · 구름비(비) · 터짐(펑) · 지구본(지구) · 빨려드는 소용돌이(블랙홀)": {
   "en": "// stage icons (step 3 only): hints for the secret words — magnet · rain cloud (rain) · burst (pop) · desk globe (earth) · inward-sucking swirl (black hole)",
-  "hj": "// 階格圖示（限三階）：秘密詞之提示 — 磁石・雨雲（雨）・爆裂（砰）・地球儀（地球）・吸入之漩渦（黑洞）"
+  "hj": "// 级别图标（仅第 3 级）：秘密词提示 — 磁铁 · 雨云（雨）· 爆裂（砰）· 地球仪（地球）· 向内吸入的漩涡（黑洞）"
  },
  "function swirl(arms, turns, r0, r1, w0, w1) {   // 바깥은 가늘고 안으로 갈수록 굵어지며 가운데로 감겨 드는 팔들": {
   "en": "function swirl(arms, turns, r0, r1, w0, w1) {   // arms that start thin outside and thicken as they wind into the center",
-  "hj": "function swirl(arms, turns, r0, r1, w0, w1) {   // 外細內粗、捲入中心之旋臂"
+  "hj": "function swirl(arms, turns, r0, r1, w0, w1) {   // 外细内粗、卷入中心的旋臂"
+ },
+ "if (/(이스터에그|이스트에그|easter ?egg|彩蛋)$/.test(v)) foundEgg('button');   // '이스터에그'라고 적어도 코드 속 '버튼'을 찾은 것으로 친다": {
+  "en": "if (/(이스터에그|이스트에그|easter ?egg|彩蛋)$/.test(v)) foundEgg('button');   // typing 'Easter egg' also counts as finding the 'button' in the code",
+  "hj": "if (/(이스터에그|이스트에그|easter ?egg|彩蛋)$/.test(v)) foundEgg('button');   // 输入「彩蛋」也算找到了代码里的「按钮」"
  }
 }

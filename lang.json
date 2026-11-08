@@ -522,5 +522,29 @@
  "{ words: ['펑', '폭발', 'boom', '爆'], run: () => boom() },": {
   "en": "{ words: ['boom', 'explode', 'boom', '爆'], run: () => boom() },",
   "hj": "{ words: ['爆', '爆發', 'boom', '爆'], run: () => boom() },"
+ },
+ "/* 지구가 되기 전: 코드가 흩어지지 않고 그대로 원 모양으로 오므라든다 (원 크기 = 지구 크기 42vmin) */": {
+  "en": "/* Before the earth: the code doesn't scatter, it just shrinks into a circle (circle size = earth size 42vmin) */",
+  "hj": "/* 地球之前：碼不散，原樣收成圓形 (圓大小 = 地球大小 42vmin) */"
+ },
+ "/* 코드 비 (3단계): 코드가 먼저 흑백으로 바래고, 글자는 제자리에 둔 채 파란 빗줄기가 글자 속으로만 흘러내린다 */": {
+  "en": "/* Code rain (step 3): the code first fades to grayscale, then blue streaks run down inside the letters, which stay in place */",
+  "hj": "/* 碼雨 (三段)：碼先褪為黑白，字留原位，藍色雨絲只在字中流下 */"
+ },
+ "// 지구 표면에 감을 코드: 이 페이지 코드를 한 줄로 이어 붙여 위도 줄마다 차례로 감는다 (한 칸짜리 글자만)": {
+  "en": "// Code wrapped on the earth: this page's code joined into one line, wound around each latitude row in turn (single-width chars only)",
+  "hj": "// 繞地球之碼：本頁碼連成一行，依緯線逐行纏繞 (只取單格字)"
+ },
+ "background-image:                   /* 빗방울 머리는 진하게, 꼬리는 위로 옅어짐 */": {
+  "en": "background-image:                   /* raindrop heads are strong, tails fade upward */",
+  "hj": "background-image:                   /* 雨滴頭濃，尾向上漸淡 */"
+ },
+ "g = tex[ti][tj].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');   // 바다·육지 모두 코드 글자 (육지는 색으로 구분)": {
+  "en": "g = tex[ti][tj].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');   // sea and land are both code (land told apart by color)",
+  "hj": "g = tex[ti][tj].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');   // 海陸皆為碼字 (陸以色分)"
+ },
+ "if (quality >= 3) {                 // 3단계: 흑백으로 바랜 뒤 제자리에서 파란 비": {
+  "en": "if (quality >= 3) {                 // step 3: fade to grayscale, then blue rain in place",
+  "hj": "if (quality >= 3) {                 // 三段：褪為黑白後原地藍雨"
  }
 }

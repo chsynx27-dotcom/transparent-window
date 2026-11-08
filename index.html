@@ -152,12 +152,11 @@
   #globe .s0 { color: #9fd0ff; } #globe .s1 { color: #4f9df5; } #globe .s2 { color: #2f6fd0; } #globe .s3 { color: #1c3f7a; }
   #globe .ic { color: #e9f3ff; font-weight: 700; text-shadow: 0 0 2px #7fb2ff; }
   :root.earth-on #globe { opacity: 1; transform: none; }
-  :root.earth #code { opacity: 0; transition: opacity 0.6s; }
+  /* 지구가 되기 전: 코드가 흩어지지 않고 그대로 원 모양으로 오므라든다 (원 크기 = 지구 크기 42vmin) */
+  #code { clip-path: circle(150vmax at 50% 50%); }
+  :root.earth #code { clip-path: circle(42vmin at 50% 50%); transition: clip-path 1.2s cubic-bezier(.6,0,.3,1), opacity 0.6s; }
+  :root.earth-on #code { opacity: 0; }
   :root.earth #screen { opacity: 0.2; }
-  /* 지구가 되기 전: 코드 글자들이 가운데로 빨려 들어간다 */
-  #flock { position: fixed; inset: 0; z-index: 1; pointer-events: none; transition: opacity 0.5s;
-    font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; color: var(--code); }
-  #flock span { position: absolute; }
   .unpop { animation: unpop 0.6s cubic-bezier(.2,.8,.3,1) both; }
   @keyframes unpop { from { transform: scale(0.6); filter: blur(6px); opacity: 0; } }
   @keyframes quake { 20% { transform: translate(-12px, 6px); } 40% { transform: translate(10px, -8px); }
@@ -486,20 +485,22 @@
   const isLand = (lat, lon) => (LAND[Math.min(17, Math.max(0, Math.floor((90 - lat) / 10)))] || [])
     .some(([a, b]) => lon >= a && lon <= b);
   const globeEl = document.getElementById('globe');
-  let earthFrame = null, earthTimer = null, flock = null;
+  let earthFrame = null, earthTimer = null;
   const FPS_GAP = [250, 100, 40, 0];    // 단계별 그리기 간격(ms): 0단계 초당 4장 … 3단계 매 프레임
   const LIGHT = [-0.45, 0.55, 0.7];     // 빛이 오는 방향 (왼쪽 위 앞)
   function earth() {
     finishTyping();
     cancelAnimationFrame(earthFrame); clearTimeout(earthTimer);
-    // 지구를 칠할 글자: 이 페이지 코드의 글자들 (한 칸짜리 글자만)
-    const chars = orig.join('').replace(/[^\x21-\x7e]/g, '');
     const probe = document.createElement('span');
     probe.textContent = 'M'.repeat(10); globeEl.textContent = ''; globeEl.append(probe);
     const cw = probe.getBoundingClientRect().width / 10, ch = parseFloat(getComputedStyle(globeEl).lineHeight);
     const cols = Math.floor(innerWidth / cw), rows = Math.floor(innerHeight / ch);
     const R = Math.min(innerWidth, innerHeight) * 0.42, cx = innerWidth / 2, cy = innerHeight / 2;
-    suckIn(cw, cx, cy, R);
+    // 지구 표면에 감을 코드: 이 페이지 코드를 한 줄로 이어 붙여 위도 줄마다 차례로 감는다 (한 칸짜리 글자만)
+    const W = Math.max(40, Math.round(2 * Math.PI * R / cw)), H = Math.max(10, Math.round(Math.PI * R / ch));
+    const stream = orig.map(l => l.replace(/[^\x20-\x7e]/g, '').trim()).filter(Boolean).join(' ').replace(/\s+/g, ' ');
+    const big = stream.repeat(Math.ceil(W * H / stream.length) + 1);
+    const tex = Array.from({ length: H }, (_, i) => big.slice(i * W, i * W + W));
     const tilt = 23.4 * Math.PI / 180;
     const q = quality, gap = FPS_GAP[q];
     const t0 = performance.now();
@@ -533,8 +534,8 @@
             lon = ((lon + 180) % 360 + 360) % 360 - 180;
             const L = isLand(lat, lon);
             k = cls(L, lat, nx, ny, nz);
-            g = L ? chars[(Math.floor(lat + 90) * 360 + Math.floor(lon + 180)) % chars.length]
-                    .replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;') : '·';   // 육지는 코드 글자, 바다는 점
+            const ti = Math.min(H - 1, Math.floor((90 - lat) / 180 * H)), tj = Math.floor((lon + 180) / 360 * W) % W;
+            g = tex[ti][tj].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');   // 바다·육지 모두 코드 글자 (육지는 색으로 구분)
           }
           if (k !== cur) { row += (cur ? '</i>' : '') + (k ? `<i class="${k}">` : ''); cur = k; }
           row += g;
@@ -547,47 +548,12 @@
     document.documentElement.classList.add('earth');
     setTimeout(() => {                  // 다 빨려 들어가면 지구가 나타난다
       document.documentElement.classList.add('earth-on');
-      if (flock) { flock.style.opacity = 0; const f = flock; setTimeout(() => f.remove(), 600); flock = null; }
-    }, 1300);
+    }, 1200);
     earthTimer = setTimeout(endEarth, 10000);   // 10초 뒤 코드로 돌아간다
-  }
-  // 빨려 들어가기: 화면에 보이는 코드 글자들이 소용돌이치며 지구 자리로 모인다 (모든 단계 같음)
-  function suckIn(cw, cx, cy, R) {
-    if (flock) flock.remove();
-    flock = document.createElement('div'); flock.id = 'flock';
-    const offset = quality >= 2 ? cw * 5.5 : 0;     // 2단계부터는 줄 번호만큼 오른쪽
-    const cand = [];
-    lines.forEach(line => {
-      const rect = line.getClientRects()[0];
-      if (!rect || rect.bottom < 0 || rect.top > innerHeight) return;
-      let x = rect.left + offset;
-      for (const c of line.textContent) {
-        const wide = c.charCodeAt(0) > 0x2e80;
-        if (c.trim() && x < innerWidth) cand.push({ c, x, y: rect.top });
-        x += wide ? cw * 2 : cw;
-      }
-    });
-    for (let n = 0; n < 650 && cand.length; n++) {
-      const { c, x, y } = cand.splice(Math.floor(Math.random() * cand.length), 1)[0];
-      const span = document.createElement('span');
-      span.textContent = c; span.style.left = x + 'px'; span.style.top = y + 'px';
-      flock.append(span);
-      const a = Math.random() * Math.PI * 2, rr = R * Math.sqrt(Math.random());
-      const tx = cx + rr * Math.cos(a) - x, ty = cy + rr * Math.sin(a) - y;
-      const a0 = Math.atan2(y - cy, x - cx), d0 = Math.hypot(x - cx, y - cy);   // 가운데 기준 처음 위치
-      const mx = cx + d0 * 0.55 * Math.cos(a0 + 1.4) - x, my = cy + d0 * 0.55 * Math.sin(a0 + 1.4) - y;
-      span.animate([
-        { transform: 'translate(0, 0)', opacity: 1 },
-        { transform: `translate(${mx}px, ${my}px) rotate(160deg) scale(0.8)`, opacity: 0.9, offset: 0.55 },
-        { transform: `translate(${tx}px, ${ty}px) rotate(320deg) scale(0.6)`, opacity: 0.7 },
-      ], { duration: 1150, delay: Math.random() * 250, easing: 'cubic-bezier(.55,0,.35,1)', fill: 'forwards' });
-    }
-    document.body.append(flock);
   }
   function endEarth() {
     document.documentElement.classList.remove('earth', 'earth-on');
     clearTimeout(earthTimer);
-    if (flock) { flock.remove(); flock = null; }
     setTimeout(() => cancelAnimationFrame(earthFrame), 900);
   }
   addEventListener('click', e => { if (document.documentElement.classList.contains('earth') && e.target !== memo) endEarth(); });

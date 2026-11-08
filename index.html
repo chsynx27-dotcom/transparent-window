@@ -140,23 +140,25 @@
     font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; white-space: pre; font-variant-ligatures: none;
     color: #b0b4ba; opacity: 0; transform: scale(0.94); transition: opacity 0.6s, transform 0.8s cubic-bezier(.2,.8,.3,1); }
   #globe i { font-style: normal; }
-  #globe .g { color: #5f6368; font-weight: 700; }
+  :is(#globe, #flock) .g { color: #5f6368; font-weight: 700; }
   :root.dark #globe { color: #5f6368; }
-  :root.dark #globe .g { color: #c4c7cc; }
-  #globe .s { color: color-mix(in srgb, #2f6fd0 45%, transparent); }
-  #globe .l { color: #1f8a43; font-weight: 700; }
-  :root.dark #globe .s { color: color-mix(in srgb, #5b8def 60%, transparent); }
-  :root.dark #globe .l { color: #57d17a; }
-  #globe .l0 { color: #8be29c; font-weight: 700; } #globe .l1 { color: #3fb860; font-weight: 700; }
-  #globe .l2 { color: #1f8a43; font-weight: 700; } #globe .l3 { color: #134f2a; font-weight: 700; }
-  #globe .s0 { color: #9fd0ff; } #globe .s1 { color: #4f9df5; } #globe .s2 { color: #2f6fd0; } #globe .s3 { color: #1c3f7a; }
-  #globe .ic { color: #e9f3ff; font-weight: 700; text-shadow: 0 0 2px #7fb2ff; }
+  :root.dark :is(#globe, #flock) .g { color: #c4c7cc; }
+  :is(#globe, #flock) .s { color: color-mix(in srgb, #2f6fd0 45%, transparent); }
+  :is(#globe, #flock) .l { color: #1f8a43; font-weight: 700; }
+  :root.dark :is(#globe, #flock) .s { color: color-mix(in srgb, #5b8def 60%, transparent); }
+  :root.dark :is(#globe, #flock) .l { color: #57d17a; }
+  :is(#globe, #flock) .l0 { color: #8be29c; font-weight: 700; } :is(#globe, #flock) .l1 { color: #3fb860; font-weight: 700; }
+  :is(#globe, #flock) .l2 { color: #1f8a43; font-weight: 700; } :is(#globe, #flock) .l3 { color: #134f2a; font-weight: 700; }
+  :is(#globe, #flock) .s0 { color: #9fd0ff; } :is(#globe, #flock) .s1 { color: #4f9df5; } :is(#globe, #flock) .s2 { color: #2f6fd0; } :is(#globe, #flock) .s3 { color: #1c3f7a; }
+  :is(#globe, #flock) .ic { color: #e9f3ff; font-weight: 700; text-shadow: 0 0 2px #7fb2ff; }
   :root.earth-on #globe { opacity: 1; transform: none; }
   /* 지구가 되기 전: 코드 글자가 하나하나 떨어져 나와 지구 원 모양 자리로 모인다 */
   :root.earth #code { opacity: 0; }
   #flock { position: fixed; inset: 0; z-index: 1; pointer-events: none; transition: opacity 0.4s;
     font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; color: var(--code); }
-  #flock span { position: absolute; }
+  #flock span { position: absolute; transition: color 1.4s, font-weight 1.4s; }   /* 날아가는 동안 도착할 칸의 지구 색으로 물든다 */
+  #flock .w { color: #b0b4ba; }
+  :root.dark #flock .w { color: #5f6368; }
   :root.earth #screen { opacity: 0.2; }
   .unpop { animation: unpop 0.6s cubic-bezier(.2,.8,.3,1) both; }
   @keyframes unpop { from { transform: scale(0.6); filter: blur(6px); opacity: 0; } }
@@ -502,7 +504,6 @@
     const stream = orig.map(l => l.replace(/[^\x20-\x7e]/g, '').trim()).filter(Boolean).join(' ').replace(/\s+/g, ' ');
     const big = stream.repeat(Math.ceil(W * H / stream.length) + 1);
     const tex = Array.from({ length: H }, (_, i) => big.slice(i * W, i * W + W));
-    gather(cw, ch, cx, cy, R);
     const tilt = 23.4 * Math.PI / 180;
     const q = quality, gap = FPS_GAP[q];
     const t0 = performance.now();
@@ -514,6 +515,15 @@
       const k = lit > 0.75 ? 0 : lit > 0.45 ? 1 : lit > 0.1 ? 2 : 3;
       if (L && Math.abs(lat) > 66) return 'ic';
       return (L ? 'l' : 's') + k;
+    }
+    function at(nx, ny, spin) {        // 화면 칸 → 지구 위 위도·경도
+      const nz = Math.sqrt(1 - nx * nx - ny * ny);
+      const y2 = -ny * Math.cos(tilt) + nz * Math.sin(tilt);   // 지축 기울기
+      const z2 = nz * Math.cos(tilt) + ny * Math.sin(tilt);
+      const lat = Math.asin(y2) * 180 / Math.PI;
+      let lon = (Math.atan2(nx, z2) + spin) * 180 / Math.PI;
+      lon = ((lon + 180) % 360 + 360) % 360 - 180;
+      return { nz, lat, lon, L: isLand(lat, lon) };
     }
     function draw(now) {
       earthFrame = requestAnimationFrame(draw);
@@ -528,13 +538,7 @@
           const d = nx * nx + ny * ny;
           let k = '', g = ' ';
           if (d <= 1) {
-            const nz = Math.sqrt(1 - d);
-            const y2 = -ny * Math.cos(tilt) + nz * Math.sin(tilt);   // 지축 기울기
-            const z2 = nz * Math.cos(tilt) + ny * Math.sin(tilt);
-            const lat = Math.asin(y2) * 180 / Math.PI;
-            let lon = (Math.atan2(nx, z2) + spin) * 180 / Math.PI;
-            lon = ((lon + 180) % 360 + 360) % 360 - 180;
-            const L = isLand(lat, lon);
+            const { nz, lat, lon, L } = at(nx, ny, spin);
             k = cls(L, lat, nx, ny, nz);
             const ti = Math.min(H - 1, Math.floor((90 - lat) / 180 * H)), tj = Math.floor((lon + 180) / 360 * W) % W;
             g = tex[ti][tj].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');   // 바다·육지 모두 코드 글자 (육지는 색으로 구분)
@@ -546,16 +550,23 @@
       }
       globeEl.innerHTML = html;
     }
+    const HAND = 1800;                  // 모이기 끝 → 지구로 바뀌는 때(ms)
+    gather(cw, ch, cx, cy, R, (px, py) => {   // 그 칸이 지구로 바뀌는 순간의 색 이름
+      const nx = (px - cx) / R, ny = (py - cy) / R;
+      if (nx * nx + ny * ny > 1) return 'w';
+      const a = at(nx, ny, HAND / 1000 * 0.6);
+      return cls(a.L, a.lat, nx, ny, a.nz) || 'w';
+    });
     earthFrame = requestAnimationFrame(draw);
     document.documentElement.classList.add('earth');
-    setTimeout(() => {                  // 다 빨려 들어가면 지구가 나타난다
+    setTimeout(() => {                  // 다 모이면 지구가 나타난다
       document.documentElement.classList.add('earth-on');
       if (flock) { flock.style.opacity = 0; const f = flock; setTimeout(() => f.remove(), 400); flock = null; }
-    }, 900);
+    }, HAND);
     earthTimer = setTimeout(endEarth, 6000);    // 6초 뒤 코드로 돌아간다
   }
   // 모이기: 화면의 코드 글자를 하나씩 떼어, 화면 전체를 원으로 눌러 담은 자리(지구 칸)로 날린다 — 배치 모양은 유지
-  function gather(cw, ch, cx, cy, R) {
+  function gather(cw, ch, cx, cy, R, colorAt) {
     if (flock) flock.remove();
     flock = document.createElement('div'); flock.id = 'flock';
     const offset = quality >= 2 ? cw * 5.5 : 0;     // 2단계부터는 줄 번호만큼 오른쪽
@@ -579,10 +590,12 @@
       const span = document.createElement('span');
       span.textContent = c; span.style.left = x + 'px'; span.style.top = y + 'px';
       flock.append(span);
+      const k = colorAt(tx + cw / 2, ty + ch / 2);
+      requestAnimationFrame(() => requestAnimationFrame(() => span.className = k));
       span.animate([
         { transform: 'translate(0, 0)' },
         { transform: `translate(${tx - x}px, ${ty - y}px)` },
-      ], { duration: 650, delay: Math.random() * 200, easing: 'cubic-bezier(.6,0,.25,1)', fill: 'forwards' });
+      ], { duration: 1300, delay: Math.random() * 400, easing: 'cubic-bezier(.6,0,.25,1)', fill: 'forwards' });
     });
     document.body.append(flock);
   }

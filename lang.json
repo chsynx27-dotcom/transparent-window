@@ -562,5 +562,25 @@
  "// 지구 원 안의 칸들 (위에서 아래, 왼쪽에서 오른쪽) — 글자를 읽는 순서대로 고르게 나눠 채운다": {
   "en": "// cells inside the earth's circle (top to bottom, left to right) — filled evenly in reading order",
   "hj": "// 地球圓內之格 (上而下，左而右) — 依讀序均分填滿"
+ },
+ "#flock span { position: absolute; transition: color 1.4s, font-weight 1.4s; }   /* 날아가는 동안 도착할 칸의 지구 색으로 물든다 */": {
+  "en": "#flock span { position: absolute; transition: color 1.4s, font-weight 1.4s; }   /* while flying, each takes on the earth color of the cell it lands in */",
+  "hj": "#flock span { position: absolute; transition: color 1.4s, font-weight 1.4s; }   /* 飛行中染上所落格之地球色 */"
+ },
+ "const HAND = 1800;                  // 모이기 끝 → 지구로 바뀌는 때(ms)": {
+  "en": "const HAND = 1800;                  // gathering ends → moment it turns into the earth (ms)",
+  "hj": "const HAND = 1800;                  // 聚畢 → 化為地球之時 (ms)"
+ },
+ "function at(nx, ny, spin) {        // 화면 칸 → 지구 위 위도·경도": {
+  "en": "function at(nx, ny, spin) {        // screen cell → latitude/longitude on the earth",
+  "hj": "function at(nx, ny, spin) {        // 屏格 → 地球經緯"
+ },
+ "gather(cw, ch, cx, cy, R, (px, py) => {   // 그 칸이 지구로 바뀌는 순간의 색 이름": {
+  "en": "gather(cw, ch, cx, cy, R, (px, py) => {   // color name of that cell the moment it becomes the earth",
+  "hj": "gather(cw, ch, cx, cy, R, (px, py) => {   // 該格化為地球時之色名"
+ },
+ "setTimeout(() => {                  // 다 모이면 지구가 나타난다": {
+  "en": "setTimeout(() => {                  // once all gathered, the earth appears",
+  "hj": "setTimeout(() => {                  // 聚齊則地球現"
  }
 }

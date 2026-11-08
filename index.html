@@ -684,7 +684,7 @@
     shaking = true; apply();
     power = MAX;
     if (quality === 2) {                // 2단계: 앞 창은 가운데서 터져 사방으로 퍼지고, 뒤 코드는 화산처럼 솟구친다
-      const comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0);
+      const comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5);   // 3단계보다 살짝 느리고 덜 격하게
       erupt();
       setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(comeBack, 900); }, 2000);   // 코드가 다시 나타난 뒤 창이 돌아온다
       return;
@@ -753,7 +753,7 @@
     }, 2000);
   }
   // 앞 창 날아가기 (3단계 펑): 창이 덜덜 떨고 → 조각들이 터진 자리 반대쪽으로 돌며 날아가고, 창 유리도 사라졌다가 → 제자리에 서서히 나타난다
-  function blowAway(bx, by, wait = 550) {   // wait: 떨리는 시간 (0이면 떨지 않고 바로 터진다)
+  function blowAway(bx, by, wait = 550, calm = 0) {   // wait: 떨리는 시간 (0이면 떨지 않고 바로 터짐) / calm: 0~1, 클수록 느리고 덜 격하게
     let flights = [];
     if (wait) screenEl.classList.add('jolt');
     setTimeout(() => {
@@ -762,14 +762,14 @@
       flights = [...pieces()].map(el => {
         const r = el.getBoundingClientRect();
         const dx = r.left + r.width / 2 - bx, dy = r.top + r.height / 2 - by, d = Math.hypot(dx, dy) || 1;
-        const far = 700 + Math.random() * 500;
+        const far = (700 + Math.random() * 500) * (1 - calm * 0.4);
         const tx = dx / d * far + (Math.random() - 0.5) * 300, ty = dy / d * far + (Math.random() - 0.5) * 300 - 120;
         return el.animate([{ transform: 'none', opacity: 1 },
-          { transform: `translate(${tx}px, ${ty}px) rotate(${(Math.random() - 0.5) * 720}deg) scale(0.7)`, opacity: 0 }],
-          { duration: 750, delay: Math.random() * 80, easing: 'cubic-bezier(.15,.7,.3,1)', fill: 'forwards' });
+          { transform: `translate(${tx}px, ${ty}px) rotate(${(Math.random() - 0.5) * 720 * (1 - calm * 0.6)}deg) scale(0.7)`, opacity: 0 }],
+          { duration: 750 * (1 + calm * 0.6), delay: Math.random() * 80, easing: 'cubic-bezier(.15,.7,.3,1)', fill: 'forwards' });
       });
       flights.push(screenEl.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(1.08)' }],
-        { duration: 500, easing: 'ease-out', fill: 'forwards' }));
+        { duration: 500 * (1 + calm * 0.6), easing: 'ease-out', fill: 'forwards' }));
     }, wait);
     return () => {                      // 조각을 다시 모으지 않고, 보이지 않는 사이 제자리에 두었다가 서서히 나타난다
       const back = screenEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1000, easing: 'ease-in-out' });

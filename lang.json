@@ -1,15 +1,19 @@
 {
- "/* 2단계: 포인트 색·그림자·움직임 */": {
-  "en": "/* Step 2: accent color, shadows, motion */",
-  "hj": "/* 第二階：點色、陰影、動態 */"
+ "/* 2단계 '디자인': 편집기처럼 색 구분된 코드·줄 번호, 떠 있는 조절 막대, 포인트 색 하나 */": {
+  "en": "/* Step 2 'Designed': editor-style colored code with line numbers, a floating control bar, one accent color */",
+  "hj": "/* 第二階「設計」：如編輯器之分色碼與行號、浮動之調節條、單一點色 */"
  },
- "/* 3단계: 유리창 — 반투명 유리 버튼, 흐르는 배경빛, 렌즈 테두리 */": {
-  "en": "/* Step 3: glass window — frosted buttons, drifting background light, lens ring */",
-  "hj": "/* 第三階：琉璃窓——半透琉璃之鈕、流動背光、透鏡之環 */"
+ "/* 3단계 '완성': 앞 화면이 진짜 창(제목 표시줄이 있는 유리 패널), 렌즈 테두리 */": {
+  "en": "/* Step 3 'Polished': the front becomes a real window (glass panel with a title bar), lens ring */",
+  "hj": "/* 第三階「完成」：前屏成真窓（有標題欄之琉璃板）、透鏡之環 */"
  },
  "/* 단계가 바뀔 때 코드 진하기가 점점 바뀌도록 */": {
   "en": "/* When the step changes, fade the code darkness gradually */",
   "hj": "/* 階變之時，碼之濃淡漸移 */"
+ },
+ "/* 단계가 오를 때 요소들이 차례로 떠오른다 */": {
+  "en": "/* when the step goes up, elements rise one after another */",
+  "hj": "/* 階升之時，諸物依次浮起 */"
  },
  "/* 블랙 모드: 색만 바꾼다 */": {
   "en": "/* Dark mode: only the colors change */",
@@ -19,6 +23,10 @@
   "en": "/* Smooth dark/light switch: the whole screen crossfades over 0.6s */",
   "hj": "/* 黑白轉換務求柔順：全屏歷零點六秒而漸變 */"
  },
+ "/* 유리 짙기 = 아래 투명/불투명 단계와 연동 (--glass: 0 투명 … 1 불투명) */": {
+  "en": "/* Glass density follows the clear/opaque steps below (--glass: 0 clear … 1 opaque) */",
+  "hj": "/* 琉璃之濃淡隨下方透明／不透明之階（--glass：零透明 … 一不透明） */"
+ },
  "/* 이스터에그: 코드 속 작은 '버튼' 글자만 누를 수 있다 */": {
   "en": "/* Easter egg: only the tiny 'button' word in the code is clickable */",
   "hj": "/* 彩蛋：碼中唯小字「按鈕」可按 */"
@@ -27,9 +35,9 @@
   "en": "/* Intro: when typing ends, the full-screen code shrinks into the lens */",
   "hj": "/* 開場：打字既畢，滿屏之碼縮為透鏡 */"
  },
- "/* 퀄리티 업 1단계: 글꼴·여백·둥근 모서리로 정돈 */": {
-  "en": "/* Quality up step 1: tidy up with fonts, spacing, rounded corners */",
-  "hj": "/* 品質提升第一階：以字體、留白、圓角整之 */"
+ "/* 퀄리티 업 1단계 '정돈': 글꼴 체계·여백·같은 크기의 버튼 */": {
+  "en": "/* Quality up step 1 'Tidy': type scale, spacing, same-size buttons */",
+  "hj": "/* 品質提升第一階「整頓」：字體之制、留白、等大之鈕 */"
  },
  "/* 투시 렌즈: 마우스 둘레는 코드가 또렷, 나머지는 단계 버튼 값만큼 */": {
   "en": "/* X-ray lens: code is sharp around the mouse, elsewhere it follows the step buttons */",
@@ -63,6 +71,10 @@
   "en": "// English / Hanja: change the front text and the code behind; press the same button again for Korean",
   "hj": "// 英文／漢字：易前屏之字，後碼亦隨之。再按同鈕則復韓文"
  },
+ "// 오를 때는 화면 요소들이 차례로 떠오른다": {
+  "en": "// going up, the screen elements rise one after another",
+  "hj": "// 升階之時，屏上諸物依次浮起"
+ },
  "// 이스터에그: 코드 속 '버튼'을 누르면 글상자에 살짝 적힌다": {
   "en": "// Easter egg: clicking 'button' in the code quietly fills the text box",
   "hj": "// 彩蛋：按碼中「按鈕」，則書於文字框"
@@ -82,6 +94,10 @@
  "// 코드 뒤섞기: 누를 때마다 코드가 더 많이 깨지고, 손을 떼면 한 줄씩 원래대로 돌아온다": {
   "en": "// Scramble: each press breaks more code; let go and it returns line by line",
   "hj": "// 攪亂：每按碼愈亂，釋手則逐行復原"
+ },
+ "// 코드 색 구분: 주석·문자열·태그·예약어·숫자를 조각내 표시 (색은 2단계부터 보인다)": {
+  "en": "// Code coloring: split comments, strings, tags, keywords, numbers (colors show from step 2)",
+  "hj": "// 碼之分色：析註、字串、標籤、保留字、數（色自第二階始見）"
  },
  "// 코드 줄 번역표: lang.json { \"한글 줄\": { en, hj } } — 없는 줄은 한글 그대로": {
   "en": "// code line table: lang.json { \"Korean line\": { en, hj } } — missing lines stay Korean",
@@ -135,9 +151,9 @@
   "en": "<button type=\"button\" id=\"down\">◀ Opaque</button>",
   "hj": "<button type=\"button\" id=\"down\">◀ 不透明</button>"
  },
- "<button type=\"button\" id=\"quality\">퀄리티 업 0/3</button>": {
-  "en": "<button type=\"button\" id=\"quality\">Quality up 0/3</button>",
-  "hj": "<button type=\"button\" id=\"quality\">品質提升 0/3</button>"
+ "<button type=\"button\" id=\"quality\">퀄리티 업 · 기본 0/3</button>": {
+  "en": "<button type=\"button\" id=\"quality\">Quality up · Basic 0/3</button>",
+  "hj": "<button type=\"button\" id=\"quality\">品質提升 · 基本 0/3</button>"
  },
  "<button type=\"button\" id=\"retype\">타자 다시 보기</button>": {
   "en": "<button type=\"button\" id=\"retype\">Replay typing</button>",
@@ -207,6 +223,10 @@
   "en": "const SPEED = 30;                     // characters typed per frame (about 1/60 s)",
   "hj": "const SPEED = 30;                     // 每幀（約六十分之一秒）所擊字數"
  },
+ "const STAGE = { ko: ['기본', '정돈', '디자인', '완성'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整頓', '設計', '完成'] };": {
+  "en": "const STAGE = { ko: ['Basic', 'Tidy', 'Designed', 'Polished'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整頓', '設計', '完成'] };",
+  "hj": "const STAGE = { ko: ['基本', '整頓', '設計', '完成'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整頓', '設計', '完成'] };"
+ },
  "const firstLine = new WeakMap();      // 처음(한글) 모양의 첫 줄을 기억": {
   "en": "const firstLine = new WeakMap();      // remember each element's original (Korean) first line",
   "hj": "const firstLine = new WeakMap();      // 記其初（韓文）之首行"
@@ -254,6 +274,10 @@
  "if (e.target.id === 'shake') return;  // 뒤섞기는 짝 찾기 대신 뒤섞기만": {
   "en": "if (e.target.id === 'shake') return;  // the scramble button only scrambles, no matching",
   "hj": "if (e.target.id === 'shake') return;  // 攪亂之鈕唯攪亂，不尋對"
+ },
+ "if (next === 0) {                   // 처음으로 돌아갈 때는 부드럽게 겹쳐 바꾼다": {
+  "en": "if (next === 0) {                   // going back to the start, crossfade smoothly",
+  "hj": "if (next === 0) {                   // 復初之時，柔和交疊而易"
  },
  "if (pos >= text.length) {       // 이 줄 끝 → 다음 줄": {
   "en": "if (pos >= text.length) {       // end of this line → next line",

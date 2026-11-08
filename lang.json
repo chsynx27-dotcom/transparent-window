@@ -43,6 +43,10 @@
   "en": "/* X-ray lens: code is sharp around the mouse, elsewhere it follows the step buttons */",
   "hj": "/* 透視鏡：鼠周碼明，餘從階鈕之值 */"
  },
+ "/* 펑: 부풀며 번지다 사라짐 / 되돌아올 때: 작게 모였다 나타남 */": {
+  "en": "/* pop: swell, blur and vanish / coming back: gather small and appear */",
+  "hj": "/* 爆：脹而暈散 / 歸來：聚小而現 */"
+ },
  "/* 화면이 깨지는 순간: 전체가 한 번 크게 흔들린다 */": {
   "en": "/* the moment the screen breaks: the whole thing shakes hard once */",
   "hj": "/* 屏碎之時：全體大震一次 */"
@@ -135,13 +139,13 @@
   "en": "// X-ray lens: the code behind shows through only where the mouse (finger) is",
   "hj": "// 透視鏡：唯鼠（指）所在，後碼透見"
  },
+ "// 화면 글자 깨뜨리기: 절반을 넘기면 앞 화면 글자가 기호로 바뀌며 색이 갈라지다가, 최대치에서 펑 터진다": {
+  "en": "// Breaking the screen text: past halfway the front text turns into symbols and its colors split, and at the max it pops",
+  "hj": "// 碎屏上之字：過半則前字化為符號、色裂，至極則爆"
+ },
  "// 화면 글자는 항상 진하게(앞). 좌우 버튼으로 뒤에 깔린 코드의 진하기를 5단계로 바꾼다.": {
   "en": "// Screen text always stays dark (in front). Left/right buttons set the code behind in 5 steps.",
   "hj": "// 屏上之字恆濃（居前）。左右二鈕分五階調其後之碼。"
- },
- "// 화면 일그러뜨리기: 절반을 넘기면 앞 화면이 떨리고 색이 갈라지다가, 최대치에서 산산조각 난다": {
-  "en": "// Screen distortion: past halfway the front trembles and its colors split, and at the max it shatters",
-  "hj": "// 屏之扭曲：過半則前屏顫動、色裂，至極則粉碎"
  },
  "// 화면(main) 부분의 줄에서만 찾는다 — 스크립트 속 같은 글자는 제외": {
   "en": "// search only in the screen (main) lines — skip the same text inside the script",
@@ -255,6 +259,10 @@
   "en": "const ring = document.createElement('div');   // lens ring shown at step 3",
   "hj": "const ring = document.createElement('div');   // 第三階所見之透鏡環"
  },
+ "const saved = new Map();              // 깨지기 전 글자 (되돌릴 때 쓴다)": {
+  "en": "const saved = new Map();              // text before breaking (used to restore)",
+  "hj": "const saved = new Map();              // 未碎之字（復原用）"
+ },
  "const shown = typing ? 4 : level;  // 타자 중에는 끝까지 투명(코드 다 보임)으로 표시": {
   "en": "const shown = typing ? 4 : level;  // while typing, show fully clear (all code visible)",
   "hj": "const shown = typing ? 4 : level;  // 打字之中示為全透（碼皆可見）"
@@ -283,9 +291,9 @@
   "en": "function finishTyping() {             // finish at once when done, or when another feature is pressed",
   "hj": "function finishTyping() {             // 擊畢或中途按他鈕，即刻終之"
  },
- "function mend() {                     // 깨진 화면을 제자리로 되돌린다": {
-  "en": "function mend() {                     // put the broken screen back in place",
-  "hj": "function mend() {                     // 復碎屏於原位"
+ "function mend() {                     // 터진 글자를 원래대로 되돌린다": {
+  "en": "function mend() {                     // bring the popped text back",
+  "hj": "function mend() {                     // 復爆字於原貌"
  },
  "if (e.target.id === 'shake') return;  // 뒤섞기는 짝 찾기 대신 뒤섞기만": {
   "en": "if (e.target.id === 'shake') return;  // the scramble button only scrambles, no matching",
@@ -338,10 +346,6 @@
  "setDark(document.documentElement.classList.contains('dark'));   // 블랙 모드 버튼 이름도 바꾼다": {
   "en": "setDark(document.documentElement.classList.contains('dark'));   // also rename the dark mode button",
   "hj": "setDark(document.documentElement.classList.contains('dark'));   // 黑色模式之鈕名亦易"
- },
- "setTimeout(() => document.documentElement.classList.remove('broken'), 750);   // 조각이 다 돌아온 뒤 스크롤 허용": {
-  "en": "setTimeout(() => document.documentElement.classList.remove('broken'), 750);   // allow scrolling once all pieces are back",
-  "hj": "setTimeout(() => document.documentElement.classList.remove('broken'), 750);   // 碎片皆歸，方許捲動"
  },
  "{ sel: '#bar > span:first-child', ko: '창', en: 'Window', hj: '窓' },": {
   "en": "{ sel: '#bar > span:first-child', ko: 'Window', en: 'Window', hj: '窓' },",

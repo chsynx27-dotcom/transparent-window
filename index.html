@@ -105,6 +105,12 @@
   /* 화면이 깨지는 순간: 전체가 한 번 크게 흔들린다 */
   :root.broken { overflow: hidden; }
   :root.broken #screen { animation: quake 0.4s; }
+  /* 펑: 부풀며 번지다 사라짐 / 되돌아올 때: 작게 모였다 나타남 */
+  .pop { animation: pop 0.45s ease-out both; }
+  @keyframes pop { 40% { transform: scale(1.25); filter: blur(1px); opacity: 1; }
+    100% { transform: scale(1.8); filter: blur(10px); opacity: 0; } }
+  .unpop { animation: unpop 0.6s cubic-bezier(.2,.8,.3,1) both; }
+  @keyframes unpop { from { transform: scale(0.6); filter: blur(6px); opacity: 0; } }
   @keyframes quake { 20% { transform: translate(-12px, 6px); } 40% { transform: translate(10px, -8px); }
     60% { transform: translate(-6px, -4px); } 80% { transform: translate(4px, 6px); } }
   #corner { position: fixed; top: 16px; right: 24px; z-index: 2; display: flex; gap: 6px; }
@@ -361,29 +367,40 @@
     restoreTimer = setTimeout(restore, 700);
   });
 
-  // 화면 일그러뜨리기: 절반을 넘기면 앞 화면이 떨리고 색이 갈라지다가, 최대치에서 산산조각 난다
+  // 화면 글자 깨뜨리기: 절반을 넘기면 앞 화면 글자가 기호로 바뀌며 색이 갈라지다가, 최대치에서 펑 터진다
   const pieces = () => screenEl.querySelectorAll('h1, p, #tools button:not(#shake), #memo, li');
-  const rnd = () => Math.random() * 2 - 1;
+  const saved = new Map();              // 깨지기 전 글자 (되돌릴 때 쓴다)
+  const textOf = el => el.id === 'memo' ? el.placeholder : el.textContent;
+  const setText = (el, t) => { if (el.id === 'memo') el.placeholder = t; else el.textContent = t; };
   function distort() {
     const g = Math.max(0, (power - MAX / 2) / (MAX / 2));   // 0 … 1
     if (!g) return;
-    const broke = power >= MAX;
+    const burst = power >= MAX;
     pieces().forEach(el => {
-      el.style.transition = broke ? 'transform 0.5s cubic-bezier(.2,.8,.3,1), opacity 0.5s' : 'transform 0.08s';
-      el.style.transform = broke
-        ? `translate(${rnd() * 45}vw, ${rnd() * 40}vh) rotate(${rnd() * 120}deg) scale(${0.6 + Math.random() * 0.6})`
-        : `translate(${rnd() * 24 * g}px, ${rnd() * 10 * g}px) skewX(${rnd() * 18 * g}deg) rotate(${rnd() * 5 * g}deg)`;
-      el.style.textShadow = `${4 * g}px 0 rgba(255,0,70,.75), ${-4 * g}px 0 rgba(0,220,255,.75)`;
-      el.style.opacity = broke ? 0.85 : '';
+      if (!saved.has(el)) saved.set(el, textOf(el));
+      const t = saved.get(el);
+      setText(el, t.replace(/\S/g, c => Math.random() < g * 0.85 ? GLYPHS[Math.floor(Math.random() * GLYPHS.length)] : c));
+      el.style.textShadow = `${3 * g}px 0 rgba(255,0,70,.75), ${-3 * g}px 0 rgba(0,220,255,.75)`;
+      if (burst && !el.classList.contains('pop')) {
+        el.style.animationDelay = (Math.random() * 0.15) + 's';
+        el.classList.add('pop');
+      }
     });
-    if (broke) document.documentElement.classList.add('broken');
+    if (burst) document.documentElement.classList.add('broken');
   }
-  function mend() {                     // 깨진 화면을 제자리로 되돌린다
+  function mend() {                     // 터진 글자를 원래대로 되돌린다
     pieces().forEach(el => {
-      el.style.transition = 'transform 0.7s cubic-bezier(.2,.8,.3,1), opacity 0.7s, text-shadow 0.7s';
-      el.style.transform = ''; el.style.textShadow = ''; el.style.opacity = '';
+      if (saved.has(el)) setText(el, saved.get(el));
+      el.style.textShadow = '';
+      if (el.classList.contains('pop')) {
+        el.classList.remove('pop'); void el.offsetWidth;
+        el.style.animationDelay = (Math.random() * 0.2) + 's';
+        el.classList.add('unpop');
+        setTimeout(() => el.classList.remove('unpop'), 900);
+      }
     });
-    setTimeout(() => document.documentElement.classList.remove('broken'), 750);   // 조각이 다 돌아온 뒤 스크롤 허용
+    saved.clear();
+    setTimeout(() => document.documentElement.classList.remove('broken'), 750);
   }
   function restore() {
     const todo = [...broken];

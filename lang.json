@@ -1094,5 +1094,29 @@
  "if (/(이스터에그|이스트에그|easter ?egg|彩蛋)$/.test(v)) foundEgg('button');   // '이스터에그'라고 적어도 코드 속 '버튼'을 찾은 것으로 친다": {
   "en": "if (/(이스터에그|이스트에그|easter ?egg|彩蛋)$/.test(v)) foundEgg('button');   // typing 'Easter egg' also counts as finding the 'button' in the code",
   "hj": "if (/(이스터에그|이스트에그|easter ?egg|彩蛋)$/.test(v)) foundEgg('button');   // 输入「彩蛋」也算找到了代码里的「按钮」"
+ },
+ "// PC: 전조 — 화면이 우주처럼 어두워지고 별이 반짝이며, 창이 낮게 우르릉 떤다": {
+  "en": "// PC: the omen — the screen darkens like space, stars twinkle, and the window rumbles low",
+  "hj": "// 电脑：前兆 — 画面像太空一样暗下来，星星闪烁，窗口低沉地隆隆震动"
+ },
+ "// 달걀을 다 깨면 화면 가운데에 잠깐 뜨는 말": {
+  "en": "// the message that briefly appears in the middle once every egg is cracked",
+  "hj": "// 蛋全部碎掉后，在画面中央短暂出现的一句话"
+ },
+ "const ALL_FOUND = { ko: '이제 이 창에 숨은 건 없어요. 다 꿰뚫어 봤네요 👀', en: 'Nothing left hidden in this window. You saw right through it. 👀', hj: '这扇窗已没有秘密，你全看穿了。👀' };": {
+  "en": "const ALL_FOUND = { ko: 'Nothing left hidden in this window. You saw right through it. 👀', en: 'Nothing left hidden in this window. You saw right through it. 👀', hj: '这扇窗已没有秘密，你全看穿了。👀' };",
+  "hj": "const ALL_FOUND = { ko: '这扇窗已没有秘密，你全看穿了。👀', en: 'Nothing left hidden in this window. You saw right through it. 👀', hj: '这扇窗已没有秘密，你全看穿了。👀' };"
+ },
+ "const pcColor = (w, m, p, k) => {   // PC: 다가오는 쪽(오른쪽)은 더 밝고 하얗게, 멀어지는 쪽(왼쪽)은 어둡고 붉게": {
+  "en": "const pcColor = (w, m, p, k) => {   // PC: the approaching side (right) brighter and whiter, the receding side (left) darker and redder",
+  "hj": "const pcColor = (w, m, p, k) => {   // 电脑：靠近的一侧（右）更亮更白，远离的一侧（左）更暗更红"
+ },
+ "/* PC 블랙홀: 우주 어둠 + 중력 렌즈 빛테 (원반 뒤쪽이 휘어 보여 구멍 위·아래를 감싸는 빛 고리) + 큰 빛무리 */": {
+  "en": "/* PC black hole: space darkness + a gravitational-lens ring (the far side of the disc bends into a ring of light over and under the hole) + a big halo */",
+  "hj": "/* 电脑黑洞：太空黑暗 + 引力透镜光环（盘的后半部被弯折，成为绕过洞上下的光环）+ 大光晕 */"
+ },
+ "else words.push(...Array.from({ length: 2 }, () => words.map(w => ({ ...w }))).flat());   // PC: 커진 원반을 단어 3배로 빽빽하게": {
+  "en": "else words.push(...Array.from({ length: 2 }, () => words.map(w => ({ ...w }))).flat());   // PC: fill the enlarged disc densely with 3x the words",
+  "hj": "else words.push(...Array.from({ length: 2 }, () => words.map(w => ({ ...w }))).flat());   // 电脑：用 3 倍的词把变大的盘填密"
  }
 }

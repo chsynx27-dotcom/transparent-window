@@ -199,6 +199,13 @@
   #hole { position: fixed; z-index: 5; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%) scale(0);
     background: radial-gradient(circle, #000 0 60%, #fff6e4 63%, rgba(255,196,130,.55) 67%, transparent 74%);
     box-shadow: 0 0 80px 30px rgba(255,170,90,.22); }
+  /* PC 블랙홀: 우주 어둠 + 중력 렌즈 빛테 (원반 뒤쪽이 휘어 보여 구멍 위·아래를 감싸는 빛 고리) + 큰 빛무리 */
+  #void { position: absolute; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 0; background: radial-gradient(circle, #0b0b14, #000 70%); }
+  #hole.pc::before { content: ''; position: absolute; inset: -9%; border-radius: 50%;
+    border: 2px solid rgba(255,236,200,.95); border-top-width: 9px; border-bottom-width: 6px;
+    filter: blur(1.5px); box-shadow: 0 0 18px 4px rgba(255,200,140,.55), inset 0 0 14px 2px rgba(255,200,140,.45); }
+  #hole.pc::after { content: ''; position: absolute; inset: -160%; border-radius: 50%; z-index: -1;
+    background: radial-gradient(circle, transparent 0 22%, rgba(255,170,90,.22) 26%, rgba(255,120,60,.08) 45%, transparent 70%); }
   /* 지구: 코드 글자로 그린 도는 지구. 단계가 오를수록 색·명암·매끄러움이 더해진다 */
   #globe { position: fixed; inset: 0; margin: 0; z-index: 1; pointer-events: none; overflow: hidden;
     font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; white-space: pre; font-variant-ligatures: none;
@@ -235,6 +242,9 @@
   #memo { margin-top: 16px; font-size: 16px; padding: 6px; max-width: 100%; box-sizing: border-box; }   /* 폰에서 화면보다 넓어지지 않게 */
   .hit { background: #ffe14d; color: #111; transition: background 0.3s; }
   /* 이스터에그 달걀 6개 (오른쪽 아래): 하나 찾을 때마다 하나씩 깨진다. 단계가 오를수록 달걀도, 깨지는 모습도 좋아진다 */
+  #toast { position: fixed; left: 50%; top: 50%; z-index: 20; max-width: calc(100% - 32px); box-sizing: border-box; padding: 16px 24px;
+    border-radius: 14px; background: var(--fg); color: var(--bg); font-size: 17px; line-height: 1.5; text-align: center;
+    pointer-events: none; box-shadow: 0 12px 40px rgba(0,0,0,.3); }
   #eggs { position: fixed; right: 40px; bottom: 84px; z-index: 3; display: flex; align-items: flex-end; gap: 5px; pointer-events: none; }
   #eggs i { display: inline-block; }
   /* 0단계: 글자 달걀 [] — 깨지면 [ */
@@ -493,6 +503,15 @@
     if (!egg) return;
     egg.classList.add('cracking');
     setTimeout(() => { egg.classList.remove('cracking'); egg.classList.add('cracked'); }, CRACK_MS[quality]);
+    if (foundEggs.size === 6) setTimeout(() => toast(ALL_FOUND[lang]), CRACK_MS[quality] + 500);
+  }
+  // 달걀을 다 깨면 화면 가운데에 잠깐 뜨는 말
+  const ALL_FOUND = { ko: '이제 이 창에 숨은 건 없어요. 다 꿰뚫어 봤네요 👀', en: 'Nothing left hidden in this window. You saw right through it. 👀', hj: '这扇窗已没有秘密，你全看穿了。👀' };
+  function toast(text) {
+    const el = document.createElement('div'); el.id = 'toast'; el.textContent = text; document.body.append(el);
+    el.animate([{ opacity: 0, transform: 'translate(-50%, -40%)' }, { opacity: 1, transform: 'translate(-50%, -50%)', offset: 0.1 },
+      { opacity: 1, transform: 'translate(-50%, -50%)', offset: 0.85 }, { opacity: 0, transform: 'translate(-50%, -50%)' }],
+      { duration: 5000, easing: 'ease-out', fill: 'forwards' }).onfinish = () => el.remove();
   }
 
   // 이스터에그: 코드 속 '버튼'을 누르면 글상자에 살짝 적힌다
@@ -1186,9 +1205,9 @@
     // 빽빽한 빛 원반이 화면을 대각선으로 가로질러 구멍 앞을 지나며, 구멍 둘레를 빛 고리가 감싼다 (인터스텔라풍)
     const big = matchMedia('(pointer: coarse)').matches, cool = getComputedStyle(codeEl).color;
     const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));   // 마우스가 가장자리여도 원반이 화면 안에 다 보이게
-    const R = big ? Math.min(innerWidth, innerHeight) * 0.8 : Math.min(innerWidth, innerHeight) * 0.08;
-    const cx = big ? -innerWidth * 0.05 : clamp(lastX, R * 4.5, innerWidth - R * 4.5);
-    const cy = big ? -innerHeight * 0.02 : clamp(lastY, R * 2, innerHeight - R * 2.5);
+    const R = big ? Math.min(innerWidth, innerHeight) * 0.8 : Math.min(innerWidth * 0.088, innerHeight * 0.26);
+    const cx = big ? -innerWidth * 0.05 : clamp(lastX, Math.min(R * 4.2, innerWidth / 2), Math.max(innerWidth - R * 4.2, innerWidth / 2));
+    const cy = big ? -innerHeight * 0.02 : clamp(lastY, Math.min(R * 1.7, innerHeight / 2), Math.max(innerHeight - R * 1.7, innerHeight / 2));
     // 단어는 캔버스 두 장에 그린다: 구멍 뒤(뒤 캔버스) · 구멍 앞(앞 캔버스) — 원반 앞쪽 절반이 구멍 앞을 지나도록.
     // (단어 span 수백 개가 위치·색·앞뒤 순서를 매 프레임 바꾸면 크게 버벅인다)
     const words = visibleWords(), dpr = devicePixelRatio || 1;
@@ -1199,10 +1218,19 @@
       return c;
     };
     const back = sheet(1), front = sheet(6);
-    const hole = document.createElement('div'); hole.id = 'hole';
+    const hole = document.createElement('div'); hole.id = 'hole'; if (!big) hole.className = 'pc';
     Object.assign(hole.style, { left: cx + 'px', top: cy + 'px', width: R * 2.4 + 'px', height: R * 2.4 + 'px' });
     layer.append(back, hole, front);    // 뒤 캔버스 · 구멍(z 5) · 앞 캔버스 순서로 겹친다
     document.body.append(layer);
+    // PC: 전조 — 화면이 우주처럼 어두워지고 별이 반짝이며, 창이 낮게 우르릉 떤다
+    const stars = big ? [] : Array.from({ length: 260 }, () => ({ x: Math.random() * innerWidth, y: Math.random() * innerHeight,
+      s: 0.6 + Math.random() * 1.4, ph: Math.random() * 6.3, sp: 1 + Math.random() * 3 }));
+    if (!big) {
+      const dark = document.createElement('div'); dark.id = 'void'; layer.prepend(dark);
+      dark.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1600, easing: 'ease-in', fill: 'forwards' });
+      screenEl.animate(Array.from({ length: 16 }, (_, i) => ({ transform: i % 15 ? `translate(${(Math.random() - 0.5) * 5}px, ${(Math.random() - 0.5) * 4}px)` : 'none' })),
+        { duration: 1600, easing: 'linear' });
+    }
     codeEl.style.opacity = 0; codeEl.style.visibility = 'hidden';
     const done = () => {
       layer.remove(); codeEl.style.opacity = codeEl.style.visibility = '';
@@ -1221,6 +1249,7 @@
       else { c.shadowColor = 'rgba(255,170,90,.8)'; c.shadowBlur = 6 * dpr; } });   // PC: 단어마다 은은한 금빛 번짐
     words.forEach(w => { w.hw = bctx.measureText(w.t).width / 2; w.x += w.hw; w.y += 9.75; });   // 단어 가운데
     if (big) words.push(...Array.from({ length: 5 }, () => words.map(w => ({ ...w }))).flat());   // 폰: 원반이 커서 단어를 6배로 채운다
+    else words.push(...Array.from({ length: 2 }, () => words.map(w => ({ ...w }))).flat());   // PC: 커진 원반을 단어 3배로 빽빽하게
     const far = Math.max(...words.map(w => Math.hypot(w.x - cx, w.y - cy)), 1);
     words.forEach(w => {
       w.r0 = Math.hypot(w.x - cx, w.y - cy); w.a0 = Math.atan2(w.y - cy, w.x - cx);
@@ -1239,12 +1268,24 @@
       w.delay = w.r0 / far * 2000 + Math.random() * 250;   // 가까운 단어부터 줄줄이
       w.D = END - w.delay; w.spinIn = 2.5 + Math.random() * 6.3; w.w0 = 1.1 * R / w.ax;   // 안쪽일수록 빨리 돈다 (rad/s)
     });
+    const pcColor = (w, m, p, k) => {   // PC: 다가오는 쪽(오른쪽)은 더 밝고 하얗게, 멀어지는 쪽(왼쪽)은 어둡고 붉게
+      const b = w.ring || k < 1 ? 0 : Math.cos(p), hi = Math.max(0, b), lo = Math.max(0, -b), base = [cr, cg, cb];
+      const [r, g, bl] = base.map((v, i) => v + (w.to[i] - v) * m);
+      const g2 = g * (1 - 0.4 * lo), b2 = bl * (1 - 0.65 * lo);
+      return `rgba(${r + (255 - r) * hi * 0.75},${g2 + (255 - g2) * hi * 0.75},${b2 + (255 - b2) * hi * 0.75},${1 - 0.55 * lo})`;
+    };
     const TRAIL = [0];                  // 잔상 (지금은 한 겹 — 겹치면 글자가 복제돼 보여서)
     const t0 = performance.now();
     requestAnimationFrame(function frame(now) {
       if (!layer.isConnected) return;
       const T = now - t0;
       for (const c of [bctx, fctx]) { c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, back.width, back.height); }
+      if (stars.length) {
+        bctx.shadowBlur = 0; const fade = Math.min(1, T / 1600);
+        for (const st of stars) { bctx.fillStyle = `rgba(255,255,255,${fade * (0.25 + 0.6 * (0.5 + 0.5 * Math.sin(st.ph + T / 1000 * st.sp)))})`;
+          bctx.fillRect(st.x * dpr, st.y * dpr, st.s * dpr, st.s * dpr); }
+        bctx.shadowBlur = 6 * dpr;
+      }
       for (const w of words) {
         const t = Math.min(1, Math.max(0, (T - w.delay) / w.D)), s = 0.45;   // 앞 45%: 소용돌이치며 들어옴 / 뒤: 제자리 궤도를 돈다
         let phi, rx, ry, k;
@@ -1258,7 +1299,7 @@
           if (j && k < 1) return;        // 잔상은 궤도에 들어선 뒤에만
           const p = phi - lag * w.w0, ex = Math.cos(p) * rx, ey = Math.sin(p) * ry;
           const px = cx + ex * cosT - ey * sinT, py = cy + ex * sinT + ey * cosT;
-          c.fillStyle = big ? `rgba(${col},${[0.6, 0.25, 0.1][j]})` : `rgb(${col})`;
+          c.fillStyle = big ? `rgba(${col},${[0.6, 0.25, 0.1][j]})` : pcColor(w, m, p, k);
           c.setTransform(dpr * sc, 0, 0, dpr * sc, px * dpr, py * dpr);
           c.fillText(w.t, -w.hw, 0);
         });

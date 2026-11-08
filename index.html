@@ -102,6 +102,11 @@
   /* 단계가 오를 때 요소들이 차례로 떠오른다 */
   .rise { animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
   @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+  /* 화면이 깨지는 순간: 전체가 한 번 크게 흔들린다 */
+  :root.broken { overflow: hidden; }
+  :root.broken #screen { animation: quake 0.4s; }
+  @keyframes quake { 20% { transform: translate(-12px, 6px); } 40% { transform: translate(10px, -8px); }
+    60% { transform: translate(-6px, -4px); } 80% { transform: translate(4px, 6px); } }
   #corner { position: fixed; top: 16px; right: 24px; z-index: 2; display: flex; gap: 6px; }
   #dark { min-width: 7.5em; text-align: center; }
   #corner [aria-pressed="true"] { font-weight: bold; background: #ffe14d; color: #111; }
@@ -337,22 +342,49 @@
 
   // 코드 뒤섞기: 누를 때마다 코드가 더 많이 깨지고, 손을 떼면 한 줄씩 원래대로 돌아온다
   const GLYPHS = '█▓▒░<>/{}=;#*$%&@!?01';
+  const MAX = 20;                       // 이만큼 연타하면 최대치 → 화면이 깨진다
   let power = 0, restoreTimer = null, restoring = null;
   const broken = new Set();
   document.getElementById('shake').addEventListener('click', () => {
     finishTyping();
     clearTimeout(restoreTimer); clearInterval(restoring);
     shaking = true; apply();
-    power = Math.min(power + 1, 30);
-    const n = power * 4;                // 막 누를수록 더 많은 줄이 깨진다
+    power = Math.min(power + 1, MAX);
+    const n = power * 6;                // 막 누를수록 더 많은 줄이 깨진다
     for (let k = 0; k < n; k++) {
       const i = Math.floor(Math.random() * lines.length);
       lines[i].textContent = orig[i].replace(/\S/g, c =>
-        Math.random() < 0.3 + power / 50 ? GLYPHS[Math.floor(Math.random() * GLYPHS.length)] : c) + '\n';
+        Math.random() < 0.3 + power / 35 ? GLYPHS[Math.floor(Math.random() * GLYPHS.length)] : c) + '\n';
       broken.add(i);
     }
+    distort();
     restoreTimer = setTimeout(restore, 700);
   });
+
+  // 화면 일그러뜨리기: 절반을 넘기면 앞 화면이 떨리고 색이 갈라지다가, 최대치에서 산산조각 난다
+  const pieces = () => screenEl.querySelectorAll('h1, p, #tools button:not(#shake), #memo, li');
+  const rnd = () => Math.random() * 2 - 1;
+  function distort() {
+    const g = Math.max(0, (power - MAX / 2) / (MAX / 2));   // 0 … 1
+    if (!g) return;
+    const broke = power >= MAX;
+    pieces().forEach(el => {
+      el.style.transition = broke ? 'transform 0.5s cubic-bezier(.2,.8,.3,1), opacity 0.5s' : 'transform 0.08s';
+      el.style.transform = broke
+        ? `translate(${rnd() * 45}vw, ${rnd() * 40}vh) rotate(${rnd() * 120}deg) scale(${0.6 + Math.random() * 0.6})`
+        : `translate(${rnd() * 24 * g}px, ${rnd() * 10 * g}px) skewX(${rnd() * 18 * g}deg) rotate(${rnd() * 5 * g}deg)`;
+      el.style.textShadow = `${4 * g}px 0 rgba(255,0,70,.75), ${-4 * g}px 0 rgba(0,220,255,.75)`;
+      el.style.opacity = broke ? 0.85 : '';
+    });
+    if (broke) document.documentElement.classList.add('broken');
+  }
+  function mend() {                     // 깨진 화면을 제자리로 되돌린다
+    pieces().forEach(el => {
+      el.style.transition = 'transform 0.7s cubic-bezier(.2,.8,.3,1), opacity 0.7s, text-shadow 0.7s';
+      el.style.transform = ''; el.style.textShadow = ''; el.style.opacity = '';
+    });
+    setTimeout(() => document.documentElement.classList.remove('broken'), 750);   // 조각이 다 돌아온 뒤 스크롤 허용
+  }
   function restore() {
     const todo = [...broken];
     restoring = setInterval(() => {
@@ -361,7 +393,7 @@
         setLine(i);
         broken.delete(i);
       }
-      if (!todo.length) { clearInterval(restoring); power = 0; shaking = false; apply(); }
+      if (!todo.length) { clearInterval(restoring); power = 0; shaking = false; apply(); mend(); }
     }, 30);
   }
 

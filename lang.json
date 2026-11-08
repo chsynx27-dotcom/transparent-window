@@ -43,6 +43,10 @@
   "en": "/* X-ray lens: code is sharp around the mouse, elsewhere it follows the step buttons */",
   "hj": "/* 透視鏡：鼠周碼明，餘從階鈕之值 */"
  },
+ "/* 화면이 깨지는 순간: 전체가 한 번 크게 흔들린다 */": {
+  "en": "/* the moment the screen breaks: the whole thing shakes hard once */",
+  "hj": "/* 屏碎之時：全體大震一次 */"
+ },
  "// 꽉 찬 코드가 마우스 자리의 렌즈로 쪼그라들고, 앞 화면이 떠오른다": {
   "en": "// the full code shrinks into the lens at the mouse, and the front screen rises",
   "hj": "// 滿屏之碼縮為鼠處之鏡，前屏浮現"
@@ -135,6 +139,10 @@
   "en": "// Screen text always stays dark (in front). Left/right buttons set the code behind in 5 steps.",
   "hj": "// 屏上之字恆濃（居前）。左右二鈕分五階調其後之碼。"
  },
+ "// 화면 일그러뜨리기: 절반을 넘기면 앞 화면이 떨리고 색이 갈라지다가, 최대치에서 산산조각 난다": {
+  "en": "// Screen distortion: past halfway the front trembles and its colors split, and at the max it shatters",
+  "hj": "// 屏之扭曲：過半則前屏顫動、色裂，至極則粉碎"
+ },
  "// 화면(main) 부분의 줄에서만 찾는다 — 스크립트 속 같은 글자는 제외": {
   "en": "// search only in the screen (main) lines — skip the same text inside the script",
   "hj": "// 唯於屏（main）之行中尋之——腳本中同字不計"
@@ -215,6 +223,10 @@
   "en": "const EGG_TEXT = { ko: 'Easter egg', en: 'Easter egg', hj: '彩蛋' };   // the word written into the text box when clicked",
   "hj": "const EGG_TEXT = { ko: '彩蛋', en: 'Easter egg', hj: '彩蛋' };   // 按則書於文字框之語"
  },
+ "const MAX = 20;                       // 이만큼 연타하면 최대치 → 화면이 깨진다": {
+  "en": "const MAX = 20;                       // mash this many times to hit the max → the screen breaks",
+  "hj": "const MAX = 20;                       // 連擊至此為極 → 屏碎"
+ },
  "const QUALITY_LABEL = { ko: '퀄리티 업', en: 'Quality up', hj: '品質提升' };": {
   "en": "const QUALITY_LABEL = { ko: 'Quality up', en: 'Quality up', hj: '品質提升' };",
   "hj": "const QUALITY_LABEL = { ko: '品質提升', en: 'Quality up', hj: '品質提升' };"
@@ -235,9 +247,9 @@
   "en": "const found = el.id === 'memo' ? memoIdx : idx;   // the input line changes as text goes in, so it is remembered separately",
   "hj": "const found = el.id === 'memo' ? memoIdx : idx;   // 輸入框之行因字入而變形，故別記之"
  },
- "const n = power * 4;                // 막 누를수록 더 많은 줄이 깨진다": {
-  "en": "const n = power * 4;                // the more you mash, the more lines break",
-  "hj": "const n = power * 4;                // 愈連擊，壞行愈多"
+ "const n = power * 6;                // 막 누를수록 더 많은 줄이 깨진다": {
+  "en": "const n = power * 6;                // the more you mash, the more lines break",
+  "hj": "const n = power * 6;                // 愈連擊，壞行愈多"
  },
  "const ring = document.createElement('div');   // 3단계에서 보이는 렌즈 테두리": {
   "en": "const ring = document.createElement('div');   // lens ring shown at step 3",
@@ -270,6 +282,10 @@
  "function finishTyping() {             // 다 쳤거나, 중간에 다른 기능을 누르면 바로 끝낸다": {
   "en": "function finishTyping() {             // finish at once when done, or when another feature is pressed",
   "hj": "function finishTyping() {             // 擊畢或中途按他鈕，即刻終之"
+ },
+ "function mend() {                     // 깨진 화면을 제자리로 되돌린다": {
+  "en": "function mend() {                     // put the broken screen back in place",
+  "hj": "function mend() {                     // 復碎屏於原位"
  },
  "if (e.target.id === 'shake') return;  // 뒤섞기는 짝 찾기 대신 뒤섞기만": {
   "en": "if (e.target.id === 'shake') return;  // the scramble button only scrambles, no matching",
@@ -322,6 +338,10 @@
  "setDark(document.documentElement.classList.contains('dark'));   // 블랙 모드 버튼 이름도 바꾼다": {
   "en": "setDark(document.documentElement.classList.contains('dark'));   // also rename the dark mode button",
   "hj": "setDark(document.documentElement.classList.contains('dark'));   // 黑色模式之鈕名亦易"
+ },
+ "setTimeout(() => document.documentElement.classList.remove('broken'), 750);   // 조각이 다 돌아온 뒤 스크롤 허용": {
+  "en": "setTimeout(() => document.documentElement.classList.remove('broken'), 750);   // allow scrolling once all pieces are back",
+  "hj": "setTimeout(() => document.documentElement.classList.remove('broken'), 750);   // 碎片皆歸，方許捲動"
  },
  "{ sel: '#bar > span:first-child', ko: '창', en: 'Window', hj: '窓' },": {
   "en": "{ sel: '#bar > span:first-child', ko: 'Window', en: 'Window', hj: '窓' },",

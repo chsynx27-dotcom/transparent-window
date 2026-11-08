@@ -619,20 +619,24 @@
   "en": "#screen.jolt { animation: jolt 0.55s linear; }   /* step 3 boom: shudders before flying off */",
   "hj": "#screen.jolt { animation: jolt 0.55s linear; }   /* 三段爆：飛散前顫抖 */"
  },
- "blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2);   // 앞 창: 덜덜 떨다가 조각조각 날아간다": {
-  "en": "blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2);   // front window: shudders, then flies apart piece by piece",
-  "hj": "blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2);   // 前窗：顫抖後片片飛散"
- },
  "// 앞 창 날아가기 (3단계 펑): 창이 덜덜 떨고 → 조각들이 터진 자리 반대쪽으로 돌며 날아가고, 창 유리도 사라졌다가 → 제자리에 서서히 나타난다": {
   "en": "// Front window blows away (step 3 boom): the window shudders → pieces spin off away from the blast, the glass vanishes too → then it slowly reappears in place",
   "hj": "// 前窗飛散 (三段爆)：窗顫抖 → 碎片背爆點旋飛，玻璃亦消 → 原處徐徐重現"
  },
- "setTimeout(() => {                // 조각을 다시 모으지 않고, 보이지 않는 사이 제자리에 두었다가 서서히 나타난다": {
-  "en": "setTimeout(() => {                // don't reassemble the pieces; put them back while unseen, then fade in slowly",
-  "hj": "setTimeout(() => {                // 不再聚合碎片，趁不見時歸位，再徐徐浮現"
+ "const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2);   // 앞 창: 덜덜 떨다가 조각조각 날아간다": {
+  "en": "const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2);   // front window: shudders, then flies apart piece by piece",
+  "hj": "const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2);   // 前窗：顫抖後片片飛散"
  },
- "}, 2300);                         // 뒤 코드가 원래 색으로 다 돌아온 뒤(펑 시작 후 2.7초)에 시작": {
-  "en": "}, 2300);                         // starts after the back code is fully back to its colors (2.7s after the boom)",
-  "hj": "}, 2300);                         // 待後碼盡復本色 (爆後 2.7 秒) 方始"
+ "setTimeout(() => {                // 순서: 뒤 코드가 원래 색·진하기로 완전히 돌아온 뒤 → 앞 패널이 나타나기 시작": {
+  "en": "setTimeout(() => {                // order: the back code fully returns to its colors and strength → then the front panel starts to appear",
+  "hj": "setTimeout(() => {                // 次序：後碼盡復本色濃淡 → 前板方始浮現"
+ },
+ "setTimeout(comeBack, 700);      // 진하기 되돌림(0.4초)이 끝나고 잠깐 쉰 뒤": {
+  "en": "setTimeout(comeBack, 700);      // after the strength restore (0.4s) ends and a short pause",
+  "hj": "setTimeout(comeBack, 700);      // 濃淡復原 (0.4 秒) 畢，稍歇之後"
+ },
+ "return () => {                      // 조각을 다시 모으지 않고, 보이지 않는 사이 제자리에 두었다가 서서히 나타난다": {
+  "en": "return () => {                      // don't reassemble the pieces; put them back while unseen, then fade in slowly",
+  "hj": "return () => {                      // 不再聚合碎片，趁不見時歸位，再徐徐浮現"
  }
 }

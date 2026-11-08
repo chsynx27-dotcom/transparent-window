@@ -668,8 +668,11 @@
       codeEl.style.setProperty('--by', y > 0 ? y + 'px' : '50%');
       shaking = true; apply();
       codeEl.classList.add('burn');
-      blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2);   // 앞 창: 덜덜 떨다가 조각조각 날아간다
-      setTimeout(() => { codeEl.classList.remove('burn'); shaking = false; apply(); }, 2700);
+      const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2);   // 앞 창: 덜덜 떨다가 조각조각 날아간다
+      setTimeout(() => {                // 순서: 뒤 코드가 원래 색·진하기로 완전히 돌아온 뒤 → 앞 패널이 나타나기 시작
+        codeEl.classList.remove('burn'); shaking = false; apply();
+        setTimeout(comeBack, 700);      // 진하기 되돌림(0.4초)이 끝나고 잠깐 쉰 뒤
+      }, 2700);
       return;
     }
     clearTimeout(restoreTimer); clearInterval(restoring);
@@ -702,11 +705,12 @@
   }
   // 앞 창 날아가기 (3단계 펑): 창이 덜덜 떨고 → 조각들이 터진 자리 반대쪽으로 돌며 날아가고, 창 유리도 사라졌다가 → 제자리에 서서히 나타난다
   function blowAway(bx, by) {
+    let flights = [];
     screenEl.classList.add('jolt');
     setTimeout(() => {
       screenEl.classList.remove('jolt');
       document.documentElement.classList.add('flying');
-      const flights = [...pieces()].map(el => {
+      flights = [...pieces()].map(el => {
         const r = el.getBoundingClientRect();
         const dx = r.left + r.width / 2 - bx, dy = r.top + r.height / 2 - by, d = Math.hypot(dx, dy) || 1;
         const far = 700 + Math.random() * 500;
@@ -717,12 +721,12 @@
       });
       flights.push(screenEl.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(1.08)' }],
         { duration: 500, easing: 'ease-out', fill: 'forwards' }));
-      setTimeout(() => {                // 조각을 다시 모으지 않고, 보이지 않는 사이 제자리에 두었다가 서서히 나타난다
-        const back = screenEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1000, easing: 'ease-in-out' });
-        flights.forEach(a => a.cancel());
-        back.finished.then(() => document.documentElement.classList.remove('flying'));
-      }, 2300);                         // 뒤 코드가 원래 색으로 다 돌아온 뒤(펑 시작 후 2.7초)에 시작
     }, 550);
+    return () => {                      // 조각을 다시 모으지 않고, 보이지 않는 사이 제자리에 두었다가 서서히 나타난다
+      const back = screenEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1000, easing: 'ease-in-out' });
+      flights.forEach(a => a.cancel());
+      back.finished.then(() => document.documentElement.classList.remove('flying'));
+    };
   }
   function mend() {                     // 터진 글자를 원래대로 되돌린다
     pieces().forEach(el => {

@@ -647,22 +647,6 @@
   "en": "// back-code characters visible on screen and their spots (shared by the earth gather and the eruption)",
   "hj": "// 屏上可見之後碼字及其位 (地球聚合與火山噴發共用)"
  },
- "// 화산 분출 (2단계 펑): 코드 글자들이 아래 가운데 분화구로 빨려 들었다가, 용암빛으로 높이 솟구쳐": {
-  "en": "// Eruption (step 2 boom): code characters get sucked into a crater at the bottom center, then shoot up high like lava,",
-  "hj": "// 火山噴發 (二段爆)：碼字吸入下方中央火口，如熔岩高高噴起，"
- },
- "const kx = innerWidth / 2, ky = innerHeight - 70;   // 분화구": {
-  "en": "const kx = innerWidth / 2, ky = innerHeight - 70;   // the crater",
-  "hj": "const kx = innerWidth / 2, ky = innerHeight - 70;   // 火口"
- },
- "const spread = (Math.random() - 0.5) * 500;      // 옆으로 퍼지는 정도": {
-  "en": "const spread = (Math.random() - 0.5) * 500;      // how far it spreads sideways",
-  "hj": "const spread = (Math.random() - 0.5) * 500;      // 橫向散開幅度"
- },
- "for (let i = 1; i <= 8; i++) {                   // 분화구 → 하늘 → 제자리 (위로 볼록한 포물선)": {
-  "en": "for (let i = 1; i <= 8; i++) {                   // crater → sky → home (an upward arc)",
-  "hj": "for (let i = 1; i <= 8; i++) {                   // 火口 → 天 → 原位 (上凸拋物線)"
- },
  "if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // 2단계: 뒤 코드는 화산처럼 솟구친다": {
   "en": "if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // step 2: the back code erupts like a volcano",
   "hj": "if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // 二段：後碼如火山噴起"
@@ -671,12 +655,28 @@
   "en": "setTimeout(() => {                  // once all have landed, swap back to the real code",
   "hj": "setTimeout(() => {                  // 盡落則換回真碼"
  },
- "const src = visibleChars(cw, 700), cool = getComputedStyle(codeEl).color;   // 식은 뒤 색 = 코드 색": {
-  "en": "const src = visibleChars(cw, 700), cool = getComputedStyle(codeEl).color;   // cooled color = code color",
-  "hj": "const src = visibleChars(cw, 700), cool = getComputedStyle(codeEl).color;   // 冷卻後色 = 碼色"
+ "// 화산 분출 (2단계 펑): 코드 글자가 각자 제자리에서 용암빛으로 솟구쳤다가": {
+  "en": "// Eruption (step 2 boom): each code character shoots up lava-colored from its own spot,",
+  "hj": "// 火山噴發 (二段爆)：碼字各自原地如熔岩噴起，"
  },
- "const top = Math.max(30, Math.min(y, ky) - 80 - Math.random() * 250);   // 꼭대기 높이 (화면 안에서, 제자리보다 조금 위)": {
-  "en": "const top = Math.max(30, Math.min(y, ky) - 80 - Math.random() * 250);   // apex height (inside the screen, a bit above its home)",
-  "hj": "const top = Math.max(30, Math.min(y, ky) - 80 - Math.random() * 250);   // 頂點高度 (屏內，略高於原位)"
+ "const drift = (Math.random() - 0.5) * 60;          // 살짝 옆으로 흔들림": {
+  "en": "const drift = (Math.random() - 0.5) * 60;          // slight sideways wobble",
+  "hj": "const drift = (Math.random() - 0.5) * 60;          // 略向旁晃"
+ },
+ "for (let i = 0; i <= 8; i++) {                     // 제자리 → 위로 솟구침 → 제자리 (위로 볼록한 포물선)": {
+  "en": "for (let i = 0; i <= 8; i++) {                     // home → shoots up → home (an upward arc)",
+  "hj": "for (let i = 0; i <= 8; i++) {                     // 原位 → 噴起 → 原位 (上凸拋物線)"
+ },
+ "// 아래 가운데에서 가까운 글자부터 먼저 터져 나간다 (분출이 퍼져 나가는 느낌)": {
+  "en": "// characters nearer the bottom center burst first (the eruption spreads outward)",
+  "hj": "// 近下方中央之字先噴 (噴發向外擴散)"
+ },
+ "const up = Math.min(y - 10, 50 + Math.random() * 170);    // 제자리에서 솟는 높이 (화면 위로 안 나가게)": {
+  "en": "const up = Math.min(y - 10, 50 + Math.random() * 170);    // how high it rises from its spot (never off the top)",
+  "hj": "const up = Math.min(y - 10, 50 + Math.random() * 170);    // 原地噴起高度 (不出屏頂)"
+ },
+ "const src = visibleChars(cw, 3000), cool = getComputedStyle(codeEl).color;  // 식은 뒤 색 = 코드 색": {
+  "en": "const src = visibleChars(cw, 3000), cool = getComputedStyle(codeEl).color;  // cooled color = code color",
+  "hj": "const src = visibleChars(cw, 3000), cool = getComputedStyle(codeEl).color;  // 冷卻後色 = 碼色"
  }
 }

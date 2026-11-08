@@ -709,32 +709,31 @@
     });
     if (burst) document.documentElement.classList.add('broken');
   }
-  // 화산 분출 (2단계 펑): 코드 글자들이 아래 가운데 분화구로 빨려 들었다가, 용암빛으로 높이 솟구쳐
+  // 화산 분출 (2단계 펑): 코드 글자가 각자 제자리에서 용암빛으로 솟구쳤다가
   // 포물선을 그리며 식어 제자리로 떨어진다
   function erupt() {
     const probe = document.createElement('span');
     probe.textContent = 'M'.repeat(10); probe.style.font = getComputedStyle(codeEl).font;
     document.body.append(probe);
     const cw = probe.getBoundingClientRect().width / 10; probe.remove();
-    const src = visibleChars(cw, 700), cool = getComputedStyle(codeEl).color;   // 식은 뒤 색 = 코드 색
+    const src = visibleChars(cw, 3000), cool = getComputedStyle(codeEl).color;  // 식은 뒤 색 = 코드 색
     const lava = document.createElement('div'); lava.id = 'flock';
-    const kx = innerWidth / 2, ky = innerHeight - 70;   // 분화구
+    const far = Math.hypot(innerWidth / 2, innerHeight);
     src.forEach(({ c, x, y }) => {
       const span = document.createElement('span');
       span.textContent = c; span.style.left = x + 'px'; span.style.top = y + 'px';
       lava.append(span);
-      const top = Math.max(30, Math.min(y, ky) - 80 - Math.random() * 250);   // 꼭대기 높이 (화면 안에서, 제자리보다 조금 위)
-      const spread = (Math.random() - 0.5) * 500;      // 옆으로 퍼지는 정도
-      const frames = [{ transform: 'translate(0, 0)', color: cool, offset: 0 },
-        { transform: `translate(${kx - x}px, ${ky - y}px) scale(0.6)`, color: '#ff4d1a', offset: 0.22 }];
-      for (let i = 1; i <= 8; i++) {                   // 분화구 → 하늘 → 제자리 (위로 볼록한 포물선)
+      const up = Math.min(y - 10, 50 + Math.random() * 170);    // 제자리에서 솟는 높이 (화면 위로 안 나가게)
+      const drift = (Math.random() - 0.5) * 60;          // 살짝 옆으로 흔들림
+      const frames = [];
+      for (let i = 0; i <= 8; i++) {                     // 제자리 → 위로 솟구침 → 제자리 (위로 볼록한 포물선)
         const t = i / 8;
-        const px = kx + (x - kx) * t + spread * Math.sin(Math.PI * t);
-        const py = ky + (y - ky) * t - 4 * ((ky + y) / 2 - top) * t * (1 - t);
-        frames.push({ transform: `translate(${px - x}px, ${py - y}px) rotate(${(1 - t) * 360}deg) scale(${0.6 + 0.4 * t})`,
-          color: t < 0.5 ? '#ffb020' : cool, offset: 0.22 + 0.78 * t });
+        frames.push({ transform: `translate(${drift * Math.sin(Math.PI * t)}px, ${-4 * up * t * (1 - t)}px) rotate(${Math.sin(Math.PI * t) * (drift * 4)}deg)`,
+          color: i === 0 || i === 8 ? cool : t < 0.25 ? '#ff4d1a' : t < 0.6 ? '#ffb020' : cool, offset: t });
       }
-      span.animate(frames, { duration: 1700, delay: Math.random() * 450, easing: 'linear', fill: 'both' });
+      // 아래 가운데에서 가까운 글자부터 먼저 터져 나간다 (분출이 퍼져 나가는 느낌)
+      const wave = Math.hypot(x - innerWidth / 2, innerHeight - y) / far;
+      span.animate(frames, { duration: 1300, delay: wave * 500 + Math.random() * 150, easing: 'linear', fill: 'both' });
     });
     codeEl.style.opacity = 0;
     document.body.append(lava);

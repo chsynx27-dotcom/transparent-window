@@ -11,7 +11,7 @@
   #code {
     position: fixed; inset: 0 0 56px 0; margin: 0; padding: 24px;
     overflow: auto; font: 13px/1.5 monospace; white-space: pre-wrap;
-    pointer-events: none; opacity: 0.5;
+    pointer-events: none; font-weight: bold;
   }
   #bar {
     position: fixed; left: 0; right: 0; bottom: 0; height: 56px;
@@ -45,9 +45,9 @@
   const codeEl = document.getElementById('code');
   const mix = document.getElementById('mix');
 
+  // 코드(위 글자)는 항상 진하게. 슬라이더는 아래 화면만 흐리게 한다.
   function apply() {
-    const t = mix.value / 100;          // 0 = 화면만, 1 = 코드만
-    codeEl.style.opacity = t;
+    const t = mix.value / 100;          // 0 = 화면 선명, 1 = 화면 사라짐
     screenEl.style.opacity = 1 - t;
   }
   mix.addEventListener('input', apply);

@@ -340,13 +340,26 @@
   const dots = document.getElementById('dots');
 
   // 화면 글자는 항상 진하게(앞). 좌우 버튼으로 뒤에 깔린 코드의 진하기를 5단계로 바꾼다.
-  // 단계 칸 아이콘 (3단계에서만 보임): 비밀 단어 힌트 — 자석 · 물방울(비) · 터짐(펑) · 지구 · 소용돌이(블랙홀)
+  // 단계 칸 아이콘 (3단계에서만 보임): 비밀 단어 힌트 — 자석 · 구름비(비) · 터짐(펑) · 지구본(지구) · 빨려드는 소용돌이(블랙홀)
+  function swirl(arms, turns, r0, r1, w0, w1) {   // 바깥은 가늘고 안으로 갈수록 굵어지며 가운데로 감겨 드는 팔들
+    let d = '';
+    for (let a = 0; a < arms; a++) {
+      const L = [], R = [];
+      for (let i = 0; i <= 36; i++) {
+        const t = i / 36, th = (a / arms + t * turns) * 2 * Math.PI, r = r0 + (r1 - r0) * t, w = (w0 + (w1 - w0) * t) / 2;
+        const c = Math.cos(th), s = Math.sin(th), x = 12 + r * c, y = 12 + r * s;
+        L.push(`${(x + w * c).toFixed(1)} ${(y + w * s).toFixed(1)}`); R.unshift(`${(x - w * c).toFixed(1)} ${(y - w * s).toFixed(1)}`);
+      }
+      d += `M${L.join('L')}L${R.join('L')}z`;
+    }
+    return d;
+  }
   const HINTS = [
     '<svg viewBox="0 0 24 24"><path d="M5 3h5v9a2 2 0 0 0 4 0V3h5v9a7 7 0 0 1-14 0z" fill="currentColor"/><path d="M5 7h5M14 7h5" stroke="var(--bg)" stroke-width="1.5"/></svg>',
-    '<svg viewBox="0 0 24 24"><path d="M12 3c3 4.5 6 7.8 6 11a6 6 0 0 1-12 0c0-3.2 3-6.5 6-11z" fill="currentColor"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M9 14l-1.5 4M13 16l-1.5 4M17 14l-1.5 4"/></svg>',
     '<svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.1 6-2.6-3.1 5.8 5.4 3.2-6.4.8.6 6.5-4.7-4.5-4.7 4.5.6-6.5-6.4-.8 5.4-3.2L3.8 5.5l6 2.6z" fill="currentColor"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 12a1.5 1.5 0 1 1 1.5-1.5 4 4 0 1 1-4-4 6.5 6.5 0 1 1-6.5 6.5"/></svg>'];
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="7.5"/><g transform="rotate(-45 12 12)"><path d="M-0.5 12h25M12 4.5c2.4 2.5 2.4 12.5 0 15M12 4.5c-2.4 2.5-2.4 12.5 0 15"/></g></svg>',
+    `<svg viewBox="0 0 24 24"><path d="${swirl(3, 0.9, 10.5, 2.6, 0.7, 2.8)}" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>`];
   let level = 2;                        // 0 = 코드 안 보임 … 4 = 코드 또렷
   let shaking = false;                  // 뒤섞는 동안은 코드를 다 보이게
   let typing = false;                   // 타자 치는 동안도 코드를 다 보이게

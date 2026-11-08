@@ -675,10 +675,6 @@
   "en": "/* Step 3: the level marks become round cells, each holding a secret-word hint icon (magnet · rain · boom · earth · black hole) */",
   "hj": "/* 三段：段格化為圓格，每格置秘語提示圖示 (磁石 · 雨 · 爆 · 地球 · 黑洞) */"
  },
- "// 단계 칸 아이콘 (3단계에서만 보임): 비밀 단어 힌트 — 자석 · 물방울(비) · 터짐(펑) · 지구 · 소용돌이(블랙홀)": {
-  "en": "// level-cell icons (visible only at step 3): secret-word hints — magnet · drop (rain) · burst (boom) · globe · swirl (black hole)",
-  "hj": "// 段格圖示 (僅三段可見)：秘語提示 — 磁石 · 水滴 (雨) · 炸 (爆) · 地球 · 漩渦 (黑洞)"
- },
  "// 자석: 몇 초 동안 코드 단어들이 마우스 쪽으로 끌려와 따라다니다 제자리로.": {
   "en": "// Magnet: for a few seconds the code words get pulled toward the mouse and follow it, then go home.",
   "hj": "// 磁石：數秒間碼詞被吸向滑鼠隨之而動，後歸原位。"
@@ -1086,5 +1082,13 @@
  "// 손가락 끌기: 마우스처럼 렌즈·자석이 손가락을 따라오고, 손가락 자리에 동그란 포인터가 뜬다 (터치 화면만)": {
   "en": "// finger drag: like a mouse, the lens and magnet follow the finger, and a round pointer appears under it (touch screens only)",
   "hj": "// 指拖：如滑鼠，透鏡・磁石隨指而動，指下現圓形指標（限觸控屏）"
+ },
+ "// 단계 칸 아이콘 (3단계에서만 보임): 비밀 단어 힌트 — 자석 · 구름비(비) · 터짐(펑) · 지구본(지구) · 빨려드는 소용돌이(블랙홀)": {
+  "en": "// stage icons (step 3 only): hints for the secret words — magnet · rain cloud (rain) · burst (pop) · desk globe (earth) · inward-sucking swirl (black hole)",
+  "hj": "// 階格圖示（限三階）：秘密詞之提示 — 磁石・雨雲（雨）・爆裂（砰）・地球儀（地球）・吸入之漩渦（黑洞）"
+ },
+ "function swirl(arms, turns, r0, r1, w0, w1) {   // 바깥은 가늘고 안으로 갈수록 굵어지며 가운데로 감겨 드는 팔들": {
+  "en": "function swirl(arms, turns, r0, r1, w0, w1) {   // arms that start thin outside and thicken as they wind into the center",
+  "hj": "function swirl(arms, turns, r0, r1, w0, w1) {   // 外細內粗、捲入中心之旋臂"
  }
 }

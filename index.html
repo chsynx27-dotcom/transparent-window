@@ -260,6 +260,21 @@
   @keyframes egg-fly { 30% { transform: translate(4px, -16px) rotate(35deg); opacity: 1; } to { transform: translate(14px, -10px) rotate(160deg); opacity: 0; } }
   @keyframes egg-glow { 0% { filter: drop-shadow(0 0 0 rgba(255,190,60,0)); } 25% { filter: drop-shadow(0 0 12px rgba(255,200,80,.95)); } }
   @keyframes egg-yolk { from { transform: scale(0.3); opacity: 0; } }
+  /* 모바일 전용(손가락 화면만, PC는 그대로): 누르는 칸 규격 — Material 48dp·Apple 44pt 중 큰 쪽 48px, 칸 사이 8px.
+     입력칸 글자 16px 이상 = iOS가 눌렀을 때 화면을 확대하지 않음. touch-action = 연타해도 두 번 탭 확대 안 됨 */
+  @media (pointer: coarse) {
+    button, #memo { min-height: 48px; min-width: 48px; touch-action: manipulation; }
+    :root.q1 button, :root.q1 #memo { height: 48px; }
+    #memo, :root.q1 #memo { font-size: 16px; }
+    #tools, #corner { gap: 8px; }
+    #bar { height: 64px; gap: 8px; }
+    :root.q2 #bar { height: 64px; }
+    #bar button { min-width: 64px; }
+  }
+  @media (pointer: coarse) and (max-width: 600px) {
+    :root.q2 #bar { gap: 8px; }
+    :root.q2 #eggs { bottom: 96px; }   /* 커진 막대(20+64) 위로 */
+  }
 </style>
 </head>
 <body class="intro">

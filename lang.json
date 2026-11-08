@@ -630,5 +630,17 @@
  "const comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5);   // 3단계보다 살짝 느리고 덜 격하게": {
   "en": "const comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5);   // a bit slower and gentler than step 3",
   "hj": "const comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, 0.5);   // 較三段稍慢稍緩"
+ },
+ "function breakLines() {               // 뒤 코드 줄을 깨뜨린다 (앞 화면은 그대로)": {
+  "en": "function breakLines() {               // break the back code lines (front screen untouched)",
+  "hj": "function breakLines() {               // 碎後碼之行 (前屏不動)"
+ },
+ "breakLines();                       // 0·1단계: 뒤 코드는 깨지고, 앞 창은 2단계처럼 터져 퍼지되 단계가 낮을수록 느리게": {
+  "en": "breakLines();                       // steps 0·1: the back code breaks; the front window bursts and spreads like step 2, slower at lower steps",
+  "hj": "breakLines();                       // 零一段：後碼碎裂，前窗如二段炸散，段愈低愈慢"
+ },
+ "setTimeout(comeBack, 2300);         // 뒤 코드가 다 돌아온 뒤 창이 서서히 나타난다": {
+  "en": "setTimeout(comeBack, 2300);         // the window slowly reappears after the back code is fully back",
+  "hj": "setTimeout(comeBack, 2300);         // 後碼盡復後，窗徐徐重現"
  }
 }

@@ -459,7 +459,8 @@
     smash();
     restoreTimer = setTimeout(restore, 700);
   });
-  function smash() {
+  function smash() { breakLines(); distort(); }
+  function breakLines() {               // 뒤 코드 줄을 깨뜨린다 (앞 화면은 그대로)
     const n = power * 6;                // 막 누를수록 더 많은 줄이 깨진다
     for (let k = 0; k < n; k++) {
       const i = Math.floor(Math.random() * lines.length);
@@ -467,7 +468,6 @@
         Math.random() < 0.3 + power / 35 ? GLYPHS[Math.floor(Math.random() * GLYPHS.length)] : c) + '\n';
       broken.add(i);
     }
-    distort();
   }
   function rain() {
     if (raining) return;
@@ -689,8 +689,10 @@
       setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(comeBack, 900); }, 2000);   // 코드가 다시 나타난 뒤 창이 돌아온다
       return;
     }
-    smash();
+    breakLines();                       // 0·1단계: 뒤 코드는 깨지고, 앞 창은 2단계처럼 터져 퍼지되 단계가 낮을수록 느리게
+    const comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0, quality === 1 ? 0.7 : 0.9);
     restoreTimer = setTimeout(restore, 1200);
+    setTimeout(comeBack, 2300);         // 뒤 코드가 다 돌아온 뒤 창이 서서히 나타난다
   }
 
   // 화면 글자 깨뜨리기: 절반을 넘기면 앞 화면 글자가 기호로 바뀌며 색이 갈라지다가, 최대치에서 펑 터진다

@@ -270,6 +270,8 @@
     #bar { height: 64px; gap: 8px; }
     :root.q2 #bar { height: 64px; }
     #bar button { min-width: 64px; }
+    :root:not(.q3) #screen { padding-top: 80px; }   /* 커진 오른쪽 위 버튼(16+48)과 제목이 겹치지 않게 */
+    :root.q3 #screen { margin-bottom: 100px; }      /* 끝까지 내리면 창 아래가 떠 있는 막대(20+64) 위로 나오게 */
   }
   @media (pointer: coarse) and (max-width: 600px) {
     :root.q2 #bar { gap: 8px; }

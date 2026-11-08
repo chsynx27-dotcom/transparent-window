@@ -48,12 +48,13 @@
   #dots i.on::before { content: '●'; }
   #dots svg { display: none; }
   /* 3단계: 단계 칸이 동그란 칸이 되고, 칸마다 비밀 단어 힌트 아이콘 (자석 · 비 · 펑 · 지구 · 블랙홀) */
-  :root.q3 #dots { display: inline-flex; gap: 6px; letter-spacing: 0; }
+  :root.q3 #dots { display: inline-flex; gap: 8px; letter-spacing: 0; }
   :root.q3 #dots i::before { content: none; }
   :root.q3 #dots i { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
     border: 1.5px solid var(--accent); color: var(--accent); transition: background 0.2s, color 0.2s; }
   :root.q3 #dots i.on { background: var(--accent); color: #fff; }
   :root.q3 #dots svg { display: block; width: 13px; height: 13px; }
+  :root.q3 #dots i.found { box-shadow: 0 0 0 1px var(--bg), 0 0 0 3px #e5484d; }
   /* 단계가 바뀔 때 코드 진하기가 점점 바뀌도록 */
   @property --base { syntax: '<number>'; inherits: true; initial-value: 0.5; }
   @property --r { syntax: '<length>'; inherits: true; initial-value: 140px; }
@@ -298,6 +299,14 @@
     :root.q2 #bar { gap: 8px; }
     :root.q2 #eggs { bottom: 96px; }   /* 커진 막대(20+64) 위로 */
   }
+  @media (pointer: coarse) and (max-width: 360px) {
+    #bar, :root.q1 #bar, :root.q2 #bar { gap: 6px; padding: 0 6px; }
+    :root.q3 #dots { gap: 6px; }
+    :root.q3 #dots i { width: 22px; height: 22px; }
+    :root.q3 #bar > span:first-child { display: none; }
+    #bar button { flex-shrink: 0; }
+    :root.q1:not(.q2) #bar button { padding: 0 10px; }
+  }
 </style>
 </head>
 <body class="intro">
@@ -360,6 +369,7 @@
     '<svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.1 6-2.6-3.1 5.8 5.4 3.2-6.4.8.6 6.5-4.7-4.5-4.7 4.5.6-6.5-6.4-.8 5.4-3.2L3.8 5.5l6 2.6z" fill="currentColor"/></svg>',
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="7.5"/><g transform="rotate(-45 12 12)"><path d="M-0.5 12h25M12 4.5c2.4 2.5 2.4 12.5 0 15M12 4.5c-2.4 2.5-2.4 12.5 0 15"/></g></svg>',
     `<svg viewBox="0 0 24 24"><path d="${swirl(3, 0.9, 10.5, 2.6, 0.7, 2.8)}" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>`];
+  const foundHint = new Set();
   let level = 2;                        // 0 = 코드 안 보임 … 4 = 코드 또렷
   let shaking = false;                  // 뒤섞는 동안은 코드를 다 보이게
   let typing = false;                   // 타자 치는 동안도 코드를 다 보이게
@@ -369,6 +379,7 @@
     document.documentElement.style.setProperty('--glass', shaking || typing ? 0 : 1 - level / 4);
     const shown = typing ? 4 : level;  // 타자 중에는 끝까지 투명(코드 다 보임)으로 표시
     dots.innerHTML = HINTS.map((h, i) => `<i${i <= shown ? ' class="on"' : ''}>${h}</i>`).join('');   // 지금 단계 표시
+    foundHint.forEach(i => dots.children[i].classList.add('found'));
     dots.setAttribute('aria-label', `창 투명도 ${shown + 1}/5단계`);
   }
   document.getElementById('down').addEventListener('click', () => { level = Math.max(0, level - 1); apply(); });
@@ -476,6 +487,8 @@
   function foundEgg(id) {
     if (foundEggs.has(id)) return;      // 같은 이스터에그는 한 번만
     foundEggs.add(id);
+    const h = ['magnet', 'rain', 'boom', 'earth', 'blackhole'].findIndex(w => SECRETS.find(s => s.words[0] === id)?.words.includes(w));
+    if (h >= 0) { foundHint.add(h); dots.children[h]?.classList.add('found'); }
     const egg = eggsEl.querySelectorAll('i')[foundEggs.size - 1];
     if (!egg) return;
     egg.classList.add('cracking');

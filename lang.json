@@ -599,10 +599,6 @@
   "en": "const fly = y + 60 + Math.random() * 200;      // all the way past the top of the screen",
   "hj": "const fly = y + 60 + Math.random() * 200;      // 直至屏頂之外"
  },
- "const words = [];                   // 붙어 있는 글자끼리 한 단어로 (가볍게: 글자 하나하나 대신 단어 덩어리)": {
-  "en": "const words = [];                   // adjacent characters form one word (lighter: word chunks instead of single characters)",
-  "hj": "const words = [];                   // 相連之字合為一詞 (較輕：以詞塊代單字)"
- },
  "setTimeout(() => {                  // 다 날아가면 코드가 서서히 다시 나타난다": {
   "en": "setTimeout(() => {                  // once all have flown off, the code slowly reappears",
   "hj": "setTimeout(() => {                  // 盡飛去後，碼徐徐重現"
@@ -679,16 +675,88 @@
   "en": "const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2, 550, 0, true);   // front window: shudders, then flies apart piece by piece",
   "hj": "const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2, 550, 0, true);   // 前窗：顫抖後片片飛散"
  },
- "/* 3단계: 단계 칸이 동그란 칸이 되고, 가운데 세 칸에 비밀 단어 힌트 아이콘 (비 · 펑 · 지구) */": {
-  "en": "/* Step 3: the level marks become round cells, the middle three holding secret-word hint icons (rain · boom · earth) */",
-  "hj": "/* 三段：段格化為圓格，中間三格置秘語提示圖示 (雨 · 爆 · 地球) */"
- },
  "dots.innerHTML = HINTS.map((h, i) => `<i${i <= shown ? ' class=\"on\"' : ''}>${h}</i>`).join('');   // 지금 단계 표시": {
   "en": "dots.innerHTML = HINTS.map((h, i) => `<i${i <= shown ? ' class=\"on\"' : ''}>${h}</i>`).join('');   // show the current level",
   "hj": "dots.innerHTML = HINTS.map((h, i) => `<i${i <= shown ? ' class=\"on\"' : ''}>${h}</i>`).join('');   // 示當前段"
  },
- "// 단계 칸 아이콘 (3단계에서만 보임): 비밀 단어 힌트 — 물방울(비) · 터짐(펑) · 지구(지구)": {
-  "en": "// level-cell icons (visible only at step 3): secret-word hints — drop (rain) · burst (boom) · globe (earth)",
-  "hj": "// 段格圖示 (僅三段可見)：秘語提示 — 水滴 (雨) · 炸 (爆) · 地球 (地球)"
+ "/* 3단계: 단계 칸이 동그란 칸이 되고, 칸마다 비밀 단어 힌트 아이콘 (자석 · 비 · 펑 · 지구 · 블랙홀) */": {
+  "en": "/* Step 3: the level marks become round cells, each holding a secret-word hint icon (magnet · rain · boom · earth · black hole) */",
+  "hj": "/* 三段：段格化為圓格，每格置秘語提示圖示 (磁石 · 雨 · 爆 · 地球 · 黑洞) */"
+ },
+ "/* 블랙홀 3단계: 빛나는 테두리의 검은 구멍 */": {
+  "en": "/* Black hole step 3: a black hole with a glowing rim */",
+  "hj": "/* 黑洞三段：發光邊之黑洞 */"
+ },
+ "/* 자석 3단계: 끌려온 단어가 빛난다 */": {
+  "en": "/* Magnet step 3: pulled words glow */",
+  "hj": "/* 磁石三段：被吸之詞發光 */"
+ },
+ "// 0단계 뚝뚝 끊기며 / 1단계 부드럽게 / 2단계 단어가 돌며 / 3단계 + 빛나는 테두리의 검은 구멍": {
+  "en": "// step 0 choppy / step 1 smooth / step 2 words spin / step 3 + a black hole with a glowing rim",
+  "hj": "// 零段頓挫 / 一段流暢 / 二段詞旋 / 三段 + 發光邊黑洞"
+ },
+ "// 0단계 뚝뚝 끊기며 / 1단계 부드럽게 / 2단계 마우스 쪽으로 기울고 가까울수록 보라빛 / 3단계 + 빛": {
+  "en": "// step 0 choppy / step 1 smooth / step 2 tilt toward the mouse, purpler when closer / step 3 + glow",
+  "hj": "// 零段頓挫 / 一段流暢 / 二段傾向滑鼠，愈近愈紫 / 三段 + 光"
+ },
+ "// 단계 칸 아이콘 (3단계에서만 보임): 비밀 단어 힌트 — 자석 · 물방울(비) · 터짐(펑) · 지구 · 소용돌이(블랙홀)": {
+  "en": "// level-cell icons (visible only at step 3): secret-word hints — magnet · drop (rain) · burst (boom) · globe · swirl (black hole)",
+  "hj": "// 段格圖示 (僅三段可見)：秘語提示 — 磁石 · 水滴 (雨) · 炸 (爆) · 地球 · 漩渦 (黑洞)"
+ },
+ "// 단어 덩어리를 코드 대신 띄운다 (진짜 코드는 그동안 숨김). 돌려주는 함수로 원래대로": {
+  "en": "// float word chunks in place of the code (the real code hides meanwhile); the returned function restores it",
+  "hj": "// 以詞塊代碼浮現 (真碼暫隱)，所回之函式復原"
+ },
+ "// 블랙홀: 렌즈(마우스) 자리로 코드와 앞 창이 소용돌이치며 빨려 들어갔다가, 뱉어져 제자리로.": {
+  "en": "// Black hole: the code and the front window swirl into the lens (mouse) spot, then get spat back into place.",
+  "hj": "// 黑洞：碼與前窗旋入鏡處 (滑鼠)，復被吐回原位。"
+ },
+ "// 자석: 몇 초 동안 코드 단어들이 마우스 쪽으로 끌려와 따라다니다 제자리로.": {
+  "en": "// Magnet: for a few seconds the code words get pulled toward the mouse and follow it, then go home.",
+  "hj": "// 磁石：數秒間碼詞被吸向滑鼠隨之而動，後歸原位。"
+ },
+ "// 화면에 보이는 뒤 코드를 단어 덩어리로 (화산·자석·블랙홀이 함께 쓴다 — 글자 하나하나보다 가볍다)": {
+  "en": "// visible back code as word chunks (shared by eruption, magnet, black hole — lighter than single characters)",
+  "hj": "// 可見之後碼化為詞塊 (火山·磁石·黑洞共用 — 較單字輕)"
+ },
+ "const ease = q === 0 ? 1 : 0.15;               // 0단계는 바로 그 자리로, 나머지는 따라오듯": {
+  "en": "const ease = q === 0 ? 1 : 0.15;               // step 0 jumps straight there, others follow along",
+  "hj": "const ease = q === 0 ? 1 : 0.15;               // 零段直至其位，餘者隨行"
+ },
+ "const power = t < LONG ? Math.min(1, t / 400) : Math.max(0, 1 - (t - LONG) / 700);   // 서서히 켜졌다 꺼짐": {
+  "en": "const power = t < LONG ? Math.min(1, t / 400) : Math.max(0, 1 - (t - LONG) / 700);   // fades on, then off",
+  "hj": "const power = t < LONG ? Math.min(1, t / 400) : Math.max(0, 1 - (t - LONG) / 700);   // 漸開漸關"
+ },
+ "const pull = (el, x, y, spinSelf) => {          // 한 요소를 (cx, cy)로 소용돌이치며 빨아들이는 움직임": {
+  "en": "const pull = (el, x, y, spinSelf) => {          // motion that swirls one element into (cx, cy)",
+  "hj": "const pull = (el, x, y, spinSelf) => {          // 將一元素旋吸至 (cx, cy) 之動"
+ },
+ "const pull = power * Math.max(0, 1 - d / 650) ** 1.5 * 0.85;   // 가까울수록 세게 (마우스에 딱 붙지는 않게)": {
+  "en": "const pull = power * Math.max(0, 1 - d / 650) ** 1.5 * 0.85;   // stronger when closer (but never stuck right on the mouse)",
+  "hj": "const pull = power * Math.max(0, 1 - d / 650) ** 1.5 * 0.85;   // 愈近愈強 (不緊貼滑鼠)"
+ },
+ "const words = [];                   // 붙어 있는 글자끼리 한 단어로": {
+  "en": "const words = [];                   // adjacent characters form one word",
+  "hj": "const words = [];                   // 相連之字合為一詞"
+ },
+ "if (q === 0 && now - last < 120) return;      // 0단계: 일부러 뚝뚝": {
+  "en": "if (q === 0 && now - last < 120) return;      // step 0: choppy on purpose",
+  "hj": "if (q === 0 && now - last < 120) return;      // 零段：刻意頓挫"
+ },
+ "return { span, x: x + span.textContent.length * 4, y: y + 9 };   // 단어 가운데쯤": {
+  "en": "return { span, x: x + span.textContent.length * 4, y: y + 9 };   // around the word's center",
+  "hj": "return { span, x: x + span.textContent.length * 4, y: y + 9 };   // 約詞之中"
+ },
+ "setTimeout(() => anims.forEach(a => { a.updatePlaybackRate(1.8); a.reverse(); }), 2000);   // 잠깐 삼켰다가 뱉어낸다": {
+  "en": "setTimeout(() => anims.forEach(a => { a.updatePlaybackRate(1.8); a.reverse(); }), 2000);   // swallow for a moment, then spit out",
+  "hj": "setTimeout(() => anims.forEach(a => { a.updatePlaybackRate(1.8); a.reverse(); }), 2000);   // 暫吞而後吐出"
+ },
+ "{ words: ['블랙홀', '우주', 'blackhole', 'black hole', 'space', '黑洞', '宇宙'], run: () => blackhole() },": {
+  "en": "{ words: ['black hole', 'space', 'blackhole', 'black hole', 'space', '黑洞', '宇宙'], run: () => blackhole() },",
+  "hj": "{ words: ['黑洞', '宇宙', 'blackhole', 'black hole', 'space', '黑洞', '宇宙'], run: () => blackhole() },"
+ },
+ "{ words: ['자석', 'magnet', '磁石'], run: () => magnet() },": {
+  "en": "{ words: ['magnet', 'magnet', '磁石'], run: () => magnet() },",
+  "hj": "{ words: ['磁石', 'magnet', '磁石'], run: () => magnet() },"
  }
 }

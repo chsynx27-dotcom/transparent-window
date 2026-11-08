@@ -292,6 +292,7 @@
 
   // 타자 효과: 코드가 누가 치는 것처럼 한 글자씩 쓰여 나간다
   const SPEED = 30;                     // 한 프레임(약 1/60초)에 치는 글자 수
+  const TYPE_LIMIT = 2200;              // 이만큼(ms) 치다가 나머지는 한 번에 채우고 넘어간다
   let typeFrame = null;
   function typeOut() {
     cancelAnimationFrame(typeFrame);
@@ -305,6 +306,7 @@
     lens(innerWidth / 2, innerHeight / 2);
     holdLens = Infinity;
     let li = 0, pos = 0;
+    const typeStart = performance.now();
     function step() {
       let budget = SPEED;
       while (budget > 0 && li < lines.length) {
@@ -322,7 +324,7 @@
       const cur = lines[Math.min(li, lines.length - 1)];
       if (cur.offsetTop > codeEl.scrollTop + codeEl.clientHeight * 0.7)
         codeEl.scrollTop = cur.offsetTop - codeEl.clientHeight * 0.7;
-      if (li < lines.length) typeFrame = requestAnimationFrame(step);
+      if (li < lines.length && performance.now() - typeStart < TYPE_LIMIT) typeFrame = requestAnimationFrame(step);
       else finishTyping();
     }
     typeFrame = requestAnimationFrame(step);

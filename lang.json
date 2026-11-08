@@ -291,6 +291,10 @@
   "en": "const STAGE = { ko: ['Basic', 'Tidy', 'Designed', 'Polished'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整頓', '設計', '完成'] };",
   "hj": "const STAGE = { ko: ['基本', '整頓', '設計', '完成'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整頓', '設計', '完成'] };"
  },
+ "const TYPE_LIMIT = 2200;              // 이만큼(ms) 치다가 나머지는 한 번에 채우고 넘어간다": {
+  "en": "const TYPE_LIMIT = 2200;              // type for this long (ms), then fill in the rest at once and move on",
+  "hj": "const TYPE_LIMIT = 2200;              // 擊至此（毫秒），餘者一舉填之而進"
+ },
  "const a0 = Math.atan2(y - cy, x - cx), d0 = Math.hypot(x - cx, y - cy);   // 가운데 기준 처음 위치": {
   "en": "const a0 = Math.atan2(y - cy, x - cx), d0 = Math.hypot(x - cx, y - cy);   // starting position relative to the center",
   "hj": "const a0 = Math.atan2(y - cy, x - cx), d0 = Math.hypot(x - cx, y - cy);   // 以中央為準之初位"

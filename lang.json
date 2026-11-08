@@ -1082,5 +1082,9 @@
  "입력칸 글자 16px 이상 = iOS가 눌렀을 때 화면을 확대하지 않음. touch-action = 연타해도 두 번 탭 확대 안 됨 */": {
   "en": "input text 16px or more = iOS does not zoom when tapped. touch-action = rapid tapping does not double-tap zoom */",
   "hj": "輸入欄字 16px 以上 = iOS 點擊時不放大。touch-action = 連點亦不雙擊放大 */"
+ },
+ "// 손가락 끌기: 마우스처럼 렌즈·자석이 손가락을 따라오고, 손가락 자리에 동그란 포인터가 뜬다 (터치 화면만)": {
+  "en": "// finger drag: like a mouse, the lens and magnet follow the finger, and a round pointer appears under it (touch screens only)",
+  "hj": "// 指拖：如滑鼠，透鏡・磁石隨指而動，指下現圓形指標（限觸控屏）"
  }
 }

@@ -289,6 +289,11 @@
     :root:not(.q3) #screen { padding-top: 80px; }   /* 커진 오른쪽 위 버튼(16+48)과 제목이 겹치지 않게 */
     :root.q3 #screen { margin-bottom: 100px; }      /* 끝까지 내리면 창 아래가 떠 있는 막대(20+64) 위로 나오게 */
   }
+  #finger { position: fixed; left: -22px; top: -22px; width: 44px; height: 44px; border-radius: 50%; z-index: 9;
+    pointer-events: none; opacity: 0; transition: opacity 0.25s;
+    border: 2px solid color-mix(in srgb, var(--accent, #888) 80%, transparent);
+    background: color-mix(in srgb, var(--accent, #888) 18%, transparent); }
+  #finger.on { opacity: 1; transition: opacity 0.08s; }
   @media (pointer: coarse) and (max-width: 600px) {
     :root.q2 #bar { gap: 8px; }
     :root.q2 #eggs { bottom: 96px; }   /* 커진 막대(20+64) 위로 */
@@ -372,7 +377,17 @@
   }
   let holdLens = 0;                     // 짝 찾기 직후 렌즈를 잠깐 고정
   addEventListener('pointermove', e => { if (Date.now() > holdLens) lens(e.clientX, e.clientY); });
-  document.documentElement.addEventListener('pointerleave', () => lens(-9999, -9999));
+  document.documentElement.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') lens(-9999, -9999); });
+  // 손가락 끌기: 마우스처럼 렌즈·자석이 손가락을 따라오고, 손가락 자리에 동그란 포인터가 뜬다 (터치 화면만)
+  const finger = document.createElement('div'); finger.id = 'finger'; finger.setAttribute('aria-hidden', 'true'); document.body.append(finger);
+  const follow = e => {
+    const t = e.touches[0]; if (!t) return;
+    point(t); if (Date.now() > holdLens) lens(t.clientX, t.clientY);
+    finger.style.translate = `${t.clientX}px ${t.clientY}px`; finger.classList.add('on');
+  };
+  const lift = e => { if (!e.touches.length) finger.classList.remove('on'); };
+  addEventListener('touchstart', follow, { passive: true }); addEventListener('touchmove', follow, { passive: true });
+  addEventListener('touchend', lift); addEventListener('touchcancel', lift);
 
   // 코드를 줄 단위로 넣는다 (짝 찾기에서 줄을 집어내려고)
   let lines = [];

@@ -109,6 +109,10 @@
   .pop { animation: pop 0.45s ease-out both; }
   @keyframes pop { 40% { transform: scale(1.25); filter: blur(1px); opacity: 1; }
     100% { transform: scale(1.8); filter: blur(10px); opacity: 0; } }
+  /* 코드 비: 줄마다 아래로 떨어졌다가, 거꾸로 되감기듯 제자리로 올라온다 */
+  #code.rain > .ln { display: block; animation: drop 1.4s cubic-bezier(.5,0,.9,.5) var(--d) both; }
+  #code.unrain > .ln { display: block; animation: drop 1s cubic-bezier(.1,.5,.5,1) var(--d) both reverse; }
+  @keyframes drop { to { transform: translateY(110vh) rotate(var(--rot)); opacity: 0.15; } }
   .unpop { animation: unpop 0.6s cubic-bezier(.2,.8,.3,1) both; }
   @keyframes unpop { from { transform: scale(0.6); filter: blur(6px); opacity: 0; } }
   @keyframes quake { 20% { transform: translate(-12px, 6px); } 40% { transform: translate(10px, -8px); }
@@ -161,8 +165,9 @@
   let level = 2;                        // 0 = 코드 안 보임 … 4 = 코드 또렷
   let shaking = false;                  // 뒤섞는 동안은 코드를 다 보이게
   let typing = false;                   // 타자 치는 동안도 코드를 다 보이게
+  let raining = false;                  // 비가 내리는 동안도 코드를 다 보이게
   function apply() {
-    codeEl.style.setProperty('--base', shaking || typing ? 1 : level / 4);
+    codeEl.style.setProperty('--base', shaking || typing || raining ? 1 : level / 4);
     document.documentElement.style.setProperty('--glass', shaking || typing ? 0 : 1 - level / 4);
     const shown = typing ? 4 : level;  // 타자 중에는 끝까지 투명(코드 다 보임)으로 표시
     dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // 지금 단계 표시
@@ -338,7 +343,21 @@
     finishTyping();
     writeMemoLine();
     flash(memoIdx);
+    clearTimeout(secretTimer);
+    secretTimer = setTimeout(checkSecret, 500);
   });
+  // 비밀 단어: 글상자 끝에 이 말이 있으면 반응한다
+  const SECRETS = [
+    { words: ['펑', '폭발', 'boom', '爆'], run: () => boom() },
+    { words: ['비', 'rain', '雨'], run: () => rain() },
+  ];
+  let secretTimer = null, lastSecret = '';
+  function checkSecret() {
+    const v = memo.value.trim().toLowerCase();
+    const hit = SECRETS.find(x => x.words.some(w => v.endsWith(w)));
+    if (hit && v !== lastSecret) hit.run();
+    lastSecret = hit ? v : '';          // 같은 글 그대로면 다시 터지지 않게
+  }
   function writeMemoLine() {
     const v = memo.value.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
     orig[memoIdx] = memoBase.replace(/>$/, v ? ` value="${v}">` : '>');
@@ -356,6 +375,10 @@
     clearTimeout(restoreTimer); clearInterval(restoring);
     shaking = true; apply();
     power = Math.min(power + 1, MAX);
+    smash();
+    restoreTimer = setTimeout(restore, 700);
+  });
+  function smash() {
     const n = power * 6;                // 막 누를수록 더 많은 줄이 깨진다
     for (let k = 0; k < n; k++) {
       const i = Math.floor(Math.random() * lines.length);
@@ -364,8 +387,30 @@
       broken.add(i);
     }
     distort();
-    restoreTimer = setTimeout(restore, 700);
-  });
+  }
+  function rain() {
+    if (raining) return;
+    finishTyping();
+    raining = true; apply();
+    lines.forEach(s => {
+      s.style.setProperty('--d', (Math.random() * 0.8).toFixed(2) + 's');
+      s.style.setProperty('--rot', (Math.random() * 30 - 15).toFixed(1) + 'deg');
+    });
+    codeEl.classList.add('rain');
+    setTimeout(() => {                  // 다 떨어지면 되감아 올린다
+      codeEl.classList.remove('rain'); void codeEl.offsetWidth;
+      codeEl.classList.add('unrain');
+      setTimeout(() => { codeEl.classList.remove('unrain'); raining = false; apply(); }, 1900);
+    }, 2400);
+  }
+  function boom() {                     // 한 번에 최대치로 터뜨린다
+    finishTyping();
+    clearTimeout(restoreTimer); clearInterval(restoring);
+    shaking = true; apply();
+    power = MAX;
+    smash();
+    restoreTimer = setTimeout(restore, 1200);
+  }
 
   // 화면 글자 깨뜨리기: 절반을 넘기면 앞 화면 글자가 기호로 바뀌며 색이 갈라지다가, 최대치에서 펑 터진다
   const pieces = () => screenEl.querySelectorAll('h1, p, #tools button, #memo, li');

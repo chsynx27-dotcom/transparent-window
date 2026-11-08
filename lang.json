@@ -35,6 +35,10 @@
   "en": "/* Intro: when typing ends, the full-screen code shrinks into the lens */",
   "hj": "/* 開場：打字既畢，滿屏之碼縮為透鏡 */"
  },
+ "/* 코드 비: 줄마다 아래로 떨어졌다가, 거꾸로 되감기듯 제자리로 올라온다 */": {
+  "en": "/* Code rain: each line falls down, then rewinds back up into place */",
+  "hj": "/* 碼雨：逐行墜下，復如倒捲而歸原位 */"
+ },
  "/* 퀄리티 업 1단계 '정돈': 글꼴 체계·여백·같은 크기의 버튼 */": {
   "en": "/* Quality up step 1 'Tidy': type scale, spacing, same-size buttons */",
   "hj": "/* 品質提升第一階「整頓」：字體之制、留白、等大之鈕 */"
@@ -70,6 +74,10 @@
  "// 블랙 모드: 누를 때마다 켜고 끈다, 고른 것은 이 브라우저에 기억": {
   "en": "// Dark mode: each press toggles it; the choice is remembered in this browser",
   "hj": "// 黑色模式：每按則開闔，所擇記於此瀏覽器"
+ },
+ "// 비밀 단어: 글상자 끝에 이 말이 있으면 반응한다": {
+  "en": "// Secret words: react when the text box ends with one of these",
+  "hj": "// 密語：文字框末有此語則應之"
  },
  "// 앞에서 글자를 적으면 뒤의 코드(입력칸 줄)에 그대로 써진다": {
   "en": "// text typed in front is written straight into the code behind (the input line)",
@@ -287,6 +295,10 @@
   "en": "for (let k = 0; k < 6 && todo.length; k++) {   // restore a few lines at a time",
   "hj": "for (let k = 0; k < 6 && todo.length; k++) {   // 每次復原數行"
  },
+ "function boom() {                     // 한 번에 최대치로 터뜨린다": {
+  "en": "function boom() {                     // blow it up to the max in one go",
+  "hj": "function boom() {                     // 一舉至極而爆"
+ },
  "function finishTyping() {             // 다 쳤거나, 중간에 다른 기능을 누르면 바로 끝낸다": {
   "en": "function finishTyping() {             // finish at once when done, or when another feature is pressed",
   "hj": "function finishTyping() {             // 擊畢或中途按他鈕，即刻終之"
@@ -306,6 +318,10 @@
  "if (pos >= text.length) {       // 이 줄 끝 → 다음 줄": {
   "en": "if (pos >= text.length) {       // end of this line → next line",
   "hj": "if (pos >= text.length) {       // 此行既終 → 次行"
+ },
+ "lastSecret = hit ? v : '';          // 같은 글 그대로면 다시 터지지 않게": {
+  "en": "lastSecret = hit ? v : '';          // don't fire again while the text stays the same",
+  "hj": "lastSecret = hit ? v : '';          // 文同則不再發"
  },
  "let holdLens = 0;                     // 짝 찾기 직후 렌즈를 잠깐 고정": {
   "en": "let holdLens = 0;                     // pin the lens briefly after a match",
@@ -327,6 +343,10 @@
   "en": "let pristine = [];                    // exactly as first loaded (Korean original)",
   "hj": "let pristine = [];                    // 初得之原貌（韓文原本）"
  },
+ "let raining = false;                  // 비가 내리는 동안도 코드를 다 보이게": {
+  "en": "let raining = false;                  // show all the code while it rains too",
+  "hj": "let raining = false;                  // 雨中碼亦皆可見"
+ },
  "let shaking = false;                  // 뒤섞는 동안은 코드를 다 보이게": {
   "en": "let shaking = false;                  // show all the code while scrambling",
   "hj": "let shaking = false;                  // 攪亂之間，碼皆可見"
@@ -346,6 +366,10 @@
  "setDark(document.documentElement.classList.contains('dark'));   // 블랙 모드 버튼 이름도 바꾼다": {
   "en": "setDark(document.documentElement.classList.contains('dark'));   // also rename the dark mode button",
   "hj": "setDark(document.documentElement.classList.contains('dark'));   // 黑色模式之鈕名亦易"
+ },
+ "setTimeout(() => {                  // 다 떨어지면 되감아 올린다": {
+  "en": "setTimeout(() => {                  // once everything has fallen, rewind it back up",
+  "hj": "setTimeout(() => {                  // 墜盡則倒捲而上"
  },
  "{ sel: '#bar > span:first-child', ko: '창', en: 'Window', hj: '窓' },": {
   "en": "{ sel: '#bar > span:first-child', ko: 'Window', en: 'Window', hj: '窓' },",
@@ -394,5 +418,13 @@
  "{ sel: 'h1', ko: '투명창', en: 'Glass Window', hj: '透明窓' },": {
   "en": "{ sel: 'h1', ko: 'Glass Window', en: 'Glass Window', hj: '透明窓' },",
   "hj": "{ sel: 'h1', ko: '透明窓', en: 'Glass Window', hj: '透明窓' },"
+ },
+ "{ words: ['비', 'rain', '雨'], run: () => rain() },": {
+  "en": "{ words: ['rain', 'rain', '雨'], run: () => rain() },",
+  "hj": "{ words: ['雨', 'rain', '雨'], run: () => rain() },"
+ },
+ "{ words: ['펑', '폭발', 'boom', '爆'], run: () => boom() },": {
+  "en": "{ words: ['boom', 'explode', 'boom', '爆'], run: () => boom() },",
+  "hj": "{ words: ['爆', '爆發', 'boom', '爆'], run: () => boom() },"
  }
 }

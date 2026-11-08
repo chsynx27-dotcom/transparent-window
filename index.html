@@ -674,7 +674,7 @@
       codeEl.style.setProperty('--by', y > 0 ? y + 'px' : '50%');
       shaking = true; apply();
       codeEl.classList.add('burn');
-      const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2);   // 앞 창: 덜덜 떨다가 조각조각 날아간다
+      const comeBack = blowAway(x > 0 ? x : innerWidth / 2, y > 0 ? y : innerHeight / 2, 550, 0, true);   // 앞 창: 덜덜 떨다가 조각조각 날아간다
       setTimeout(() => {                // 순서: 뒤 코드가 원래 색·진하기로 완전히 돌아온 뒤 → 앞 패널이 나타나기 시작
         codeEl.classList.remove('burn'); shaking = false; apply();
         setTimeout(comeBack, 700);      // 진하기 되돌림(0.4초)이 끝나고 잠깐 쉰 뒤
@@ -787,8 +787,20 @@
     }, 2000);
   }
   // 앞 창 날아가기 (3단계 펑): 창이 덜덜 떨고 → 조각들이 터진 자리 반대쪽으로 돌며 날아가고, 창 유리도 사라졌다가 → 제자리에 서서히 나타난다
-  function blowAway(bx, by, wait = 550, calm = 0) {   // wait: 떨리는 시간 (0이면 떨지 않고 바로 터짐) / calm: 0~1, 클수록 느리고 덜 격하게
-    let flights = [];
+  function blowAway(bx, by, wait = 550, calm = 0, glitch = false) {   // wait: 떨리는 시간 (0이면 떨지 않고 바로 터짐) / calm: 0~1, 클수록 느리고 덜 격하게
+    let flights = [], tick = null;
+    if (glitch) {                       // 글자가 오류 나듯 점점 심하게 깨지고 빨강·파랑으로 어긋난 채 날아간다
+      const g0 = performance.now();
+      tick = setInterval(() => {
+        const k = Math.min(1, (performance.now() - g0) / (wait + 500));
+        pieces().forEach(el => {
+          if (!saved.has(el)) saved.set(el, textOf(el));
+          setText(el, saved.get(el).replace(/\S/g, c => Math.random() < k * 0.7 ? GLYPHS[Math.floor(Math.random() * GLYPHS.length)] : c));
+          el.style.textShadow = `${4 * k}px 0 rgba(255,0,70,.8), ${-4 * k}px 0 rgba(0,220,255,.8)`;
+        });
+      }, 70);
+      setTimeout(() => clearInterval(tick), wait + 1000);   // 다 날아가 안 보이면 멈춘다
+    }
     if (wait) screenEl.classList.add('jolt');
     setTimeout(() => {
       screenEl.classList.remove('jolt');
@@ -806,6 +818,7 @@
         { duration: 500 * (1 + calm * 0.6), easing: 'ease-out', fill: 'forwards' }));
     }, wait);
     return () => {                      // 조각을 다시 모으지 않고, 보이지 않는 사이 제자리에 두었다가 서서히 나타난다
+      if (tick) { clearInterval(tick); mend(); }   // 깨진 글자를 원래대로
       const back = screenEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1000, easing: 'ease-in-out' });
       flights.forEach(a => a.cancel());
       back.finished.then(() => document.documentElement.classList.remove('flying'));

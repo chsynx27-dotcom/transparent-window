@@ -218,12 +218,12 @@
   #memo { margin-top: 16px; font-size: 16px; padding: 6px; }
   .hit { background: #ffe14d; color: #111; transition: background 0.3s; }
   /* 이스터에그 달걀 6개 (오른쪽 아래): 하나 찾을 때마다 하나씩 깨진다. 단계가 오를수록 달걀도, 깨지는 모습도 좋아진다 */
-  #eggs { position: fixed; right: 14px; bottom: 64px; z-index: 3; display: flex; align-items: flex-end; gap: 3px; pointer-events: none; }
+  #eggs { position: fixed; right: 14px; bottom: 64px; z-index: 3; display: flex; align-items: flex-end; gap: 5px; pointer-events: none; }
   #eggs i { display: inline-block; }
   /* 0단계: 글자 달걀 [] — 깨지면 [ */
-  #eggs b { font: 10px/1 monospace; color: color-mix(in srgb, var(--fg) 55%, transparent); }
+  #eggs b { font: 15px/1 monospace; color: color-mix(in srgb, var(--fg) 55%, transparent); }
   #eggs b::before { content: '[]'; } #eggs .cracked b::before { content: '['; }
-  #eggs svg { display: none; width: 8px; height: 11px; overflow: visible; }
+  #eggs svg { display: none; width: 12px; height: 16px; overflow: visible; }
   :root.q1 #eggs b { display: none; } :root.q1 #eggs svg { display: block; }
   #eggs .shell { fill: none; stroke: color-mix(in srgb, var(--fg) 60%, transparent); stroke-width: 1.6; }
   #eggs .shine, #eggs .yolk, #eggs .crack { display: none; }
@@ -235,7 +235,7 @@
   @keyframes egg-slide { to { transform: translate(7px, 2px) rotate(25deg); opacity: 0; } }
   /* 2단계: 명암 있는 달걀, 흔들리다 지그재그로 금 가며 윗부분이 튕겨 나간다 */
   :root.q2 #eggs { right: 22px; bottom: 28px; gap: 4px; }
-  :root.q2 #eggs svg { width: 9px; height: 12px; }
+  :root.q2 #eggs svg { width: 12px; height: 16px; }
   :root.q2 #eggs .shell { fill: url(#egg-fill); stroke: color-mix(in srgb, var(--fg) 25%, transparent); stroke-width: 0.8; }
   :root.q2 #eggs .a { clip-path: url(#egg-bottom); } :root.q2 #eggs .b { clip-path: url(#egg-top); }
   :root.q2 #eggs .cracked .crack { display: inline; fill: none; stroke: color-mix(in srgb, var(--fg) 45%, transparent); stroke-width: 0.8; }
@@ -244,7 +244,7 @@
   @keyframes egg-wobble { 25% { transform: rotate(-12deg); } 75% { transform: rotate(12deg); } }
   @keyframes egg-pop { 40% { transform: translate(3px, -9px) rotate(20deg); opacity: 1; } to { transform: translate(8px, -4px) rotate(70deg); opacity: 0; } }
   /* 3단계: 광택 달걀 + 그림자, 흔들림 → 윗껍질이 날아가고 안에서 노른자 빛 */
-  :root.q3 #eggs svg { width: 11px; height: 14px; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.25)); }
+  :root.q3 #eggs svg { width: 13px; height: 17px; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.25)); }
   :root.q3 #eggs .shell { fill: url(#egg-gloss); stroke: none; }
   :root.q3 #eggs .shine { display: inline; fill: #fff; opacity: .7; }
   :root.q3 #eggs .cracked .yolk { display: inline; fill: url(#egg-yolk); }

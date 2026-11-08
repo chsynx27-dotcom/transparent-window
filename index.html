@@ -683,7 +683,12 @@
     clearTimeout(restoreTimer); clearInterval(restoring);
     shaking = true; apply();
     power = MAX;
-    if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // 2단계: 뒤 코드는 화산처럼 솟구친다
+    if (quality === 2) {                // 2단계: 앞 창은 가운데서 터져 사방으로 퍼지고, 뒤 코드는 화산처럼 솟구친다
+      const comeBack = blowAway(innerWidth / 2, innerHeight / 2, 0);
+      erupt();
+      setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(comeBack, 900); }, 2000);   // 코드가 다시 나타난 뒤 창이 돌아온다
+      return;
+    }
     smash();
     restoreTimer = setTimeout(restore, 1200);
   }
@@ -742,15 +747,15 @@
     document.body.append(lava);
     document.documentElement.classList.add('broken');
     setTimeout(() => {                  // 다 날아가면 코드가 서서히 다시 나타난다
-      lava.remove();
+      lava.remove(); document.documentElement.classList.remove('broken');
       codeEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 800, easing: 'ease-in-out' });
       codeEl.style.opacity = '';
     }, 2000);
   }
   // 앞 창 날아가기 (3단계 펑): 창이 덜덜 떨고 → 조각들이 터진 자리 반대쪽으로 돌며 날아가고, 창 유리도 사라졌다가 → 제자리에 서서히 나타난다
-  function blowAway(bx, by) {
+  function blowAway(bx, by, wait = 550) {   // wait: 떨리는 시간 (0이면 떨지 않고 바로 터진다)
     let flights = [];
-    screenEl.classList.add('jolt');
+    if (wait) screenEl.classList.add('jolt');
     setTimeout(() => {
       screenEl.classList.remove('jolt');
       document.documentElement.classList.add('flying');
@@ -765,7 +770,7 @@
       });
       flights.push(screenEl.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(1.08)' }],
         { duration: 500, easing: 'ease-out', fill: 'forwards' }));
-    }, 550);
+    }, wait);
     return () => {                      // 조각을 다시 모으지 않고, 보이지 않는 사이 제자리에 두었다가 서서히 나타난다
       const back = screenEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1000, easing: 'ease-in-out' });
       flights.forEach(a => a.cancel());

@@ -591,10 +591,6 @@
   "en": "// back-code characters visible on screen and their spots (shared by the earth gather and the eruption)",
   "hj": "// 屏上可見之後碼字及其位 (地球聚合與火山噴發共用)"
  },
- "if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // 2단계: 뒤 코드는 화산처럼 솟구친다": {
-  "en": "if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // step 2: the back code erupts like a volcano",
-  "hj": "if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // 二段：後碼如火山噴起"
- },
  "// 다 날아가면 코드가 서서히 다시 나타난다": {
   "en": "// once all have flown off, the code slowly reappears",
   "hj": "// 盡飛去後，碼徐徐重現"
@@ -618,5 +614,17 @@
  "setTimeout(() => {                  // 다 날아가면 코드가 서서히 다시 나타난다": {
   "en": "setTimeout(() => {                  // once all have flown off, the code slowly reappears",
   "hj": "setTimeout(() => {                  // 盡飛去後，碼徐徐重現"
+ },
+ "function blowAway(bx, by, wait = 550) {   // wait: 떨리는 시간 (0이면 떨지 않고 바로 터진다)": {
+  "en": "function blowAway(bx, by, wait = 550) {   // wait: shudder time (0 = no shudder, burst at once)",
+  "hj": "function blowAway(bx, by, wait = 550) {   // wait：顫抖時間 (0 則不抖即炸)"
+ },
+ "if (quality === 2) {                // 2단계: 앞 창은 가운데서 터져 사방으로 퍼지고, 뒤 코드는 화산처럼 솟구친다": {
+  "en": "if (quality === 2) {                // step 2: the front window bursts from the center and spreads everywhere; the back code erupts like a volcano",
+  "hj": "if (quality === 2) {                // 二段：前窗自中央炸開四散，後碼如火山噴起"
+ },
+ "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(comeBack, 900); }, 2000);   // 코드가 다시 나타난 뒤 창이 돌아온다": {
+  "en": "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(comeBack, 900); }, 2000);   // the window comes back after the code reappears",
+  "hj": "setTimeout(() => { power = 0; shaking = false; apply(); setTimeout(comeBack, 900); }, 2000);   // 碼重現後窗方歸"
  }
 }

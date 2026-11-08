@@ -1,4 +1,8 @@
 {
+ ".replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;') : '·';   // 육지는 코드 글자, 바다는 점": {
+  "en": ".replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;') : '·';   // land is code characters, sea is dots",
+  "hj": ".replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;') : '·';   // 陸為碼字，海為點"
+ },
  "/* 2단계 '디자인': 편집기처럼 색 구분된 코드·줄 번호, 떠 있는 조절 막대, 포인트 색 하나 */": {
   "en": "/* Step 2 'Designed': editor-style colored code with line numbers, a floating control bar, one accent color */",
   "hj": "/* 第二階「設計」：如編輯器之分色碼與行號、浮動之調節條、單一點色 */"
@@ -31,17 +35,25 @@
   "en": "/* Easter egg: only the tiny 'button' word in the code is clickable */",
   "hj": "/* 彩蛋：碼中唯小字「按鈕」可按 */"
  },
- "/* 지구: 코드 글자로 그린 도는 지구 */": {
-  "en": "/* Earth: a spinning globe drawn with code characters */",
-  "hj": "/* 地球：以碼字繪成之旋轉地球 */"
+ "/* 지구: 코드 글자로 그린 도는 지구. 단계가 오를수록 색·명암·매끄러움이 더해진다 */": {
+  "en": "/* Earth: a spinning globe drawn with code; higher steps add color, shading and smoothness */",
+  "hj": "/* 地球：以碼字繪之旋轉地球；階愈高，色、明暗、流暢愈增 */"
+ },
+ "/* 지구가 되기 전: 코드 글자들이 가운데로 빨려 들어간다 */": {
+  "en": "/* before becoming the Earth: code characters get sucked into the center */",
+  "hj": "/* 未成地球之前：碼字被吸入中央 */"
  },
  "/* 첫 연출: 타자가 끝나면 꽉 찬 코드가 렌즈 크기로 줄어든다 */": {
   "en": "/* Intro: when typing ends, the full-screen code shrinks into the lens */",
   "hj": "/* 開場：打字既畢，滿屏之碼縮為透鏡 */"
  },
- "/* 코드 비: 줄마다 아래로 떨어졌다가, 거꾸로 되감기듯 제자리로 올라온다 */": {
-  "en": "/* Code rain: each line falls down, then rewinds back up into place */",
-  "hj": "/* 碼雨：逐行墜下，復如倒捲而歸原位 */"
+ "/* 코드 비 (0~2단계): 줄이 아래로 떨어졌다가 되감기듯 올라온다. 0단계는 덩어리째 뚝뚝, 2단계는 기울며 */": {
+  "en": "/* Code rain (steps 0–2): lines fall, then rewind back up. Step 0 drops in choppy chunks, step 2 tilts */",
+  "hj": "/* 碼雨（零至二階）：行墜而倒捲復上。零階成塊頓墜，二階斜墜 */"
+ },
+ "/* 코드 비 (3단계): 글자는 그대로, 파란 빗줄기 층을 겹쳐 글자에만 파란색이 흘러내린다 */": {
+  "en": "/* Code rain (step 3): text stays still; a layer of blue streaks makes blue flow down over the letters only */",
+  "hj": "/* 碼雨（三階）：字不動，疊藍色雨絲之層，唯字上流藍 */"
  },
  "/* 퀄리티 업 1단계 '정돈': 글꼴 체계·여백·같은 크기의 버튼 */": {
   "en": "/* Quality up step 1 'Tidy': type scale, spacing, same-size buttons */",
@@ -82,6 +94,10 @@
  "// 비밀 단어: 글상자 끝에 이 말이 있으면 반응한다": {
   "en": "// Secret words: react when the text box ends with one of these",
   "hj": "// 密語：文字框末有此語則應之"
+ },
+ "// 빨려 들어가기: 화면에 보이는 코드 글자들이 소용돌이치며 지구 자리로 모인다 (모든 단계 같음)": {
+  "en": "// Suck-in: visible code characters swirl into where the Earth will be (same at every step)",
+  "hj": "// 吸入：屏上可見之碼字旋繞聚於地球之位（諸階皆同）"
  },
  "// 앞에서 글자를 적으면 뒤의 코드(입력칸 줄)에 그대로 써진다": {
   "en": "// text typed in front is written straight into the code behind (the input line)",
@@ -171,6 +187,10 @@
   "en": "// search only in the screen (main) lines — skip the same text inside the script",
   "hj": "// 唯於屏（main）之行中尋之——腳本中同字不計"
  },
+ ":root.dark #rainfx { mix-blend-mode: multiply;   /* 어두운 바탕은 그대로, 밝은 글자만 파랗게 */": {
+  "en": ":root.dark #rainfx { mix-blend-mode: multiply;   /* dark background stays, only light letters turn blue */",
+  "hj": ":root.dark #rainfx { mix-blend-mode: multiply;   /* 暗底不變，唯明字轉藍 */"
+ },
  "<button type=\"button\" id=\"bigger\">렌즈 크게</button>": {
   "en": "<button type=\"button\" id=\"bigger\">Bigger lens</button>",
   "hj": "<button type=\"button\" id=\"bigger\">放大透鏡</button>"
@@ -247,6 +267,14 @@
   "en": "const EGG_TEXT = { ko: 'Easter egg', en: 'Easter egg', hj: '彩蛋' };   // the word written into the text box when clicked",
   "hj": "const EGG_TEXT = { ko: '彩蛋', en: 'Easter egg', hj: '彩蛋' };   // 按則書於文字框之語"
  },
+ "const FPS_GAP = [250, 100, 40, 0];    // 단계별 그리기 간격(ms): 0단계 초당 4장 … 3단계 매 프레임": {
+  "en": "const FPS_GAP = [250, 100, 40, 0];    // draw interval per step (ms): step 0 = 4 fps … step 3 = every frame",
+  "hj": "const FPS_GAP = [250, 100, 40, 0];    // 各階繪畫間隔（毫秒）：零階每秒四幀 … 三階每幀"
+ },
+ "const LIGHT = [-0.45, 0.55, 0.7];     // 빛이 오는 방향 (왼쪽 위 앞)": {
+  "en": "const LIGHT = [-0.45, 0.55, 0.7];     // light direction (upper left, front)",
+  "hj": "const LIGHT = [-0.45, 0.55, 0.7];     // 光之來向（左上前）"
+ },
  "const MAX = 20;                       // 이만큼 연타하면 최대치 → 화면이 깨진다": {
   "en": "const MAX = 20;                       // mash this many times to hit the max → the screen breaks",
   "hj": "const MAX = 20;                       // 連擊至此為極 → 屏碎"
@@ -263,6 +291,14 @@
   "en": "const STAGE = { ko: ['Basic', 'Tidy', 'Designed', 'Polished'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整頓', '設計', '完成'] };",
   "hj": "const STAGE = { ko: ['基本', '整頓', '設計', '完成'], en: ['Basic', 'Tidy', 'Designed', 'Polished'], hj: ['基本', '整頓', '設計', '完成'] };"
  },
+ "const a0 = Math.atan2(y - cy, x - cx), d0 = Math.hypot(x - cx, y - cy);   // 가운데 기준 처음 위치": {
+  "en": "const a0 = Math.atan2(y - cy, x - cx), d0 = Math.hypot(x - cx, y - cy);   // starting position relative to the center",
+  "hj": "const a0 = Math.atan2(y - cy, x - cx), d0 = Math.hypot(x - cx, y - cy);   // 以中央為準之初位"
+ },
+ "const chunk = quality === 0 ? 14 : 1;   // 0단계는 14줄씩 덩어리로": {
+  "en": "const chunk = quality === 0 ? 14 : 1;   // step 0 drops 14 lines per chunk",
+  "hj": "const chunk = quality === 0 ? 14 : 1;   // 零階每十四行成一塊"
+ },
  "const firstLine = new WeakMap();      // 처음(한글) 모양의 첫 줄을 기억": {
   "en": "const firstLine = new WeakMap();      // remember each element's original (Korean) first line",
   "hj": "const firstLine = new WeakMap();      // 記其初（韓文）之首行"
@@ -274,6 +310,10 @@
  "const n = power * 6;                // 막 누를수록 더 많은 줄이 깨진다": {
   "en": "const n = power * 6;                // the more you mash, the more lines break",
   "hj": "const n = power * 6;                // 愈連擊，壞行愈多"
+ },
+ "const offset = quality >= 2 ? cw * 5.5 : 0;     // 2단계부터는 줄 번호만큼 오른쪽": {
+  "en": "const offset = quality >= 2 ? cw * 5.5 : 0;     // from step 2, shift right by the line-number width",
+  "hj": "const offset = quality >= 2 ? cw * 5.5 : 0;     // 自二階起，右移行號之寬"
  },
  "const ring = document.createElement('div');   // 3단계에서 보이는 렌즈 테두리": {
   "en": "const ring = document.createElement('div');   // lens ring shown at step 3",
@@ -303,9 +343,9 @@
   "en": "dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // show the current step",
   "hj": "dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // 示今之階"
  },
- "earthTimer = setTimeout(endEarth, 9000);   // 9초 돌고 코드로 돌아간다": {
-  "en": "earthTimer = setTimeout(endEarth, 9000);   // spin for 9 seconds, then back to the code",
-  "hj": "earthTimer = setTimeout(endEarth, 9000);   // 轉九秒而復歸於碼"
+ "earthTimer = setTimeout(endEarth, 10000);   // 10초 뒤 코드로 돌아간다": {
+  "en": "earthTimer = setTimeout(endEarth, 10000);   // back to the code after 10 seconds",
+  "hj": "earthTimer = setTimeout(endEarth, 10000);   // 十秒後復歸於碼"
  },
  "eggIdx = orig.findIndex(t => t.includes('/* 버튼 */'));": {
   "en": "eggIdx = orig.findIndex(t => t.includes('/* button */'));",
@@ -323,6 +363,10 @@
   "en": "function boom() {                     // blow it up to the max in one go",
   "hj": "function boom() {                     // 一舉至極而爆"
  },
+ "function cls(L, lat, nx, ny, nz) {  // 글자 한 칸의 색 이름": {
+  "en": "function cls(L, lat, nx, ny, nz) {  // color name for one character cell",
+  "hj": "function cls(L, lat, nx, ny, nz) {  // 一格之色名"
+ },
  "function finishTyping() {             // 다 쳤거나, 중간에 다른 기능을 누르면 바로 끝낸다": {
   "en": "function finishTyping() {             // finish at once when done, or when another feature is pressed",
   "hj": "function finishTyping() {             // 擊畢或中途按他鈕，即刻終之"
@@ -330,6 +374,10 @@
  "function mend() {                     // 터진 글자를 원래대로 되돌린다": {
   "en": "function mend() {                     // bring the popped text back",
   "hj": "function mend() {                     // 復爆字於原貌"
+ },
+ "if (!findSecret()) lastSecret = '';   // 비밀 단어를 지우면 다음에 다시 반응": {
+  "en": "if (!findSecret()) lastSecret = '';   // once the secret word is erased, it can fire again",
+  "hj": "if (!findSecret()) lastSecret = '';   // 密語既去，後可再應"
  },
  "if (e.target.id === 'shake') return;  // 뒤섞기는 짝 찾기 대신 뒤섞기만": {
   "en": "if (e.target.id === 'shake') return;  // the scramble button only scrambles, no matching",
@@ -339,9 +387,17 @@
   "en": "if (next === 0) {                   // going back to the start, crossfade smoothly",
   "hj": "if (next === 0) {                   // 復初之時，柔和交疊而易"
  },
+ "if (now - last < gap) return;     // 낮은 단계는 일부러 뚝뚝 끊기게": {
+  "en": "if (now - last < gap) return;     // low steps stutter on purpose",
+  "hj": "if (now - last < gap) return;     // 低階故意頓挫"
+ },
  "if (pos >= text.length) {       // 이 줄 끝 → 다음 줄": {
   "en": "if (pos >= text.length) {       // end of this line → next line",
   "hj": "if (pos >= text.length) {       // 此行既終 → 次行"
+ },
+ "if (quality >= 3) {                 // 3단계: 글자는 그대로, 색으로만 비": {
+  "en": "if (quality >= 3) {                 // step 3: text stays put, rain by color only",
+  "hj": "if (quality >= 3) {                 // 三階：字不動，唯以色為雨"
  },
  "lastSecret = hit ? v : '';          // 같은 글 그대로면 다시 터지지 않게": {
   "en": "lastSecret = hit ? v : '';          // don't fire again while the text stays the same",
@@ -387,9 +443,9 @@
   "en": "memo.dispatchEvent(new Event('input'));   // also written into the code behind",
   "hj": "memo.dispatchEvent(new Event('input'));   // 後碼亦同書之"
  },
- "row += L ? g : '·';                         // 육지는 코드 글자, 바다는 점": {
-  "en": "row += L ? g : '·';                         // land is code characters, sea is dots",
-  "hj": "row += L ? g : '·';                         // 陸為碼字，海為點"
+ "mix-blend-mode: screen;             /* 밝은 바탕은 그대로, 어두운 글자만 파랗게 */": {
+  "en": "mix-blend-mode: screen;             /* light background stays, only dark letters turn blue */",
+  "hj": "mix-blend-mode: screen;             /* 明底不變，唯暗字轉藍 */"
  },
  "setDark(document.documentElement.classList.contains('dark'));   // 블랙 모드 버튼 이름도 바꾼다": {
   "en": "setDark(document.documentElement.classList.contains('dark'));   // also rename the dark mode button",
@@ -398,6 +454,10 @@
  "setTimeout(() => {                  // 다 떨어지면 되감아 올린다": {
   "en": "setTimeout(() => {                  // once everything has fallen, rewind it back up",
   "hj": "setTimeout(() => {                  // 墜盡則倒捲而上"
+ },
+ "setTimeout(() => {                  // 다 빨려 들어가면 지구가 나타난다": {
+  "en": "setTimeout(() => {                  // once everything is sucked in, the Earth appears",
+  "hj": "setTimeout(() => {                  // 吸盡則地球現"
  },
  "{ sel: '#bar > span:first-child', ko: '창', en: 'Window', hj: '窓' },": {
   "en": "{ sel: '#bar > span:first-child', ko: 'Window', en: 'Window', hj: '窓' },",

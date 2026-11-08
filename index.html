@@ -109,21 +109,51 @@
   .pop { animation: pop 0.45s ease-out both; }
   @keyframes pop { 40% { transform: scale(1.25); filter: blur(1px); opacity: 1; }
     100% { transform: scale(1.8); filter: blur(10px); opacity: 0; } }
-  /* 코드 비: 줄마다 아래로 떨어졌다가, 거꾸로 되감기듯 제자리로 올라온다 */
+  /* 코드 비 (0~2단계): 줄이 아래로 떨어졌다가 되감기듯 올라온다. 0단계는 덩어리째 뚝뚝, 2단계는 기울며 */
   #code.rain > .ln { display: block; animation: drop 1.4s cubic-bezier(.5,0,.9,.5) var(--d) both; }
   #code.unrain > .ln { display: block; animation: drop 1s cubic-bezier(.1,.5,.5,1) var(--d) both reverse; }
+  #code.rq0 > .ln { animation-timing-function: steps(5); }
   @keyframes drop { to { transform: translateY(110vh) rotate(var(--rot)); opacity: 0.15; } }
-  /* 지구: 코드 글자로 그린 도는 지구 */
-  #globe { position: fixed; inset: 0; margin: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  /* 코드 비 (3단계): 글자는 그대로, 파란 빗줄기 층을 겹쳐 글자에만 파란색이 흘러내린다 */
+  #rainfx { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s;
+    mix-blend-mode: screen;             /* 밝은 바탕은 그대로, 어두운 글자만 파랗게 */
+    background-image:
+      radial-gradient(9px 70px at 50% 50%, #3b82f6 40%, transparent),
+      radial-gradient(10px 90px at 50% 50%, #1d4ed8 40%, transparent),
+      radial-gradient(8px 55px at 50% 50%, #60a5fa 40%, transparent);
+    background-size: 29px 170px, 47px 230px, 23px 130px;
+    animation: rainfall 0.9s linear infinite; }
+  :root.dark #rainfx { mix-blend-mode: multiply;   /* 어두운 바탕은 그대로, 밝은 글자만 파랗게 */
+    background-image:
+      radial-gradient(9px 70px at 50% 50%, #6ea8ff 40%, transparent),
+      radial-gradient(10px 90px at 50% 50%, #3b82f6 40%, transparent),
+      radial-gradient(8px 55px at 50% 50%, #9cc6ff 40%, transparent); }
+  #rainfx.on { opacity: 1; }
+  @keyframes rainfall { from { background-position: 0 0, 13px 40px, 7px 90px; }
+    to { background-position: 0 170px, 13px 270px, 7px 220px; } }
+  /* 지구: 코드 글자로 그린 도는 지구. 단계가 오를수록 색·명암·매끄러움이 더해진다 */
+  #globe { position: fixed; inset: 0; margin: 0; z-index: 1; pointer-events: none; overflow: hidden;
     font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; white-space: pre; font-variant-ligatures: none;
-    color: color-mix(in srgb, #2f6fd0 45%, transparent); opacity: 0; transform: scale(0.9);
-    transition: opacity 0.8s, transform 0.8s cubic-bezier(.2,.8,.3,1); }
-  #globe b { color: #1f8a43; font-weight: 700; }
-  :root.dark #globe { color: color-mix(in srgb, #5b8def 60%, transparent); }
-  :root.dark #globe b { color: #57d17a; }
-  :root.earth #globe { opacity: 1; transform: none; }
+    color: #b0b4ba; opacity: 0; transform: scale(0.94); transition: opacity 0.6s, transform 0.8s cubic-bezier(.2,.8,.3,1); }
+  #globe i { font-style: normal; }
+  #globe .g { color: #5f6368; font-weight: 700; }
+  :root.dark #globe { color: #5f6368; }
+  :root.dark #globe .g { color: #c4c7cc; }
+  #globe .s { color: color-mix(in srgb, #2f6fd0 45%, transparent); }
+  #globe .l { color: #1f8a43; font-weight: 700; }
+  :root.dark #globe .s { color: color-mix(in srgb, #5b8def 60%, transparent); }
+  :root.dark #globe .l { color: #57d17a; }
+  #globe .l0 { color: #8be29c; font-weight: 700; } #globe .l1 { color: #3fb860; font-weight: 700; }
+  #globe .l2 { color: #1f8a43; font-weight: 700; } #globe .l3 { color: #134f2a; font-weight: 700; }
+  #globe .s0 { color: #9fd0ff; } #globe .s1 { color: #4f9df5; } #globe .s2 { color: #2f6fd0; } #globe .s3 { color: #1c3f7a; }
+  #globe .ic { color: #e9f3ff; font-weight: 700; text-shadow: 0 0 2px #7fb2ff; }
+  :root.earth-on #globe { opacity: 1; transform: none; }
   :root.earth #code { opacity: 0; transition: opacity 0.6s; }
-  :root.earth #screen { opacity: 0.3; }
+  :root.earth #screen { opacity: 0.2; }
+  /* 지구가 되기 전: 코드 글자들이 가운데로 빨려 들어간다 */
+  #flock { position: fixed; inset: 0; z-index: 1; pointer-events: none; transition: opacity 0.5s;
+    font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; color: var(--code); }
+  #flock span { position: absolute; }
   .unpop { animation: unpop 0.6s cubic-bezier(.2,.8,.3,1) both; }
   @keyframes unpop { from { transform: scale(0.6); filter: blur(6px); opacity: 0; } }
   @keyframes quake { 20% { transform: translate(-12px, 6px); } 40% { transform: translate(10px, -8px); }
@@ -160,6 +190,7 @@
 
 <pre id="code" aria-hidden="true"></pre>
 <pre id="globe" aria-hidden="true"></pre>
+<div id="rainfx" aria-hidden="true"></div>
 
 <div id="bar">
   <span>창</span>
@@ -356,6 +387,7 @@
     writeMemoLine();
     flash(memoIdx);
     clearTimeout(secretTimer);
+    if (!findSecret()) lastSecret = '';   // 비밀 단어를 지우면 다음에 다시 반응
     secretTimer = setTimeout(checkSecret, 500);
   });
   // 비밀 단어: 글상자 끝에 이 말이 있으면 반응한다
@@ -365,9 +397,10 @@
     { words: ['지구', 'earth', '地球'], run: () => earth() },
   ];
   let secretTimer = null, lastSecret = '';
+  const findSecret = () => SECRETS.find(x => x.words.some(w => memo.value.trim().toLowerCase().endsWith(w)));
   function checkSecret() {
     const v = memo.value.trim().toLowerCase();
-    const hit = SECRETS.find(x => x.words.some(w => v.endsWith(w)));
+    const hit = findSecret();
     if (hit && v !== lastSecret) hit.run();
     lastSecret = hit ? v : '';          // 같은 글 그대로면 다시 터지지 않게
   }
@@ -405,15 +438,25 @@
     if (raining) return;
     finishTyping();
     raining = true; apply();
-    lines.forEach(s => {
-      s.style.setProperty('--d', (Math.random() * 0.8).toFixed(2) + 's');
-      s.style.setProperty('--rot', (Math.random() * 30 - 15).toFixed(1) + 'deg');
+    if (quality >= 3) {                 // 3단계: 글자는 그대로, 색으로만 비
+      const fx = document.getElementById('rainfx');
+      fx.classList.add('on');
+      setTimeout(() => { fx.classList.remove('on'); raining = false; apply(); }, 4200);
+      return;
+    }
+    const chunk = quality === 0 ? 14 : 1;   // 0단계는 14줄씩 덩어리로
+    let d = 0;
+    lines.forEach((s, i) => {
+      if (i % chunk === 0) d = Math.random() * 0.8;
+      s.style.setProperty('--d', d.toFixed(2) + 's');
+      s.style.setProperty('--rot', quality >= 2 ? (Math.random() * 30 - 15).toFixed(1) + 'deg' : '0deg');
     });
-    codeEl.classList.add('rain');
+    const rq = 'rq' + quality;
+    codeEl.classList.add('rain', rq);
     setTimeout(() => {                  // 다 떨어지면 되감아 올린다
       codeEl.classList.remove('rain'); void codeEl.offsetWidth;
       codeEl.classList.add('unrain');
-      setTimeout(() => { codeEl.classList.remove('unrain'); raining = false; apply(); }, 1900);
+      setTimeout(() => { codeEl.classList.remove('unrain', rq); raining = false; apply(); }, 1900);
     }, 2400);
   }
   // 지구: 대륙 지도 (위도 10도 띠마다 육지 경도 구간, 북 85° → 남 -85°)
@@ -440,7 +483,9 @@
   const isLand = (lat, lon) => (LAND[Math.min(17, Math.max(0, Math.floor((90 - lat) / 10)))] || [])
     .some(([a, b]) => lon >= a && lon <= b);
   const globeEl = document.getElementById('globe');
-  let earthFrame = null, earthTimer = null;
+  let earthFrame = null, earthTimer = null, flock = null;
+  const FPS_GAP = [250, 100, 40, 0];    // 단계별 그리기 간격(ms): 0단계 초당 4장 … 3단계 매 프레임
+  const LIGHT = [-0.45, 0.55, 0.7];     // 빛이 오는 방향 (왼쪽 위 앞)
   function earth() {
     finishTyping();
     cancelAnimationFrame(earthFrame); clearTimeout(earthTimer);
@@ -451,42 +496,95 @@
     const cw = probe.getBoundingClientRect().width / 10, ch = parseFloat(getComputedStyle(globeEl).lineHeight);
     const cols = Math.floor(innerWidth / cw), rows = Math.floor(innerHeight / ch);
     const R = Math.min(innerWidth, innerHeight) * 0.42, cx = innerWidth / 2, cy = innerHeight / 2;
+    suckIn(cw, cx, cy, R);
     const tilt = 23.4 * Math.PI / 180;
+    const q = quality, gap = FPS_GAP[q];
     const t0 = performance.now();
+    let last = -1e9;
+    function cls(L, lat, nx, ny, nz) {  // 글자 한 칸의 색 이름
+      if (q <= 1) return L ? 'g' : '';
+      if (q === 2) return L ? 'l' : 's';
+      const lit = nx * LIGHT[0] - ny * LIGHT[1] + nz * LIGHT[2];
+      const k = lit > 0.75 ? 0 : lit > 0.45 ? 1 : lit > 0.1 ? 2 : 3;
+      if (L && Math.abs(lat) > 66) return 'ic';
+      return (L ? 'l' : 's') + k;
+    }
     function draw(now) {
+      earthFrame = requestAnimationFrame(draw);
+      if (now - last < gap) return;     // 낮은 단계는 일부러 뚝뚝 끊기게
+      last = now;
       const spin = (now - t0) / 1000 * 0.6;           // 초당 약 34도 회전
       let html = '';
       for (let r = 0; r < rows; r++) {
-        let row = '', land = false;
+        let row = '', cur = '';
         for (let c = 0; c < cols; c++) {
           const nx = (c * cw + cw / 2 - cx) / R, ny = (r * ch + ch / 2 - cy) / R;
           const d = nx * nx + ny * ny;
-          if (d > 1) { if (land) { row += '</b>'; land = false; } row += ' '; continue; }
-          const nz = Math.sqrt(1 - d);
-          const y2 = -ny * Math.cos(tilt) + nz * Math.sin(tilt);   // 지축 기울기
-          const z2 = nz * Math.cos(tilt) + ny * Math.sin(tilt);
-          const lat = Math.asin(y2) * 180 / Math.PI;
-          let lon = (Math.atan2(nx, z2) + spin) * 180 / Math.PI;
-          lon = ((lon + 180) % 360 + 360) % 360 - 180;
-          const k = (Math.floor(lat + 90) * 360 + Math.floor(lon + 180)) % chars.length;
-          const g = chars[k].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');
-          const L = isLand(lat, lon);
-          if (L && !land) { row += '<b>'; land = true; }
-          if (!L && land) { row += '</b>'; land = false; }
-          row += L ? g : '·';                         // 육지는 코드 글자, 바다는 점
+          let k = '', g = ' ';
+          if (d <= 1) {
+            const nz = Math.sqrt(1 - d);
+            const y2 = -ny * Math.cos(tilt) + nz * Math.sin(tilt);   // 지축 기울기
+            const z2 = nz * Math.cos(tilt) + ny * Math.sin(tilt);
+            const lat = Math.asin(y2) * 180 / Math.PI;
+            let lon = (Math.atan2(nx, z2) + spin) * 180 / Math.PI;
+            lon = ((lon + 180) % 360 + 360) % 360 - 180;
+            const L = isLand(lat, lon);
+            k = cls(L, lat, nx, ny, nz);
+            g = L ? chars[(Math.floor(lat + 90) * 360 + Math.floor(lon + 180)) % chars.length]
+                    .replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;') : '·';   // 육지는 코드 글자, 바다는 점
+          }
+          if (k !== cur) { row += (cur ? '</i>' : '') + (k ? `<i class="${k}">` : ''); cur = k; }
+          row += g;
         }
-        html += row + (land ? '</b>' : '') + '\n';
+        html += row + (cur ? '</i>' : '') + '\n';
       }
       globeEl.innerHTML = html;
-      earthFrame = requestAnimationFrame(draw);
     }
     earthFrame = requestAnimationFrame(draw);
     document.documentElement.classList.add('earth');
-    earthTimer = setTimeout(endEarth, 9000);   // 9초 돌고 코드로 돌아간다
+    setTimeout(() => {                  // 다 빨려 들어가면 지구가 나타난다
+      document.documentElement.classList.add('earth-on');
+      if (flock) { flock.style.opacity = 0; const f = flock; setTimeout(() => f.remove(), 600); flock = null; }
+    }, 1300);
+    earthTimer = setTimeout(endEarth, 10000);   // 10초 뒤 코드로 돌아간다
+  }
+  // 빨려 들어가기: 화면에 보이는 코드 글자들이 소용돌이치며 지구 자리로 모인다 (모든 단계 같음)
+  function suckIn(cw, cx, cy, R) {
+    if (flock) flock.remove();
+    flock = document.createElement('div'); flock.id = 'flock';
+    const offset = quality >= 2 ? cw * 5.5 : 0;     // 2단계부터는 줄 번호만큼 오른쪽
+    const cand = [];
+    lines.forEach(line => {
+      const rect = line.getClientRects()[0];
+      if (!rect || rect.bottom < 0 || rect.top > innerHeight) return;
+      let x = rect.left + offset;
+      for (const c of line.textContent) {
+        const wide = c.charCodeAt(0) > 0x2e80;
+        if (c.trim() && x < innerWidth) cand.push({ c, x, y: rect.top });
+        x += wide ? cw * 2 : cw;
+      }
+    });
+    for (let n = 0; n < 650 && cand.length; n++) {
+      const { c, x, y } = cand.splice(Math.floor(Math.random() * cand.length), 1)[0];
+      const span = document.createElement('span');
+      span.textContent = c; span.style.left = x + 'px'; span.style.top = y + 'px';
+      flock.append(span);
+      const a = Math.random() * Math.PI * 2, rr = R * Math.sqrt(Math.random());
+      const tx = cx + rr * Math.cos(a) - x, ty = cy + rr * Math.sin(a) - y;
+      const a0 = Math.atan2(y - cy, x - cx), d0 = Math.hypot(x - cx, y - cy);   // 가운데 기준 처음 위치
+      const mx = cx + d0 * 0.55 * Math.cos(a0 + 1.4) - x, my = cy + d0 * 0.55 * Math.sin(a0 + 1.4) - y;
+      span.animate([
+        { transform: 'translate(0, 0)', opacity: 1 },
+        { transform: `translate(${mx}px, ${my}px) rotate(160deg) scale(0.8)`, opacity: 0.9, offset: 0.55 },
+        { transform: `translate(${tx}px, ${ty}px) rotate(320deg) scale(0.6)`, opacity: 0.7 },
+      ], { duration: 1150, delay: Math.random() * 250, easing: 'cubic-bezier(.55,0,.35,1)', fill: 'forwards' });
+    }
+    document.body.append(flock);
   }
   function endEarth() {
-    document.documentElement.classList.remove('earth');
+    document.documentElement.classList.remove('earth', 'earth-on');
     clearTimeout(earthTimer);
+    if (flock) { flock.remove(); flock = null; }
     setTimeout(() => cancelAnimationFrame(earthFrame), 900);
   }
   addEventListener('click', e => { if (document.documentElement.classList.contains('earth') && e.target !== memo) endEarth(); });

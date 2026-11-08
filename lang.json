@@ -638,5 +638,45 @@
  "return () => {                      // 조각을 다시 모으지 않고, 보이지 않는 사이 제자리에 두었다가 서서히 나타난다": {
   "en": "return () => {                      // don't reassemble the pieces; put them back while unseen, then fade in slowly",
   "hj": "return () => {                      // 不再聚合碎片，趁不見時歸位，再徐徐浮現"
+ },
+ "// 포물선을 그리며 식어 제자리로 떨어진다": {
+  "en": "// cooling as they arc back down to their places",
+  "hj": "// 劃拋物線冷卻，落回原位"
+ },
+ "// 화면에 보이는 뒤 코드 글자들과 그 자리 (지구 모이기·화산 분출이 함께 쓴다)": {
+  "en": "// back-code characters visible on screen and their spots (shared by the earth gather and the eruption)",
+  "hj": "// 屏上可見之後碼字及其位 (地球聚合與火山噴發共用)"
+ },
+ "// 화산 분출 (2단계 펑): 코드 글자들이 아래 가운데 분화구로 빨려 들었다가, 용암빛으로 높이 솟구쳐": {
+  "en": "// Eruption (step 2 boom): code characters get sucked into a crater at the bottom center, then shoot up high like lava,",
+  "hj": "// 火山噴發 (二段爆)：碼字吸入下方中央火口，如熔岩高高噴起，"
+ },
+ "const kx = innerWidth / 2, ky = innerHeight - 70;   // 분화구": {
+  "en": "const kx = innerWidth / 2, ky = innerHeight - 70;   // the crater",
+  "hj": "const kx = innerWidth / 2, ky = innerHeight - 70;   // 火口"
+ },
+ "const spread = (Math.random() - 0.5) * 500;      // 옆으로 퍼지는 정도": {
+  "en": "const spread = (Math.random() - 0.5) * 500;      // how far it spreads sideways",
+  "hj": "const spread = (Math.random() - 0.5) * 500;      // 橫向散開幅度"
+ },
+ "for (let i = 1; i <= 8; i++) {                   // 분화구 → 하늘 → 제자리 (위로 볼록한 포물선)": {
+  "en": "for (let i = 1; i <= 8; i++) {                   // crater → sky → home (an upward arc)",
+  "hj": "for (let i = 1; i <= 8; i++) {                   // 火口 → 天 → 原位 (上凸拋物線)"
+ },
+ "if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // 2단계: 뒤 코드는 화산처럼 솟구친다": {
+  "en": "if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // step 2: the back code erupts like a volcano",
+  "hj": "if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // 二段：後碼如火山噴起"
+ },
+ "setTimeout(() => {                  // 다 떨어지면 진짜 코드로 바꿔 끼운다": {
+  "en": "setTimeout(() => {                  // once all have landed, swap back to the real code",
+  "hj": "setTimeout(() => {                  // 盡落則換回真碼"
+ },
+ "const src = visibleChars(cw, 700), cool = getComputedStyle(codeEl).color;   // 식은 뒤 색 = 코드 색": {
+  "en": "const src = visibleChars(cw, 700), cool = getComputedStyle(codeEl).color;   // cooled color = code color",
+  "hj": "const src = visibleChars(cw, 700), cool = getComputedStyle(codeEl).color;   // 冷卻後色 = 碼色"
+ },
+ "const top = Math.max(30, Math.min(y, ky) - 80 - Math.random() * 250);   // 꼭대기 높이 (화면 안에서, 제자리보다 조금 위)": {
+  "en": "const top = Math.max(30, Math.min(y, ky) - 80 - Math.random() * 250);   // apex height (inside the screen, a bit above its home)",
+  "hj": "const top = Math.max(30, Math.min(y, ky) - 80 - Math.random() * 250);   // 頂點高度 (屏內，略高於原位)"
  }
 }

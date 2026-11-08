@@ -619,9 +619,8 @@
     earthTimer = setTimeout(endEarth, 6000);    // 6초 뒤 코드로 돌아간다
   }
   // 모이기: 화면의 코드 글자를 하나씩 떼어, 화면 전체를 원으로 눌러 담은 자리(지구 칸)로 날린다 — 배치 모양은 유지
-  function gather(cw, ch, cx, cy, R, colorAt) {
-    if (flock) flock.remove();
-    flock = document.createElement('div'); flock.id = 'flock';
+  // 화면에 보이는 뒤 코드 글자들과 그 자리 (지구 모이기·화산 분출이 함께 쓴다)
+  function visibleChars(cw, limit) {
     const offset = quality >= 2 ? cw * 5.5 : 0;     // 2단계부터는 줄 번호만큼 오른쪽
     const src = [];
     for (const line of lines) {
@@ -629,10 +628,16 @@
       if (!rect || rect.bottom < 0 || rect.top > innerHeight) continue;
       let x = rect.left + offset;
       for (const c of line.textContent) {
-        if (c.trim() && x < innerWidth && src.length < 1500) src.push({ c, x, y: rect.top });
+        if (c.trim() && x < innerWidth && src.length < limit) src.push({ c, x, y: rect.top });
         x += c.charCodeAt(0) > 0x2e80 ? cw * 2 : cw;
       }
     }
+    return src;
+  }
+  function gather(cw, ch, cx, cy, R, colorAt) {
+    if (flock) flock.remove();
+    flock = document.createElement('div'); flock.id = 'flock';
+    const src = visibleChars(cw, 1500);
     // 지구 원 안의 칸들 (위에서 아래, 왼쪽에서 오른쪽) — 글자를 읽는 순서대로 고르게 나눠 채운다
     const cells = [];
     for (let ty = Math.floor((cy - R) / ch) * ch; ty < cy + R; ty += ch)
@@ -678,6 +683,7 @@
     clearTimeout(restoreTimer); clearInterval(restoring);
     shaking = true; apply();
     power = MAX;
+    if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // 2단계: 뒤 코드는 화산처럼 솟구친다
     smash();
     restoreTimer = setTimeout(restore, 1200);
   }
@@ -702,6 +708,41 @@
       }
     });
     if (burst) document.documentElement.classList.add('broken');
+  }
+  // 화산 분출 (2단계 펑): 코드 글자들이 아래 가운데 분화구로 빨려 들었다가, 용암빛으로 높이 솟구쳐
+  // 포물선을 그리며 식어 제자리로 떨어진다
+  function erupt() {
+    const probe = document.createElement('span');
+    probe.textContent = 'M'.repeat(10); probe.style.font = getComputedStyle(codeEl).font;
+    document.body.append(probe);
+    const cw = probe.getBoundingClientRect().width / 10; probe.remove();
+    const src = visibleChars(cw, 700), cool = getComputedStyle(codeEl).color;   // 식은 뒤 색 = 코드 색
+    const lava = document.createElement('div'); lava.id = 'flock';
+    const kx = innerWidth / 2, ky = innerHeight - 70;   // 분화구
+    src.forEach(({ c, x, y }) => {
+      const span = document.createElement('span');
+      span.textContent = c; span.style.left = x + 'px'; span.style.top = y + 'px';
+      lava.append(span);
+      const top = Math.max(30, Math.min(y, ky) - 80 - Math.random() * 250);   // 꼭대기 높이 (화면 안에서, 제자리보다 조금 위)
+      const spread = (Math.random() - 0.5) * 500;      // 옆으로 퍼지는 정도
+      const frames = [{ transform: 'translate(0, 0)', color: cool, offset: 0 },
+        { transform: `translate(${kx - x}px, ${ky - y}px) scale(0.6)`, color: '#ff4d1a', offset: 0.22 }];
+      for (let i = 1; i <= 8; i++) {                   // 분화구 → 하늘 → 제자리 (위로 볼록한 포물선)
+        const t = i / 8;
+        const px = kx + (x - kx) * t + spread * Math.sin(Math.PI * t);
+        const py = ky + (y - ky) * t - 4 * ((ky + y) / 2 - top) * t * (1 - t);
+        frames.push({ transform: `translate(${px - x}px, ${py - y}px) rotate(${(1 - t) * 360}deg) scale(${0.6 + 0.4 * t})`,
+          color: t < 0.5 ? '#ffb020' : cool, offset: 0.22 + 0.78 * t });
+      }
+      span.animate(frames, { duration: 1700, delay: Math.random() * 450, easing: 'linear', fill: 'both' });
+    });
+    codeEl.style.opacity = 0;
+    document.body.append(lava);
+    document.documentElement.classList.add('broken');
+    setTimeout(() => {                  // 다 떨어지면 진짜 코드로 바꿔 끼운다
+      codeEl.style.opacity = ''; lava.style.opacity = 0;
+      setTimeout(() => lava.remove(), 400);
+    }, 2200);
   }
   // 앞 창 날아가기 (3단계 펑): 창이 덜덜 떨고 → 조각들이 터진 자리 반대쪽으로 돌며 날아가고, 창 유리도 사라졌다가 → 제자리에 서서히 나타난다
   function blowAway(bx, by) {

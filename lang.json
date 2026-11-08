@@ -47,9 +47,9 @@
   "en": "/* Intro: when typing ends, the full-screen code shrinks into the lens */",
   "hj": "/* 開場：打字既畢，滿屏之碼縮為透鏡 */"
  },
- "/* 코드 비 (0~2단계): 줄이 한 줄씩 떨어졌다가 되감기듯 올라온다. 0단계는 뚝뚝 끊기게, 2단계는 기울며 */": {
-  "en": "/* Code rain (steps 0–2): lines fall one by one, then rewind back up. Step 0 stutters, step 2 tilts */",
-  "hj": "/* 碼雨（零至二階）：逐行而墜，復如倒捲而上。零階頓挫，二階斜墜 */"
+ "/* 코드 비 (0~2단계): 줄이 한 줄씩 떨어졌다가 되감기듯 올라온다. 1단계만 곧게, 0·2단계는 제멋대로 기울며 */": {
+  "en": "/* Code rain (steps 0–2): lines fall one by one, then rewind back up. Step 1 falls straight, steps 0 and 2 tilt every which way */",
+  "hj": "/* 碼雨（零至二階）：逐行而墜，復如倒捲而上。唯一階直墜，零、二階亂斜而墜 */"
  },
  "/* 코드 비 (3단계): 글자는 그대로, 파란 빗줄기 층을 겹쳐 글자에만 파란색이 흘러내린다 */": {
   "en": "/* Code rain (step 3): text stays still; a layer of blue streaks makes blue flow down over the letters only */",
@@ -431,9 +431,9 @@
   "en": "let typing = false;                   // show all the code while typing too",
   "hj": "let typing = false;                   // 打字之間，碼亦皆可見"
  },
- "lines.forEach(s => {                // 한 줄씩 (0단계는 CSS에서 뚝뚝 끊기게)": {
-  "en": "lines.forEach(s => {                // line by line (step 0 stutters via CSS)",
-  "hj": "lines.forEach(s => {                // 逐行（零階由 CSS 使之頓挫）"
+ "lines.forEach(s => {                // 한 줄씩": {
+  "en": "lines.forEach(s => {                // line by line",
+  "hj": "lines.forEach(s => {                // 逐行"
  },
  "mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* 버튼 */": {
   "en": "mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* button */",

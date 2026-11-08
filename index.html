@@ -109,10 +109,9 @@
   .pop { animation: pop 0.45s ease-out both; }
   @keyframes pop { 40% { transform: scale(1.25); filter: blur(1px); opacity: 1; }
     100% { transform: scale(1.8); filter: blur(10px); opacity: 0; } }
-  /* 코드 비 (0~2단계): 줄이 한 줄씩 떨어졌다가 되감기듯 올라온다. 0단계는 뚝뚝 끊기게, 2단계는 기울며 */
+  /* 코드 비 (0~2단계): 줄이 한 줄씩 떨어졌다가 되감기듯 올라온다. 1단계만 곧게, 0·2단계는 제멋대로 기울며 */
   #code.rain > .ln { display: block; animation: drop 1.4s cubic-bezier(.5,0,.9,.5) var(--d) both; }
   #code.unrain > .ln { display: block; animation: drop 1s cubic-bezier(.1,.5,.5,1) var(--d) both reverse; }
-  #code.rq0 > .ln { animation-timing-function: steps(5); }
   @keyframes drop { to { transform: translateY(110vh) rotate(var(--rot)); opacity: 0.15; } }
   /* 코드 비 (3단계): 글자는 그대로, 파란 빗줄기 층을 겹쳐 글자에만 파란색이 흘러내린다 */
   #rainfx { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s;
@@ -444,9 +443,9 @@
       setTimeout(() => { fx.classList.remove('on'); raining = false; apply(); }, 4200);
       return;
     }
-    lines.forEach(s => {                // 한 줄씩 (0단계는 CSS에서 뚝뚝 끊기게)
+    lines.forEach(s => {                // 한 줄씩
       s.style.setProperty('--d', (Math.random() * 0.8).toFixed(2) + 's');
-      s.style.setProperty('--rot', quality >= 2 ? (Math.random() * 30 - 15).toFixed(1) + 'deg' : '0deg');
+      s.style.setProperty('--rot', quality !== 1 ? (Math.random() * 30 - 15).toFixed(1) + 'deg' : '0deg');
     });
     const rq = 'rq' + quality;
     codeEl.classList.add('rain', rq);

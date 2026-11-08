@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>투명창</title>
+<link rel="icon" href="data:,">
+<style>
+  body { margin: 0; font-family: sans-serif; }
+  #screen { padding: 24px; padding-bottom: 80px; }
+  #code {
+    position: fixed; inset: 0 0 56px 0; margin: 0; padding: 24px;
+    overflow: auto; font: 13px/1.5 monospace; white-space: pre-wrap;
+    pointer-events: none; opacity: 0.5;
+  }
+  #bar {
+    position: fixed; left: 0; right: 0; bottom: 0; height: 56px;
+    display: flex; align-items: center; gap: 12px; padding: 0 16px;
+    border-top: 1px solid #ccc; background: #fff;
+  }
+  #bar input { flex: 1; }
+</style>
+</head>
+<body>
+<main id="screen">
+  <h1>투명창</h1>
+  <p>이 페이지는 자기 자신의 코드를 겹쳐 보여줍니다. (더미 내용)</p>
+  <button type="button">버튼 예시</button>
+  <ul>
+    <li>목록 하나</li>
+    <li>목록 둘</li>
+  </ul>
+</main>
+
+<pre id="code" aria-hidden="true"></pre>
+
+<div id="bar">
+  <span>화면</span>
+  <input id="mix" type="range" min="0" max="100" value="50" aria-label="화면과 코드 비율">
+  <span>코드</span>
+</div>
+
+<script>
+  const screenEl = document.getElementById('screen');
+  const codeEl = document.getElementById('code');
+  const mix = document.getElementById('mix');
+
+  function apply() {
+    const t = mix.value / 100;          // 0 = 화면만, 1 = 코드만
+    codeEl.style.opacity = t;
+    screenEl.style.opacity = 1 - t;
+  }
+  mix.addEventListener('input', apply);
+  apply();
+
+  // 자기 자신의 원본 코드를 가져온다 (file://로 열면 실패 → 현재 DOM으로 대체)
+  fetch(location.href)
+    .then(r => r.text())
+    .then(src => { codeEl.textContent = src; })
+    .catch(() => { codeEl.textContent = '<!doctype html>\n' + document.documentElement.outerHTML; });
+</script>
+</body>
+</html>

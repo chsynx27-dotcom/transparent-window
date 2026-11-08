@@ -22,7 +22,10 @@
     display: flex; align-items: center; gap: 12px; padding: 0 16px;
     border-top: 1px solid #ccc; background: #fff;
   }
-  #bar button[aria-pressed="true"] { font-weight: bold; background: #ffe14d; }
+  #dots { letter-spacing: 4px; font-size: 18px; }
+  /* 단계가 바뀔 때 코드 진하기가 점점 바뀌도록 */
+  @property --base { syntax: '<number>'; inherits: true; initial-value: 0.5; }
+  #code { transition: --base 0.4s; }
   #screen > *, #screen li, #screen button { cursor: pointer; }
   #tools { display: flex; flex-wrap: wrap; gap: 8px; }
   .hit { background: #ffe14d; transition: background 0.3s; }
@@ -47,26 +50,26 @@
 
 <div id="bar">
   <span>코드</span>
-  <button type="button" data-level="0">투명</button>
-  <button type="button" data-level="1" aria-label="1단계">•</button>
-  <button type="button" data-level="2" aria-label="2단계">•</button>
-  <button type="button" data-level="3" aria-label="3단계">•</button>
-  <button type="button" data-level="4">불투명</button>
+  <button type="button" id="down">◀ 투명</button>
+  <span id="dots" aria-live="polite"></span>
+  <button type="button" id="up">불투명 ▶</button>
 </div>
 
 <script>
   const screenEl = document.getElementById('screen');
   const codeEl = document.getElementById('code');
-  const levelBtns = document.querySelectorAll('#bar [data-level]');
+  const dots = document.getElementById('dots');
 
-  // 화면 글자는 항상 진하게(앞). 5단계 버튼으로 뒤에 깔린 코드의 진하기를 정한다.
+  // 화면 글자는 항상 진하게(앞). 좌우 버튼으로 뒤에 깔린 코드의 진하기를 5단계로 바꾼다.
   let level = 2;                        // 0 = 코드 안 보임 … 4 = 코드 또렷
   let shaking = false;                  // 뒤섞는 동안은 코드를 다 보이게
   function apply() {
     codeEl.style.setProperty('--base', shaking ? 1 : level / 4);
-    levelBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.level == level));
+    dots.textContent = '●'.repeat(level + 1) + '○'.repeat(4 - level);   // 지금 단계 표시
+    dots.setAttribute('aria-label', `코드 진하기 ${level + 1}/5단계`);
   }
-  levelBtns.forEach(b => b.addEventListener('click', () => { level = +b.dataset.level; apply(); }));
+  document.getElementById('down').addEventListener('click', () => { level = Math.max(0, level - 1); apply(); });
+  document.getElementById('up').addEventListener('click', () => { level = Math.min(4, level + 1); apply(); });
   apply();
 
   // 투시 렌즈: 마우스(손가락)가 있는 곳만 뒤의 코드가 비쳐 보인다

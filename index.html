@@ -113,6 +113,17 @@
   #code.rain > .ln { display: block; animation: drop 1.4s cubic-bezier(.5,0,.9,.5) var(--d) both; }
   #code.unrain > .ln { display: block; animation: drop 1s cubic-bezier(.1,.5,.5,1) var(--d) both reverse; }
   @keyframes drop { to { transform: translateY(110vh) rotate(var(--rot)); opacity: 0.15; } }
+  /* 지구: 코드 글자로 그린 도는 지구 */
+  #globe { position: fixed; inset: 0; margin: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; white-space: pre; font-variant-ligatures: none;
+    color: color-mix(in srgb, #2f6fd0 45%, transparent); opacity: 0; transform: scale(0.9);
+    transition: opacity 0.8s, transform 0.8s cubic-bezier(.2,.8,.3,1); }
+  #globe b { color: #1f8a43; font-weight: 700; }
+  :root.dark #globe { color: color-mix(in srgb, #5b8def 60%, transparent); }
+  :root.dark #globe b { color: #57d17a; }
+  :root.earth #globe { opacity: 1; transform: none; }
+  :root.earth #code { opacity: 0; transition: opacity 0.6s; }
+  :root.earth #screen { opacity: 0.3; }
   .unpop { animation: unpop 0.6s cubic-bezier(.2,.8,.3,1) both; }
   @keyframes unpop { from { transform: scale(0.6); filter: blur(6px); opacity: 0; } }
   @keyframes quake { 20% { transform: translate(-12px, 6px); } 40% { transform: translate(10px, -8px); }
@@ -148,6 +159,7 @@
 </main>
 
 <pre id="code" aria-hidden="true"></pre>
+<pre id="globe" aria-hidden="true"></pre>
 
 <div id="bar">
   <span>창</span>
@@ -350,6 +362,7 @@
   const SECRETS = [
     { words: ['펑', '폭발', 'boom', '爆'], run: () => boom() },
     { words: ['비', 'rain', '雨'], run: () => rain() },
+    { words: ['지구', 'earth', '地球'], run: () => earth() },
   ];
   let secretTimer = null, lastSecret = '';
   function checkSecret() {
@@ -403,6 +416,80 @@
       setTimeout(() => { codeEl.classList.remove('unrain'); raining = false; apply(); }, 1900);
     }, 2400);
   }
+  // 지구: 대륙 지도 (위도 10도 띠마다 육지 경도 구간, 북 85° → 남 -85°)
+  const LAND = [
+    [[-95, -70], [-60, -25]],
+    [[-120, -70], [-55, -20], [15, 25], [55, 60], [90, 110]],
+    [[-165, -95], [-78, -60], [-50, -35], [-24, -14], [10, 180]],
+    [[-130, -92], [-78, -60], [-6, 2], [5, 140], [155, 163]],
+    [[-124, -60], [-2, 142]],
+    [[-120, -77], [-9, -2], [9, 11], [22, 120], [126, 129], [130, 140]],
+    [[-110, -97], [-82, -80], [-15, 35], [36, 122]],
+    [[-97, -83], [-17, 40], [43, 52], [74, 80], [95, 109], [120, 125]],
+    [[-77, -60], [-10, 48], [100, 104], [110, 118], [122, 126]],
+    [[-80, -35], [12, 40], [105, 115], [120, 123], [133, 150]],
+    [[-76, -39], [12, 40], [44, 50], [125, 145]],
+    [[-70, -45], [15, 33], [44, 47], [114, 153]],
+    [[-72, -57], [18, 25], [116, 150], [173, 175]],
+    [[-74, -65], [145, 148], [167, 172]],
+    [[-72, -66]],
+    [[-65, -55]],
+    [[-180, -60], [-30, 165]],
+    [[-180, 180]],
+  ];
+  const isLand = (lat, lon) => (LAND[Math.min(17, Math.max(0, Math.floor((90 - lat) / 10)))] || [])
+    .some(([a, b]) => lon >= a && lon <= b);
+  const globeEl = document.getElementById('globe');
+  let earthFrame = null, earthTimer = null;
+  function earth() {
+    finishTyping();
+    cancelAnimationFrame(earthFrame); clearTimeout(earthTimer);
+    // 지구를 칠할 글자: 이 페이지 코드의 글자들 (한 칸짜리 글자만)
+    const chars = orig.join('').replace(/[^\x21-\x7e]/g, '');
+    const probe = document.createElement('span');
+    probe.textContent = 'M'.repeat(10); globeEl.textContent = ''; globeEl.append(probe);
+    const cw = probe.getBoundingClientRect().width / 10, ch = parseFloat(getComputedStyle(globeEl).lineHeight);
+    const cols = Math.floor(innerWidth / cw), rows = Math.floor(innerHeight / ch);
+    const R = Math.min(innerWidth, innerHeight) * 0.42, cx = innerWidth / 2, cy = innerHeight / 2;
+    const tilt = 23.4 * Math.PI / 180;
+    const t0 = performance.now();
+    function draw(now) {
+      const spin = (now - t0) / 1000 * 0.6;           // 초당 약 34도 회전
+      let html = '';
+      for (let r = 0; r < rows; r++) {
+        let row = '', land = false;
+        for (let c = 0; c < cols; c++) {
+          const nx = (c * cw + cw / 2 - cx) / R, ny = (r * ch + ch / 2 - cy) / R;
+          const d = nx * nx + ny * ny;
+          if (d > 1) { if (land) { row += '</b>'; land = false; } row += ' '; continue; }
+          const nz = Math.sqrt(1 - d);
+          const y2 = -ny * Math.cos(tilt) + nz * Math.sin(tilt);   // 지축 기울기
+          const z2 = nz * Math.cos(tilt) + ny * Math.sin(tilt);
+          const lat = Math.asin(y2) * 180 / Math.PI;
+          let lon = (Math.atan2(nx, z2) + spin) * 180 / Math.PI;
+          lon = ((lon + 180) % 360 + 360) % 360 - 180;
+          const k = (Math.floor(lat + 90) * 360 + Math.floor(lon + 180)) % chars.length;
+          const g = chars[k].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');
+          const L = isLand(lat, lon);
+          if (L && !land) { row += '<b>'; land = true; }
+          if (!L && land) { row += '</b>'; land = false; }
+          row += L ? g : '·';                         // 육지는 코드 글자, 바다는 점
+        }
+        html += row + (land ? '</b>' : '') + '\n';
+      }
+      globeEl.innerHTML = html;
+      earthFrame = requestAnimationFrame(draw);
+    }
+    earthFrame = requestAnimationFrame(draw);
+    document.documentElement.classList.add('earth');
+    earthTimer = setTimeout(endEarth, 9000);   // 9초 돌고 코드로 돌아간다
+  }
+  function endEarth() {
+    document.documentElement.classList.remove('earth');
+    clearTimeout(earthTimer);
+    setTimeout(() => cancelAnimationFrame(earthFrame), 900);
+  }
+  addEventListener('click', e => { if (document.documentElement.classList.contains('earth') && e.target !== memo) endEarth(); });
   function boom() {                     // 한 번에 최대치로 터뜨린다
     finishTyping();
     clearTimeout(restoreTimer); clearInterval(restoring);

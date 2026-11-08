@@ -6,12 +6,15 @@
 <title>투명창</title>
 <link rel="icon" href="data:,">
 <style>
-  body { margin: 0; font-family: sans-serif; }
+  :root { --bg: #fff; --fg: #000; --code: #111; --line: #ccc; color-scheme: light; }
+  /* 블랙 모드: 색만 바꾼다 */
+  :root.dark { --bg: #0d0d0d; --fg: #f2f2f2; --code: #e6e6e6; --line: #333; color-scheme: dark; }
+  body { margin: 0; font-family: sans-serif; background: var(--bg); color: var(--fg); }
   #screen { position: relative; z-index: 1; padding: 24px; padding-bottom: 80px; }
   #code {
     position: fixed; inset: 0 0 56px 0; margin: 0; padding: 24px;
     overflow: auto; font: 13px/1.5 monospace; white-space: pre-wrap;
-    pointer-events: none; z-index: 0; color: #111;
+    pointer-events: none; z-index: 0; color: var(--code);
     /* 투시 렌즈: 마우스 둘레는 코드가 또렷, 나머지는 단계 버튼 값만큼 */
     --x: -9999px; --y: -9999px; --base: 0.5; --r: 140px;
     -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%);
@@ -20,7 +23,7 @@
   #bar {
     position: fixed; left: 0; right: 0; bottom: 0; height: 56px;
     display: flex; align-items: center; gap: 12px; padding: 0 16px;
-    border-top: 1px solid #ccc; background: #fff;
+    border-top: 1px solid var(--line); background: var(--bg);
   }
   #dots { letter-spacing: 4px; font-size: 18px; }
   /* 단계가 바뀔 때 코드 진하기가 점점 바뀌도록 */
@@ -34,7 +37,7 @@
   #screen > *, #screen li, #screen button { cursor: pointer; }
   #tools { display: flex; flex-wrap: wrap; gap: 8px; }
   #memo { margin-top: 16px; font-size: 16px; padding: 6px; }
-  .hit { background: #ffe14d; transition: background 0.3s; }
+  .hit { background: #ffe14d; color: #111; transition: background 0.3s; }
 </style>
 </head>
 <body class="intro">
@@ -46,6 +49,7 @@
     <button type="button" id="bigger">렌즈 크게</button>
     <button type="button" id="smaller">렌즈 작게</button>
     <button type="button" id="retype">타자 다시 보기</button>
+    <button type="button" id="dark">블랙 모드</button>
   </div>
   <input id="memo" type="text" placeholder="여기에 글자를 적어 보세요" size="30">
   <ul>
@@ -242,6 +246,16 @@
   function setRadius(r) { radius = Math.max(60, Math.min(400, r)); codeEl.style.setProperty('--r', radius + 'px'); }
   document.getElementById('bigger').addEventListener('click', () => setRadius(radius + 60));
   document.getElementById('smaller').addEventListener('click', () => setRadius(radius - 60));
+
+  // 블랙 모드: 누를 때마다 켜고 끈다, 고른 것은 이 브라우저에 기억
+  const darkBtn = document.getElementById('dark');
+  function setDark(on) {
+    document.documentElement.classList.toggle('dark', on);
+    darkBtn.textContent = on ? '화이트 모드' : '블랙 모드';
+    try { localStorage.setItem('dark', on ? '1' : '0'); } catch (e) {}
+  }
+  darkBtn.addEventListener('click', () => setDark(!document.documentElement.classList.contains('dark')));
+  try { if (localStorage.getItem('dark') === '1') setDark(true); } catch (e) {}
 
   // 자기 자신의 원본 코드를 가져온다 (file://로 열면 실패 → 현재 DOM으로 대체)
   fetch(location.href)

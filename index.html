@@ -12,6 +12,10 @@
     position: fixed; inset: 0 0 56px 0; margin: 0; padding: 24px;
     overflow: auto; font: 13px/1.5 monospace; white-space: pre-wrap;
     pointer-events: none; z-index: 0; color: #111;
+    /* 투시 렌즈: 마우스 둘레는 코드가 또렷, 나머지는 슬라이더 값만큼 */
+    --x: -9999px; --y: -9999px; --base: 0.5;
+    -webkit-mask-image: radial-gradient(circle 140px at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%);
+            mask-image: radial-gradient(circle 140px at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%);
   }
   #bar {
     position: fixed; left: 0; right: 0; bottom: 0; height: 56px;
@@ -48,10 +52,18 @@
   // 화면 글자는 항상 진하게(앞). 슬라이더는 뒤에 깔린 코드만 점점 보이게 한다.
   function apply() {
     const t = mix.value / 100;          // 0 = 코드 안 보임, 1 = 코드 또렷
-    codeEl.style.opacity = t;
+    codeEl.style.setProperty('--base', t);
   }
   mix.addEventListener('input', apply);
   apply();
+
+  // 투시 렌즈: 마우스(손가락)가 있는 곳만 뒤의 코드가 비쳐 보인다
+  function lens(x, y) {
+    codeEl.style.setProperty('--x', x + 'px');
+    codeEl.style.setProperty('--y', y + 'px');
+  }
+  addEventListener('pointermove', e => lens(e.clientX, e.clientY));
+  document.documentElement.addEventListener('pointerleave', () => lens(-9999, -9999));
 
   // 자기 자신의 원본 코드를 가져온다 (file://로 열면 실패 → 현재 DOM으로 대체)
   fetch(location.href)

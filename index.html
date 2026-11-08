@@ -291,7 +291,7 @@
     :root.q1 button, :root.q1 #memo { height: 48px; }
     #memo, :root.q1 #memo { font-size: 16px; }
     #tools, #corner { gap: 8px; }
-    #bar { height: 64px; gap: 8px; }
+    #bar { height: 64px; gap: 8px; z-index: 4; }
     :root.q2 #bar { height: 64px; }
     #bar button { min-width: 64px; }
     :root:not(.q3) #screen { padding-top: 80px; }   /* 커진 오른쪽 위 버튼(16+48)과 제목이 겹치지 않게 */
@@ -1244,8 +1244,8 @@
     hole.animate([{ transform: 'translate(-50%, -50%) scale(0)' }, { transform: 'translate(-50%, -50%) scale(1)', offset: 0.3 },
       { transform: 'translate(-50%, -50%) scale(1.08)', offset: 0.9 }, { transform: 'translate(-50%, -50%) scale(0)' }],
       { duration: END + 700, easing: 'ease-in-out', fill: 'forwards' });
-    // 원반 기울기: PC는 살짝(-8°), 폰은 화면 비율에 맞춰 오른쪽 아래로 (세로 화면 약 55°) — 화면을 비스듬히 가로지르게
-    const tilt = big ? Math.atan2(innerHeight, innerWidth) * 0.85 : -8 * Math.PI / 180, cosT = Math.cos(tilt), sinT = Math.sin(tilt);
+    // 원반 기울기: PC는 살짝(-8°), 폰은 아래 투명도 조절 막대 가운데를 지나도록 (세로 화면 약 75°) — 화면을 비스듬히 가로질러 막대까지 내려온다
+    const tilt = big ? Math.atan2(innerHeight - 70 - cy, innerWidth * 0.55 - cx) : -8 * Math.PI / 180, cosT = Math.cos(tilt), sinT = Math.sin(tilt);
     const bctx = back.getContext('2d'), fctx = front.getContext('2d'), family = getComputedStyle(layer).fontFamily;
     const [cr, cg, cb] = cool.match(/[\d.]+/g).map(Number);   // 원래 코드 색 → 금빛으로 물든다
     [bctx, fctx].forEach(c => { c.font = `13px ${family}`; c.textBaseline = 'middle';
@@ -1259,7 +1259,7 @@
       w.r0 = Math.hypot(w.x - cx, w.y - cy); w.a0 = Math.atan2(w.y - cy, w.x - cx) - tilt;
       if (big) {                        // 폰: 25%는 구멍 둘레에 바짝 걸친 빛 고리, 나머지는 화면을 가로지르는 원반 (안쪽일수록 촘촘)
         w.ring = Math.random() < 0.25;
-        w.ax = w.ring ? R * (1.02 + Math.random() * 0.22) : R * (1.15 + 4 * Math.random() ** 1.8);
+        w.ax = w.ring ? R * (1.02 + Math.random() * 0.22) : R * (1.15 + 4 * Math.random() ** 1.3);
         w.ay = w.ring ? w.ax : w.ax * 0.12;
         const hot = 1 - Math.min(1, (w.ax / R - 1) / 3);   // 안쪽은 크림·흰색, 바깥은 주황
         w.to = [255, 150 + 95 * hot, 70 + 150 * hot];

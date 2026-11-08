@@ -987,10 +987,6 @@
   "en": "// reference point for hands-on effects (magnet): the actual pointer, mouse or finger",
   "hj": "// 手动效果（磁铁）的基准点：实际的指针位置，鼠标或手指"
  },
- "// 원반 기울기: PC는 살짝(-8°), 폰은 화면 비율에 맞춰 오른쪽 아래로 (세로 화면 약 55°) — 화면을 비스듬히 가로지르게": {
-  "en": "// disc tilt: slight on PC (-8°), on phones down-right by the screen ratio (about 55° in portrait) — crossing the screen at a slant",
-  "hj": "// 盘的倾斜：电脑上稍微（-8°），手机上按屏幕比例朝右下（竖屏约 55°）— 斜着穿过画面"
- },
  "// 효과의 기준점: 마지막 마우스 위치. 폰(손가락)은 항상 화면 가운데": {
   "en": "// effects' reference point: the last mouse position. On phones (finger) always the screen center",
   "hj": "// 效果的基准点：最后的鼠标位置。手机（手指）上始终是屏幕中心"
@@ -1126,5 +1122,9 @@
  "// 달걀을 다 깨면: 마지막 효과가 끝나길 기다렸다가, 글상자를 비우고 그 자리에 이 말을 한 글자씩 적는다": {
   "en": "// once every egg is cracked: wait for the last effect to end, clear the text box, and type this message into it letter by letter",
   "hj": "// 蛋全部碎掉后：等最后一个效果结束，清空文本框，在那里一个字一个字地写下这句话"
+ },
+ "// 원반 기울기: PC는 살짝(-8°), 폰은 아래 투명도 조절 막대 가운데를 지나도록 (세로 화면 약 75°) — 화면을 비스듬히 가로질러 막대까지 내려온다": {
+  "en": "// disc tilt: slight on PC (-8°); on phones it passes through the middle of the opacity bar at the bottom (about 75° in portrait) — crossing the screen at a slant down to the bar",
+  "hj": "// 盘的倾斜：电脑上稍微（-8°），手机上穿过底部透明度控制条的中间（竖屏约 75°）— 斜穿画面一直到控制条"
  }
 }

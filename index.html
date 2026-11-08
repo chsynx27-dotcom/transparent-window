@@ -709,39 +709,43 @@
     });
     if (burst) document.documentElement.classList.add('broken');
   }
-  // 화산 분출 (2단계 펑): 코드 글자가 각자 제자리에서 용암빛으로 솟구쳤다가
-  // 포물선을 그리며 식어 제자리로 떨어진다
+  // 화산 분출 (2단계 펑): 코드가 단어 덩어리째 제자리에서 용암빛으로 솟구쳐 화면 위로 날아가 사라지고,
+  // 다 날아가면 코드가 서서히 다시 나타난다
   function erupt() {
     const probe = document.createElement('span');
     probe.textContent = 'M'.repeat(10); probe.style.font = getComputedStyle(codeEl).font;
     document.body.append(probe);
     const cw = probe.getBoundingClientRect().width / 10; probe.remove();
-    const src = visibleChars(cw, 3000), cool = getComputedStyle(codeEl).color;  // 식은 뒤 색 = 코드 색
+    const words = [];                   // 붙어 있는 글자끼리 한 단어로 (가볍게: 글자 하나하나 대신 단어 덩어리)
+    for (const { c, x, y } of visibleChars(cw, 3000)) {
+      const w = c.charCodeAt(0) > 0x2e80 ? cw * 2 : cw, last = words[words.length - 1];
+      if (last && last.y === y && Math.abs(last.end - x) < 1) { last.t += c; last.end = x + w; }
+      else words.push({ t: c, x, y, end: x + w });
+    }
     const lava = document.createElement('div'); lava.id = 'flock';
-    const far = Math.hypot(innerWidth / 2, innerHeight);
-    src.forEach(({ c, x, y }) => {
+    const far = Math.hypot(innerWidth / 2, innerHeight), cool = getComputedStyle(codeEl).color;
+    words.forEach(({ t, x, y }) => {
       const span = document.createElement('span');
-      span.textContent = c; span.style.left = x + 'px'; span.style.top = y + 'px';
+      span.textContent = t; span.style.left = x + 'px'; span.style.top = y + 'px';
       lava.append(span);
-      const up = Math.min(y - 10, 50 + Math.random() * 170);    // 제자리에서 솟는 높이 (화면 위로 안 나가게)
-      const drift = (Math.random() - 0.5) * 60;          // 살짝 옆으로 흔들림
-      const frames = [];
-      for (let i = 0; i <= 8; i++) {                     // 제자리 → 위로 솟구침 → 제자리 (위로 볼록한 포물선)
-        const t = i / 8;
-        frames.push({ transform: `translate(${drift * Math.sin(Math.PI * t)}px, ${-4 * up * t * (1 - t)}px) rotate(${Math.sin(Math.PI * t) * (drift * 4)}deg)`,
-          color: i === 0 || i === 8 ? cool : t < 0.25 ? '#ff4d1a' : t < 0.6 ? '#ffb020' : cool, offset: t });
-      }
-      // 아래 가운데에서 가까운 글자부터 먼저 터져 나간다 (분출이 퍼져 나가는 느낌)
+      const fly = y + 60 + Math.random() * 200;      // 화면 위 바깥까지
+      const drift = (Math.random() - 0.5) * 120, spin = (Math.random() - 0.5) * 50;
+      // 아래 가운데에서 가까운 단어부터 먼저 터져 나간다 (분출이 퍼져 나가는 느낌)
       const wave = Math.hypot(x - innerWidth / 2, innerHeight - y) / far;
-      span.animate(frames, { duration: 1300, delay: wave * 500 + Math.random() * 150, easing: 'linear', fill: 'both' });
+      span.animate([
+        { transform: 'none', color: cool, opacity: 1 },
+        { transform: `translate(${drift * 0.3}px, -20px)`, color: '#ff4d1a', opacity: 1, offset: 0.15 },
+        { transform: `translate(${drift}px, ${-fly}px) rotate(${spin}deg)`, color: '#ffb020', opacity: 0 },
+      ], { duration: 900 + Math.random() * 400, delay: wave * 500 + Math.random() * 120, easing: 'cubic-bezier(.4,0,.9,.6)', fill: 'both' });
     });
     codeEl.style.opacity = 0;
     document.body.append(lava);
     document.documentElement.classList.add('broken');
-    setTimeout(() => {                  // 다 떨어지면 진짜 코드로 바꿔 끼운다
-      codeEl.style.opacity = ''; lava.style.opacity = 0;
-      setTimeout(() => lava.remove(), 400);
-    }, 2200);
+    setTimeout(() => {                  // 다 날아가면 코드가 서서히 다시 나타난다
+      lava.remove();
+      codeEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 800, easing: 'ease-in-out' });
+      codeEl.style.opacity = '';
+    }, 2000);
   }
   // 앞 창 날아가기 (3단계 펑): 창이 덜덜 떨고 → 조각들이 터진 자리 반대쪽으로 돌며 날아가고, 창 유리도 사라졌다가 → 제자리에 서서히 나타난다
   function blowAway(bx, by) {

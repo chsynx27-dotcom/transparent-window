@@ -1,8 +1,4 @@
 {
- ".replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;') : '·';   // 육지는 코드 글자, 바다는 점": {
-  "en": ".replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;') : '·';   // land is code characters, sea is dots",
-  "hj": ".replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;') : '·';   // 陸為碼字，海為點"
- },
  "/* 2단계 '디자인': 편집기처럼 색 구분된 코드·줄 번호, 떠 있는 조절 막대, 포인트 색 하나 */": {
   "en": "/* Step 2 'Designed': editor-style colored code with line numbers, a floating control bar, one accent color */",
   "hj": "/* 第二階「設計」：如編輯器之分色碼與行號、浮動之調節條、單一點色 */"
@@ -39,10 +35,6 @@
   "en": "/* Earth: a spinning globe drawn with code; higher steps add color, shading and smoothness */",
   "hj": "/* 地球：以碼字繪之旋轉地球；階愈高，色、明暗、流暢愈增 */"
  },
- "/* 지구가 되기 전: 코드 글자들이 가운데로 빨려 들어간다 */": {
-  "en": "/* before becoming the Earth: code characters get sucked into the center */",
-  "hj": "/* 未成地球之前：碼字被吸入中央 */"
- },
  "/* 첫 연출: 타자가 끝나면 꽉 찬 코드가 렌즈 크기로 줄어든다 */": {
   "en": "/* Intro: when typing ends, the full-screen code shrinks into the lens */",
   "hj": "/* 開場：打字既畢，滿屏之碼縮為透鏡 */"
@@ -50,10 +42,6 @@
  "/* 코드 비 (0~2단계): 줄이 한 줄씩 떨어졌다가 되감기듯 올라온다. 1단계만 곧게, 0·2단계는 제멋대로 기울며 */": {
   "en": "/* Code rain (steps 0–2): lines fall one by one, then rewind back up. Step 1 falls straight, steps 0 and 2 tilt every which way */",
   "hj": "/* 碼雨（零至二階）：逐行而墜，復如倒捲而上。唯一階直墜，零、二階亂斜而墜 */"
- },
- "/* 코드 비 (3단계): 글자는 그대로, 파란 빗줄기 층을 겹쳐 글자에만 파란색이 흘러내린다 */": {
-  "en": "/* Code rain (step 3): text stays still; a layer of blue streaks makes blue flow down over the letters only */",
-  "hj": "/* 碼雨（三階）：字不動，疊藍色雨絲之層，唯字上流藍 */"
  },
  "/* 퀄리티 업 1단계 '정돈': 글꼴 체계·여백·같은 크기의 버튼 */": {
   "en": "/* Quality up step 1 'Tidy': type scale, spacing, same-size buttons */",
@@ -95,10 +83,6 @@
   "en": "// Secret words: react when the text box ends with one of these",
   "hj": "// 密語：文字框末有此語則應之"
  },
- "// 빨려 들어가기: 화면에 보이는 코드 글자들이 소용돌이치며 지구 자리로 모인다 (모든 단계 같음)": {
-  "en": "// Suck-in: visible code characters swirl into where the Earth will be (same at every step)",
-  "hj": "// 吸入：屏上可見之碼字旋繞聚於地球之位（諸階皆同）"
- },
  "// 앞에서 글자를 적으면 뒤의 코드(입력칸 줄)에 그대로 써진다": {
   "en": "// text typed in front is written straight into the code behind (the input line)",
   "hj": "// 前書之字，即書於後碼（輸入框之行）"
@@ -122,10 +106,6 @@
  "// 지구: 대륙 지도 (위도 10도 띠마다 육지 경도 구간, 북 85° → 남 -85°)": {
   "en": "// Earth: continent map (land longitude ranges per 10° latitude band, north 85° → south -85°)",
   "hj": "// 地球：大陸圖（每緯十度一帶，陸地經度區間，北85°→南-85°）"
- },
- "// 지구를 칠할 글자: 이 페이지 코드의 글자들 (한 칸짜리 글자만)": {
-  "en": "// characters to paint the globe: this page's own code (single-width characters only)",
-  "hj": "// 繪地球之字：此頁之碼字（唯單格之字）"
  },
  "// 짝 찾기: 화면 요소를 누르면 그 요소를 만든 코드 줄이 반짝인다": {
   "en": "// Match finder: clicking a screen element flashes the code line that made it",
@@ -186,10 +166,6 @@
  "// 화면(main) 부분의 줄에서만 찾는다 — 스크립트 속 같은 글자는 제외": {
   "en": "// search only in the screen (main) lines — skip the same text inside the script",
   "hj": "// 唯於屏（main）之行中尋之——腳本中同字不計"
- },
- ":root.dark #rainfx { mix-blend-mode: multiply;   /* 어두운 바탕은 그대로, 밝은 글자만 파랗게 */": {
-  "en": ":root.dark #rainfx { mix-blend-mode: multiply;   /* dark background stays, only light letters turn blue */",
-  "hj": ":root.dark #rainfx { mix-blend-mode: multiply;   /* 暗底不變，唯明字轉藍 */"
  },
  "<button type=\"button\" id=\"bigger\">렌즈 크게</button>": {
   "en": "<button type=\"button\" id=\"bigger\">Bigger lens</button>",
@@ -295,10 +271,6 @@
   "en": "const TYPE_LIMIT = 2200;              // type for this long (ms), then fill in the rest at once and move on",
   "hj": "const TYPE_LIMIT = 2200;              // 擊至此（毫秒），餘者一舉填之而進"
  },
- "const a0 = Math.atan2(y - cy, x - cx), d0 = Math.hypot(x - cx, y - cy);   // 가운데 기준 처음 위치": {
-  "en": "const a0 = Math.atan2(y - cy, x - cx), d0 = Math.hypot(x - cx, y - cy);   // starting position relative to the center",
-  "hj": "const a0 = Math.atan2(y - cy, x - cx), d0 = Math.hypot(x - cx, y - cy);   // 以中央為準之初位"
- },
  "const firstLine = new WeakMap();      // 처음(한글) 모양의 첫 줄을 기억": {
   "en": "const firstLine = new WeakMap();      // remember each element's original (Korean) first line",
   "hj": "const firstLine = new WeakMap();      // 記其初（韓文）之首行"
@@ -342,10 +314,6 @@
  "dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // 지금 단계 표시": {
   "en": "dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // show the current step",
   "hj": "dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // 示今之階"
- },
- "earthTimer = setTimeout(endEarth, 10000);   // 10초 뒤 코드로 돌아간다": {
-  "en": "earthTimer = setTimeout(endEarth, 10000);   // back to the code after 10 seconds",
-  "hj": "earthTimer = setTimeout(endEarth, 10000);   // 十秒後復歸於碼"
  },
  "eggIdx = orig.findIndex(t => t.includes('/* 버튼 */'));": {
   "en": "eggIdx = orig.findIndex(t => t.includes('/* button */'));",
@@ -395,10 +363,6 @@
   "en": "if (pos >= text.length) {       // end of this line → next line",
   "hj": "if (pos >= text.length) {       // 此行既終 → 次行"
  },
- "if (quality >= 3) {                 // 3단계: 글자는 그대로, 색으로만 비": {
-  "en": "if (quality >= 3) {                 // step 3: text stays put, rain by color only",
-  "hj": "if (quality >= 3) {                 // 三階：字不動，唯以色為雨"
- },
  "lastSecret = hit ? v : '';          // 같은 글 그대로면 다시 터지지 않게": {
   "en": "lastSecret = hit ? v : '';          // don't fire again while the text stays the same",
   "hj": "lastSecret = hit ? v : '';          // 文同則不再發"
@@ -435,10 +399,6 @@
   "en": "let typing = false;                   // show all the code while typing too",
   "hj": "let typing = false;                   // 打字之間，碼亦皆可見"
  },
- "lines.forEach(s => {                // 한 줄씩": {
-  "en": "lines.forEach(s => {                // line by line",
-  "hj": "lines.forEach(s => {                // 逐行"
- },
  "mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* 버튼 */": {
   "en": "mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* button */",
   "hj": "mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* 按鈕 */"
@@ -447,10 +407,6 @@
   "en": "memo.dispatchEvent(new Event('input'));   // also written into the code behind",
   "hj": "memo.dispatchEvent(new Event('input'));   // 後碼亦同書之"
  },
- "mix-blend-mode: screen;             /* 밝은 바탕은 그대로, 어두운 글자만 파랗게 */": {
-  "en": "mix-blend-mode: screen;             /* light background stays, only dark letters turn blue */",
-  "hj": "mix-blend-mode: screen;             /* 明底不變，唯暗字轉藍 */"
- },
  "setDark(document.documentElement.classList.contains('dark'));   // 블랙 모드 버튼 이름도 바꾼다": {
   "en": "setDark(document.documentElement.classList.contains('dark'));   // also rename the dark mode button",
   "hj": "setDark(document.documentElement.classList.contains('dark'));   // 黑色模式之鈕名亦易"
@@ -458,10 +414,6 @@
  "setTimeout(() => {                  // 다 떨어지면 되감아 올린다": {
   "en": "setTimeout(() => {                  // once everything has fallen, rewind it back up",
   "hj": "setTimeout(() => {                  // 墜盡則倒捲而上"
- },
- "setTimeout(() => {                  // 다 빨려 들어가면 지구가 나타난다": {
-  "en": "setTimeout(() => {                  // once everything is sucked in, the Earth appears",
-  "hj": "setTimeout(() => {                  // 吸盡則地球現"
  },
  "{ sel: '#bar > span:first-child', ko: '창', en: 'Window', hj: '窓' },": {
   "en": "{ sel: '#bar > span:first-child', ko: 'Window', en: 'Window', hj: '窓' },",
@@ -518,10 +470,6 @@
  "{ words: ['펑', '폭발', 'boom', '爆'], run: () => boom() },": {
   "en": "{ words: ['boom', 'explode', 'boom', '爆'], run: () => boom() },",
   "hj": "{ words: ['爆', '爆發', 'boom', '爆'], run: () => boom() },"
- },
- "/* 지구가 되기 전: 코드가 흩어지지 않고 그대로 원 모양으로 오므라든다 (원 크기 = 지구 크기 42vmin) */": {
-  "en": "/* Before the earth: the code doesn't scatter, it just shrinks into a circle (circle size = earth size 42vmin) */",
-  "hj": "/* 地球之前：碼不散，原樣收成圓形 (圓大小 = 地球大小 42vmin) */"
  },
  "/* 코드 비 (3단계): 코드가 먼저 흑백으로 바래고, 글자는 제자리에 둔 채 파란 빗줄기가 글자 속으로만 흘러내린다 */": {
   "en": "/* Code rain (step 3): the code first fades to grayscale, then blue streaks run down inside the letters, which stay in place */",
@@ -639,10 +587,6 @@
   "en": "return () => {                      // don't reassemble the pieces; put them back while unseen, then fade in slowly",
   "hj": "return () => {                      // 不再聚合碎片，趁不見時歸位，再徐徐浮現"
  },
- "// 포물선을 그리며 식어 제자리로 떨어진다": {
-  "en": "// cooling as they arc back down to their places",
-  "hj": "// 劃拋物線冷卻，落回原位"
- },
  "// 화면에 보이는 뒤 코드 글자들과 그 자리 (지구 모이기·화산 분출이 함께 쓴다)": {
   "en": "// back-code characters visible on screen and their spots (shared by the earth gather and the eruption)",
   "hj": "// 屏上可見之後碼字及其位 (地球聚合與火山噴發共用)"
@@ -651,32 +595,28 @@
   "en": "if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // step 2: the back code erupts like a volcano",
   "hj": "if (quality === 2) { distort(); erupt(); restoreTimer = setTimeout(restore, 2600); return; }   // 二段：後碼如火山噴起"
  },
- "setTimeout(() => {                  // 다 떨어지면 진짜 코드로 바꿔 끼운다": {
-  "en": "setTimeout(() => {                  // once all have landed, swap back to the real code",
-  "hj": "setTimeout(() => {                  // 盡落則換回真碼"
+ "// 다 날아가면 코드가 서서히 다시 나타난다": {
+  "en": "// once all have flown off, the code slowly reappears",
+  "hj": "// 盡飛去後，碼徐徐重現"
  },
- "// 화산 분출 (2단계 펑): 코드 글자가 각자 제자리에서 용암빛으로 솟구쳤다가": {
-  "en": "// Eruption (step 2 boom): each code character shoots up lava-colored from its own spot,",
-  "hj": "// 火山噴發 (二段爆)：碼字各自原地如熔岩噴起，"
+ "// 아래 가운데에서 가까운 단어부터 먼저 터져 나간다 (분출이 퍼져 나가는 느낌)": {
+  "en": "// words nearer the bottom center burst first (the eruption spreads outward)",
+  "hj": "// 近下方中央之詞先噴 (噴發向外擴散)"
  },
- "const drift = (Math.random() - 0.5) * 60;          // 살짝 옆으로 흔들림": {
-  "en": "const drift = (Math.random() - 0.5) * 60;          // slight sideways wobble",
-  "hj": "const drift = (Math.random() - 0.5) * 60;          // 略向旁晃"
+ "// 화산 분출 (2단계 펑): 코드가 단어 덩어리째 제자리에서 용암빛으로 솟구쳐 화면 위로 날아가 사라지고,": {
+  "en": "// Eruption (step 2 boom): the code shoots up word by word, lava-colored, from where it sits and flies off the top,",
+  "hj": "// 火山噴發 (二段爆)：碼以詞為塊原地如熔岩噴起，飛出屏頂消失，"
  },
- "for (let i = 0; i <= 8; i++) {                     // 제자리 → 위로 솟구침 → 제자리 (위로 볼록한 포물선)": {
-  "en": "for (let i = 0; i <= 8; i++) {                     // home → shoots up → home (an upward arc)",
-  "hj": "for (let i = 0; i <= 8; i++) {                     // 原位 → 噴起 → 原位 (上凸拋物線)"
+ "const fly = y + 60 + Math.random() * 200;      // 화면 위 바깥까지": {
+  "en": "const fly = y + 60 + Math.random() * 200;      // all the way past the top of the screen",
+  "hj": "const fly = y + 60 + Math.random() * 200;      // 直至屏頂之外"
  },
- "// 아래 가운데에서 가까운 글자부터 먼저 터져 나간다 (분출이 퍼져 나가는 느낌)": {
-  "en": "// characters nearer the bottom center burst first (the eruption spreads outward)",
-  "hj": "// 近下方中央之字先噴 (噴發向外擴散)"
+ "const words = [];                   // 붙어 있는 글자끼리 한 단어로 (가볍게: 글자 하나하나 대신 단어 덩어리)": {
+  "en": "const words = [];                   // adjacent characters form one word (lighter: word chunks instead of single characters)",
+  "hj": "const words = [];                   // 相連之字合為一詞 (較輕：以詞塊代單字)"
  },
- "const up = Math.min(y - 10, 50 + Math.random() * 170);    // 제자리에서 솟는 높이 (화면 위로 안 나가게)": {
-  "en": "const up = Math.min(y - 10, 50 + Math.random() * 170);    // how high it rises from its spot (never off the top)",
-  "hj": "const up = Math.min(y - 10, 50 + Math.random() * 170);    // 原地噴起高度 (不出屏頂)"
- },
- "const src = visibleChars(cw, 3000), cool = getComputedStyle(codeEl).color;  // 식은 뒤 색 = 코드 색": {
-  "en": "const src = visibleChars(cw, 3000), cool = getComputedStyle(codeEl).color;  // cooled color = code color",
-  "hj": "const src = visibleChars(cw, 3000), cool = getComputedStyle(codeEl).color;  // 冷卻後色 = 碼色"
+ "setTimeout(() => {                  // 다 날아가면 코드가 서서히 다시 나타난다": {
+  "en": "setTimeout(() => {                  // once all have flown off, the code slowly reappears",
+  "hj": "setTimeout(() => {                  // 盡飛去後，碼徐徐重現"
  }
 }

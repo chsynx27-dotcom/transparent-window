@@ -699,10 +699,6 @@
   "en": "// float word chunks in place of the code (the real code hides meanwhile); the returned function restores it",
   "hj": "// 以詞塊代碼浮現 (真碼暫隱)，所回之函式復原"
  },
- "// 블랙홀: 렌즈(마우스) 자리로 코드와 앞 창이 소용돌이치며 빨려 들어갔다가, 뱉어져 제자리로.": {
-  "en": "// Black hole: the code and the front window swirl into the lens (mouse) spot, then get spat back into place.",
-  "hj": "// 黑洞：碼與前窗旋入鏡處 (滑鼠)，復被吐回原位。"
- },
  "// 자석: 몇 초 동안 코드 단어들이 마우스 쪽으로 끌려와 따라다니다 제자리로.": {
   "en": "// Magnet: for a few seconds the code words get pulled toward the mouse and follow it, then go home.",
   "hj": "// 磁石：數秒間碼詞被吸向滑鼠隨之而動，後歸原位。"
@@ -738,10 +734,6 @@
  "return { span, x: x + span.textContent.length * 4, y: y + 9 };   // 단어 가운데쯤": {
   "en": "return { span, x: x + span.textContent.length * 4, y: y + 9 };   // around the word's center",
   "hj": "return { span, x: x + span.textContent.length * 4, y: y + 9 };   // 約詞之中"
- },
- "setTimeout(() => anims.forEach(a => { a.updatePlaybackRate(1.8); a.reverse(); }), 2000);   // 잠깐 삼켰다가 뱉어낸다": {
-  "en": "setTimeout(() => anims.forEach(a => { a.updatePlaybackRate(1.8); a.reverse(); }), 2000);   // swallow for a moment, then spit out",
-  "hj": "setTimeout(() => anims.forEach(a => { a.updatePlaybackRate(1.8); a.reverse(); }), 2000);   // 暫吞而後吐出"
  },
  "{ words: ['블랙홀', '우주', 'blackhole', 'black hole', 'space', '黑洞', '宇宙'], run: () => blackhole() },": {
   "en": "{ words: ['black hole', 'space', 'blackhole', 'black hole', 'space', '黑洞', '宇宙'], run: () => blackhole() },",
@@ -810,5 +802,25 @@
  "zIndex: !ring && k === 1 && Math.sin(phi) > 0 ? 10 : 1 });   // 원반 앞쪽 절반은 구멍 앞을 지난다": {
   "en": "zIndex: !ring && k === 1 && Math.sin(phi) > 0 ? 10 : 1 });   // the near half of the disk passes in front of the hole",
   "hj": "zIndex: !ring && k === 1 && Math.sin(phi) > 0 ? 10 : 1 });   // 盤之前半行於洞前"
+ },
+ "opacity: 1 - t });                // 끝까지 빨려 들어가 사라진다": {
+  "en": "opacity: 1 - t });                // sucked all the way in and gone",
+  "hj": "opacity: 1 - t });                // 盡吸而沒"
+ },
+ "anims.push(screenEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 800, fill: 'both' }));   // 창 유리도 사라진다": {
+  "en": "anims.push(screenEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 800, fill: 'both' }));   // the window glass vanishes too",
+  "hj": "anims.push(screenEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 800, fill: 'both' }));   // 窗玻璃亦消"
+ },
+ "setTimeout(() => {                  // 다 사라진 뒤, 다시 밝아지듯 코드가 먼저 → 그다음 창": {
+  "en": "setTimeout(() => {                  // once all is gone, brightening back — the code first → then the window",
+  "hj": "setTimeout(() => {                  // 盡消之後，如復明而歸 — 碼先 → 而後窗"
+ },
+ "// 블랙홀: 렌즈(마우스) 자리로 코드와 앞 창이 소용돌이치며 빨려 들어가 사라졌다가, 다시 밝아지듯 제자리에 나타난다.": {
+  "en": "// Black hole: the code and the front window swirl into the lens (mouse) spot and vanish, then reappear in place as if brightening again.",
+  "hj": "// 黑洞：碼與前窗旋入鏡處 (滑鼠) 而沒，復如漸明般於原位重現。"
+ },
+ "codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // 다시 밝아지듯": {
+  "en": "codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // as if brightening again",
+  "hj": "codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // 如復明"
  }
 }

@@ -804,7 +804,7 @@
     document.body.append(layer);
     return [spans, () => {
       layer.remove();
-      codeEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, easing: 'ease-in-out' });
+      codeEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 800, easing: 'ease-out' });   // 다시 밝아지듯
       codeEl.style.opacity = '';
     }];
   }
@@ -865,7 +865,7 @@
       });
     })(t0);
   }
-  // 블랙홀: 렌즈(마우스) 자리로 코드와 앞 창이 소용돌이치며 빨려 들어갔다가, 뱉어져 제자리로.
+  // 블랙홀: 렌즈(마우스) 자리로 코드와 앞 창이 소용돌이치며 빨려 들어가 사라졌다가, 다시 밝아지듯 제자리에 나타난다.
   // 0단계 뚝뚝 끊기며 / 1단계 부드럽게 / 2단계 단어가 돌며 / 3단계는 gargantua() — 코드가 블랙홀 모양이 된다
   let holeOn = false;
   function blackhole() {
@@ -879,7 +879,7 @@
       for (let i = 0; i <= 12; i++) {
         const t = i / 12, a = a0 + 4.5 * t * t, r = r0 * (1 - t) ** 1.6;
         frames.push({ transform: `translate(${cx + Math.cos(a) * r - x}px, ${cy + Math.sin(a) * r - y}px) rotate(${spinSelf * t}deg) scale(${1 - 0.9 * t})`,
-          opacity: 1 - 0.7 * t });
+          opacity: 1 - t });                // 끝까지 빨려 들어가 사라진다
       }
       return el.animate(frames, { duration: 1300, delay: Math.min(400, r0 * 0.3), easing: q === 0 ? 'steps(10)' : 'cubic-bezier(.5,0,.8,.6)', fill: 'both' });
     };
@@ -888,14 +888,17 @@
       const r = el.getBoundingClientRect();
       anims.push(pull(el, r.left + r.width / 2, r.top + r.height / 2, q >= 2 ? 360 : 0));
     });
+    anims.push(screenEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 800, fill: 'both' }));   // 창 유리도 사라진다
     document.documentElement.classList.add('flying');
-    setTimeout(() => anims.forEach(a => { a.updatePlaybackRate(1.8); a.reverse(); }), 2000);   // 잠깐 삼켰다가 뱉어낸다
-    setTimeout(() => {
-      anims.forEach(a => a.cancel());
+    setTimeout(() => {                  // 다 사라진 뒤, 다시 밝아지듯 코드가 먼저 → 그다음 창
       done();
-      document.documentElement.classList.remove('flying');
-      holeOn = false;
-    }, 3100);
+      setTimeout(() => {
+        screenEl.animate([{ opacity: 0, filter: 'brightness(2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 1000, easing: 'ease-out' });
+        anims.forEach(a => a.cancel());
+        document.documentElement.classList.remove('flying');
+        holeOn = false;
+      }, 700);
+    }, 2200);
   }
   // 블랙홀 3단계: 검은 구멍이 서서히 열리고, 가까운 단어부터 줄줄이 천천히 소용돌이치며 끌려와
   // 금빛으로 물들어 납작한 원반(강착원반)과 구멍을 감싸는 빛 테두리가 되어 돈다 → 사그라들고 코드·창 순서로 서서히 돌아온다

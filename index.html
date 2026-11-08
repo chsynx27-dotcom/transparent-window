@@ -109,7 +109,7 @@
   .pop { animation: pop 0.45s ease-out both; }
   @keyframes pop { 40% { transform: scale(1.25); filter: blur(1px); opacity: 1; }
     100% { transform: scale(1.8); filter: blur(10px); opacity: 0; } }
-  /* 코드 비 (0~2단계): 줄이 아래로 떨어졌다가 되감기듯 올라온다. 0단계는 덩어리째 뚝뚝, 2단계는 기울며 */
+  /* 코드 비 (0~2단계): 줄이 한 줄씩 떨어졌다가 되감기듯 올라온다. 0단계는 뚝뚝 끊기게, 2단계는 기울며 */
   #code.rain > .ln { display: block; animation: drop 1.4s cubic-bezier(.5,0,.9,.5) var(--d) both; }
   #code.unrain > .ln { display: block; animation: drop 1s cubic-bezier(.1,.5,.5,1) var(--d) both reverse; }
   #code.rq0 > .ln { animation-timing-function: steps(5); }
@@ -444,11 +444,8 @@
       setTimeout(() => { fx.classList.remove('on'); raining = false; apply(); }, 4200);
       return;
     }
-    const chunk = quality === 0 ? 14 : 1;   // 0단계는 14줄씩 덩어리로
-    let d = 0;
-    lines.forEach((s, i) => {
-      if (i % chunk === 0) d = Math.random() * 0.8;
-      s.style.setProperty('--d', d.toFixed(2) + 's');
+    lines.forEach(s => {                // 한 줄씩 (0단계는 CSS에서 뚝뚝 끊기게)
+      s.style.setProperty('--d', (Math.random() * 0.8).toFixed(2) + 's');
       s.style.setProperty('--rot', quality >= 2 ? (Math.random() * 30 - 15).toFixed(1) + 'deg' : '0deg');
     });
     const rq = 'rq' + quality;

@@ -25,13 +25,18 @@
   #dots { letter-spacing: 4px; font-size: 18px; }
   /* 단계가 바뀔 때 코드 진하기가 점점 바뀌도록 */
   @property --base { syntax: '<number>'; inherits: true; initial-value: 0.5; }
-  #code { transition: --base 0.4s; }
+  @property --r { syntax: '<length>'; inherits: true; initial-value: 140px; }
+  #code { transition: --base 0.4s, --r 0.3s; }
+  /* 첫 연출: 타자가 끝나면 꽉 찬 코드가 렌즈 크기로 줄어든다 */
+  #code.shrink { transition: --base 1.4s ease-in-out, --r 1.4s ease-in-out; }
+  #screen { transition: opacity 0.8s; }
+  body.intro #screen { opacity: 0; }
   #screen > *, #screen li, #screen button { cursor: pointer; }
   #tools { display: flex; flex-wrap: wrap; gap: 8px; }
   .hit { background: #ffe14d; transition: background 0.3s; }
 </style>
 </head>
-<body>
+<body class="intro">
 <main id="screen">
   <h1>투명창</h1>
   <p>이 페이지는 자기 자신의 코드를 겹쳐 보여줍니다. (더미 내용)</p>
@@ -67,7 +72,8 @@
   let typing = false;                   // 타자 치는 동안도 코드를 다 보이게
   function apply() {
     codeEl.style.setProperty('--base', shaking || typing ? 1 : level / 4);
-    dots.textContent = '●'.repeat(level + 1) + '○'.repeat(4 - level);   // 지금 단계 표시
+    const shown = typing ? 4 : level;  // 타자 중에는 불투명으로 표시
+    dots.textContent = '●'.repeat(shown + 1) + '○'.repeat(4 - shown);   // 지금 단계 표시
     dots.setAttribute('aria-label', `코드 진하기 ${level + 1}/5단계`);
   }
   document.getElementById('down').addEventListener('click', () => { level = Math.max(0, level - 1); apply(); });
@@ -75,6 +81,8 @@
   apply();
 
   // 투시 렌즈: 마우스(손가락)가 있는 곳만 뒤의 코드가 비쳐 보인다
+  let lastX = innerWidth / 2, lastY = innerHeight / 2;   // 마지막 마우스 위치 (없으면 화면 가운데)
+  addEventListener('pointermove', e => { lastX = e.clientX; lastY = e.clientY; });
   function lens(x, y) {
     codeEl.style.setProperty('--x', x + 'px');
     codeEl.style.setProperty('--y', y + 'px');
@@ -105,6 +113,12 @@
     lines.forEach(s => { s.textContent = ''; });
     codeEl.scrollTop = 0;
     typing = true; apply();
+    // 불투명으로 시작: 앞 화면은 숨기고, 렌즈를 화면 전체 크기로 키운다
+    document.body.classList.add('intro');
+    codeEl.classList.remove('shrink');
+    codeEl.style.setProperty('--r', Math.hypot(innerWidth, innerHeight) + 'px');
+    lens(innerWidth / 2, innerHeight / 2);
+    holdLens = Infinity;
     let li = 0, pos = 0;
     function step() {
       let budget = SPEED;
@@ -133,8 +147,17 @@
     cancelAnimationFrame(typeFrame);
     lines.forEach((s, i) => { s.textContent = orig[i] + '\n'; });
     codeEl.scrollTo({ top: 0, behavior: 'smooth' });
+    // 꽉 찬 코드가 마우스 자리의 렌즈로 쪼그라들고, 앞 화면이 떠오른다
+    codeEl.classList.add('shrink');
+    lens(lastX, lastY);
+    codeEl.style.setProperty('--r', radius + 'px');
     typing = false; apply();
+    document.body.classList.remove('intro');
+    holdLens = Date.now() + 1400;
+    setTimeout(() => codeEl.classList.remove('shrink'), 1400);
   }
+  // 타자 중에 아무 데나 누르면 건너뛴다
+  addEventListener('click', () => { if (typing) finishTyping(); }, true);
   document.getElementById('retype').addEventListener('click', e => { e.stopPropagation(); typeOut(); });
 
   // 짝 찾기: 화면 요소를 누르면 그 요소를 만든 코드 줄이 반짝인다

@@ -5,6 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>투명창</title>
 <link rel="icon" href="data:,">
+<script>
+  // analytics: Google Analytics + Microsoft Clarity (off on localhost)
+  const GA_ID = 'G-QQ5FYS2PCJ', CLARITY_ID = '';
+  if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
+    const s = document.createElement('script'); s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID; document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date()); gtag('config', GA_ID);
+    if (CLARITY_ID) (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', CLARITY_ID);
+  }
+</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
   :root { --bg: #fff; --fg: #000; --code: #111; --line: #ccc; color-scheme: light; }

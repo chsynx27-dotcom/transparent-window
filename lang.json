@@ -703,10 +703,6 @@
   "en": "const flights = [...pieces()].map(el => {     // the front window's text also swirls slowly into the hole",
   "hj": "const flights = [...pieces()].map(el => {     // 前面窗口的文字也慢慢旋进洞里"
  },
- "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: 'forwards' }), END);   // 사그라든다": {
-  "en": "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: 'forwards' }), END);   // fades away",
-  "hj": "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: 'forwards' }), END);   // 淡出消失"
- },
  "setTimeout(() => {                  // 코드가 먼저 서서히 → 그다음 창": {
   "en": "setTimeout(() => {                  // the code first, slowly → then the window",
   "hj": "setTimeout(() => {                  // 先是代码，慢慢地 → 然后是窗口"
@@ -1130,5 +1126,13 @@
  "const root = document.documentElement, forced = !root.classList.contains('dark');   // 라이트 모드여도 블랙홀 동안은 강제로 어둡게 → 끝나면 되돌린다": {
   "en": "const root = document.documentElement, forced = !root.classList.contains('dark');   // even in light mode, force it dark during the black hole → switch back afterward",
   "hj": "const root = document.documentElement, forced = !root.classList.contains('dark');   // 即使是浅色模式，黑洞期间也强制变暗 → 结束后恢复"
+ },
+ "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, delay: 250, fill: 'forwards' }), END);   // 오그라들며 사그라든다": {
+  "en": "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, delay: 250, fill: 'forwards' }), END);   // shrinks and fades away",
+  "hj": "setTimeout(() => layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, delay: 250, fill: 'forwards' }), END);   // 一边收缩一边消散"
+ },
+ "const cl = Math.min(1, Math.max(0, (T - END) / 700)), shrink = 1 - cl * cl * (3 - 2 * cl);   // 끝: 구멍이 줄어들 때 원반·고리도 가운데로 함께 오그라들며 사라진다": {
+  "en": "const cl = Math.min(1, Math.max(0, (T - END) / 700)), shrink = 1 - cl * cl * (3 - 2 * cl);   // the end: as the hole shrinks, the disc and ring shrink toward the center with it and vanish",
+  "hj": "const cl = Math.min(1, Math.max(0, (T - END) / 700)), shrink = 1 - cl * cl * (3 - 2 * cl);   // 结束：洞收缩时，盘和光环也一起向中心收拢消失"
  }
 }

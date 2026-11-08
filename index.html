@@ -18,7 +18,7 @@
     /* 투시 렌즈: 마우스 둘레는 코드가 또렷, 나머지는 단계 버튼 값만큼 */
     --x: -9999px; --y: -9999px; --base: 0.5; --r: 140px;
     -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%);
-            mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%);
+            mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 60%, rgba(0,0,0,var(--base)) 100%); /* 버튼 */
   }
   #bar {
     position: fixed; left: 0; right: 0; bottom: 0; height: 56px;
@@ -38,6 +38,11 @@
   #tools { display: flex; flex-wrap: wrap; gap: 8px; }
   /* 블랙/화이트 전환을 부드럽게: 화면 전체가 0.6초에 걸쳐 스르륵 바뀐다 */
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.6s; animation-timing-function: ease; }
+  /* 이스터에그: 코드 속 작은 '버튼' 글자만 누를 수 있다 */
+  #screen { pointer-events: none; }
+  #screen * { pointer-events: auto; }
+  .egg { pointer-events: auto; cursor: pointer; font-size: 9px; }
+  .egg:hover { background: #ffe14d; color: #111; }
   #dark { position: fixed; top: 16px; right: 24px; z-index: 2; }
   #memo { margin-top: 16px; font-size: 16px; padding: 6px; }
   .hit { background: #ffe14d; color: #111; transition: background 0.3s; }
@@ -113,7 +118,28 @@
       codeEl.appendChild(span);
       return span;
     });
+    eggIdx = orig.findIndex(t => t.includes('/* 버튼 */'));
     typeOut();
+  }
+
+  // 코드 줄 하나를 원본대로 쓴다. 이스터에그 줄이면 '버튼' 글자만 누를 수 있게 꾸민다
+  let eggIdx = -1;
+  function setLine(i) {
+    const line = lines[i], text = orig[i];
+    if (i !== eggIdx) { line.textContent = text + '\n'; return; }
+    const at = text.lastIndexOf('버튼');
+    line.textContent = '';
+    const egg = document.createElement('span');
+    egg.className = 'egg'; egg.textContent = '버튼';
+    egg.addEventListener('click', hatch);
+    line.append(text.slice(0, at), egg, text.slice(at + 2) + '\n');
+  }
+
+  // 이스터에그: 코드 속 '버튼'을 누르면 글상자에 살짝 적힌다
+  function hatch(e) {
+    e.stopPropagation();
+    memo.value = '이스터에그';
+    memo.dispatchEvent(new Event('input'));   // 뒤 코드에도 그대로 써진다
   }
 
   // 타자 효과: 코드가 누가 치는 것처럼 한 글자씩 쓰여 나간다
@@ -138,7 +164,7 @@
         const take = Math.min(budget, text.length - pos);
         pos += take; budget -= take;
         if (pos >= text.length) {       // 이 줄 끝 → 다음 줄
-          lines[li].textContent = text + '\n';
+          setLine(li);
           li++; pos = 0; budget--;
         } else {
           lines[li].textContent = text.slice(0, pos) + '▌\n';
@@ -156,7 +182,7 @@
   function finishTyping() {             // 다 쳤거나, 중간에 다른 기능을 누르면 바로 끝낸다
     if (!typing) return;
     cancelAnimationFrame(typeFrame);
-    lines.forEach((s, i) => { s.textContent = orig[i] + '\n'; });
+    lines.forEach((s, i) => setLine(i));
     codeEl.scrollTo({ top: 0, behavior: 'smooth' });
     // 꽉 찬 코드가 마우스 자리의 렌즈로 쪼그라들고, 앞 화면이 떠오른다
     codeEl.classList.add('shrink');
@@ -209,7 +235,7 @@
     finishTyping();
     const v = memo.value.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
     orig[memoIdx] = memoBase.replace(/>$/, v ? ` value="${v}">` : '>');
-    lines[memoIdx].textContent = orig[memoIdx] + '\n';
+    setLine(memoIdx);
     flash(memoIdx);
   });
   let memoBase = '';
@@ -237,7 +263,7 @@
     restoring = setInterval(() => {
       for (let k = 0; k < 6 && todo.length; k++) {   // 한 번에 몇 줄씩 되돌린다
         const i = todo.splice(Math.floor(Math.random() * todo.length), 1)[0];
-        lines[i].textContent = orig[i] + '\n';
+        setLine(i);
         broken.delete(i);
       }
       if (!todo.length) { clearInterval(restoring); power = 0; shaking = false; apply(); }

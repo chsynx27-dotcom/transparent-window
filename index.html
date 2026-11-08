@@ -368,7 +368,7 @@
   });
 
   // 화면 글자 깨뜨리기: 절반을 넘기면 앞 화면 글자가 기호로 바뀌며 색이 갈라지다가, 최대치에서 펑 터진다
-  const pieces = () => screenEl.querySelectorAll('h1, p, #tools button:not(#shake), #memo, li');
+  const pieces = () => screenEl.querySelectorAll('h1, p, #tools button, #memo, li');
   const saved = new Map();              // 깨지기 전 글자 (되돌릴 때 쓴다)
   const textOf = el => el.id === 'memo' ? el.placeholder : el.textContent;
   const setText = (el, t) => { if (el.id === 'memo') el.placeholder = t; else el.textContent = t; };

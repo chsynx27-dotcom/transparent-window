@@ -630,5 +630,9 @@
  "setTimeout(() => {                // 조각을 다시 모으지 않고, 보이지 않는 사이 제자리에 두었다가 서서히 나타난다": {
   "en": "setTimeout(() => {                // don't reassemble the pieces; put them back while unseen, then fade in slowly",
   "hj": "setTimeout(() => {                // 不再聚合碎片，趁不見時歸位，再徐徐浮現"
+ },
+ "}, 2300);                         // 뒤 코드가 원래 색으로 다 돌아온 뒤(펑 시작 후 2.7초)에 시작": {
+  "en": "}, 2300);                         // starts after the back code is fully back to its colors (2.7s after the boom)",
+  "hj": "}, 2300);                         // 待後碼盡復本色 (爆後 2.7 秒) 方始"
  }
 }

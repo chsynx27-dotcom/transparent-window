@@ -721,7 +721,7 @@
         const back = screenEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1000, easing: 'ease-in-out' });
         flights.forEach(a => a.cancel());
         back.finished.then(() => document.documentElement.classList.remove('flying'));
-      }, 1500);
+      }, 2300);                         // 뒤 코드가 원래 색으로 다 돌아온 뒤(펑 시작 후 2.7초)에 시작
     }, 550);
   }
   function mend() {                     // 터진 글자를 원래대로 되돌린다

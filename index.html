@@ -23,6 +23,8 @@
     border-top: 1px solid #ccc; background: #fff;
   }
   #bar input { flex: 1; }
+  #screen > *, #screen li { cursor: pointer; }
+  .hit { background: #ffe14d; transition: background 0.3s; }
 </style>
 </head>
 <body>
@@ -62,14 +64,47 @@
     codeEl.style.setProperty('--x', x + 'px');
     codeEl.style.setProperty('--y', y + 'px');
   }
-  addEventListener('pointermove', e => lens(e.clientX, e.clientY));
+  let holdLens = 0;                     // 짝 찾기 직후 렌즈를 잠깐 고정
+  addEventListener('pointermove', e => { if (Date.now() > holdLens) lens(e.clientX, e.clientY); });
   document.documentElement.addEventListener('pointerleave', () => lens(-9999, -9999));
+
+  // 코드를 줄 단위로 넣는다 (짝 찾기에서 줄을 집어내려고)
+  let lines = [];
+  function showCode(src) {
+    codeEl.textContent = '';
+    lines = src.split('\n').map(text => {
+      const span = document.createElement('span');
+      span.textContent = text + '\n';
+      codeEl.appendChild(span);
+      return span;
+    });
+  }
+
+  // 짝 찾기: 화면 요소를 누르면 그 요소를 만든 코드 줄이 반짝인다
+  screenEl.addEventListener('click', e => {
+    const el = e.target.closest('#screen > *, #screen li');
+    if (!el) return;
+    const first = el.outerHTML.split('\n')[0].trim();
+    // 화면(main) 부분의 줄에서만 찾는다 — 스크립트 속 같은 글자는 제외
+    const start = lines.findIndex(s => s.textContent.includes('<main id="screen">'));
+    const end = lines.findIndex((s, i) => i > start && s.textContent.includes('</main>'));
+    const line = lines.slice(start, end).find(s => s.textContent.trim().startsWith(first));
+    if (!line) return;
+
+    lines.forEach(s => s.classList.remove('hit'));
+    line.classList.add('hit');
+    line.scrollIntoView({ block: 'center' });
+    const r = line.getBoundingClientRect();
+    lens(r.left + 120, r.top + r.height / 2); // 렌즈를 그 줄로 옮긴다
+    holdLens = Date.now() + 1500;
+    setTimeout(() => line.classList.remove('hit'), 1500);
+  });
 
   // 자기 자신의 원본 코드를 가져온다 (file://로 열면 실패 → 현재 DOM으로 대체)
   fetch(location.href)
     .then(r => r.text())
-    .then(src => { codeEl.textContent = src; })
-    .catch(() => { codeEl.textContent = '<!doctype html>\n' + document.documentElement.outerHTML; });
+    .then(showCode)
+    .catch(() => showCode('<!doctype html>\n' + document.documentElement.outerHTML));
 </script>
 </body>
 </html>
